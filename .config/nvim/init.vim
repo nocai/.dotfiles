@@ -1,0 +1,284 @@
+" let mapleader=" "
+
+" ===
+" === Cursor Movement
+" ===
+" New cursor movement (the default arrow keys are used for resizing windows)
+"     ^
+"     n
+" < h   i >
+"     e
+"     v
+noremap <silent> n j
+noremap <silent> j n
+noremap <silent> <C-w>n <C-w>j
+noremap <silent> <C-w>j <C-w>n
+
+noremap <silent> N J
+noremap <silent> J N
+
+noremap <silent> e k
+noremap <silent> k e
+noremap <silent> <C-w>e <C-w>k
+noremap <silent> <C-w>k <C-w>e
+
+noremap <silent> E K
+noremap <silent> K E
+
+noremap <silent> i l
+noremap <silent> l i
+noremap <silent> <C-w>i <C-w>l
+noremap <silent> <C-w>l <C-w>i
+
+noremap <silent> I L
+noremap <silent> L I
+
+ "快捷上下移动(5行)
+noremap <C-n> 5j
+nnoremap <C-e> 5k
+
+"noremap <C-j> 5j
+"nnoremap <C-k> 5k
+
+" Resize splits with arrow keys
+noremap <up> :res +5<CR>
+noremap <down> :res -5<CR>
+noremap <left> :vertical resize-5<CR>
+noremap <right> :vertical resize+5<CR>
+
+
+set ic
+set hidden
+set cursorline
+set termguicolors
+set expandtab
+set autoindent
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+set ts=4
+set sw=4
+"set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set scrolloff=5
+set signcolumn=yes
+set timeoutlen=1000 ttimeoutlen=0
+set hlsearch incsearch smartcase ignorecase
+
+
+
+
+call plug#begin('~/.vim/plugged')
+Plug 'mhinz/vim-startify'
+"Plug 'morhetz/gruvbox'
+"let g:gruvbox_italic=1
+"set background=dark
+"let g:seoul256_background = 256
+Plug 'iCyMind/NeoSolarized'
+Plug 'jiangmiao/auto-pairs'
+Plug 'myusuf3/numbers.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'easymotion/vim-easymotion'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'scrooloose/nerdtree'
+map tt :NERDTreeToggle<CR>
+let NERDTreeMapOpenExpl = ""
+
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'majutsushi/tagbar'
+let g:tagbar_width=30
+" 设置tagbar的窗口显示的位置,为左边
+let g:tagbar_right=1
+"打开文件自动 打开tagbar
+" autocmd BufReadPost *.go,*.c call tagbar#autoopen()
+map <leader>tt :TagbarToggle<CR>
+
+"Plug 'mileszs/ack.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+" If installed using git
+"Plug '~/.fzf'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+"let g:fzf_layout = { 'window': 'enew' }
+"let g:fzf_layout = { 'window': '-tabnew' }
+"let g:fzf_layout = { 'window': '10new' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+nnoremap <silent> <Leader>rg :Rg<CR>
+
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = ' > '
+Plug 'vim-airline/vim-airline-themes'
+    
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'fatih/vim-go'
+let g:go_fmt_command = "goimports"
+"let g:go_def_mode='gopls'
+"let g:go_info_mode='gopls'
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_types = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+
+" If you don't have nodejs and yarn
+" use pre build
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'dhruvasagar/vim-table-mode'
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+let g:table_mode_corner = '|'
+
+"" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+"Plug 'ncm2/ncm2'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-path'
+"" LanguageServer client for NeoVim.
+"Plug 'autozimu/LanguageClient-neovim', {
+  "\ 'branch': 'next',
+  "\ 'do': 'bash install.sh',
+  "\ }
+"autocmd BufEnter  *  call ncm2#enable_for_buffer()
+"set completeopt=noinsert,menuone,noselect
+"let g:LanguageClient_serverCommands = {
+       "\ 'go': ['gopls']
+       "\ }
+"" Run gofmt on save
+"autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+"" enable ncm2 for all buffers
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+
+"" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+"" found' messages
+"set shortmess+=c
+
+"" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+"inoremap <c-c> <ESC>
+
+"" When the <Enter> key is pressed while the popup menu is visible, it only
+"" hides the menu. Use this mapping to close the menu and also start a new
+"" line.
+"" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+"" Use <TAB> to select the popup menu:
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+"" wrap existing omnifunc
+"" Note that omnifunc does not run in background and may probably block the
+"" editor. If you don't want to be blocked by omnifunc too often, you could
+"" add 180ms delay before the omni wrapper:
+""  'on_complete': ['ncm2#on_complete#delay', 180,
+""               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+"au User Ncm2Plugin call ncm2#register_source({
+        "\ 'name' : 'css',
+        "\ 'priority': 9,
+        "\ 'subscope_enable': 1,
+        "\ 'scope': ['css','scss'],
+        "\ 'mark': 'css',
+        "\ 'word_pattern': '[\w\-]+',
+        "\ 'complete_pattern': ':\s*',
+        "\ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+        "\ })
+
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+
+
+" //....
+
+
+call plug#end()
+
+"colorscheme gruvbox
+colorscheme NeoSolarized
+
