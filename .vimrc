@@ -12,9 +12,11 @@
 noremap <silent> n j
 noremap <silent> N J
 noremap <silent> <C-w>n <C-w>j
+noremap <silent> <C-n> 5j
 noremap <silent> e k
 noremap <silent> E K
 noremap <silent> <C-w>e <C-w>k
+noremap <silent> <C-e> 5k
 noremap <silent> i l
 noremap <silent> I L
 noremap <silent> <C-w>i <C-w>l
@@ -29,15 +31,8 @@ noremap <silent> u i
 noremap <silent> U I
 
 noremap <silent> l u
+noremap <silent> <C-l> <C-u>
 noremap <silent> L U
-
-
- "快捷上下移动(5行)
-noremap <C-n> 5j
-nnoremap <C-e> 5k
-
-"noremap <C-j> 5j
-"nnoremap <C-k> 5k
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -162,8 +157,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use dc to show documentation in preview window.
+nnoremap <silent> dc :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -186,9 +181,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Introduce function text object
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
+xmap uf <Plug>(coc-funcobj-i) 
 xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
+omap uf <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Mappings using CoCList:
