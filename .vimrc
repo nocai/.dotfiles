@@ -208,8 +208,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 autocmd BufWritePre *.go :call CocAction('format')
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-"Plug 'dhruvasagar/vim-table-mode'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'dhruvasagar/vim-table-mode'
 "function! s:isAtStartOfLine(mapping)
   "let text_before_cursor = getline('.')[0 : col('.')-1]
   "let mapping_pattern = '\V' . escape(a:mapping, '\')
