@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/liujun/.oh-my-zsh"
+export ZSH="/Users/admin/.oh-my-zsh"
 
 
 
@@ -72,7 +72,11 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
+    vi-mode
+    colemak
 )
+bindkey -v
+
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/incr/incr*.zsh
@@ -83,7 +87,10 @@ source $ZSH/oh-my-zsh.sh
 
 KEYTIMEOUT=1
 
-export PATH=/Users/liujun/go/bin:$PATH
+export GOPATH=/Users/admin/go:/Users/admin/xchat-go
+export GOBIN=/Users/admin/go/bin
+
+export PATH=$GOBIN:$PATH
 
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
