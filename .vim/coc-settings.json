@@ -1,5 +1,6 @@
 {
     "suggest.noselect": false,
+    "suggest.autoTrigger": "trigger",
     "languageserver": {
         "golang": {
           "command": "gopls",
