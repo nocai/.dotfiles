@@ -41,17 +41,22 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 
+if has("termguicolors")
+    " fix bug for vim
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
 set ic
 set nu
 set rnu
 set hidden
 set cursorline
-set termguicolors
 set expandtab
 set autoindent
 set nobackup
 set nowritebackup
-syntax enable
 
 
 set ts=4
@@ -216,3 +221,6 @@ call plug#end()
 
 "colorscheme gruvbox
 colorscheme NeoSolarized
+
+"set background=dark
+"colorscheme solarized
