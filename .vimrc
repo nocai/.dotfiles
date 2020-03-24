@@ -74,6 +74,7 @@ set hlsearch incsearch smartcase ignorecase
 
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
+autocmd BufReadPost fugitive://* set bufhidden=delete
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'iCyMind/NeoSolarized'
@@ -107,6 +108,7 @@ nnoremap <silent> <Leader>a :Ag<CR>
 "Plug 'fatih/vim-go'
 "let g:go_fmt_command = "goimports"
 
+Plug 'janko/vim-test'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -220,8 +222,8 @@ Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 
-"colorscheme gruvbox
-colorscheme NeoSolarized
+colorscheme gruvbox
+"colorscheme NeoSolarized
 
 "set background=dark
 "colorscheme solarized
