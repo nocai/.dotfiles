@@ -89,14 +89,18 @@ Plug 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
-Plug 'iCyMind/NeoSolarized'
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-map tt :NERDTreeToggle<CR>
+Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
+let NERDTreeMinimalUI = 1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map tt :NERDTreeToggle<CR>
+Plug 'preservim/nerdcommenter'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+map <C-_> <Plug>NERDCommenterToggle
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 let g:airline#extensions#tabline#enabled = 1
@@ -110,12 +114,13 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+nnoremap <silent> <Leader>rg :Rg<CR>
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
-nnoremap <silent> <Leader>a :Ag<CR>
+nnoremap <silent> <Leader>ag :Ag<CR>
 
 "Plug 'fatih/vim-go'
 "let g:go_fmt_command = "goimports"
