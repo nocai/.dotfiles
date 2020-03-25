@@ -48,6 +48,8 @@ if has("termguicolors")
     set termguicolors
 endif
 
+let autosave=5
+
 set ic
 set nu
 set rnu
@@ -57,18 +59,28 @@ set expandtab
 set autoindent
 set nobackup
 set nowritebackup
-
+set noswapfile
+"set splitbelow
+"set splitright
+set hlsearch 
+set incsearch
+set smartcase 
+set ignorecase
+set showcmd
 
 set ts=4
 set sw=4
-set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set scrolloff=5
 set signcolumn=yes
+set clipboard=unnamed
 set timeoutlen=1000 ttimeoutlen=0
-set hlsearch incsearch smartcase ignorecase
 
+" filetype
+filetype on
+filetype indent on
+filetype plugin on
 
 
 
@@ -118,7 +130,7 @@ set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=2
+"set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
