@@ -67,6 +67,7 @@ set incsearch
 set smartcase 
 set ignorecase
 set showcmd
+set noshowmode
 
 set ts=4
 set sw=4
@@ -95,30 +96,24 @@ Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMinimalUI = 1
+let NERDTreeQuitOnOpen = 3
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
-nmap <silent> <Leader>tt :NERDTreeToggle<CR>
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
+nnoremap <silent> tt :NERDTreeToggle<CR>
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
-nmap <C-_> <Plug>NERDCommenterToggle
+map <C-_> <Plug>NERDCommenterToggle 
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 let g:airline#extensions#tabline#enabled = 1
-Plug 'junegunn/fzf', { 'do': './install --bin' }
+" If installed using Homebrew
+" Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+let g:fzf_preview_window = 'right:60%' " Always enable preview window on the right with 60% width
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 nnoremap <silent> <Leader>rg :Rg<CR>
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
 nnoremap <silent> <Leader>ag :Ag<CR>
 
 "Plug 'fatih/vim-go'
