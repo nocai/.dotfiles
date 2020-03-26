@@ -95,12 +95,11 @@ Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMinimalUI = 1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map tt :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
+nmap <silent> <Leader>tt :NERDTreeToggle<CR>
 Plug 'preservim/nerdcommenter'
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-map <C-_> <Plug>NERDCommenterToggle
+let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
+nmap <C-_> <Plug>NERDCommenterToggle
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 let g:airline#extensions#tabline#enabled = 1
