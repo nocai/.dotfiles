@@ -227,6 +227,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 autocmd BufWritePre *.go :call CocAction('format')
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
+Plug 'voldikss/coc-translator'
+nmap <Leader>t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)
+
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dhruvasagar/vim-table-mode'
 
