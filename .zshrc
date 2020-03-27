@@ -87,6 +87,7 @@ source $ZSH/oh-my-zsh.sh
 
 KEYTIMEOUT=1
 
+export GOBIN=/Users/admin/go/bin
 export GOPATH=/Users/admin/go:/Users/admin/xchat-go
 export PATH=/Users/admin/go/bin:$PATH
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles

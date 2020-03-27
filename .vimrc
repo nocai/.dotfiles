@@ -83,6 +83,7 @@ filetype on
 filetype indent on
 filetype plugin on
 
+syntax on
 
 
 call plug#begin('~/.vim/plugged')
@@ -116,8 +117,27 @@ nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>rg :Rg<CR>
 nnoremap <silent> <Leader>ag :Ag<CR>
 
-"Plug 'fatih/vim-go'
-"let g:go_fmt_command = "goimports"
+" Plug 'fatih/vim-go'
+" " use golang language server
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
+" " Highlight more info
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" " highlight same variable in view
+" let g:go_auto_sameids = 1
+" " show type info in statusbar
+" let g:go_auto_type_info = 1
+" " disable gd mapping of vim-go
+" let g:go_def_mapping_enabled = 0
+
+" Plug 'govim/govim'
 
 Plug 'janko/vim-test'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -226,10 +246,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " coc-go
 autocmd BufWritePre *.go :call CocAction('format')
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-Plug 'voldikss/coc-translator'
-nmap <Leader>t <Plug>(coc-translator-p)
-vmap <Leader>t <Plug>(coc-translator-pv)
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dhruvasagar/vim-table-mode'
