@@ -11,6 +11,17 @@ export ZSH="/Users/admin/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
+# agnoster 主题设置：隐藏当前用户
+#prompt_context() {
+#  DEFAULT_USER="sunqiang"
+#}
+
+# agnoster 主题设置：只显示当前用户名
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  fi
+}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,12 +82,8 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    colemak
     git
-    vi-mode
 )
-bindkey -v
-
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/incr/incr*.zsh
