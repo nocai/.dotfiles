@@ -1,7 +1,3 @@
-"
-" 年糕小豆汤 @iamcco 00:06
-" :h coc-list-mappings-custom
-"
 " let mapleader=" "
 " ===
 " === Cursor Movement
@@ -74,6 +70,7 @@ set noshowmode
 
 set ts=4
 set sw=4
+set encoding=UTF-8
 set updatetime=300
 set shortmess+=c
 set scrolloff=5
@@ -189,20 +186,21 @@ else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" " Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
 " Symbol renaming.
 nmap <silent> rn <Plug>(coc-rename)
 
-" Use dc to show documentation in preview window.
-nnoremap <silent> dc :call <SID>show_documentation()<CR>
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -215,18 +213,10 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap uf <Plug>(coc-funcobj-i) 
-xmap af <Plug>(coc-funcobj-a)
-omap uf <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
 
 " Mappings using CoCList:
 " Show all diagnostics.
@@ -237,14 +227,14 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " coc-go
 autocmd BufWritePre *.go :call CocAction('format')
@@ -253,7 +243,11 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dhruvasagar/vim-table-mode'
 
-
+Plug 'ryanoasis/vim-devicons'
+" adding to vim-airline's tabline
+let g:webdevicons_enable_airline_tabline = 1
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
 call plug#end()
 
 colorscheme gruvbox

@@ -1,11 +1,8 @@
 {
     "suggest.noselect": false,
     "suggest.autoTrigger": "trigger",
-    "list.insertMappings": {
-		"<C-n>": "feedkeys:\\<C-j>",
-		"<C-e>": "feedkeys:\\<C-p>"
-	},
-
+    "list.nextKeymap": "<C-n>",
+    "list.previousKeymap": "<C-e>",
 
     "languageserver": {
         "golang": {
