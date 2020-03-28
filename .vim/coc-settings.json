@@ -1,6 +1,12 @@
 {
     "suggest.noselect": false,
     "suggest.autoTrigger": "trigger",
+    "list.insertMappings": {
+		"<C-n>": "feedkeys:\\<C-j>",
+		"<C-e>": "feedkeys:\\<C-p>"
+	},
+
+
     "languageserver": {
         "golang": {
           "command": "gopls",
@@ -11,5 +17,6 @@
                 "completeUnimported": true
           }
         }
-      }
+      },
+      "coc.preferences.extensionUpdateCheck": "never"
 }

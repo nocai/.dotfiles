@@ -1,5 +1,8 @@
+"
+" 年糕小豆汤 @iamcco 00:06
+" :h coc-list-mappings-custom
+"
 " let mapleader=" "
-
 " ===
 " === Cursor Movement
 " ===
