@@ -40,11 +40,16 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 
-if has("termguicolors")
+" 真彩色 - 测试脚本 
+" curl -s https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh | bash
+" set termguicolors
+if &term =~# '^screen'
     " fix bug for vim
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
+    if has("termguicolors")
+        set termguicolors
+    endif
 endif
 
 let autosave=5
@@ -67,6 +72,8 @@ set smartcase
 set ignorecase
 set showcmd
 set noshowmode
+set nocompatible
+
 
 set ts=4
 set sw=4
@@ -78,12 +85,11 @@ set signcolumn=yes
 set clipboard=unnamed
 set timeoutlen=1000 ttimeoutlen=0
 
+syntax on
 " filetype
 filetype on
 filetype indent on
 filetype plugin on
-
-syntax on
 
 
 call plug#begin('~/.vim/plugged')
@@ -107,6 +113,9 @@ map <C-_> <Plug>NERDCommenterToggle
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+
 " If installed using Homebrew
 " Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf'
@@ -148,9 +157,6 @@ set hidden
 set nobackup
 set nowritebackup
 
-" Give more space for displaying messages.
-"set cmdheight=2
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -179,12 +185,12 @@ endfunction
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" if has('patch8.1.1068')
+  " " Use `complete_info` if your (Neo)Vim version supports it.
+  " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+  " imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
 
 " " Use `[g` and `]g` to navigate diagnostics
 " nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -250,8 +256,7 @@ let g:webdevicons_enable_airline_tabline = 1
 let g:webdevicons_enable_airline_statusline = 1
 call plug#end()
 
+" let g:gruvbox_termcolors=16
+set background=dark
 colorscheme gruvbox
-"colorscheme NeoSolarized
 
-"set background=dark
-"colorscheme solarized
