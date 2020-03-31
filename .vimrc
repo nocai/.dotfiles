@@ -52,36 +52,31 @@ if &term =~# '^screen'
     endif
 endif
 
-let autosave=5
-
-set ic
 set nu
 set rnu
-set hidden
 set cursorline
-set expandtab
-set autoindent
-set nobackup
-set nowritebackup
 set noswapfile
+
 "set splitbelow
 "set splitright
-set hlsearch 
-set incsearch
-set smartcase 
-set ignorecase
+
 set showcmd
 set noshowmode
-set nocompatible
 
+set hlsearch 
+set incsearch
+set ignorecase
+set smartcase 
 
-set ts=4
-set sw=4
-set encoding=UTF-8
-set updatetime=300
-set shortmess+=c
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set autoindent
+
 set scrolloff=5
-set signcolumn=yes
+set shortmess+=c
+set encoding=UTF-8
 set clipboard=unnamed
 set timeoutlen=1000 ttimeoutlen=0
 
@@ -106,7 +101,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeQuitOnOpen = 3
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
-nnoremap <silent> tt :NERDTreeToggle<CR>
+nnoremap <silent> ff :NERDTreeToggle<CR>
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 map <C-_> <Plug>NERDCommenterToggle 
@@ -121,12 +116,14 @@ let g:airline#extensions#tabline#enabled = 1
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 let g:fzf_preview_window = 'right:60%' " Always enable preview window on the right with 60% width
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
-nnoremap <silent> <Leader>rg :Rg<CR>
-nnoremap <silent> <Leader>ag :Ag<CR>
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>fb :Buffers<CR>
+nnoremap <silent> <Leader>frg :Rg<CR>
+nnoremap <silent> <Leader>fag :Ag<CR>
 
 " Plug 'fatih/vim-go'
+" " disable gd mapping of vim-go
+" let g:go_def_mapping_enabled = 0
 " " use golang language server
 " let g:go_def_mode='gopls'
 " let g:go_info_mode='gopls'
@@ -141,10 +138,8 @@ nnoremap <silent> <Leader>ag :Ag<CR>
 " let g:go_highlight_types = 1
 " " highlight same variable in view
 " let g:go_auto_sameids = 1
-" " show type info in statusbar
+" show type info in statusbar
 " let g:go_auto_type_info = 1
-" " disable gd mapping of vim-go
-" let g:go_def_mapping_enabled = 0
 
 " Plug 'govim/govim'
 
