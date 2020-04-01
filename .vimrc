@@ -80,6 +80,9 @@ set encoding=UTF-8
 set clipboard=unnamed
 set timeoutlen=1000 ttimeoutlen=0
 
+set autoread "文件在Vim之外修改过，自动重新读入"
+set autowrite "设置自动保存内容"
+
 syntax on
 " filetype
 filetype on
@@ -121,12 +124,20 @@ nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
 nnoremap <silent> <Leader>fag :Ag<CR>
 
-" Plug 'fatih/vim-go'
-" " disable gd mapping of vim-go
-" let g:go_def_mapping_enabled = 0
-" " use golang language server
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
+Plug 'fatih/vim-go'
+let g:go_gopls_enabled = 1
+let g:go_gopls_options = ['-remote=auto']
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_referrers_mode = 'gopls'
+let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
+let g:go_auto_sameids = 1
+let g:go_list_type = "quickfix"
+" let g:go_fmt_options = {
+    " \ 'gofmt': '-s',
+    " \ 'goimports': '-local '
+  " }
 " " Highlight more info
 " let g:go_highlight_build_constraints = 1
 " let g:go_highlight_extra_types = 1
@@ -136,14 +147,9 @@ nnoremap <silent> <Leader>fag :Ag<CR>
 " let g:go_highlight_operators = 1
 " let g:go_highlight_structs = 1
 " let g:go_highlight_types = 1
-" " highlight same variable in view
-" let g:go_auto_sameids = 1
 " show type info in statusbar
 " let g:go_auto_type_info = 1
 
-" Plug 'govim/govim'
-
-Plug 'janko/vim-test'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -154,7 +160,7 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -238,8 +244,8 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " coc-go
-autocmd BufWritePre *.go :call CocAction('format')
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('format')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dhruvasagar/vim-table-mode'

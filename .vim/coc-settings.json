@@ -1,12 +1,14 @@
 {
-    "suggest.noselect": false,
-    "suggest.autoTrigger": "trigger",
     "list.nextKeymap": "<C-n>",
     "list.previousKeymap": "<C-e>",
+
+    "suggest.noselect": false,
+    "suggest.autoTrigger": "trigger",
 
     "languageserver": {
         "golang": {
           "command": "gopls",
+          "args": ["-remote=auto"],
           "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
           "filetypes": ["go"],
           "initializationOptions": {
@@ -14,6 +16,5 @@
                 "completeUnimported": true
           }
         }
-      },
-      "coc.preferences.extensionUpdateCheck": "never"
+      }
 }
