@@ -8,36 +8,35 @@
 " < h   i >
 "     e
 "     v
-noremap <silent> n j
-noremap <silent> N J
-noremap <silent> <C-w>n <C-w>j
-noremap <silent> <C-n> 5j
-noremap <silent> e k
-noremap <silent> E K
-noremap <silent> <C-w>e <C-w>k
-noremap <silent> <C-e> 5k
-noremap <silent> i l
-noremap <silent> I L
-noremap <silent> <C-w>i <C-w>l
+noremap n j
+noremap N J
+noremap <C-w>n <C-w>j
+noremap <C-n> 5j
+noremap e k
+noremap E K
+noremap <C-w>e <C-w>k
+noremap <C-e> 5k
+noremap i l
+noremap I L
+noremap <C-w>i <C-w>l
 
-noremap <silent> k n
-noremap <silent> K N
+noremap k n
+noremap K N
 
-noremap <silent> j e
-noremap <silent> J E
+noremap j e
+noremap J E
 
-noremap <silent> u i
-noremap <silent> U I
+noremap u i
+noremap U I
 
-noremap <silent> l u
-noremap <silent> <C-l> <C-u>
-noremap <silent> L U
+noremap l u
+noremap L U
 
 " Resize splits with arrow keys
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+noremap <silent><up> :res +5<CR>
+noremap <silent><down> :res -5<CR>
+noremap <silent><left> :vertical resize-5<CR>
+noremap <silent><right> :vertical resize+5<CR>
 
 
 " 真彩色 - 测试脚本 
@@ -52,8 +51,8 @@ if &term =~# '^screen'
     endif
 endif
 
-set nu
-set rnu
+set number
+set relativenumber
 set cursorline
 set noswapfile
 
@@ -83,6 +82,9 @@ set timeoutlen=1000 ttimeoutlen=0
 set autoread "文件在Vim之外修改过，自动重新读入"
 set autowrite "设置自动保存内容"
 
+set wildmenu
+" set wildmode=longest:list,full
+
 syntax on
 " filetype
 filetype on
@@ -96,7 +98,16 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+let g:closetag_filetypes = 'html,xhtml,phtml,vue'
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+let g:sneak#label = 1
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
@@ -124,14 +135,16 @@ nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
 nnoremap <silent> <Leader>fag :Ag<CR>
 
+" Plug 'mattn/emmet-vim'
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
+
 Plug 'fatih/vim-go'
+let g:go_doc_popup_window = 1
 let g:go_gopls_enabled = 1
 let g:go_gopls_options = ['-remote=auto']
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:go_referrers_mode = 'gopls'
 let g:go_fmt_command = "goimports"
-" let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave = 1
 " let g:go_auto_sameids = 1
 " let g:go_list_type = "quickfix"
 " let g:go_fmt_options = {
@@ -151,6 +164,8 @@ let g:go_fmt_command = "goimports"
 " let g:go_auto_type_info = 1
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = ['coc-vetur', 'coc-eslint', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -169,16 +184,12 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? "\<C-y>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-e> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+ 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -186,16 +197,16 @@ endfunction
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 " " Use `[g` and `]g` to navigate diagnostics
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -242,10 +253,6 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " " Resume latest coc list.
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" coc-go
-" autocmd BufWritePre *.go :call CocAction('format')
-" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dhruvasagar/vim-table-mode'

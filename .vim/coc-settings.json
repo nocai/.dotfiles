@@ -1,20 +1,47 @@
 {
-    "list.nextKeymap": "<C-n>",
-    "list.previousKeymap": "<C-e>",
+  "list.nextKeymap": "<C-n>",
+  "list.previousKeymap": "<C-e>",
 
-    "suggest.noselect": false,
-    "suggest.autoTrigger": "trigger",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx",
+    "css",
+    "Markdown",
+    "less",
+    "sass",
+    "scss",
+    "html",
+    "vue"
+  ],
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript.tsx",
+    "scss",
+    "vue"
+  ],
+  "prettier.disableLanguages": [],
+  "eslint.autoFixOnSave": true,
 
-    "languageserver": {
-        "golang": {
-          "command": "gopls",
-          "args": ["-remote=auto"],
-          "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-          "filetypes": ["go"],
-          "initializationOptions": {
-                "usePlaceholders": false,
-                "completeUnimported": true
-          }
-        }
+  "suggest.noselect": false,
+  "suggest.autoTrigger": "always",
+
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "args": ["-remote=auto"],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": false,
+        "completeUnimported": true
       }
+    }
+  }
 }
