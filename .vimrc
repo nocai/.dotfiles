@@ -11,11 +11,11 @@
 noremap n j
 noremap N J
 noremap <C-w>n <C-w>j
-noremap <C-n> 5j
+" noremap <C-n> 5j
 noremap e k
 noremap E K
 noremap <C-w>e <C-w>k
-noremap <C-e> 5k
+" noremap <C-e> 5k
 noremap i l
 noremap I L
 noremap <C-w>i <C-w>l
@@ -31,7 +31,6 @@ noremap U I
 
 noremap l u
 noremap L U
-
 " Resize splits with arrow keys
 noremap <silent><up> :res +5<CR>
 noremap <silent><down> :res -5<CR>
@@ -46,9 +45,7 @@ if &term =~# '^screen'
     " fix bug for vim
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    if has("termguicolors")
-        set termguicolors
-    endif
+    set termguicolors
 endif
 
 set number
@@ -106,8 +103,6 @@ let g:closetag_filetypes = 'html,xhtml,phtml,vue'
 " This will make the list of non-closing tags self-closing in the specified files.
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 Plug 'easymotion/vim-easymotion'
-Plug 'justinmk/vim-sneak'
-let g:sneak#label = 1
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
@@ -134,6 +129,8 @@ nnoremap <silent> <Leader>ff :Files<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
 nnoremap <silent> <Leader>fag :Ag<CR>
+
+Plug 'voldikss/vim-floaterm'
 
 " Plug 'mattn/emmet-vim'
 " let g:user_emmet_install_global = 0
@@ -209,7 +206,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -264,7 +261,12 @@ let g:webdevicons_enable_airline_tabline = 1
 let g:webdevicons_enable_airline_statusline = 1
 call plug#end()
 
+" let g:python3_host_prog = '/usr/bin/python3'
+
 " let g:gruvbox_termcolors=16
 set background=dark
 colorscheme gruvbox
 
+" 背景透明
+" hi Normal ctermfg=252 ctermbg=none
+" hi Normal ctermbg=none
