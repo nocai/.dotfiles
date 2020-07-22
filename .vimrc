@@ -90,8 +90,13 @@ filetype plugin on
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
+Plug 'voldikss/vim-floaterm'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
@@ -103,7 +108,6 @@ let g:closetag_filetypes = 'html,xhtml,phtml,vue'
 " This will make the list of non-closing tags self-closing in the specified files.
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMinimalUI = 1
@@ -130,7 +134,6 @@ nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
 nnoremap <silent> <Leader>fag :Ag<CR>
 
-Plug 'voldikss/vim-floaterm'
 
 " Plug 'mattn/emmet-vim'
 " let g:user_emmet_install_global = 0
