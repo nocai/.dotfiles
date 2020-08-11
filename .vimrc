@@ -88,10 +88,15 @@ filetype on
 filetype indent on
 filetype plugin on
 
+set list lcs=tab:\┊\  " 显示缩进线
+
 set clipboard=unnamed
 
 let g:python3_host_skip_check=1
 let g:python3_host_prog = '/usr/bin/python3'
+
+autocmd FileType go nmap <Leader>gr :!go run %<CR>
+autocmd FileType go nmap <Leader>gt :!go test %<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
@@ -102,7 +107,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'voldikss/vim-floaterm'
 
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -111,26 +116,25 @@ Plug 'easymotion/vim-easymotion'
 " let g:airline#extensions#tabline#enabled = 1
 
 Plug 'itchyny/lightline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
 set laststatus=2
 let g:lightline = {
-    \ 'separator': { 'left': '', 'right': '' },
+    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
     \ 'colorscheme': 'one',
     \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'filename' ] ]
+    \   'left': [ 
+    \             [ 'mode', 'paste' ],
+    \             [ 'readonly', 'fugitive' ],
+    \             [ 'filename', 'cocstatus' ],
+    \           ],
     \ },
     \ 'component_function': {
-    \   'fugitive': 'LightlineFugitive',
-    \   'filename': 'LightlineFilename'
+    \   'filename': 'LightlineFilename',
+    \   'fugitive': 'FugitiveHead',
+	\   'cocstatus': 'StatusDiagnostic',
     \ },
     \ }
-
-function! LightlineModified()
-    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-function! LightlineReadonly()
-    return &ft !~? 'help\|vimfiler' && &readonly ? '⭤' : ''
-endfunction
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 function! LightlineFilename()
     return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
     \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
@@ -139,12 +143,23 @@ function! LightlineFilename()
     \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
     \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
 endfunction
-function! LightlineFugitive()
-    if &ft !~? 'vimfiler' && exists('*FugitiveHead')
-        let branch = FugitiveHead()
-        return branch !=# '' ? '⭠ '.branch : ''
+function! LightlineModified()
+    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+endfunction
+function! LightlineReadonly()
+    return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
+endfunction
+function! StatusDiagnostic() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    let msgs = []
+    if get(info, 'error', 0)
+        call add(msgs, 'Error: ' . info['error'])
     endif
-    return ''
+    if get(info, 'warning', 0)
+        call add(msgs, 'Warning: ' . info['warning'])
+    endif
+    return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
 Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
@@ -191,8 +206,7 @@ let g:quickrun_config = {
 \       "outputter" : "message",
 \   },
 \}
-nmap qr <Plug>(quickrun)
-
+nmap <Leader>qr <Plug>(quickrun)
 
 " Plug 'fatih/vim-go'
 " let g:go_def_mapping_enabled = 0
@@ -219,7 +233,6 @@ let g:coc_global_extensions =[
     \ 'coc-css',
     \ 'coc-snippets',
     \ 'coc-emmet',
-    \ 'coc-pairs',
     \ 'coc-json',
     \ 'coc-highlight',
     \ 'coc-lists',
@@ -281,13 +294,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
 " Symbol renaming.
 nmap <silent> rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -298,7 +309,7 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that

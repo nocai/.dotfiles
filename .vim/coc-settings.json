@@ -5,9 +5,9 @@
   //diagnostic
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "●",
-  "diagnostic.infoSign": "●",
+  "diagnostic.errorSign": "\u2717", // "",
+  "diagnostic.warningSign": "\u26A0",
+  "diagnostic.infoSign": "\u26A0", // ●
   "diagnostic.refreshOnInsertMode": true,
 
   "coc.preferences.formatOnSaveFiletypes": [
