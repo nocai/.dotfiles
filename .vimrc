@@ -40,12 +40,13 @@ noremap <silent><right> :vertical resize+5<CR>
 
 " 真彩色 - 测试脚本 
 " curl -s https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh | bash
-" set termguicolors
-if &term =~# '^screen'
+if $COLORTERM == 'truecolor'
     " fix bug for vim
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
+else
+    set t_Co=256
 endif
 
 set number
@@ -73,7 +74,6 @@ set autoindent
 set scrolloff=5
 set shortmess+=c
 set encoding=UTF-8
-set clipboard=unnamed
 set timeoutlen=1000 ttimeoutlen=0
 
 set autoread "文件在Vim之外修改过，自动重新读入"
@@ -88,41 +88,83 @@ filetype on
 filetype indent on
 filetype plugin on
 
+set clipboard=unnamed
+
+let g:python3_host_skip_check=1
+let g:python3_host_prog = '/usr/bin/python3'
 
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-repeat'
+
+" Plug 'tpope/vim-repeat'
+
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-autocmd BufReadPost fugitive://* set bufhidden=delete
+
 Plug 'voldikss/vim-floaterm'
 
-Plug 'airblade/vim-gitgutter'
-Plug 'morhetz/gruvbox'
-Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,xhtml,phtml,vue'
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
+" Plug 'jiangmiao/auto-pairs'
+
 Plug 'easymotion/vim-easymotion'
-Plug 'preservim/nerdtree'
+
+" Plug 'vim-airline/vim-airline'
+" let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+" let g:airline#extensions#tabline#enabled = 1
+
+Plug 'itchyny/lightline.vim'
+set laststatus=2
+let g:lightline = {
+    \ 'separator': { 'left': '', 'right': '' },
+    \ 'colorscheme': 'one',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename' ] ]
+    \ },
+    \ 'component_function': {
+    \   'fugitive': 'LightlineFugitive',
+    \   'filename': 'LightlineFilename'
+    \ },
+    \ }
+
+function! LightlineModified()
+    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+function! LightlineReadonly()
+    return &ft !~? 'help\|vimfiler' && &readonly ? '⭤' : ''
+endfunction
+function! LightlineFilename()
+    return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
+    \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+    \  &ft ==# 'unite' ? unite#get_status_string() :
+    \  &ft ==# 'vimshell' ? vimshell#get_status_string() :
+    \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
+    \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
+endfunction
+function! LightlineFugitive()
+    if &ft !~? 'vimfiler' && exists('*FugitiveHead')
+        let branch = FugitiveHead()
+        return branch !=# '' ? '⭠ '.branch : ''
+    endif
+    return ''
+endfunction
+
+Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMinimalUI = 1
 let NERDTreeQuitOnOpen = 3
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
 nnoremap <silent> ff :NERDTreeToggle<CR>
-Plug 'preservim/nerdcommenter'
-let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
-map <C-_> <Plug>NERDCommenterToggle 
-Plug 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1  " 支持 powerline 字体
-let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
+
+Plug 'tpope/vim-fugitive'
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+Plug 'airblade/vim-gitgutter'
+
+Plug 'ryanoasis/vim-devicons'
+" adding to vim-airline's tabline
+" let g:webdevicons_enable_airline_tabline = 1
+" adding to vim-airline's statusline
+" let g:webdevicons_enable_airline_statusline = 1
 
 " If installed using Homebrew
 " Plug '/usr/local/opt/fzf'
@@ -134,24 +176,31 @@ nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
 nnoremap <silent> <Leader>fag :Ag<CR>
 
+Plug 'plasticboy/vim-markdown'
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" let g:mkdp_echo_preview_url = 1
+" Plug 'dhruvasagar/vim-table-mode'
 
-" Plug 'mattn/emmet-vim'
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css EmmetInstall
+Plug 'morhetz/gruvbox'
 
-Plug 'fatih/vim-go'
-let g:go_doc_popup_window = 1
-let g:go_gopls_enabled = 1
-let g:go_gopls_options = ['-remote=auto']
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-" let g:go_auto_sameids = 1
-" let g:go_list_type = "quickfix"
-" let g:go_fmt_options = {
-    " \ 'gofmt': '-s',
-    " \ 'goimports': '-local '
-  " }
-" " Highlight more info
+Plug 'tpope/vim-commentary'
+
+Plug 'thinca/vim-quickrun'
+let g:quickrun_config = {
+\   "_" : {
+\       "outputter" : "message",
+\   },
+\}
+nmap qr <Plug>(quickrun)
+
+
+" Plug 'fatih/vim-go'
+" let g:go_def_mapping_enabled = 0
+" let g:go_gopls_enabled = 0
+" let g:go_doc_popup_window = 1
+" let g:go_gopls_options = ['-remote=auto']
+" let g:go_fmt_command = "goimports"
+" Highlight more info
 " let g:go_highlight_build_constraints = 1
 " let g:go_highlight_extra_types = 1
 " let g:go_highlight_fields = 1
@@ -160,11 +209,30 @@ let g:go_metalinter_autosave = 1
 " let g:go_highlight_operators = 1
 " let g:go_highlight_structs = 1
 " let g:go_highlight_types = 1
-" show type info in statusbar
-" let g:go_auto_type_info = 1
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-vetur', 'coc-eslint', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
+let g:coc_global_extensions =[
+    \ 'coc-vetur',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-snippets',
+    \ 'coc-emmet',
+    \ 'coc-pairs',
+    \ 'coc-json',
+    \ 'coc-highlight',
+    \ 'coc-lists',
+    \ 'coc-yaml',
+    \ 'coc-gitignore',
+    \ 'coc-yank',
+    \ 'coc-actions',
+    \ 'coc-template',
+    \ 'coc-tsserver',
+    \ 'coc-eslint',
+    \ 'coc-prettier'
+    \]
+
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -209,7 +277,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -230,6 +298,7 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -254,22 +323,13 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " " Resume latest coc list.
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'ryanoasis/vim-devicons'
-" adding to vim-airline's tabline
-let g:webdevicons_enable_airline_tabline = 1
-" adding to vim-airline's statusline
-let g:webdevicons_enable_airline_statusline = 1
 call plug#end()
 
-" let g:python3_host_prog = '/usr/bin/python3'
-
-" let g:gruvbox_termcolors=16
 set background=dark
 colorscheme gruvbox
 
 " 背景透明
 " hi Normal ctermfg=252 ctermbg=none
 " hi Normal ctermbg=none
+
