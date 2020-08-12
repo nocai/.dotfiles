@@ -38,38 +38,71 @@ noremap <silent><left> :vertical resize-5<CR>
 noremap <silent><right> :vertical resize+5<CR>
 
 
-" 真彩色 - 测试脚本 
-" curl -s https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh | bash
-if $COLORTERM == 'truecolor'
-    " fix bug for vim
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-else
-    set t_Co=256
+
+" Wildmenu {{{
+" --------
+if has('wildmenu')
+	if ! has('nvim')
+		set wildmode=list:longest
+	endif
+
+	" if has('nvim')
+	" 	set wildoptions=pum
+	" else
+	" 	set nowildmenu
+	" 	set wildmode=list:longest,full
+	" 	set wildoptions=tagfile
+	" endif
+	set wildignorecase
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+	set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
+	set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
+endif
+" }}}
+
+" Searching {{{
+" ---------
+set ignorecase    " Search ignoring case
+set smartcase     " Keep case when searching with *
+set infercase     " Adjust case in insert completion mode
+set incsearch     " Incremental search
+set wrapscan      " Searches wrap around the end of the file
+set hlsearch      " Highlight search results
+
+set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
+
+if exists('+inccommand')
+	set inccommand=nosplit
 endif
 
-set number
-set relativenumber
-set cursorline
-set noswapfile
+if executable('rg')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+elseif executable('ag')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '')
+endif
+" }}}
 
-"set splitbelow
-"set splitright
+" Tabs and Indents {{{
+" ----------------
+set textwidth=80    " Text width maximum chars before wrapping
+set noexpandtab     " Don't expand tabs to spaces
+set tabstop=4       " The number of spaces a tab is
+set shiftwidth=4    " Number of spaces to use in auto(indent)
+set softtabstop=-1  " Automatically keeps in sync with shiftwidth
+set smarttab        " Tab insert blanks according to 'shiftwidth'
+set autoindent      " Use same indenting on new lines
+set smartindent     " Smart autoindenting on new lines
+set shiftround      " Round indent to multiple of 'shiftwidth'
 
-set showcmd
-set noshowmode
-
-set hlsearch 
-set incsearch
-set ignorecase
-set smartcase 
-
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set autoindent
+if exists('&breakindent')
+	set breakindentopt=shift:2,min:20
+endif
+" }}}
 
 set scrolloff=5
 set shortmess+=c
@@ -79,8 +112,126 @@ set timeoutlen=1000 ttimeoutlen=0
 set autoread "文件在Vim之外修改过，自动重新读入"
 set autowrite "设置自动保存内容"
 
-set wildmenu
-" set wildmode=longest:list,full
+" Editor UI {{{
+set termguicolors       " Enable true color
+set number              " Show number
+set cursorline
+set relativenumber      " Show relative number
+set noshowmode          " Don't show mode on bottom
+set noruler             " Disable default status ruler
+set shortmess=aFc
+set scrolloff=2         " Keep at least 2 lines above/below
+set fillchars+=vert:\|  " add a bar for vertical splits
+" set fcs=eob:\           " hide ~ tila
+" set list
+" set listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
+set title
+" Title length.
+set titlelen=95
+" Title string.
+let &g:titlestring="
+      \ %{expand('%:p:~:.')}%(%m%r%w%)
+      \ %<\[%{fnamemodify(getcwd(), ':~')}\] - Neovim"
+
+set showmatch           " Jump to matching bracket
+set matchpairs+=<:>     " Add HTML brackets to pair matching
+set matchtime=1         " Tenths of a second to show the matching paren
+
+set showtabline=2       " Always show the tabs line
+set winwidth=30         " Minimum width for active window
+set winminwidth=10      " Minimum width for inactive windows
+" set winheight=4         " Minimum height for active window
+set winminheight=1      " Minimum height for inactive window
+set pumheight=15        " Pop-up menu's line height
+set helpheight=12       " Minimum help window height
+set previewheight=12    " Completion preview height
+
+set showcmd             " Show command in status line
+" set cmdheight=2         " Height of the command line
+set cmdwinheight=5      " Command-line lines
+set noequalalways       " Don't resize windows on split or close
+set laststatus=2        " Always show a status line
+"set colorcolumn=+0      " Column highlight at textwidth's max character-limit
+set display=lastline
+
+if has('folding') && has('vim_starting')
+	set foldenable
+	set foldmethod=indent
+	set foldlevelstart=99
+endif
+
+if has('nvim-0.4')
+	set signcolumn=yes:1
+else
+	set signcolumn=yes           " Always show signs column
+endif
+
+if has('conceal') && v:version >= 703
+	" For snippet_complete marker
+	set conceallevel=2 concealcursor=niv
+endif
+
+if exists('+previewpopup')
+	set previewpopup=height:10,width:60
+endif
+
+" Pseudo-transparency for completion menu and floating windows
+if &termguicolors
+	if exists('&pumblend')
+		set pumblend=10
+	endif
+	if exists('&winblend')
+		set winblend=10
+	endif
+endif
+" }}}
+ 
+" Behavior {{{
+" --------
+set autoread                    " Auto readfile
+set nowrap                      " No wrap by default
+set linebreak                   " Break long lines at 'breakat'
+set breakat=\ \	;:,!?           " Long lines break chars
+set nostartofline               " Cursor in same column for few commands
+set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
+set splitbelow splitright       " Splits open bottom right
+set switchbuf=useopen,vsplit    " Jump to the first open window
+set backspace=indent,eol,start  " Intuitive backspacing in insert mode
+set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
+set completeopt=menu,menuone    " Always show menu, even for one item
+set completeopt+=noselect,noinsert
+
+if exists('+completepopup')
+	set completeopt+=popup
+	set completepopup=height:4,width:60,highlight:InfoPopup
+endif
+
+" Use the new Neovim :h jumplist-stack
+if has('nvim-0.5')
+	set jumpoptions=stack
+endif
+
+if has('patch-8.1.0360') || has('nvim-0.4')
+	set diffopt+=internal,algorithm:patience
+	" set diffopt=indent-heuristic,algorithm:patience
+endif
+" }}}
+
+
+" 真彩色 - 测试脚本 
+" curl -s https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh | bash
+if $COLORTERM == 'truecolor'
+    set termguicolors
+endif
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+set colorcolumn=88
+set nobackup
+set nowritebackup
+set undofile noswapfile
 
 syntax on
 " filetype
@@ -88,7 +239,7 @@ filetype on
 filetype indent on
 filetype plugin on
 
-set list lcs=tab:\┊\  " 显示缩进线
+set mouse=a
 
 set clipboard=unnamed
 
@@ -99,7 +250,6 @@ autocmd FileType go nmap <Leader>gr :!go run %<CR>
 autocmd FileType go nmap <Leader>gt :!go test %<CR>
 
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-sensible'
 
 " Plug 'tpope/vim-repeat'
 
@@ -109,15 +259,26 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+" Plug 'itchyny/vim-cursorword'
+
 Plug 'easymotion/vim-easymotion'
 
 " Plug 'vim-airline/vim-airline'
 " let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 " let g:airline#extensions#tabline#enabled = 1
 
+" Plug 'hardcoreplayers/spaceline.vim'
+" let g:spaceline_diagnostic_errorsign = '🔥'
+" let g:spaceline_diagnostic_warnsign='🔆'
+" let g:spaceline_git_branch_icon = ' '
+" let g:spaceline_custom_diff_icon = [' ',' ',' ']
+" let g:spaceline_function_icon = '🌀 '
+
 Plug 'itchyny/lightline.vim'
-" Plug 'mengelbrecht/lightline-bufferline'
-set laststatus=2
+Plug 'mengelbrecht/lightline-bufferline'
 let g:lightline = {
     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
     \ 'colorscheme': 'one',
@@ -128,11 +289,21 @@ let g:lightline = {
     \             [ 'filename', 'cocstatus' ],
     \           ],
     \ },
+    \ 'tabline': {
+    \   'left': [ ['buffers'] ],
+    \   'right': [ ['close'] ]
+    \ },
     \ 'component_function': {
     \   'filename': 'LightlineFilename',
     \   'fugitive': 'FugitiveHead',
 	\   'cocstatus': 'StatusDiagnostic',
     \ },
+    \ 'component_expand': {
+    \   'buffers': 'lightline#bufferline#buffers'
+    \ },
+    \ 'component_type': {
+    \   'buffers': 'tabsel'
+    \ }
     \ }
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 function! LightlineFilename()
@@ -198,6 +369,23 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'morhetz/gruvbox'
 
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'
+xmap uu <Plug>(textobj-indent-i)
+omap uu <Plug>(textobj-indent-i)
+xmap uU <Plug>(textobj-indent-same-i)
+omap uU <Plug>(textobj-indent-same-i)
+
+xmap au <Plug>(textobj-indent-a)
+omap au <Plug>(textobj-indent-a)
+xmap aU <Plug>(textobj-indent-same-a)
+omap aU <Plug>(textobj-indent-same-a)
+
+" set list lcs=tab:\┊\  " 显示缩进线
+" Plug 'Yggdroot/indentLine'
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" Plug 'nathanaelkane/vim-indent-guides'
+
 Plug 'tpope/vim-commentary'
 
 Plug 'thinca/vim-quickrun'
@@ -256,7 +444,7 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=100
+set updatetime=200
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -325,14 +513,35 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list.
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>n  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>p  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>.  :<C-u>CocListResume<CR>
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap uf <Plug>(coc-funcobj-i)
+omap uf <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap uc <Plug>(coc-classobj-i)
+omap uc <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 
 call plug#end()
