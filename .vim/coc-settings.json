@@ -1,6 +1,7 @@
 {
   "list.nextKeymap": "<C-n>",
   "list.previousKeymap": "<C-e>",
+  "coc.preferences.colorSupport": true,
 
   //diagnostic
   "diagnostic.signOffset": 9999999,
