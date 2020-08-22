@@ -3,7 +3,7 @@
   "list.previousKeymap": "<C-e>",
   "coc.preferences.colorSupport": true,
 
-  //diagnostic
+  // diagnostic
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
   "diagnostic.errorSign": "\u2717", // "",
