@@ -244,7 +244,7 @@ set clipboard=unnamed
 
 
 let g:python2_host_skip_check=1
-let g:python2_host_prog = '/usr/local/bin/python'
+let g:python2_host_prog = '/usr/bin/python'
 let g:python3_host_skip_check=1
 let g:python3_host_prog = '/usr/bin/python3'
 
@@ -332,17 +332,28 @@ function! StatusDiagnostic() abort
     if get(info, 'warning', 0)
         call add(msgs, 'Warning: ' . info['warning'])
     endif
-    return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+    return join(msgs, 'ok') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
 Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMinimalUI = 1
 let NERDTreeQuitOnOpen = 3
+" 修改默认箭头符号
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+" 当打开 NERDTree 窗口时，自动显示 Bookmarks
+" let NERDTreeShowBookmarks=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
 nnoremap <silent> tt :NERDTreeToggle<CR>
 nnoremap <silent> ff :NERDTreeFind<CR>
+
+Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
+" setup mapping to call :LazyGit
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 Plug 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -430,8 +441,8 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_snippet_next = '<c-e>'
-let g:coc_snippet_prev = '<c-n>'
+let g:coc_snippet_next = '<c-n>'
+let g:coc_snippet_prev = '<c-e>'
 let g:coc_global_extensions =[
     \ 'coc-vetur',
     \ 'coc-html',
