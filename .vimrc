@@ -34,6 +34,10 @@ noremap U I
 
 noremap l u
 noremap L U
+
+noremap <C-h> ^
+noremap <C-i> $
+
 " Resize splits with arrow keys
 noremap <silent><up> :res +5<CR>
 noremap <silent><down> :res -5<CR>
@@ -241,7 +245,7 @@ filetype plugin on
 set mouse=a
 
 set clipboard=unnamed
-
+exec "nohlsearch"
 
 let g:python2_host_skip_check=1
 let g:python2_host_prog = '/usr/bin/python'
@@ -252,7 +256,10 @@ autocmd FileType go nmap <Leader>gr :!go run %<CR>
 autocmd FileType go nmap <Leader>gt :!go test %<CR>
 
 call plug#begin('~/.vim/plugged')
-
+" Plug 'ianding1/leetcode.vim'
+" let g:leetcode_browser='chrome'
+" let g:leetcode_china=1
+" let g:leetcode_solution_filetype='golang'
 " Plug 'tpope/vim-repeat'
 
 Plug 'tpope/vim-surround'
@@ -260,6 +267,7 @@ Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-floaterm'
 
 Plug 'jiangmiao/auto-pairs'
+" let g:AutoPairsFlyMode = 1
 
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
@@ -335,19 +343,19 @@ function! StatusDiagnostic() abort
     return join(msgs, 'ok') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
-let NERDTreeMapOpenExpl = ""
-let NERDTreeMinimalUI = 1
-let NERDTreeQuitOnOpen = 3
-" 修改默认箭头符号
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-" 当打开 NERDTree 窗口时，自动显示 Bookmarks
-" let NERDTreeShowBookmarks=1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
-nnoremap <silent> tt :NERDTreeToggle<CR>
-nnoremap <silent> ff :NERDTreeFind<CR>
+" Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
+" let NERDTreeMapOpenExpl = ""
+" let NERDTreeMinimalUI = 1
+" let NERDTreeQuitOnOpen = 3
+" " 修改默认箭头符号
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+" " 当打开 NERDTree 窗口时，自动显示 Bookmarks
+" " let NERDTreeShowBookmarks=1
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " 只有一个buffer关闭时，关闭nerdtree窗口
+" autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif " If more than one window and previous buffer was NERDTree, go back to it.
+" nnoremap <silent> tt :NERDTreeToggle<CR>
+" nnoremap <silent> ff :NERDTreeFind<CR>
 
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
 let g:lazygit_floating_window_winblend = 0 " transparency of floating window
@@ -441,9 +449,8 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_snippet_next = '<c-n>'
-let g:coc_snippet_prev = '<c-e>'
 let g:coc_global_extensions =[
+	\ 'coc-marketplace',
     \ 'coc-vetur',
     \ 'coc-html',
     \ 'coc-css',
@@ -470,28 +477,32 @@ let g:coc_global_extensions =[
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=200
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
-inoremap <expr><C-e> pumvisible() ? "\<C-p>" : "\<C-e>"
-
-" Use <TAB> to confirm completion
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-y>" :
+      \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-e> pumvisible() ? "\<C-p>" : "\<C-e>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -551,16 +562,16 @@ nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent> <space>n  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>p  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>e  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> <space>.  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Symbol renaming.
-nnoremap <silent> <space>rn <Plug>(coc-rename)
+nmap <space>rn <Plug>(coc-rename)
 
-" nmap  :CocCommand explorer<CR>
+nmap <space>tt :CocCommand explorer<CR>
 
 " coc-translator
-nmap ts <Plug>(coc-translator-p)
+nmap <space>ts <Plug>(coc-translator-p)
 " coc-yank
 nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<cr>
 
@@ -575,15 +586,20 @@ omap uc <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" coc-snippets
+" imap <C-l> <Plug>(coc-snippets-expand)
+" vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
+" imap <TAB> <Plug>(coc-snippets-expand-jump)
+let g:snips_author = 'lj.liujun'
 
 
 call plug#end()
