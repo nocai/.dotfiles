@@ -1,14 +1,19 @@
 {
+  "signature.target": "float",
+
+  "codeLens.enable": true,
+
   "list.nextKeymap": "<C-n>",
   "list.previousKeymap": "<C-e>",
   "list.previewHighlightGroup": "Statement",
 
-  "codeLens.enable": true,
-
+  //CocList
+  "list.source.files.defaultOptions": ["--auto-preview"],
+  "list.source.outline.defaultOptions": ["--auto-preview"],
   "coc.source.around.firstMatch": false,
   "coc.source.buffer.firstMatch": false,
 
-  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.hoverTarget": "float",
   "coc.preferences.enableFloatHighlight": true,
   "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.extensionUpdateCheck": "daily",
@@ -30,7 +35,13 @@
     "html",
     "vue"
   ],
-  "signature.target": "float",
+  //prettier
+  "prettier.statusItemText": "ⓟ ",
+  "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": false,
+  "prettier.stylelintIntegration": true,
+  "prettier.disableSuccessMessage": true,
+
   // diagnostic
   "diagnostic.signOffset": 1,
   "diagnostic.errorSign": "\uf467",
@@ -45,7 +56,9 @@
   "diagnostic.virtualText": true,
   "diagnostic.enableMessage": "never",
 
-  "suggest.detailMaxLength": 60,
+  //"suggest.numberSelect": true,
+  //"suggest.maxCompleteItemCount": 9,
+  //  "suggest.detailMaxLength": 10,
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": true,
@@ -86,7 +99,7 @@
     "variable": "\ue71b"
   },
 
-  "explorer.width": 38,
+  "explorer.width": 30,
   "explorer.quitOnOpen": true,
   "explorer.file.column.indent.indentLine": true,
   "explorer.file.showHiddenFiles": true,
@@ -105,7 +118,11 @@
   ],
   "explorer.keyMappings": {
     "n": "nodeNext",
-    "e": "nodePrev"
+    "e": "nodePrev",
+    "i": ["expandable?", "expand", "open"],
+
+    "ge": "expandablePrev",
+    "gn": "expandableNext"
   },
 
   "eslint.autoFixOnSave": true,
@@ -119,6 +136,23 @@
     "vue"
   ],
 
+  //git
+  "git.enableGutters": true,
+  "git.branchCharacter": "\uf418",
+  "git.addGBlameToBufferVar": true,
+  "git.addGBlameToVirtualText": true,
+  "git.virtualTextPrefix": " ❯❯❯ ",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "git.addedSign.text": "▋",
+  "git.changedSign.text": "▋",
+  "git.removedSign.text": "▋",
+  "git.topRemovedSign.text": "▔",
+  "git.changeRemovedSign.text": "▋",
+
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -126,8 +160,9 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
-        "usePlaceholders": false,
-        "completeUnimported": true
+        "usePlaceholders": true,
+        "completeUnimported": true,
+        "lintTool": "golint"
       }
     }
   }

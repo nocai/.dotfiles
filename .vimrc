@@ -245,7 +245,9 @@ filetype plugin on
 set mouse=a
 
 set clipboard=unnamed
-exec "nohlsearch"
+map <silent><ESC> :nohlsearch<CR>
+"打开文件，光标回到上次编辑的位置
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 let g:python2_host_skip_check=1
 let g:python2_host_prog = '/usr/bin/python'
@@ -256,6 +258,10 @@ autocmd FileType go nmap <Leader>gr :!go run %<CR>
 autocmd FileType go nmap <Leader>gt :!go test %<CR>
 
 call plug#begin('~/.vim/plugged')
+" Plug 'rhysd/accelerated-jk', {'on':['<Plug>(accelerated_jk_gj)' , '<Plug>(accelerated_jk_gk)']}
+" nmap n <Plug>(accelerated_jk_gj)
+" nmap e <Plug>(accelerated_jk_gk)
+
 " Plug 'ianding1/leetcode.vim'
 " let g:leetcode_browser='chrome'
 " let g:leetcode_china=1
@@ -264,7 +270,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
 
-Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/vim-floaterm', { 'on': 'FloatermNew' }
 
 Plug 'jiangmiao/auto-pairs'
 " let g:AutoPairsFlyMode = 1
@@ -276,9 +282,11 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 
 " Plug 'easymotion/vim-easymotion'
 
-" Plug 'vim-airline/vim-airline'
-" let g:airline_powerline_fonts = 1  " 支持 powerline 字体
-" let g:airline#extensions#tabline#enabled = 1
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#hunks#coc_git = 1
 
 " Plug 'hardcoreplayers/spaceline.vim'
 " let g:spaceline_diagnostic_errorsign = '🔥'
@@ -287,61 +295,61 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 " let g:spaceline_custom_diff_icon = [' ',' ',' ']
 " let g:spaceline_function_icon = '🌀 '
 
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-let g:lightline = {
-    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-    \ 'colorscheme': 'one',
-    \ 'active': {
-    \   'left': [ 
-    \             [ 'mode', 'paste' ],
-    \             [ 'readonly', 'fugitive' ],
-    \             [ 'filename', 'cocstatus' ],
-    \           ],
-    \ },
-    \ 'tabline': {
-    \   'left': [ ['buffers'] ],
-    \   'right': [ ['close'] ]
-    \ },
-    \ 'component_function': {
-    \   'filename': 'LightlineFilename',
-    \   'fugitive': 'FugitiveHead',
-	\   'cocstatus': 'StatusDiagnostic',
-    \ },
-    \ 'component_expand': {
-    \   'buffers': 'lightline#bufferline#buffers'
-    \ },
-    \ 'component_type': {
-    \   'buffers': 'tabsel'
-    \ }
-    \ }
-" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-function! LightlineFilename()
-    return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
-    \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
-    \  &ft ==# 'unite' ? unite#get_status_string() :
-    \  &ft ==# 'vimshell' ? vimshell#get_status_string() :
-    \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
-    \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
-endfunction
-function! LightlineModified()
-    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
-endfunction
-function! LightlineReadonly()
-    return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
-endfunction
-function! StatusDiagnostic() abort
-    let info = get(b:, 'coc_diagnostic_info', {})
-    if empty(info) | return '' | endif
-    let msgs = []
-    if get(info, 'error', 0)
-        call add(msgs, 'Error: ' . info['error'])
-    endif
-    if get(info, 'warning', 0)
-        call add(msgs, 'Warning: ' . info['warning'])
-    endif
-    return join(msgs, 'ok') . ' ' . get(g:, 'coc_status', '')
-endfunction
+" Plug 'itchyny/lightline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
+" let g:lightline = {
+"     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+"     \ 'colorscheme': 'one',
+"     \ 'active': {
+"     \   'left': [ 
+"     \             [ 'mode', 'paste' ],
+"     \             [ 'readonly', 'fugitive' ],
+"     \             [ 'filename', 'cocstatus' ],
+"     \           ],
+"     \ },
+"     \ 'tabline': {
+"     \   'left': [ ['buffers'] ],
+"     \   'right': [ ['close'] ]
+"     \ },
+"     \ 'component_function': {
+"     \   'filename': 'LightlineFilename',
+"     \   'fugitive': 'FugitiveHead',
+" 	\   'cocstatus': 'StatusDiagnostic',
+"     \ },
+"     \ 'component_expand': {
+"     \   'buffers': 'lightline#bufferline#buffers'
+"     \ },
+"     \ 'component_type': {
+"     \   'buffers': 'tabsel'
+"     \ }
+"     \ }
+" " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" function! LightlineFilename()
+"     return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
+"     \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+"     \  &ft ==# 'unite' ? unite#get_status_string() :
+"     \  &ft ==# 'vimshell' ? vimshell#get_status_string() :
+"     \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
+"     \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
+" endfunction
+" function! LightlineModified()
+"     return &ft =~# 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+" endfunction
+" function! LightlineReadonly()
+"     return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
+" endfunction
+" function! StatusDiagnostic() abort
+"     let info = get(b:, 'coc_diagnostic_info', {})
+"     if empty(info) | return '' | endif
+"     let msgs = []
+"     if get(info, 'error', 0)
+"         call add(msgs, 'Error: ' . info['error'])
+"     endif
+"     if get(info, 'warning', 0)
+"         call add(msgs, 'Warning: ' . info['warning'])
+"     endif
+"     return join(msgs, 'ok') . '' . get(g:, 'coc_status', '')
+" endfunction
 
 " Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 " let NERDTreeMapOpenExpl = ""
@@ -366,13 +374,13 @@ nnoremap <silent> <leader>lg :LazyGit<CR>
 Plug 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 Plug 'ryanoasis/vim-devicons'
 " adding to vim-airline's tabline
-" let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_tabline = 1
 " adding to vim-airline's statusline
-" let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_statusline = 1
 
 " If installed using Homebrew
 " Plug '/usr/local/opt/fzf'
@@ -388,11 +396,19 @@ nnoremap <silent> <Leader>fag :Ag<CR>
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown', 'vim-plug']}
 
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
+Plug 'joshdick/onedark.vim'
+
+Plug 'junegunn/vim-easy-align', {'on':'<Plug>(EasyAlign)'}
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
+let g:textobj_indent_no_default_key_mappings=1
 xmap uu <Plug>(textobj-indent-i)
 omap uu <Plug>(textobj-indent-i)
 xmap uU <Plug>(textobj-indent-same-i)
@@ -410,7 +426,7 @@ omap aU <Plug>(textobj-indent-same-a)
 
 Plug 'tpope/vim-commentary'
 
-Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-quickrun', {'for':['c', 'h', 'cpp', 'py', 'go', 'java', 'vim', 'json', 'hs']}
 let g:quickrun_config = {
 \   "_" : {
 \       "outputter" : "message",
@@ -418,7 +434,7 @@ let g:quickrun_config = {
 \}
 nmap <Leader>qr <Plug>(quickrun)
 
-Plug 'vim-test/vim-test'
+Plug 'vim-test/vim-test', {'for':['c', 'h', 'cpp', 'py', 'go', 'java', 'vim', 'json', 'hs']}
 let test#strategy = "neovim"
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -448,9 +464,13 @@ nmap <silent> t<C-g> :TestVisit<CR>
 " let g:go_highlight_types = 1
 
 Plug 'honza/vim-snippets'
+" Plug 'sheerun/vim-polyglot'
+" let g:polyglot_disabled = ['go']
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions =[
 	\ 'coc-marketplace',
+	\ 'coc-vimlsp',
     \ 'coc-vetur',
     \ 'coc-html',
     \ 'coc-css',
@@ -469,7 +489,9 @@ let g:coc_global_extensions =[
 	\ 'coc-tslint-plugin',
     \ 'coc-prettier',
 	\ 'coc-diagnostic',
-	\ 'coc-translator'
+	\ 'coc-translator',
+	\ 'coc-git',
+	\ 'coc-emoji'
     \]
 
 
@@ -550,11 +572,11 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>dg  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>cm  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
@@ -569,7 +591,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 nmap <space>rn <Plug>(coc-rename)
 
 nmap <space>tt :CocCommand explorer<CR>
-
 " coc-translator
 nmap <space>ts <Plug>(coc-translator-p)
 " coc-yank
@@ -590,8 +611,8 @@ omap ac <Plug>(coc-classobj-a)
 function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+xmap <silent> <space>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <space>ca :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 " coc-snippets
 " imap <C-l> <Plug>(coc-snippets-expand)
@@ -604,11 +625,11 @@ let g:snips_author = 'lj.liujun'
 
 call plug#end()
 
+" syntax enable
 set background=dark
 colorscheme gruvbox8
-
+" colorscheme gruvbox
+" colorscheme onedark
+"
 " 背景透明
-" hi Normal ctermfg=252 ctermbg=none
-" hi Normal ctermbg=none
-
-
+" highlight Normal guibg=NONE ctermbg=None
