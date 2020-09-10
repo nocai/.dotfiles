@@ -1,8 +1,6 @@
-" 插件对python的依赖配置
-let g:python2_host_skip_check=1
-let g:python2_host_prog = '/usr/bin/python'
-let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/bin/python3'
+" if filereadable(expand("~/.dotfiles/.vim/env.vim"))
+" 	source ~/.dotfiles/.vim/env.vim
+" endif
 
 " Plug 'rhysd/accelerated-jk', {'on':['<Plug>(accelerated_jk_gj)' , '<Plug>(accelerated_jk_gk)']}
 " nmap n <Plug>(accelerated_jk_gj)
@@ -28,11 +26,11 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 
 " Plug 'easymotion/vim-easymotion'
 
-Plug 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1  " 支持 powerline 字体
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#hunks#coc_git = 1
+" Plug 'vim-airline/vim-airline'
+" let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#coc#enabled = 1
+" let g:airline#extensions#hunks#coc_git = 1
 
 " Plug 'hardcoreplayers/spaceline.vim'
 " let g:spaceline_diagnostic_errorsign = '🔥'
@@ -41,61 +39,79 @@ let g:airline#extensions#hunks#coc_git = 1
 " let g:spaceline_custom_diff_icon = [' ',' ',' ']
 " let g:spaceline_function_icon = '🌀 '
 
-" Plug 'itchyny/lightline.vim'
-" Plug 'mengelbrecht/lightline-bufferline'
-" let g:lightline = {
-"     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-"     \ 'colorscheme': 'one',
-"     \ 'active': {
-"     \   'left': [ 
-"     \             [ 'mode', 'paste' ],
-"     \             [ 'readonly', 'fugitive' ],
-"     \             [ 'filename', 'cocstatus' ],
-"     \           ],
-"     \ },
-"     \ 'tabline': {
-"     \   'left': [ ['buffers'] ],
-"     \   'right': [ ['close'] ]
-"     \ },
-"     \ 'component_function': {
-"     \   'filename': 'LightlineFilename',
-"     \   'fugitive': 'FugitiveHead',
-" 	\   'cocstatus': 'StatusDiagnostic',
-"     \ },
-"     \ 'component_expand': {
-"     \   'buffers': 'lightline#bufferline#buffers'
-"     \ },
-"     \ 'component_type': {
-"     \   'buffers': 'tabsel'
-"     \ }
-"     \ }
-" " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-" function! LightlineFilename()
-"     return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
-"     \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
-"     \  &ft ==# 'unite' ? unite#get_status_string() :
-"     \  &ft ==# 'vimshell' ? vimshell#get_status_string() :
-"     \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
-"     \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
-" endfunction
-" function! LightlineModified()
-"     return &ft =~# 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
-" endfunction
-" function! LightlineReadonly()
-"     return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
-" endfunction
-" function! StatusDiagnostic() abort
-"     let info = get(b:, 'coc_diagnostic_info', {})
-"     if empty(info) | return '' | endif
-"     let msgs = []
-"     if get(info, 'error', 0)
-"         call add(msgs, 'Error: ' . info['error'])
-"     endif
-"     if get(info, 'warning', 0)
-"         call add(msgs, 'Warning: ' . info['warning'])
-"     endif
-"     return join(msgs, 'ok') . '' . get(g:, 'coc_status', '')
-" endfunction
+Plug 'edkolev/tmuxline.vim' ", {'on': ['Tmuxline', 'TmuxlineSnapshot']}
+" let g:tmuxline_preset = 'lightline'
+Plug 'sainnhe/sonokai'
+
+" Plug 'maximbaz/lightline-ale'
+" Plug 'albertomontesg/lightline-asyncrun'
+" Plug 'rmolin88/pomodoro.vim'
+
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+let g:lightline = {
+    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+    \ 'colorscheme': 'one',
+    \ 'active': {
+    \   'left': [ 
+    \             [ 'mode', 'paste' ],
+    \             [ 'fugitive' ],
+    \             [ 'filename', 'cocstatus' ],
+    \           ],
+    \ },
+    \ 'tabline': {
+    \   'left': [ ['buffers'] ],
+    \   'right': [ ['close'] ]
+    \ },
+    \ 'component': {
+	\   'lineinfo': ' %3l:%-2c',
+    \ },
+    \ 'component_function': {
+    \   'filename': 'LightlineFilename',
+	\   'fugitive': 'LightlineFugitive',
+	\   'cocstatus': 'StatusDiagnostic',
+    \ },
+    \ 'component_expand': {
+    \   'buffers': 'lightline#bufferline#buffers'
+    \ },
+    \ 'component_type': {
+    \   'buffers': 'tabsel'
+    \ }
+    \ }
+function! LightlineFugitive()
+	if exists('*FugitiveHead')
+		let branch = FugitiveHead()
+		return branch !=# '' ? ' '.branch : ''
+	endif
+	return ''
+endfunction
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+function! LightlineFilename()
+    return (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
+    \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+    \  &ft ==# 'unite' ? unite#get_status_string() :
+    \  &ft ==# 'vimshell' ? vimshell#get_status_string() :
+    \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]') .
+    \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
+endfunction
+function! LightlineModified()
+    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '[+]' : &modifiable ? '' : '[-]'
+endfunction
+function! LightlineReadonly()
+	return &readonly ? '' : ''
+endfunction
+function! StatusDiagnostic() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    let msgs = []
+    if get(info, 'error', 0)
+        call add(msgs, 'Error: ' . info['error'])
+    endif
+    if get(info, 'warning', 0)
+        call add(msgs, 'Warning: ' . info['warning'])
+    endif
+    return join(msgs, 'ok') . '' . get(g:, 'coc_status', '')
+endfunction
 
 " Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 " let NERDTreeMapOpenExpl = ""
@@ -128,11 +144,11 @@ let g:webdevicons_enable_airline_tabline = 1
 " adding to vim-airline's statusline
 let g:webdevicons_enable_airline_statusline = 1
 
-" If installed using Homebrew
-" Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-let g:fzf_preview_window = 'right:60%' " Always enable preview window on the right with 60% width
+" let g:fzf_preview_window = ''
+let g:fzf_preview_window = 'right:60%'
 nnoremap <silent> <Leader>ff :Files<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>frg :Rg<CR>
@@ -142,7 +158,10 @@ nnoremap <silent> <Leader>fag :Ag<CR>
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown', 'vim-plug']}
 
+" Plug 'sheerun/vim-polyglot'
+" let g:polyglot_disabled = ['go']
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'joshdick/onedark.vim'
 
@@ -165,6 +184,13 @@ xmap au <Plug>(textobj-indent-a)
 omap au <Plug>(textobj-indent-a)
 xmap aU <Plug>(textobj-indent-same-a)
 omap aU <Plug>(textobj-indent-same-a)
+
+Plug 'sgur/vim-textobj-parameter'
+let g:textobj_parameter_no_default_key_mappings=1
+xmap u, <Plug>(textobj-parameter-i)
+omap u, <Plug>(textobj-parameter-i)
+xmap a, <Plug>(textobj-parameter-a)
+omap a, <Plug>(textobj-parameter-a)
 
 " set list lcs=tab:\┊\  " 显示缩进线
 " Plug 'Yggdroot/indentLine'
@@ -192,14 +218,11 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 " Plug 'fatih/vim-go'
 " let g:go_def_mapping_enabled = 0
-" let g:go_gopls_enabled = 0
-" let g:go_doc_popup_window = 1
+" let g:go_gopls_enabled = 1
 " let g:go_code_completion_enabled = 0
 " let g:go_get_update = 0
 " let g:go_textobj_enabled = 0
 " let g:go_textobj_include_function_doc = 0
-" let g:go_gopls_options = ['-remote=auto']
-" let g:go_fmt_command = "goimports"
 " Highlight more info
 " let g:go_highlight_build_constraints = 1
 " let g:go_highlight_extra_types = 1
@@ -211,10 +234,9 @@ nmap <silent> t<C-g> :TestVisit<CR>
 " let g:go_highlight_types = 1
 
 Plug 'honza/vim-snippets'
-" Plug 'sheerun/vim-polyglot'
-" let g:polyglot_disabled = ['go']
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master'}
+
 let g:coc_global_extensions =[
 	\ 'coc-marketplace',
 	\ 'coc-vimlsp',
@@ -240,6 +262,8 @@ let g:coc_global_extensions =[
 	\ 'coc-git',
 	\ 'coc-emoji'
     \]
+
+	" \ 'coc-tabnine'
 
 
 
@@ -297,7 +321,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent><space>k :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -361,12 +385,14 @@ endfunction
 xmap <silent> <space>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <space>ca :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-" coc-snippets
-" imap <C-l> <Plug>(coc-snippets-expand)
-" vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
-" imap <TAB> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'lj.liujun'
 
+" if filereadable(expand("~/.dotfiles/.vim/lightline.vim"))
+	" source ~/.dotfiles/.vim/lightline.vim
+" endif
 
+
+" Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-go'}
+" let g:vimspector_enable_mappings = 'HUMAN'

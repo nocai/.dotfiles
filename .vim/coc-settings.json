@@ -1,6 +1,8 @@
 {
   "signature.target": "float",
 
+  "yank.enableCompletion": false,
+
   "codeLens.enable": true,
 
   "list.nextKeymap": "<C-n>",
@@ -58,13 +60,14 @@
 
   //"suggest.numberSelect": true,
   //"suggest.maxCompleteItemCount": 9,
-  //  "suggest.detailMaxLength": 10,
+  "suggest.detailMaxLength": 30,
+  "suggest.labelMaxLength": 30,
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": true,
   "suggest.autoTrigger": "always",
   "suggest.timeout": 5000,
-  "suggest.enablePreview": true,
+  "suggest.enablePreview": false,
   "suggest.floatEnable": true,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
@@ -155,14 +158,15 @@
 
   "languageserver": {
     "golang": {
+      "env": { "TMPDIR": "/tmp" },
       "command": "gopls",
       "args": ["-remote=auto"],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "disableWorkspaceFolders": true,
       "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true,
-        "completeUnimported": true,
-        "lintTool": "golint"
+        "completeUnimported": true
       }
     }
   }

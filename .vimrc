@@ -33,9 +33,11 @@ noremap <C-j> <C-e>
 
 noremap u i
 noremap U I
+noremap <C-u> <C-i>
 
 noremap l u
 noremap L U
+noremap <C-l> <C-u>
 
 " Resize splits with arrow keys
 noremap <silent><up> :res +5<CR>
@@ -47,6 +49,14 @@ noremap <C-h> ^
 noremap <C-i> $
 noremap R :source $MYVIMRC<CR>
 
+nmap <silent><ESC> :nohlsearch<CR>
+
+" 插件对python的依赖配置
+let g:python2_host_skip_check=1
+let g:python2_host_prog = '/usr/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog = '/usr/bin/python3'
+
 if filereadable(expand("~/.dotfiles/.vim/basic.vim"))
 	source ~/.dotfiles/.vim/basic.vim
 endif
@@ -57,12 +67,12 @@ call plug#begin('~/.vim/plugged')
 	endif
 call plug#end()
 
-syntax enable
-
 set background=dark
-" colorscheme gruvbox8
-colorscheme gruvbox
+colorscheme gruvbox8
+" colorscheme gruvbox
 " colorscheme onedark
+" colorscheme sonokai
 "
 " 背景透明
-" highlight Normal guibg=NONE ctermbg=None
+highlight Normal guibg=NONE ctermbg=None
+

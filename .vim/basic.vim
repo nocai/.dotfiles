@@ -4,7 +4,9 @@ set mouse=a
 set clipboard=unnamed
 set nobackup
 set nowritebackup
-set undofile noswapfile
+set noswapfile
+set undofile                            " 始终保留undo文件
+set undodir=$HOME/.cache/vim/undo       " 设置undo文件的目录
 set encoding=UTF-8
 set timeoutlen=1000 ttimeoutlen=0
 set autoread                    " Auto readfile
@@ -51,7 +53,7 @@ filetype plugin on
 " }}}
 
 
-" Editor UI {{{
+" Editor UI {:X{{
 set number              " Show number
 set relativenumber      " Show relative number
 set noshowmode          " Don't show mode on bottom
@@ -61,9 +63,18 @@ set list
 set listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 set showmatch           " Jump to matching bracket
 set showtabline=2       " Always show the tabs line
+set laststatus=2       " Always show the status line
 set showcmd             " Show command in status line
 set cursorline
 set colorcolumn=88
+
+set winwidth=30         " Minimum width for active window
+set winminwidth=10      " Minimum width for inactive windows
+set winheight=4         " Minimum height for active window
+set winminheight=1      " Minimum height for inactive window
+set pumheight=15        " Pop-up menu's line height
+set helpheight=12       " Minimum help window height
+set previewheight=12    " Completion preview height
 
 if has('folding') && has('vim_starting')
 	set foldenable
@@ -87,6 +98,9 @@ if &term =~# '^screen'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
+if !has('gui_running')
+	set t_Co=256
+endif
 " }}}
 
 " Wildmenu {{{
@@ -105,3 +119,9 @@ if has('wildmenu')
 endif
 " }}}
 
+" auto spell
+" autocmd BufRead,BufNewFile *.go setlocal spell
+
+" if filereadable(expand("~/.dotfiles/.vim/func.vim"))
+" 	" source ~/.dotfiles/.vim/func.vim
+" endif
