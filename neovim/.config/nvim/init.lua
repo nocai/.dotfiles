@@ -410,7 +410,6 @@ return packer.startup(function(use)
 		},
 		{
 			"ray-x/lsp_signature.nvim",
-			disable = true, -- 不知道为什么，在本地签名窗口会抖动（弹出两次）
 			cond = function()
 				return not vim.g.vscode
 			end,
@@ -504,5 +503,28 @@ return packer.startup(function(use)
 				require("configs.autocmp").tabout()
 			end,
 		},
+
+		use({
+			"rmagatti/auto-session",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("auto-session").setup({
+					log_level = "info",
+					auto_session_suppress_dirs = { "~/", "~/Projects" },
+				})
+			end,
+		}),
+		-- dap
+		-- use({
+		-- 	"mfussenegger/nvim-dap",
+		-- 	requires = {
+		-- 		"rcarriga/nvim-dap-ui",
+		-- 		config = function ()
+		-- 			require("configs.dap").nvim_dap_ui()
+		-- 		end
+		-- 	},
+		-- }),
 	})
 end)

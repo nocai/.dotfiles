@@ -76,4 +76,25 @@ function telescope.telescope_ui_selet()
 	require("telescope").load_extension("ui-select")
 end
 
+function telescope.lsp_keymap(opts)
+	vim.keymap.set(
+		"n",
+		"gs",
+		[[<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))<CR>]],
+		opts
+	)
+	vim.keymap.set(
+		"n",
+		"gr",
+		[[<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))<CR>]],
+		opts
+	)
+	vim.keymap.set(
+		"n",
+		"gi",
+		[[<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_ivy({}))<CR>]],
+		opts
+	)
+end
+
 return telescope
