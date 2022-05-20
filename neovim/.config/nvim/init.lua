@@ -339,6 +339,20 @@ return packer.startup(function(use)
 				require("configs.telescope").telescope_ui_selet()
 			end,
 		},
+		-- {
+		-- 	"nvim-telescope/telescope-project.nvim",
+		-- 	after = { "telescope.nvim" },
+		-- 	config = function()
+		-- 		require("configs.telescope").telescope_project()
+		-- 	end,
+		-- },
+		{
+			"ahmedkhalf/project.nvim",
+			after = { "telescope.nvim" },
+			config = function()
+				require("configs.telescope").project()
+			end,
+		},
 	})
 
 	-- treesitter
@@ -447,7 +461,7 @@ return packer.startup(function(use)
 			end,
 			event = "InsertEnter",
 			config = function()
-				require("configs.autocmp").nvim_cmp()
+				require("configs.cmp").nvim_cmp()
 			end,
 			requires = {
 				{
@@ -466,7 +480,7 @@ return packer.startup(function(use)
 					"hrsh7th/cmp-buffer",
 					after = "nvim-cmp",
 					config = function()
-						require("configs.autocmp").cmp_buffer()
+						require("configs.cmp").cmp_buffer()
 					end,
 				},
 				-- {
@@ -491,7 +505,7 @@ return packer.startup(function(use)
 			after = "nvim-cmp",
 			config = function()
 				require("luasnip.loaders.from_vscode").load()
-				require("configs.autocmp").luasnip()
+				require("configs.cmp").luasnip()
 			end,
 			requires = {
 				"rafamadriz/friendly-snippets",
@@ -502,7 +516,7 @@ return packer.startup(function(use)
 			"windwp/nvim-autopairs",
 			after = "nvim-cmp",
 			config = function()
-				require("configs.autocmp").nvim_autopairs()
+				require("configs.cmp").nvim_autopairs()
 			end,
 		},
 		{
@@ -510,31 +524,8 @@ return packer.startup(function(use)
 			wants = { "nvim-treesitter" }, -- or require if not used so far
 			after = "nvim-cmp",
 			config = function()
-				require("configs.autocmp").tabout()
+				require("configs.cmp").tabout()
 			end,
 		},
-
-		use({
-			"rmagatti/auto-session",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			config = function()
-				require("auto-session").setup({
-					log_level = "info",
-					auto_session_suppress_dirs = { "~/", "~/Projects" },
-				})
-			end,
-		}),
-		-- dap
-		-- use({
-		-- 	"mfussenegger/nvim-dap",
-		-- 	requires = {
-		-- 		"rcarriga/nvim-dap-ui",
-		-- 		config = function ()
-		-- 			require("configs.dap").nvim_dap_ui()
-		-- 		end
-		-- 	},
-		-- }),
 	})
 end)

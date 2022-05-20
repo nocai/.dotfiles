@@ -1,6 +1,6 @@
-local telescope = {}
+local m = {}
 
-function telescope.config()
+function m.config()
 	local actions = require("telescope.actions")
 	require("telescope").setup({
 		defaults = {
@@ -33,8 +33,8 @@ function telescope.config()
 	-- keymap
 	vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
 
-	vim.keymap.set("n", "<C-k>p", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
-	vim.keymap.set("n", "<C-k><C-p>", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
+	vim.keymap.set("n", "<C-k>f", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
+	vim.keymap.set("n", "<C-k><C-f>", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
 
 	vim.keymap.set("n", "<C-k>g", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 	vim.keymap.set("n", "<C-k><C-g>", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
@@ -48,7 +48,7 @@ function telescope.config()
 	vim.keymap.set("n", "<C-k><C-r>", [[<cmd>lua require("telescope.builtin").resume()<CR>]])
 end
 
-function telescope.telescope_fzf_native()
+function m.telescope_fzf_native()
 	require("telescope").setup({
 		extensions = {
 			fzf = {
@@ -62,7 +62,7 @@ function telescope.telescope_fzf_native()
 	require("telescope").load_extension("fzf")
 end
 
-function telescope.telescope_ui_selet()
+function m.telescope_ui_selet()
 	-- This is your opts table
 	require("telescope").setup({
 		extensions = {
@@ -76,7 +76,7 @@ function telescope.telescope_ui_selet()
 	require("telescope").load_extension("ui-select")
 end
 
-function telescope.lsp_keymap(opts)
+function m.lsp_keymap(opts)
 	vim.keymap.set(
 		"n",
 		"gs",
@@ -97,4 +97,25 @@ function telescope.lsp_keymap(opts)
 	)
 end
 
-return telescope
+function m.telescope_project()
+	require("telescope").setup({
+		extensions = {
+			project = {
+				hidden_files = false, -- default: false
+				theme = "dropdown",
+			},
+		},
+	})
+	require("telescope").load_extension("project")
+end
+
+function m.project()
+	require("project_nvim").setup({
+		exclude_dirs = { "~/.dotfiles/*/.config/*" },
+	})
+	require("telescope").load_extension("projects")
+	vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
+	vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
+end
+
+return m

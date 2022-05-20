@@ -1,4 +1,4 @@
-local autocmp = {
+local m = {
 	lspkind_icon = {
 		Class = " ",
 		Color = " ",
@@ -28,7 +28,7 @@ local autocmp = {
 	},
 }
 
-function autocmp.nvim_cmp()
+function m.nvim_cmp()
 	local cmp = require("cmp")
 	cmp.setup({
 		-- preselect = cmp.PreselectMode.None,
@@ -49,7 +49,7 @@ function autocmp.nvim_cmp()
 			fields = { "kind", "abbr", "menu" },
 			duplicates_default = 0,
 			format = function(entry, vim_item)
-				vim_item.kind = autocmp.lspkind_icon[vim_item.kind]
+				vim_item.kind = m.lspkind_icon[vim_item.kind]
 
 				local maxwidth = 30
 				if string.len(vim_item.abbr) > maxwidth then
@@ -115,7 +115,7 @@ function autocmp.nvim_cmp()
 	-- vim.cmd([[ autocmd FileType lua lua require('cmp').setup.buffer { sources = { {name='nvim_lua'} } } ]])
 end
 
-function autocmp.cmp_buffer()
+function m.cmp_buffer()
 	-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 	local cmp = require("cmp")
 	cmp.setup.cmdline("/", {
@@ -125,7 +125,7 @@ function autocmp.cmp_buffer()
 	})
 end
 
-function autocmp.luasnip()
+function m.luasnip()
 	require("luasnip.config").setup({
 		region_check_events = "InsertEnter",
 	})
@@ -160,7 +160,7 @@ function autocmp.luasnip()
 	})
 end
 
-function autocmp.nvim_autopairs()
+function m.nvim_autopairs()
 	require("nvim-autopairs").setup({})
 	local ok, cmp = pcall(require, "cmp")
 	if ok then
@@ -169,7 +169,7 @@ function autocmp.nvim_autopairs()
 	end
 end
 
-function autocmp.tabout()
+function m.tabout()
 	require("tabout").setup({
 		tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
 		backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
@@ -190,4 +190,4 @@ function autocmp.tabout()
 	})
 end
 
-return autocmp
+return m

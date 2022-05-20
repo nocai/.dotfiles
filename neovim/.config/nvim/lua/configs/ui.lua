@@ -28,12 +28,12 @@ function ui.tokyonight()
 	vim.g.tokyonight_terminal_colors = true
 
 	vim.g.tokyonight_colors = { bg_float = "none" }
-	-- vim.g.tokyonight_colors = { bg_highlight = "#2f3e42" }
 end
 
 function ui.nvim_tree()
 	vim.g.nvim_tree_group_empty = 1
 	vim.g.nvim_tree_highlight_opened_files = 3
+	vim.g.nvim_tree_respect_buf_cwd = 1
 
 	vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")
 
@@ -119,7 +119,7 @@ function ui.lualine()
 			},
 			lualine_z = { "tabs" },
 		},
-		extensions = { "nvim-tree", "quickfix", "toggleterm" },
+		extensions = { "nvim-tree", "quickfix" },
 	})
 end
 
