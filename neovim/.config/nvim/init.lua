@@ -75,13 +75,22 @@ return packer.startup(function(use)
 		},
 		{
 			"akinsho/nvim-bufferline.lua",
+			disable = true,
 			cond = function()
-				return false
-				-- return not nvim.is_vscode
+				return nvim.is_not_vscode
 			end,
 			after = { "nvim-web-devicons" },
 			config = function()
 				require("configs.ui").nvim_bufferline()
+			end,
+		},
+		{
+			"stevearc/dressing.nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("configs.ui").dressing()
 			end,
 		},
 	})
@@ -324,6 +333,7 @@ return packer.startup(function(use)
 		},
 		{
 			"nvim-telescope/telescope-ui-select.nvim",
+			disable = true,
 			after = { "telescope.nvim" },
 			config = function()
 				require("configs.telescope").telescope_ui_selet()

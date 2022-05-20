@@ -82,12 +82,12 @@ function ui.nvim_tree()
 					{ key = "y", cb = tree_cb("copy_name") },
 					{ key = "Y", cb = tree_cb("copy_path") },
 					{ key = "gy", cb = tree_cb("copy_absolute_path") },
-					{ key = "[c", cb = tree_cb("prev_git_item") },
-					{ key = "]c", cb = tree_cb("next_git_item") },
+					{ key = "[g", cb = tree_cb("prev_git_item") },
+					{ key = "]g", cb = tree_cb("next_git_item") },
 					{ key = "-", cb = tree_cb("dir_up") },
 					{ key = "s", cb = tree_cb("system_open") },
 					{ key = "q", cb = tree_cb("close") },
-					{ key = "g?", cb = tree_cb("toggle_help") },
+					{ key = { "?", "g?" }, cb = tree_cb("toggle_help") },
 				},
 			},
 		},
@@ -139,4 +139,27 @@ function ui.nvim_bufferline()
 		},
 	})
 end
+
+function ui.dressing()
+	require("dressing").setup({
+		input = {
+			-- Set to false to disable the vim.ui.input implementation
+			enabled = true,
+			-- Window transparency (0-100)
+			winblend = 0,
+			-- Change default highlight groups (see :help winhl)
+			winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+		},
+		select = {
+			-- Options for built-in selector
+			builtin = {
+				-- Window transparency (0-100)
+				winblend = 0,
+				-- Change default highlight groups (see :help winhl)
+				winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+			},
+		},
+	})
+end
+
 return ui

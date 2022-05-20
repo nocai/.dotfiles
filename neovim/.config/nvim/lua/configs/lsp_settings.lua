@@ -77,7 +77,7 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 	vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set({ "n", "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+	vim.keymap.set({ "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	local present, _ = pcall(require, "telescope")
 	if present then
 		require("configs.telescope").lsp_keymap(opts)
