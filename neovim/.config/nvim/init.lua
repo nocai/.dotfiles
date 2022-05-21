@@ -250,7 +250,7 @@ return packer.startup(function(use)
 			end,
 			ft = { "go", "rust", "java" },
 			config = function()
-				require("configs.tools").vim_quickrun()
+				require("configs.tools").vim_test()
 			end,
 		},
 		{
@@ -447,6 +447,14 @@ return packer.startup(function(use)
 			after = { "nvim-lspconfig" },
 			config = function()
 				require("configs.lsp").lsp_signature()
+			end,
+		},
+		{
+			"simrat39/symbols-outline.nvim",
+			after = { "nvim-lspconfig" },
+			key = { "gO" },
+			setup = function()
+				require("configs.lsp").symbols_outline()
 			end,
 		},
 		{
