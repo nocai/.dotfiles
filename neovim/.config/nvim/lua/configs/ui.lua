@@ -112,12 +112,31 @@ function ui.lualine()
 					"buffers",
 					buffers_color = {
 						-- Same values as the general color option can be used here.
-						active = "lualine_a_normal", -- Color for active buffer.
-						inactive = "lualine_b_normal", -- Color for inactive buffer.
+						active = "lualine_b_normal", -- Color for active buffer.
+						inactive = "lualine_c_normal", -- Color for inactive buffer.
 					},
 				},
 			},
-			lualine_z = { "tabs" },
+			lualine_y = {
+				{
+					"windows",
+					windows_color = {
+						-- Same values as the general color option can be used here.
+						active = "lualine_b_normal", -- Color for active window.
+						inactive = "lualine_c_normal", -- Color for inactive window.
+					},
+				},
+			},
+			lualine_z = {
+				{
+					"tabs",
+					tabs_color = {
+						-- Same values as the general color option can be used here.
+						active = "lualine_a_normal", -- Color for active tab.
+						inactive = "lualine_b_normal", -- Color for inactive tab.
+					},
+				},
+			},
 		},
 		extensions = { "nvim-tree", "quickfix" },
 	})
