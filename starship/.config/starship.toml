@@ -1,0 +1,9 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+[character]
+error_symbol = "[❯](bold red)"
+
+[directory]
+truncation_length=10
+truncation_symbol = "…/"
