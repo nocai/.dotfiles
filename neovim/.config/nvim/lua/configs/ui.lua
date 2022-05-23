@@ -39,6 +39,29 @@ function ui.nvim_tree()
 	vim.g.nvim_tree_group_empty = 1
 	vim.g.nvim_tree_highlight_opened_files = 3
 	vim.g.nvim_tree_respect_buf_cwd = 1
+	vim.g.nvim_tree_icons = {
+		default = "",
+		symlink = "",
+		git = {
+			deleted = "-",
+			ignored = "◌",
+			renamed = "~",
+			staged = "✓",
+			unmerged = "",
+			unstaged = "✗",
+			untracked = "",
+		},
+		-- folder = {
+		-- 	default = "",
+		-- 	empty = "",
+		-- 	empty_open = "",
+		-- 	open = "",
+		-- 	symlink = "",
+		-- 	symlink_open = "",
+		-- 	arrow_open = "",
+		-- 	arrow_closed = "",
+		-- },
+	}
 
 	vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")
 
