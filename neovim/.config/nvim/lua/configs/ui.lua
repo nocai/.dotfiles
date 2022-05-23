@@ -15,18 +15,23 @@ function ui.sonokai()
 end
 
 function ui.tokyonight()
+	-- storm/night/day
+	vim.g.tokyonight_style = "storm"
+
+	vim.g.tokyonight_italic_comments = true
+	vim.g.tokyonight_italic_keywords = true
 	vim.g.tokyonight_italic_functions = true
-	-- vim.g.tokyonight_style = "night"
 	vim.g.tokyonight_italic_variables = true
+	vim.g.tokyonight_lualine_bold = true
 
 	vim.g.tokyonight_transparent = true
 	vim.g.tokyonight_transparent_sidebar = true
-	vim.g.tokyonight_dark_float = false
+	vim.g.tokyonight_dark_float = true
 
 	vim.g.tokyonight_hide_inactive_statusline = true
-	vim.g.tokyonight_lualine_bold = true
 	vim.g.tokyonight_terminal_colors = true
 
+	-- bg_statusline = "none"
 	vim.g.tokyonight_colors = { bg_float = "none" }
 end
 
@@ -58,8 +63,8 @@ function ui.nvim_tree()
 				list = {
 					{ key = { "<CR>", "o", "<2-LeftMouse>" }, cb = tree_cb("edit") },
 					{ key = { "<2-RightMouse>", "<C-]>" }, cb = tree_cb("cd") },
-					{ key = "<C-v>", cb = tree_cb("vsplit") },
-					{ key = "<C-x>", cb = tree_cb("split") },
+					{ key = { "<C-v>", "v" }, cb = tree_cb("vsplit") },
+					{ key = { "<C-x>", "s" }, cb = tree_cb("split") },
 					{ key = "<C-t>", cb = tree_cb("tabnew") },
 					{ key = "<", cb = tree_cb("prev_sibling") },
 					{ key = ">", cb = tree_cb("next_sibling") },
@@ -85,7 +90,7 @@ function ui.nvim_tree()
 					{ key = "[g", cb = tree_cb("prev_git_item") },
 					{ key = "]g", cb = tree_cb("next_git_item") },
 					{ key = "-", cb = tree_cb("dir_up") },
-					{ key = "s", cb = tree_cb("system_open") },
+					-- { key = "s", cb = tree_cb("system_open") },
 					{ key = "q", cb = tree_cb("close") },
 					{ key = { "?", "g?" }, cb = tree_cb("toggle_help") },
 				},
@@ -101,8 +106,10 @@ function ui.lualine()
 		options = {
 			theme = "auto",
 			globalstatus = true,
-			-- section_separators = "",
-			-- component_separators = "",
+			-- component_separators = { left = "", right = "" },
+			-- section_separators = { left = '', right = '' },
+			section_separators = "",
+			component_separators = "",
 			-- section_separators = { left = "", right = "" },
 			-- component_separators = { left = "", right = "" },
 		},
@@ -135,6 +142,7 @@ function ui.lualine()
 						active = "lualine_a_normal", -- Color for active tab.
 						inactive = "lualine_b_normal", -- Color for inactive tab.
 					},
+					separator = { left = "" },
 				},
 			},
 		},

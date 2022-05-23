@@ -47,7 +47,7 @@ function lsp.symbols_outline()
 	-- init.lua
 	vim.g.symbols_outline = {
 		auto_preview = false,
-		auto_close = true,
+		auto_close = false,
 		width = 20,
 		preview_bg_highlight = "Normal",
 		keymaps = { -- These keymaps can be a string or a table for multiple keys

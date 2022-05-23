@@ -1,3 +1,9 @@
+-- windows
+vim.keymap.set("n", "<M-h>", "<C-w><C-h>")
+vim.keymap.set("n", "<M-n>", "<C-w><C-j>")
+vim.keymap.set("n", "<M-e>", "<C-w><C-k>")
+vim.keymap.set("n", "<M-i>", "<C-w><C-l>")
+
 -- terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("t", "<M-n>", "<C-\\><C-n><C-w>j")
