@@ -52,7 +52,7 @@ function lsp.symbols_outline()
 		preview_bg_highlight = "Normal",
 		keymaps = { -- These keymaps can be a string or a table for multiple keys
 			close = { "<Esc>", "q" },
-			goto_location = "<CR>",
+			goto_location = { "<CR>", "<2-LeftMouse>" },
 			focus_location = "o",
 			hover_symbol = { "<C-e>", "E" },
 			toggle_preview = "<Tab>",
@@ -61,6 +61,7 @@ function lsp.symbols_outline()
 		},
 	}
 	vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
+	vim.cmd("hi link FocusedSymbol PmenuSel")
 end
 
 return lsp

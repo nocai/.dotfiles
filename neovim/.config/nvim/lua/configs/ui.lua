@@ -39,29 +39,6 @@ function ui.nvim_tree()
 	vim.g.nvim_tree_group_empty = 1
 	vim.g.nvim_tree_highlight_opened_files = 3
 	vim.g.nvim_tree_respect_buf_cwd = 1
-	vim.g.nvim_tree_icons = {
-		default = "",
-		symlink = "",
-		git = {
-			deleted = "-",
-			ignored = "◌",
-			renamed = "~",
-			staged = "✓",
-			unmerged = "",
-			unstaged = "✗",
-			untracked = "",
-		},
-		-- folder = {
-		-- 	default = "",
-		-- 	empty = "",
-		-- 	empty_open = "",
-		-- 	open = "",
-		-- 	symlink = "",
-		-- 	symlink_open = "",
-		-- 	arrow_open = "",
-		-- 	arrow_closed = "",
-		-- },
-	}
 
 	vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")
 
@@ -131,8 +108,8 @@ function ui.lualine()
 			globalstatus = true,
 			-- component_separators = { left = "", right = "" },
 			-- section_separators = { left = '', right = '' },
-			section_separators = "",
-			component_separators = "",
+			-- section_separators = "",
+			-- component_separators = "",
 			-- section_separators = { left = "", right = "" },
 			-- component_separators = { left = "", right = "" },
 		},
@@ -163,7 +140,7 @@ function ui.lualine()
 					tabs_color = {
 						-- Same values as the general color option can be used here.
 						active = "lualine_a_normal", -- Color for active tab.
-						inactive = "lualine_b_normal", -- Color for inactive tab.
+						inactive = "lualine_c_normal", -- Color for inactive tab.
 					},
 					separator = { left = "" },
 				},
