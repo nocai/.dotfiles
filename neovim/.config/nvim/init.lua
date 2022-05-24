@@ -23,7 +23,6 @@ return packer.startup(function(use)
 	use({
 		{
 			"sainnhe/sonokai",
-			disable = true,
 			cond = function()
 				return not nvim.is_vscode
 			end,
@@ -31,12 +30,11 @@ return packer.startup(function(use)
 				require("configs.ui").sonokai()
 			end,
 			config = function()
-				vim.cmd([[colorscheme sonokai]])
+				-- vim.cmd([[colorscheme sonokai]])
 			end,
 		},
 		{
 			"folke/tokyonight.nvim",
-			-- disable = true,
 			cond = function()
 				return not nvim.is_vscode
 			end,

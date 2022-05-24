@@ -37,12 +37,12 @@ function m.nvim_cmp()
 		-- },
 		window = {
 			completion = {
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+				border = nvim.window.border,
+				winhighlight = nvim.window.winhighlight,
 			},
 			documentation = {
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+				border = nvim.window.border,
+				winhighlight = nvim.window.winhighlight,
 			},
 		},
 		formatting = {

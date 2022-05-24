@@ -16,4 +16,9 @@ _G.nvim = {
 			error = "",
 		},
 	},
+	window = {
+		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		winblend = 0,
+		winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+	},
 }

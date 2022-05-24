@@ -16,9 +16,8 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
-local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = border,
+	border = nvim.window.border,
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
@@ -80,7 +79,11 @@ local function on_attach(client, bufnr)
 	vim.keymap.set({ "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	local present, _ = pcall(require, "telescope")
 	if present then
-		require("configs.telescope").lsp_keymap(opts)
+		-- stylua: ignore start
+		vim.keymap.set( "n", "gs", [[<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))<CR>]], opts)
+		vim.keymap.set( "n", "gr", [[<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))<CR>]], opts)
+		vim.keymap.set( "n", "gi", [[<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_ivy({}))<CR>]], opts)
+		-- stylua: ignore end
 	else
 		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
