@@ -62,6 +62,16 @@ function lsp.symbols_outline()
 	}
 	vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
 	vim.cmd("hi link FocusedSymbol PmenuSel")
+
+	-- auto close symbols-outline window when it is the last window
+	nvim.set_symbols_outline_state = function()
+		vim.g["symbols_outline_state"] = require("symbols-outline").state
+	end
+
+	vim.cmd([[
+		autocmd BufEnter * :lua nvim.set_symbols_outline_state()
+		autocmd BufEnter * if winnr('$') == 1 && exists('g:symbols_outline_state.outline_buf') && g:symbols_outline_state.outline_buf | quit | endif
+	]])
 end
 
 return lsp
