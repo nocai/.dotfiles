@@ -147,8 +147,8 @@ return packer.startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			keys = { "<C-\\>" },
-			cmd = { "Glow" },
+			keys = { "<C-\\>", "<Leader>gg" },
+			cmd = { "Glow", "Lazygit" },
 			config = function()
 				require("configs.misc").toggleterm()
 			end,

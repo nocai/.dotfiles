@@ -69,12 +69,21 @@ function misc.toggleterm()
 		},
 	})
 
-	function _G.toggle_glow()
-		local Terminal = require("toggleterm.terminal").Terminal
-		local glow = Terminal:new({ cmd = "glow -p " .. vim.fn.expand("%"), hidden = true })
+	local Terminal = require("toggleterm.terminal").Terminal
+
+	-- glow
+	local glow = Terminal:new({ cmd = "glow -p " .. vim.fn.expand("%"), hidden = true })
+	vim.api.nvim_create_user_command("Glow", function()
 		glow:toggle()
-	end
-	-- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua toggle_glow()<CR>", { noremap = true, silent = true })
-	vim.cmd([[command! -nargs=? -complete=file Glow :lua toggle_glow()<CR>]])
+	end, { nargs = "?" })
+
+	-- lazygit
+	local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+	vim.keymap.set("n", "<leader>gg", function()
+		lazygit:toggle()
+	end, { silent = true })
+	vim.api.nvim_create_user_command("Lazygit", function()
+		lazygit:toggle()
+	end, {})
 end
 return misc
