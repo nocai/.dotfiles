@@ -91,6 +91,24 @@ return packer.startup(function(use)
 				require("configs.ui").dressing()
 			end,
 		},
+		{
+			"goolord/alpha-nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("configs.ui").alpha_nvim()
+			end,
+		},
+		{
+			"rcarriga/nvim-notify",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				vim.notify = require("notify")
+			end,
+		},
 	})
 
 	-- misc
@@ -180,6 +198,18 @@ return packer.startup(function(use)
 			end,
 			config = function()
 				require("configs.misc").vim_sandwich()
+			end,
+		},
+		{
+			"rmagatti/auto-session",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("auto-session").setup({
+					log_level = "info",
+					auto_session_suppress_dirs = { "~/", "~/Projects" },
+				})
 			end,
 		},
 	})

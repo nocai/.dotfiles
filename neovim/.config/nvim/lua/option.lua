@@ -47,7 +47,7 @@ vim.o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 5
 
-vim.o.pumheight = 10
+vim.o.pumheight = 15
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -96,3 +96,6 @@ vim.g.do_filetype_lua          = 1
 vim.g.loaded_ruby_provider = 0
 -- disable perl
 vim.g.loaded_perl_provider = 0
+
+-- for plugin: "rmagatti/auto-session"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"

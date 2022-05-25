@@ -41,6 +41,9 @@ function m.config()
 	vim.keymap.set("n", "<C-k>h",     [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 	vim.keymap.set("n", "<C-k><C-h>", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 
+	vim.keymap.set("n", "<C-k>o",     [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+	vim.keymap.set("n", "<C-k><C-o>", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+
 	vim.keymap.set("n", "<C-k><C-r>", [[<cmd>lua require("telescope.builtin").resume()<CR>]])
 end
 
