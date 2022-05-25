@@ -202,13 +202,13 @@ function ui.alpha_nvim()
 	-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 	-- }
 	dashboard.section.buttons.val = {
+		dashboard.button("<C-k><C-f>", "  Find file"),
+		dashboard.button("<C-k><C-g>", "  Find word"),
+		dashboard.button("<C-k><C-o>", "  Recently opened files"),
+		dashboard.button("<C-k><C-p>", "  Projects"),
+
 		dashboard.button("k", "  New file", ":ene <BAR> startinsert <CR>"),
 		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
-
-		dashboard.button("<C-k><C-f>", "  Find file"),
-		dashboard.button("<C-k><C-o>", "  Recently opened files"),
-		dashboard.button("<C-k><C-g>", "  Find word"),
-		dashboard.button("<C-k><C-p>", "  Projects"),
 	}
 	require("alpha").setup(dashboard.config)
 end
