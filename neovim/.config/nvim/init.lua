@@ -213,6 +213,32 @@ return packer.startup(function(use)
 				})
 			end,
 		},
+		-- {
+		-- 	"luukvbaal/stabilize.nvim",
+		-- 	cond = function()
+		-- 		return nvim.is_not_vscode
+		-- 	end,
+		-- 	config = function()
+		-- 		require("stabilize").setup()
+		-- 	end,
+		-- },
+		{
+			"famiu/bufdelete.nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				-- Force delete current buffer
+				vim.keymap.set("n", "<Leader>bd", function()
+					require("bufdelete").bufdelete(0, true)
+				end)
+
+				-- Wipeout buffer number 100 without force
+				vim.keymap.set("n", "<Leader>bw", function()
+					require("bufdelete").bufwipeout(0)
+				end)
+			end,
+		},
 	})
 
 	-- textobject

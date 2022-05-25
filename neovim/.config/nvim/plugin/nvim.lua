@@ -18,9 +18,7 @@ vim.keymap.set("n", "<Left>", "<cmd>vertical resize-5<cr>")
 vim.keymap.set("n", "<Right>", "<cmd>vertical resize+5<cr>")
 
 -- buffers
-vim.keymap.set("n", "]b", "<cmd>bnext<cr>")
-vim.keymap.set("n", "]B", "<cmd>blast<cr>")
-vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
-vim.keymap.set("n", "[B", "<cmd>bfirst<cr>")
-
-vim.keymap.set("", "<C-s>", "<cmd>wall<cr>")
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>")
+vim.keymap.set("n", "]b", "<cmd>blast<cr>")
+vim.keymap.set("n", "[b", "<cmd>bfirst<cr>")

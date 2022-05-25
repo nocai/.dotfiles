@@ -32,7 +32,7 @@ onoremap J          E
 nnoremap gj         ge
 nnoremap gJ         gE
 nnoremap <C-j>      <C-e>
-nnoremap <C-w>j	   <C-w>e
+nnoremap <C-w>j	    <C-w>e
 nnoremap <C-w><C-j> <C-w><C-e>
 " }}}
 

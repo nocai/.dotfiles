@@ -69,6 +69,9 @@ vim.opt.shortmess:append("sI")
 vim.opt.whichwrap:append("<>[]hl")
 vim.opt.wrap = false
 
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- disable distribution plugins
 -- stylua: ignore start
 vim.g.loaded_gzip              = 1

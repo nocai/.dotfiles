@@ -46,9 +46,11 @@ function ui.nvim_tree()
 	local tree_cb = require("nvim-tree.config").nvim_tree_callback
 	-- stylua: ignore
 	require("nvim-tree").setup({
+		hijack_cursor = true,
+		update_cwd = true,
 		update_focused_file = {
 			enable = true,
-			update_cwd = true,
+			update_cwd = false,
 		},
 		renderer = {
 			indent_markers = {
@@ -119,6 +121,7 @@ function ui.lualine()
 			lualine_a = {
 				{
 					"buffers",
+					mode = 2,
 					buffers_color = {
 						-- Same values as the general color option can be used here.
 						active = "lualine_b_normal", -- Color for active buffer.
