@@ -210,6 +210,7 @@ function ui.alpha_nvim()
 		dashboard.button("k", "  New file", ":ene <BAR> startinsert <CR>"),
 		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
 	}
+	dashboard.opts.opts.noautocmd = true
 	require("alpha").setup(dashboard.config)
 end
 

@@ -217,11 +217,11 @@ schemes:
       - { index: 16, color: '0xff9e64' }
       - { index: 17, color: '0xdb4b4b' }
         
-  # Transparent cell backgrounds
-  #
-  # Whether or not `window.opacity` applies to all cell backgrounds or only to
-  # the default background. When set to `true` all cells will be transparent
-  # regardless of their background color.
+    # Transparent cell backgrounds
+    #
+    # Whether or not `window.opacity` applies to all cell backgrounds or only to
+    # the default background. When set to `true` all cells will be transparent
+    # regardless of their background color.
     transparent_background_colors: false
 
   # Colors (Dracula)

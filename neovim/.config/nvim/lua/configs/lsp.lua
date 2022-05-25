@@ -56,7 +56,7 @@ function lsp.symbols_outline()
 			focus_location = "o",
 			hover_symbol = { "<C-e>", "E" },
 			toggle_preview = "<Tab>",
-			rename_symbol = { "gn", "r", "rn", "rs" },
+			rename_symbol = { "gn", "r" },
 			code_actions = { "ga", "ca" },
 		},
 	}

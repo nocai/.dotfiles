@@ -133,6 +133,7 @@ return packer.startup(function(use)
 		},
 		{
 			"karb94/neoscroll.nvim",
+			disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
@@ -262,6 +263,16 @@ return packer.startup(function(use)
 			end,
 		},
 		{
+			"sindrets/diffview.nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			cmd = { "DiffviewOpen" },
+			config = function()
+				require("configs.tools").diffview()
+			end,
+		},
+		{
 			"thinca/vim-quickrun",
 			cond = function()
 				return not vim.g.vscode
@@ -354,7 +365,7 @@ return packer.startup(function(use)
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			after = { "telescope.nvim" },
-			-- run = "make",
+			run = "make",
 			config = function()
 				require("configs.telescope").telescope_fzf_native()
 			end,
