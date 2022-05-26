@@ -6,9 +6,9 @@ vim.keymap.set("n", "<M-i>", "<C-w><C-l>")
 
 -- terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("t", "<M-h>", "<C-\\><C-n><C-w>h")
 vim.keymap.set("t", "<M-n>", "<C-\\><C-n><C-w>j")
 vim.keymap.set("t", "<M-e>", "<C-\\><C-n><C-w>k")
-vim.keymap.set("t", "<M-h>", "<C-\\><C-n><C-w>h")
 vim.keymap.set("t", "<M-i>", "<C-\\><C-n><C-w>l")
 
 -- Resize splits with arrow keys

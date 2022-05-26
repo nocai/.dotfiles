@@ -71,7 +71,7 @@ xnoremap I          L
 onoremap I          L
 nnoremap <C-i>      <C-l>
 nnoremap <C-w>i     <C-w>l
-nnoremap <C-w><C-i> <C-w><C-l>
+nnoremap <C-w><Tab> <C-w><C-l>
 " }}}
 
 " lL => iI {{{
