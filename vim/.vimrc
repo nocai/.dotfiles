@@ -1,1 +1,1 @@
-../neovim/.config/nvim/plugin/colmark.vim
+../neovim/.config/nvim/plugin/colemak.vim

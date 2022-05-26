@@ -10,9 +10,9 @@ _G.nvim = {
 		enable = true,
 		show_on_dirs = true,
 		icons = {
-			hint = "",
+			hint = "",
 			info = "",
-			warning = "",
+			warning = "",
 			error = "",
 		},
 	},
