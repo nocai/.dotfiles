@@ -55,6 +55,7 @@ function ui.nvim_tree()
 		renderer = {
 			indent_markers = {
 				enable = true,
+				icons = { corner = "╰ ", edge = "┊ " }
 			},
 			icons = {
 				git_placement = "signcolumn",
