@@ -50,7 +50,7 @@ function ui.nvim_tree()
 	-- stylua: ignore
 	require("nvim-tree").setup({
 		update_cwd = true,
-		hijack_cursor = true,
+		-- hijack_cursor = true,
 		diagnostics = nvim.diagnostics,
 		update_focused_file = {
 			enable = true,
