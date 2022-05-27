@@ -106,7 +106,7 @@ return packer.startup(function(use)
 				return nvim.is_not_vscode
 			end,
 			config = function()
-				vim.notify = require("notify")
+				require("configs.ui").notify()
 			end,
 		},
 	})
@@ -271,13 +271,6 @@ return packer.startup(function(use)
 
 	-- tools
 	use({
-		{
-			"tpope/vim-fugitive",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			cmd = { "G", "Git" },
-		},
 		{
 			"lewis6991/gitsigns.nvim",
 			cond = function()

@@ -191,4 +191,17 @@ function ui.alpha_nvim()
 	require("alpha").setup(dashboard.config)
 end
 
+function ui.notify()
+	local notify = require("notify")
+	notify.setup({
+		background_colour = "Pmenu",
+	})
+	vim.notify = notify
+
+	local present, telescope = pcall(require, "telescope")
+	if present then
+		telescope.load_extension("notify")
+	end
+end
+
 return ui
