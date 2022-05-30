@@ -1,7 +1,28 @@
 -- vim.lsp.set_log_level("debug")
 
 local settings = require("configs.lsp_settings")
+
 local lsp = {}
+
+function lsp.nvim_lsp_installer()
+	require("nvim-lsp-installer").setup({
+		automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+		ui = {
+			keymaps = {
+				-- Keymap to install the server under the current cursor position
+				install_server = "l",
+			},
+		},
+		github = {
+			-- The template URL to use when downloading assets from GitHub.
+			-- The placeholders are the following (in order):
+			-- 1. The repository (e.g. "rust-lang/rust-analyzer")
+			-- 2. The release version (e.g. "v0.3.0")
+			-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
+			download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
+		},
+	})
+end
 
 function lsp.nvim_lspconfig()
 	local lspconfig = require("lspconfig")

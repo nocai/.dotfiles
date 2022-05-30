@@ -296,7 +296,7 @@ return packer.startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			ft = { "go", "rust" },
+			ft = { "go", "rust", "python" },
 			config = function()
 				require("configs.tools").vim_quickrun()
 			end,
@@ -478,12 +478,21 @@ return packer.startup(function(use)
 	-- lsp
 	use({
 		{
+			"williamboman/nvim-lsp-installer",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = "VimEnter",
+		},
+		{
 			"neovim/nvim-lspconfig",
 			cond = function()
 				return not vim.g.vscode
 			end,
+			after = { "nvim-lsp-installer" },
 			event = "VimEnter",
 			config = function()
+				require("configs.lsp").nvim_lsp_installer()
 				require("configs.lsp").nvim_lspconfig()
 			end,
 		},

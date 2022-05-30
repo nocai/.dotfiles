@@ -37,32 +37,34 @@ function ui.tokyonight()
 end
 
 function ui.nvim_tree()
-	vim.g.nvim_tree_group_empty = 1
-	vim.g.nvim_tree_highlight_opened_files = 3
-	vim.g.nvim_tree_respect_buf_cwd = 1
-	vim.g.nvim_tree_icons = {
-		git = {
-			untracked = "",
-		},
-		lsp = nvim.diagnostics.icons,
-	}
-
 	-- stylua: ignore
 	require("nvim-tree").setup({
-		update_cwd = true,
-		-- hijack_cursor = true,
+		hijack_cursor = true,
+		reload_on_bufenter = true,
 		diagnostics = nvim.diagnostics,
+
+		update_cwd = true,
+		respect_buf_cwd = true,
 		update_focused_file = {
 			enable = true,
 			update_cwd = false,
 		},
 		renderer = {
+			group_empty = true,
+			highlight_opened_files = "all",
 			indent_markers = {
 				enable = true,
 				icons = { corner = "╰ ", edge = "┊ " }
 			},
 			icons = {
 				git_placement = "signcolumn",
+				glyphs = {
+					git = {
+						unstaged = "✗",
+						staged = "✓",
+						untracked = "",
+					},
+				},
 			},
 		},
 		view = {
