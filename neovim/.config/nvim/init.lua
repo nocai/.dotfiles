@@ -90,7 +90,6 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "VimEnter",
 			config = function()
 				require("configs.ui").dressing()
 			end,
@@ -170,7 +169,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = "VimEnter",
+			event = "BufRead",
 			ft = { "lua", "html", "css" },
 			config = function()
 				require("colorizer").setup()
@@ -181,7 +180,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "VimEnter",
+			event = "BufRead",
 			setup = function()
 				vim.g.indent_blankline_char = "┊"
 				vim.g.indent_blankline_show_first_indent_level = false
@@ -199,25 +198,12 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"machakann/vim-sandwich",
-			event = { "BufRead" },
 			setup = function()
 				vim.g.textobj_sandwich_no_default_key_mappings = 1
 			end,
+			keys = { "sa", "sr", "sd" },
 			config = function()
 				require("configs.misc").vim_sandwich()
-			end,
-		},
-		{
-			"rmagatti/auto-session",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			config = function()
-				require("auto-session").setup({
-					log_level = "info",
-					auto_session_suppress_dirs = { "~/", "~/Projects" },
-				})
 			end,
 		},
 		{
@@ -342,47 +328,33 @@ return require("configs.packer").startup(function(use)
 
 	-- telescope
 	use({
-		{
-			"nvim-telescope/telescope.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = { "VimEnter" },
-			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("configs.telescope").config()
-			end,
-		},
-
-		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			after = { "telescope.nvim" },
-			run = "make",
-			config = function()
-				require("configs.telescope").telescope_fzf_native()
-			end,
-		},
-		{
-			"nvim-telescope/telescope-ui-select.nvim",
-			disable = true,
-			after = { "telescope.nvim" },
-			config = function()
-				require("configs.telescope").telescope_ui_selet()
-			end,
-		},
-		-- {
-		-- 	"nvim-telescope/telescope-project.nvim",
-		-- 	after = { "telescope.nvim" },
-		-- 	config = function()
-		-- 		require("configs.telescope").telescope_project()
-		-- 	end,
-		-- },
-		{
-			"ahmedkhalf/project.nvim",
-			after = { "telescope.nvim" },
-			config = function()
-				require("configs.telescope").project()
-			end,
+		"nvim-telescope/telescope.nvim",
+		cond = function()
+			return nvim.is_not_vscode
+		end,
+		event = { "VimEnter" },
+		config = function()
+			require("configs.telescope")
+		end,
+		requires = {
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+				run = "make",
+			},
+			{
+				"ahmedkhalf/project.nvim",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+				config = function()
+					require("project_nvim").setup({
+						exclude_dirs = { "~/.dotfiles/*/.config/*" },
+					})
+				end,
+			},
 		},
 	})
 
@@ -451,7 +423,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = "BufReadPre",
+			keys = { "gc", "gb" },
 			config = function()
 				require("configs.treesitter").comment()
 			end,
@@ -461,28 +433,29 @@ return require("configs.packer").startup(function(use)
 	-- lsp
 	use({
 		{
+			"neovim/nvim-lspconfig",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = "BufRead",
+			config = function()
+				require("configs.lsp")
+			end,
+		},
+		{
 			"williamboman/nvim-lsp-installer",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "VimEnter",
-		},
-		{
-			"neovim/nvim-lspconfig",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			after = { "nvim-lsp-installer" },
-			event = "VimEnter",
+			cmd = { "LspInstall", "LspInstallInfo", "LspInstallLog" },
 			config = function()
 				require("configs.lsp").nvim_lsp_installer()
-				require("configs.lsp").nvim_lspconfig()
 			end,
 		},
 		{
 			"jose-elias-alvarez/null-ls.nvim",
 			cond = function()
-				return not vim.g.vscode
+				return nvim.is_not_vscode
 			end,
 			ft = { "lua" },
 			config = function()
@@ -502,7 +475,6 @@ return require("configs.packer").startup(function(use)
 		{
 			"simrat39/symbols-outline.nvim",
 			after = { "nvim-lspconfig" },
-			key = { "gO" },
 			setup = function()
 				require("configs.lsp").symbols_outline()
 			end,
@@ -548,21 +520,6 @@ return require("configs.packer").startup(function(use)
 						require("configs.cmp").cmp_buffer()
 					end,
 				},
-				-- {
-				-- 	"hrsh7th/cmp-cmdline",
-				-- 	after = "nvim-cmp",
-				-- 	config = function()
-				-- 		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-				-- 		local cmp = require("cmp")
-				-- 		cmp.setup.cmdline(":", {
-				-- 			sources = cmp.config.sources({
-				-- 				{ name = "path" },
-				-- 			}, {
-				-- 				{ name = "cmdline" },
-				-- 			}),
-				-- 		})
-				-- 	end,
-				-- },
 			},
 		},
 		{

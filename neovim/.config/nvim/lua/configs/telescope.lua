@@ -1,111 +1,69 @@
-local m = {}
+local telescope = require("telescope")
+local actions = require("telescope.actions")
 
-function m.config()
-	local actions = require("telescope.actions")
-	require("telescope").setup({
-		defaults = {
-			prompt_prefix = "  ",
-			previewers = true,
-			mappings = {
-				i = {
-					["<C-k>"] = actions.move_selection_next,
-					["<C-e>"] = actions.move_selection_previous,
-					["<C-l>"] = false,
-					["<C-i>"] = actions.complete_tag,
-				},
-				n = {
-					["j"] = false,
-					["L"] = false,
-					["n"] = actions.move_selection_next,
-					["k"] = actions.move_selection_next,
-					["p"] = actions.move_selection_previous,
-					["e"] = actions.move_selection_previous,
-					["I"] = actions.move_to_bottom,
-				},
+-- keymap
+vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
+
+vim.keymap.set("n", "<C-k>f", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
+vim.keymap.set("n", "<C-k><C-f>", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
+
+vim.keymap.set("n", "<C-k>g", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+vim.keymap.set("n", "<C-k><C-g>", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+
+vim.keymap.set("n", "<C-k>b", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+vim.keymap.set("n", "<C-k><C-b>", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+
+vim.keymap.set("n", "<C-k>h", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
+vim.keymap.set("n", "<C-k><C-h>", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
+
+vim.keymap.set("n", "<C-k>o", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+vim.keymap.set("n", "<C-k><C-o>", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+
+vim.keymap.set("n", "<C-k><C-r>", [[<cmd>lua require("telescope.builtin").resume()<CR>]])
+
+-- stylua: ignore start
+vim.keymap.set("n", "gs", [[<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))<CR>]])
+vim.keymap.set("n", "gr", [[<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))<CR>]])
+vim.keymap.set("n", "gi", [[<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_ivy({}))<CR>]])
+-- stylua: ignore end
+
+telescope.setup({
+	defaults = {
+		prompt_prefix = "  ",
+		previewers = true,
+		mappings = {
+			i = {
+				["<C-k>"] = actions.move_selection_next,
+				["<C-e>"] = actions.move_selection_previous,
+				["<C-l>"] = false,
+				["<C-i>"] = actions.complete_tag,
+			},
+			n = {
+				["j"] = false,
+				["L"] = false,
+				["n"] = actions.move_selection_next,
+				["k"] = actions.move_selection_next,
+				["p"] = actions.move_selection_previous,
+				["e"] = actions.move_selection_previous,
+				["I"] = actions.move_to_bottom,
 			},
 		},
-	})
+	},
 
-	-- keymap
-	vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
+	extensions = {
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = false, -- override the file sorter
+			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+		},
+	},
+})
 
-	vim.keymap.set("n", "<C-k>f", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
-	vim.keymap.set("n", "<C-k><C-f>", [[<cmd>lua require('telescope.builtin').find_files({})<CR>]])
+-- fzf
+telescope.load_extension("fzf")
 
-	vim.keymap.set("n", "<C-k>g", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
-	vim.keymap.set("n", "<C-k><C-g>", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
-
-	vim.keymap.set("n", "<C-k>b", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-	vim.keymap.set("n", "<C-k><C-b>", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-
-	vim.keymap.set("n", "<C-k>h", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
-	vim.keymap.set("n", "<C-k><C-h>", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
-
-	vim.keymap.set("n", "<C-k>o", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-	vim.keymap.set("n", "<C-k><C-o>", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-
-	vim.keymap.set("n", "<C-k><C-r>", [[<cmd>lua require("telescope.builtin").resume()<CR>]])
-end
-
-function m.telescope_fzf_native()
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.setup({
-			extensions = {
-				fzf = {
-					fuzzy = true, -- false will only do exact matching
-					override_generic_sorter = true, -- override the generic sorter
-					override_file_sorter = false, -- override the file sorter
-					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-				},
-			},
-		})
-		telescope.load_extension("fzf")
-	end
-end
-
-function m.telescope_ui_selet()
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.setup({
-			extensions = {
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown({
-						-- even more opts
-					}),
-				},
-			},
-		})
-		telescope.load_extension("ui-select")
-	end
-end
-
-function m.telescope_project()
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.setup({
-			extensions = {
-				project = {
-					hidden_files = false, -- default: false
-					theme = "dropdown",
-				},
-			},
-		})
-		telescope.load_extension("project")
-	end
-end
-
-function m.project()
-	require("project_nvim").setup({
-		exclude_dirs = { "~/.dotfiles/*/.config/*" },
-	})
-
-	local present, telescope = pcall(require, "telescope")
-	if present then
-		telescope.load_extension("projects")
-		vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
-		vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
-	end
-end
-
-return m
+-- projects
+telescope.load_extension("projects")
+vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
+vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
