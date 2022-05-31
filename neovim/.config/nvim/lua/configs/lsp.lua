@@ -112,15 +112,15 @@ local function on_attach(client, bufnr)
 	-- end
 end
 
-local function setting(cfg)
-	cfg = cfg or {}
+local function setting(config)
+	config = config or {}
 
-	cfg.on_attach = on_attach
-	cfg.capabilities = capabilities
-	cfg.flags = {
+	config.on_attach = on_attach
+	config.capabilities = capabilities
+	config.flags = {
 		debounce_text_changes = 150,
 	}
-	return cfg
+	return config
 end
 
 local lspconfig = require("lspconfig")
@@ -133,8 +133,8 @@ end
 local items = vim.fn.globpath(nvim.home .. "/lua/configs/lsp", "*.lua", false, true)
 for _, item in ipairs(items) do
 	local server = vim.fn.fnamemodify(item, ":t:r")
-	local cfg = require("configs.lsp." .. server)
-	lspconfig[server].setup(setting(cfg))
+	local config = require("configs.lsp." .. server)
+	lspconfig[server].setup(setting(config))
 end
 
 local lsp = {

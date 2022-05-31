@@ -28,6 +28,7 @@ return require("configs.packer").startup(function(use)
 		-- colorscheme
 		{
 			"sainnhe/sonokai",
+			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -405,6 +406,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"andymass/vim-matchup",
+			disable = true,
 			after = "nvim-treesitter",
 			event = { "CursorMoved" },
 			config = function()
