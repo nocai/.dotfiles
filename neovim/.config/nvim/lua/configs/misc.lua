@@ -71,7 +71,16 @@ function misc.toggleterm()
 	end, { nargs = "?" })
 
 	-- lazygit
-	local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+	local lazygit = Terminal:new({
+		cmd = "lazygit",
+		hidden = true,
+		on_open = function()
+			vim.keymap.del("t", "<Esc>")
+		end,
+		on_close = function()
+			vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+		end,
+	})
 	vim.keymap.set("n", "<leader>gg", function()
 		lazygit:toggle()
 	end, { silent = true })
