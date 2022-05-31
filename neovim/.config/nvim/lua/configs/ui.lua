@@ -32,12 +32,10 @@ function ui.tokyonight()
 	vim.g.tokyonight_hide_inactive_statusline = true
 	vim.g.tokyonight_terminal_colors = true
 
-	-- bg_statusline = "none"
 	vim.g.tokyonight_colors = { bg_float = "none", border = "bg" }
 end
 
 function ui.nvim_tree()
-	-- stylua: ignore
 	require("nvim-tree").setup({
 		hijack_cursor = true,
 		reload_on_bufenter = true,
@@ -54,7 +52,7 @@ function ui.nvim_tree()
 			highlight_opened_files = "all",
 			indent_markers = {
 				enable = true,
-				icons = { corner = "╰ ", edge = "┊ " }
+				icons = { corner = "╰ ", edge = "┊ " },
 			},
 			icons = {
 				git_placement = "signcolumn",
@@ -70,15 +68,15 @@ function ui.nvim_tree()
 		view = {
 			mappings = {
 				list = {
-					{ key = "<C-k>",       action = ""                 },
-					{ key = "<C-e>",       action = "toggle_file_info" },
-					{ key = "J",           action = ""                 },
-					{ key = "N",           action = "last_sibling"     },
-					{ key = "K",           action = ""                 },
-					{ key = "E",           action = "first_sibling"    },
-					{ key = "I",           action = ""                 },
-					{ key = "L",           action = "toggle_ignored"   },
-					{ key = { "?", "g?" }, action = "toggle_help"      },
+					{ key = "<C-k>", action = "" },
+					{ key = "<C-e>", action = "toggle_file_info" },
+					{ key = "J", action = "" },
+					{ key = "N", action = "last_sibling" },
+					{ key = "K", action = "" },
+					{ key = "E", action = "first_sibling" },
+					{ key = "I", action = "" },
+					{ key = "L", action = "toggle_ignored" },
+					{ key = { "?", "g?" }, action = "toggle_help" },
 				},
 			},
 		},
@@ -123,7 +121,6 @@ function ui.lualine()
 						active = "lualine_a_normal",
 						inactive = "lualine_c_normal",
 					},
-					-- separator = { left = "" },
 				},
 			},
 		},

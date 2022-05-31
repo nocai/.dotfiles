@@ -1,30 +1,35 @@
-require("nvim")
-require("option")
-require("autocmd")
-
 local present, impatient = pcall(require, "impatient")
 if present then
 	impatient.enable_profile()
 end
 
-local present2, packer = pcall(require, "configs.packer")
-if not present2 then
-	return
-end
+require("nvim")
+require("option")
+require("autocmd")
 
-return packer.startup(function(use)
-	use({ "lewis6991/impatient.nvim" })
-	use({ "nvim-lua/plenary.nvim" })
-	use({ "nanotee/nvim-lua-guide" })
-	use({ "wbthomason/packer.nvim", opt = true })
-	use({ "nathom/filetype.nvim", disable = true })
-
-	-- UI
+return require("configs.packer").startup(function(use)
+	use({ "wbthomason/packer.nvim" })
 	use({
+		{ "lewis6991/impatient.nvim" },
+		{ "nvim-lua/plenary.nvim" },
+		{
+			"nanotee/nvim-lua-guide",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+		},
+		{
+			"kyazdani42/nvim-web-devicons",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+		},
+
+		-- colorscheme
 		{
 			"sainnhe/sonokai",
 			cond = function()
-				return not nvim.is_vscode
+				return nvim.is_not_vscode
 			end,
 			setup = function()
 				require("configs.ui").sonokai()
@@ -36,7 +41,7 @@ return packer.startup(function(use)
 		{
 			"folke/tokyonight.nvim",
 			cond = function()
-				return not nvim.is_vscode
+				return nvim.is_not_vscode
 			end,
 			setup = function()
 				require("configs.ui").tokyonight()
@@ -45,16 +50,14 @@ return packer.startup(function(use)
 				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
-		{
-			"kyazdani42/nvim-web-devicons",
-			cond = function()
-				return not nvim.is_vscode
-			end,
-		},
+	})
+
+	-- UI
+	use({
 		{
 			"kyazdani42/nvim-tree.lua",
 			cond = function()
-				return not nvim.is_vscode
+				return nvim.is_not_vscode
 			end,
 			after = { "nvim-web-devicons" },
 			config = function()
@@ -87,6 +90,7 @@ return packer.startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
+			event = "VimEnter",
 			config = function()
 				require("configs.ui").dressing()
 			end,
@@ -125,10 +129,10 @@ return packer.startup(function(use)
 			cond = function()
 				return not nvim.is_vscode
 			end,
-			-- event = "VimEnter",
 			keys = { "<leader>tr" },
-			config = function()
-				require("configs.misc").vim_translator()
+			setup = function()
+				vim.g.translator_default_engines = { "youdao", "bing" }
+				vim.keymap.set({ "n", "x" }, "<leader>tr", ":TranslateW<CR>")
 			end,
 		},
 		{
@@ -156,11 +160,9 @@ return packer.startup(function(use)
 		{
 			"rhysd/accelerated-jk",
 			event = { "CursorMoved" },
-			setup = function()
-				vim.cmd([[
-					nmap <silent>n <Plug>(accelerated_jk_gj)
-					nmap <silent>e <Plug>(accelerated_jk_gk)
-				]])
+			config = function()
+				vim.keymap.set("n", "n", "<Plug>(accelerated_jk_gj)", { silent = true })
+				vim.keymap.set("n", "e", "<Plug>(accelerated_jk_gk)", { silent = true })
 			end,
 		},
 		{
@@ -177,10 +179,14 @@ return packer.startup(function(use)
 		{
 			"lukas-reineke/indent-blankline.nvim",
 			cond = function()
-				return not vim.g.vscode
+				return nvim.is_not_vscode
 			end,
 			event = "VimEnter",
 			setup = function()
+				vim.g.indent_blankline_char = "┊"
+				vim.g.indent_blankline_show_first_indent_level = false
+			end,
+			config = function()
 				require("configs.misc").indent_blankline()
 			end,
 		},
@@ -203,6 +209,7 @@ return packer.startup(function(use)
 		},
 		{
 			"rmagatti/auto-session",
+			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -213,30 +220,53 @@ return packer.startup(function(use)
 				})
 			end,
 		},
-		-- {
-		-- 	"luukvbaal/stabilize.nvim",
-		-- 	cond = function()
-		-- 		return nvim.is_not_vscode
-		-- 	end,
-		-- 	config = function()
-		-- 		require("stabilize").setup()
-		-- 	end,
-		-- },
+		{
+			"luukvbaal/stabilize.nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("stabilize").setup()
+			end,
+		},
 		{
 			"famiu/bufdelete.nvim",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
+			keys = { "<Leader>bd", "<Leader>bw" },
 			config = function()
-				-- Force delete current buffer
 				vim.keymap.set("n", "<Leader>bd", function()
 					require("bufdelete").bufdelete(0, true)
 				end)
-
-				-- Wipeout buffer number 100 without force
 				vim.keymap.set("n", "<Leader>bw", function()
 					require("bufdelete").bufwipeout(0)
 				end)
+			end,
+		},
+		{
+			"folke/todo-comments.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			event = "BufRead",
+			config = function()
+				require("todo-comments").setup()
+			end,
+		},
+		{
+			"ggandor/lightspeed.nvim",
+			disable = true,
+			event = "BufRead",
+			cond = function()
+				return not vim.g.vscode
+			end,
+		},
+		{
+			"junegunn/vim-easy-align",
+			keys = { "<leader>ga" },
+			config = function()
+				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
 			end,
 		},
 	})
@@ -282,16 +312,6 @@ return packer.startup(function(use)
 			end,
 		},
 		{
-			"sindrets/diffview.nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			cmd = { "DiffviewOpen" },
-			config = function()
-				require("configs.tools").diffview()
-			end,
-		},
-		{
 			"thinca/vim-quickrun",
 			cond = function()
 				return not vim.g.vscode
@@ -317,53 +337,6 @@ return packer.startup(function(use)
 				return not vim.g.vscode
 			end,
 			ft = { "go" },
-		},
-		{
-			"numToStr/Comment.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = "BufReadPre",
-			config = function()
-				require("configs.tools").comment()
-			end,
-		},
-		{
-			"junegunn/vim-easy-align",
-			keys = { "<leader>ga" },
-			config = function()
-				vim.cmd([[
-					nmap <leader>ga <Plug>(EasyAlign)
-					xmap <leader>ga <Plug>(EasyAlign)
-				]])
-			end,
-		},
-		{
-			"folke/todo-comments.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = "BufRead",
-			config = function()
-				require("todo-comments").setup()
-			end,
-		},
-		{
-			"ggandor/lightspeed.nvim",
-			disable = true,
-			event = "BufRead",
-			cond = function()
-				return not vim.g.vscode
-			end,
-		},
-		{
-			"npxbr/glow.nvim",
-			disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
-			run = "GlowInstall",
-			cmd = "Glow",
 		},
 	})
 
@@ -471,6 +444,16 @@ return packer.startup(function(use)
 			after = { "nvim-treesitter" },
 			config = function()
 				require("configs.treesitter").nvim_ts_context_commentstring()
+			end,
+		},
+		{
+			"numToStr/Comment.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			event = "BufReadPre",
+			config = function()
+				require("configs.treesitter").comment()
 			end,
 		},
 	})

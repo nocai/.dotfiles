@@ -1,10 +1,5 @@
 local misc = {}
 
-function misc.vim_translator()
-	vim.g.translator_default_engines = { "youdao", "bing" }
-	vim.keymap.set({ "n", "x" }, "<leader>tr", ":TranslateW<CR>")
-end
-
 function misc.neoscroll()
 	require("neoscroll").setup({
 		mappings = {
@@ -22,8 +17,6 @@ function misc.neoscroll()
 end
 
 function misc.indent_blankline()
-	vim.g.indent_blankline_char = "┊"
-	vim.g.indent_blankline_show_first_indent_level = false
 	require("indent_blankline").setup({
 		-- for example, context is off by default, use this to turn it on
 		show_current_context = true,

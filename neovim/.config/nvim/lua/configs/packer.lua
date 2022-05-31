@@ -1,7 +1,8 @@
-vim.cmd([[packadd packer.nvim]])
+-- Only required if you have packer configured as `opt`
+-- vim.cmd([[packadd packer.nvim]])
 
-local ok, packer = pcall(require, "packer")
-if not ok then
+local present, packer = pcall(require, "packer")
+if not present then
 	local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 	-- remove the dir before cloning
 	vim.fn.delete(packer_path, "rf")
@@ -17,8 +18,8 @@ if not ok then
 	})
 	vim.cmd([[packadd packer.nvim]])
 
-	ok, packer = pcall(require, "packer")
-	if ok then
+	present, packer = pcall(require, "packer")
+	if present then
 		print("Packer cloned successfully.")
 	else
 		error("Couldn't clone packer !\nPacker path: " .. packer_path .. "\n" .. packer)

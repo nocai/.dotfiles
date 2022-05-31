@@ -86,20 +86,18 @@ end
 
 function treesitter.nvim_ts_tainbow()
 	local present, configs = pcall(require, "nvim-treesitter.configs")
-	if not present then
-		return
+	if present then
+		configs.setup({
+			rainbow = {
+				enable = true,
+				-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+				extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+				max_file_lines = nil, -- Do not enable for files with more than n lines, int
+				-- colors = {}, -- table of hex strings
+				-- termcolors = {} -- table of colour name strings
+			},
+		})
 	end
-
-	configs.setup({
-		rainbow = {
-			enable = true,
-			-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-			max_file_lines = nil, -- Do not enable for files with more than n lines, int
-			-- colors = {}, -- table of hex strings
-			-- termcolors = {} -- table of colour name strings
-		},
-	})
 end
 
 function treesitter.vim_matchup()
@@ -108,29 +106,45 @@ function treesitter.vim_matchup()
 	vim.keymap.set({ "x", "o" }, "l%", "<plug>(matchup-i%)")
 
 	local present, configs = pcall(require, "nvim-treesitter.configs")
-	if not present then
-		return
+	if present then
+		configs.setup({
+			matchup = {
+				enable = true, -- mandatory, false will disable the whole extension
+				-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+			},
+		})
 	end
-
-	configs.setup({
-		matchup = {
-			enable = true, -- mandatory, false will disable the whole extension
-			-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
-		},
-	})
 end
 
 function treesitter.nvim_ts_context_commentstring()
 	local present, configs = pcall(require, "nvim-treesitter.configs")
-	if not present then
-		return
+	if present then
+		configs.setup({
+			context_commentstring = {
+				enable = true,
+				enable_autocmd = false, -- for plugin: Comment.nvim
+			},
+		})
 	end
+end
 
-	configs.setup({
-		context_commentstring = {
-			enable = true,
-			enable_autocmd = false, -- for plugin: Comment.nvim
-		},
+function treesitter.comment()
+	require("Comment").setup({
+		pre_hook = function(ctx) -- for plugin: commentstring
+			local U = require("Comment.utils")
+
+			local location = nil
+			if ctx.ctype == U.ctype.block then
+				location = require("ts_context_commentstring.utils").get_cursor_location()
+			elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+				location = require("ts_context_commentstring.utils").get_visual_start_location()
+			end
+
+			return require("ts_context_commentstring.internal").calculate_commentstring({
+				key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
+				location = location,
+			})
+		end,
 	})
 end
 

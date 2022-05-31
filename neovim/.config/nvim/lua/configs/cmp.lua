@@ -88,7 +88,7 @@ function m.nvim_cmp()
 			["<C-p>"] = cmp.mapping.select_prev_item(),
 			["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+			-- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 			["<C-j>"] = cmp.mapping({
 				i = cmp.mapping.abort(),
 				c = cmp.mapping.close(),
@@ -101,29 +101,26 @@ function m.nvim_cmp()
 		sources = cmp.config.sources({
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
-			-- { name = 'vsnip' }, -- For vsnip users.
-			{ name = "luasnip" }, -- For luasnip users.
-			-- { name = 'ultisnips' }, -- For ultisnips users.
-			-- { name = 'snippy' }, -- For snippy users.
-		}, {
+			{ name = "luasnip" },
 			{ name = "buffer" },
 		}),
-		experimental = {
-			native_menu = false,
-			ghost_text = true,
-		},
+		-- experimental = {
+		-- 	native_menu = false,
+		-- 	ghost_text = true,
+		-- },
 	})
 	-- vim.cmd([[ autocmd FileType lua lua require('cmp').setup.buffer { sources = { {name='nvim_lua'} } } ]])
 end
 
 function m.cmp_buffer()
-	-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-	local cmp = require("cmp")
-	cmp.setup.cmdline("/", {
-		sources = {
-			{ name = "buffer" },
-		},
-	})
+	local present, cmp = pcall(require, "cmp")
+	if present then
+		cmp.setup.cmdline("/", {
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+	end
 end
 
 function m.luasnip()
@@ -132,39 +129,37 @@ function m.luasnip()
 	})
 
 	local present, cmp = pcall(require, "cmp")
-	if not present then
-		return
+	if present then
+		cmp.setup({
+			snippet = {
+				expand = function(args)
+					require("luasnip").lsp_expand(args.body)
+				end,
+			},
+			mapping = {
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if require("luasnip").expand_or_jumpable() then
+						vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if require("luasnip").jumpable(-1) then
+						vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+			},
+		})
 	end
-
-	cmp.setup({
-		snippet = {
-			expand = function(args)
-				require("luasnip").lsp_expand(args.body)
-			end,
-		},
-		mapping = {
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if require("luasnip").expand_or_jumpable() then
-					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if require("luasnip").jumpable(-1) then
-					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-		},
-	})
 end
 
 function m.nvim_autopairs()
 	require("nvim-autopairs").setup({})
-	local ok, cmp = pcall(require, "cmp")
-	if ok then
+	local present, cmp = pcall(require, "cmp")
+	if present then
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 	end
