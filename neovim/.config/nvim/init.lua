@@ -194,7 +194,7 @@ return require("configs.packer").startup(function(use)
 		{
 			"kshenoy/vim-signature",
 			cond = function()
-				return not vim.g.vscode
+				return nvim.is_not_vscode
 			end,
 			event = "VimEnter",
 		},
@@ -255,6 +255,13 @@ return require("configs.packer").startup(function(use)
 			keys = { "<leader>ga" },
 			config = function()
 				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
+			end,
+		},
+		{
+			"andymass/vim-matchup",
+			keys = { "%", "l%", "z%" },
+			config = function()
+				require("configs.treesitter").vim_matchup()
 			end,
 		},
 	})
@@ -403,14 +410,6 @@ return require("configs.packer").startup(function(use)
 						enable = true,
 					},
 				})
-			end,
-		},
-		{
-			"andymass/vim-matchup",
-			after = "nvim-treesitter",
-			event = { "CursorMoved" },
-			config = function()
-				require("configs.treesitter").vim_matchup()
 			end,
 		},
 		{
