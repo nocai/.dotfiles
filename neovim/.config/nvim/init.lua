@@ -91,6 +91,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
+			event = "BufRead",
 			config = function()
 				require("configs.ui").dressing()
 			end,
@@ -406,7 +407,6 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"andymass/vim-matchup",
-			disable = true,
 			after = "nvim-treesitter",
 			event = { "CursorMoved" },
 			config = function()
