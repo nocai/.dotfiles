@@ -111,6 +111,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
+			requires = { "nvim-telescope/telescope.nvim" },
 			config = function()
 				require("configs.ui").notify()
 			end,
@@ -195,7 +196,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
-			event = "VimEnter",
+			event = "BufReadPost",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -242,7 +243,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = "BufRead",
+			event = "BufReadPost",
 			config = function()
 				require("todo-comments").setup()
 			end,
@@ -332,6 +333,16 @@ return require("configs.packer").startup(function(use)
 			end,
 			ft = { "go" },
 		},
+		{
+			"numToStr/Comment.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			keys = { "gc", "gb" },
+			config = function()
+				require("Comment").setup()
+			end,
+		},
 	})
 
 	-- telescope
@@ -358,9 +369,7 @@ return require("configs.packer").startup(function(use)
 					return nvim.is_not_vscode
 				end,
 				config = function()
-					require("project_nvim").setup({
-						exclude_dirs = { "~/.dotfiles/*/.config/*" },
-					})
+					require("project_nvim").setup()
 				end,
 			},
 		},
@@ -368,65 +377,51 @@ return require("configs.packer").startup(function(use)
 
 	-- treesitter
 	use({
-		{
-			"nvim-treesitter/nvim-treesitter",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = { "BufRead", "BufNewFile" },
-			run = ":TSUpdate",
-			config = function()
-				require("configs.treesitter").nvim_treesitter()
-			end,
-		},
-		{
-			"nvim-treesitter/nvim-treesitter-context",
-			after = "nvim-treesitter",
-			config = function()
-				require("treesitter-context").setup()
-			end,
-		},
-		{
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			after = "nvim-treesitter",
-			config = function()
-				require("configs.treesitter").nvim_treesitter_textobjects()
-			end,
-		},
-		{
-			"p00f/nvim-ts-rainbow",
-			after = "nvim-treesitter",
-			config = function()
-				require("configs.treesitter").nvim_ts_tainbow()
-			end,
-		},
-		{
-			"windwp/nvim-ts-autotag",
-			after = "nvim-treesitter",
-			config = function()
-				require("nvim-treesitter.configs").setup({
-					autotag = {
-						enable = true,
-					},
-				})
-			end,
-		},
-		{
-			"JoosepAlviste/nvim-ts-context-commentstring",
-			after = { "nvim-treesitter" },
-			config = function()
-				require("configs.treesitter").nvim_ts_context_commentstring()
-			end,
-		},
-		{
-			"numToStr/Comment.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			keys = { "gc", "gb" },
-			config = function()
-				require("configs.treesitter").comment()
-			end,
+		"nvim-treesitter/nvim-treesitter",
+		cond = function()
+			return not vim.g.vscode
+		end,
+		event = { "BufRead", "BufNewFile" },
+		run = ":TSUpdate",
+		config = function()
+			require("configs.treesitter")
+		end,
+		requires = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				event = "BufReadPost",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+			},
+			{
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				event = "BufReadPost",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+			},
+			{
+				"p00f/nvim-ts-rainbow",
+				event = "BufReadPost",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+			},
+			{
+				"windwp/nvim-ts-autotag",
+				event = "BufReadPost",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+			},
+			{
+				"JoosepAlviste/nvim-ts-context-commentstring",
+				event = "BufReadPost",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+			},
 		},
 	})
 
