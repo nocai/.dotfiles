@@ -12,6 +12,7 @@ return require("configs.packer").startup(function(use)
 	use({
 		{ "lewis6991/impatient.nvim" },
 		{ "nvim-lua/plenary.nvim" },
+		{ "antoinemadec/FixCursorHold.nvim" }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 		{
 			"nanotee/nvim-lua-guide",
 			cond = function()
@@ -160,6 +161,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"rhysd/accelerated-jk",
+			disable = true,
 			event = { "CursorMoved" },
 			config = function()
 				vim.keymap.set("n", "n", "<Plug>(accelerated_jk_gj)", { silent = true })
@@ -260,40 +262,34 @@ return require("configs.packer").startup(function(use)
 				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
 			end,
 		},
-		{
-			"andymass/vim-matchup",
-			keys = { "%", "l%", "z%" },
-			config = function()
-				require("configs.treesitter").vim_matchup()
-			end,
-		},
 	})
 
 	-- textobject
 	use({
-		{
-			"kana/vim-textobj-user",
-			event = { "BufRead" },
-		},
-		{
-			"kana/vim-textobj-indent",
-			after = { "vim-textobj-user" },
-			setup = function()
-				vim.g.textobj_indent_no_default_key_mappings = 1
-			end,
-			config = function()
-				require("configs.misc").vim_textobj_indent()
-			end,
-		},
-		{
-			"sgur/vim-textobj-parameter",
-			after = { "vim-textobj-user" },
-			setup = function()
-				vim.g.textobj_parameter_no_default_key_mappings = 1
-			end,
-			config = function()
-				require("configs.misc").vim_textobj_parameter()
-			end,
+		"kana/vim-textobj-user",
+		disable = true,
+		event = { "BufRead" },
+		requires = {
+			{
+				"kana/vim-textobj-indent",
+				setup = function()
+					vim.g.textobj_indent_no_default_key_mappings = 1
+				end,
+				keys = { "li", "lI", "ai", "aI" },
+				config = function()
+					require("configs.misc").vim_textobj_indent()
+				end,
+			},
+			{
+				"sgur/vim-textobj-parameter",
+				keys = { "la", "aa" },
+				setup = function()
+					vim.g.textobj_parameter_no_default_key_mappings = 1
+				end,
+				config = function()
+					require("configs.misc").vim_textobj_parameter()
+				end,
+			},
 		},
 	})
 
