@@ -192,11 +192,14 @@ return require("configs.packer").startup(function(use)
 			end,
 		},
 		{
-			"kshenoy/vim-signature",
+			"chentoast/marks.nvim",
+			event = "VimEnter",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "VimEnter",
+			config = function()
+				require("configs.misc").marks()
+			end,
 		},
 		{
 			"machakann/vim-sandwich",
