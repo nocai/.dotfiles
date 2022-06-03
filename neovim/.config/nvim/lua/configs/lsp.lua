@@ -91,14 +91,19 @@ local function on_attach(client, bufnr)
 		vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
 	end
 
-	if client.resolved_capabilities.document_highlight then
-		vim.cmd([[
+	local present, illuminate = pcall(require, "illuminate")
+	if present then
+		illuminate.on_attach(client)
+	else
+		if client.resolved_capabilities.document_highlight then
+			vim.cmd([[
 			augroup lsp_document_highlight
 				autocmd!
 				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 			augroup END
 		]])
+		end
 	end
 
 	-- formatting
@@ -195,7 +200,7 @@ function lsp.symbols_outline()
 			goto_location = { "<CR>", "<2-LeftMouse>" },
 			focus_location = "o",
 			hover_symbol = { "<C-e>", "E" },
-			toggle_preview = "<Tab>",
+			toggle_preview = "<C-p>",
 			rename_symbol = { "gn", "r" },
 			code_actions = { "ga", "ca" },
 		},

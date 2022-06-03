@@ -162,15 +162,6 @@ return require("configs.packer").startup(function(use)
 			end,
 		},
 		{
-			"rhysd/accelerated-jk",
-			disable = true,
-			event = { "CursorMoved" },
-			config = function()
-				vim.keymap.set("n", "n", "<Plug>(accelerated_jk_gj)", { silent = true })
-				vim.keymap.set("n", "e", "<Plug>(accelerated_jk_gk)", { silent = true })
-			end,
-		},
-		{
 			"norcalli/nvim-colorizer.lua",
 			cond = function()
 				return not vim.g.vscode
@@ -210,10 +201,7 @@ return require("configs.packer").startup(function(use)
 			setup = function()
 				vim.g.textobj_sandwich_no_default_key_mappings = 1
 			end,
-			keys = { "sa", "sr", "sd" },
-			config = function()
-				require("configs.misc").vim_sandwich()
-			end,
+			keys = { "sa", "sr", "srb", "sd", "sdb" },
 		},
 		{
 			"luukvbaal/stabilize.nvim",
@@ -250,48 +238,11 @@ return require("configs.packer").startup(function(use)
 			end,
 		},
 		{
-			"ggandor/lightspeed.nvim",
-			disable = true,
-			event = "BufRead",
-			cond = function()
-				return not vim.g.vscode
-			end,
-		},
-		{
 			"junegunn/vim-easy-align",
 			keys = { "<leader>ga" },
 			config = function()
 				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
 			end,
-		},
-	})
-
-	-- textobject
-	use({
-		"kana/vim-textobj-user",
-		disable = true,
-		event = { "BufRead" },
-		requires = {
-			{
-				"kana/vim-textobj-indent",
-				setup = function()
-					vim.g.textobj_indent_no_default_key_mappings = 1
-				end,
-				keys = { "li", "lI", "ai", "aI" },
-				config = function()
-					require("configs.misc").vim_textobj_indent()
-				end,
-			},
-			{
-				"sgur/vim-textobj-parameter",
-				keys = { "la", "aa" },
-				setup = function()
-					vim.g.textobj_parameter_no_default_key_mappings = 1
-				end,
-				config = function()
-					require("configs.misc").vim_textobj_parameter()
-				end,
-			},
 		},
 	})
 
@@ -479,6 +430,13 @@ return require("configs.packer").startup(function(use)
 			after = { "nvim-lspconfig" },
 			setup = function()
 				require("configs.lsp").symbols_outline()
+			end,
+		},
+		{
+			"RRethy/vim-illuminate",
+			event = { "VimEnter" },
+			cond = function()
+				return nvim.is_not_vscode
 			end,
 		},
 		{

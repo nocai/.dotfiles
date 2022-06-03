@@ -70,6 +70,7 @@ function ui.nvim_tree()
 				list = {
 					{ key = "<C-k>", action = "" },
 					{ key = "<C-e>", action = "toggle_file_info" },
+					{ key = "<C-p>", action = "preview" },
 					{ key = "J", action = "" },
 					{ key = "N", action = "last_sibling" },
 					{ key = "K", action = "" },
