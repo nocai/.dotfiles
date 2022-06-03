@@ -92,7 +92,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "BufRead",
+			event = { "VimEnter" },
 			config = function()
 				require("configs.ui").dressing()
 			end,
@@ -102,6 +102,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
+			event = { "VimEnter" },
 			config = function()
 				require("configs.ui").alpha_nvim()
 			end,
@@ -174,7 +175,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = "BufRead",
+			event = { "VimEnter" },
 			ft = { "lua", "html", "css" },
 			config = function()
 				require("colorizer").setup()
@@ -185,7 +186,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "BufRead",
+			event = { "VimEnter" },
 			setup = function()
 				vim.g.indent_blankline_char = "┊"
 				vim.g.indent_blankline_show_first_indent_level = false
@@ -196,7 +197,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
-			event = "BufReadPost",
+			event = { "VimEnter" },
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -243,7 +244,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = "BufReadPost",
+			event = { "VimEnter" },
 			config = function()
 				require("todo-comments").setup()
 			end,
@@ -301,7 +302,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = { "BufRead" },
+			event = { "VimEnter" },
 			config = function()
 				require("configs.tools").gitsigns()
 			end,
@@ -381,7 +382,8 @@ return require("configs.packer").startup(function(use)
 		cond = function()
 			return not vim.g.vscode
 		end,
-		event = { "BufRead", "BufNewFile" },
+		-- event = { "BufRead", "BufNewFile" },
+		event = { "VimEnter" },
 		run = ":TSUpdate",
 		config = function()
 			require("configs.treesitter")
@@ -389,35 +391,36 @@ return require("configs.packer").startup(function(use)
 		requires = {
 			{
 				"nvim-treesitter/nvim-treesitter-context",
-				event = "BufReadPost",
+				-- event = "BufReadPost",
+				event = { "VimEnter" },
 				cond = function()
 					return nvim.is_not_vscode
 				end,
 			},
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
-				event = "BufReadPost",
+				event = { "VimEnter" },
 				cond = function()
 					return nvim.is_not_vscode
 				end,
 			},
 			{
 				"p00f/nvim-ts-rainbow",
-				event = "BufReadPost",
+				event = { "VimEnter" },
 				cond = function()
 					return nvim.is_not_vscode
 				end,
 			},
 			{
 				"windwp/nvim-ts-autotag",
-				event = "BufReadPost",
+				event = { "VimEnter" },
 				cond = function()
 					return nvim.is_not_vscode
 				end,
 			},
 			{
 				"JoosepAlviste/nvim-ts-context-commentstring",
-				event = "BufReadPost",
+				event = { "VimEnter" },
 				cond = function()
 					return nvim.is_not_vscode
 				end,
@@ -432,7 +435,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = "BufRead",
+			event = { "VimEnter" },
 			config = function()
 				require("configs.lsp")
 			end,
@@ -449,6 +452,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"jose-elias-alvarez/null-ls.nvim",
+			event = { "VimEnter" },
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -469,6 +473,9 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"simrat39/symbols-outline.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
 			after = { "nvim-lspconfig" },
 			setup = function()
 				require("configs.lsp").symbols_outline()
