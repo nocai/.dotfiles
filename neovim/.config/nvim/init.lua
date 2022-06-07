@@ -342,39 +342,23 @@ return require("configs.packer").startup(function(use)
 		requires = {
 			{
 				"nvim-treesitter/nvim-treesitter-context",
-				-- event = "BufReadPost",
-				event = { "VimEnter" },
-				cond = function()
-					return nvim.is_not_vscode
-				end,
+				after = { "nvim-treesitter" },
 			},
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
-				event = { "VimEnter" },
-				cond = function()
-					return nvim.is_not_vscode
-				end,
+				after = { "nvim-treesitter" },
 			},
 			{
 				"p00f/nvim-ts-rainbow",
-				event = { "VimEnter" },
-				cond = function()
-					return nvim.is_not_vscode
-				end,
-			},
-			{
-				"windwp/nvim-ts-autotag",
-				event = { "VimEnter" },
-				cond = function()
-					return nvim.is_not_vscode
-				end,
+				after = { "nvim-treesitter" },
 			},
 			{
 				"JoosepAlviste/nvim-ts-context-commentstring",
-				event = { "VimEnter" },
-				cond = function()
-					return nvim.is_not_vscode
-				end,
+				after = { "nvim-treesitter" },
+			},
+			{
+				"windwp/nvim-ts-autotag",
+				after = { "nvim-treesitter" },
 			},
 		},
 	})
@@ -414,6 +398,7 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"ray-x/lsp_signature.nvim",
+			disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
