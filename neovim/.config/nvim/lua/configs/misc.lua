@@ -74,7 +74,7 @@ function misc.marks()
 		-- which builtin marks to show. default {}
 		builtin_marks = { ".", "<", ">", "^" },
 		-- disables mark tracking for specific filetypes. default {}
-		excluded_filetypes = { "" },
+		excluded_filetypes = { "", "toggleterm" },
 
 		-- disable timer instead autocmd 'CursorHold'
 		refresh_interval = 0,
