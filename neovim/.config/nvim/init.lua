@@ -13,19 +13,227 @@ return require("configs.packer").startup(function(use)
 		{ "lewis6991/impatient.nvim" },
 		{ "nvim-lua/plenary.nvim" },
 		{ "antoinemadec/FixCursorHold.nvim" }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-		{
-			"nanotee/nvim-lua-guide",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-		},
+		{ "nanotee/nvim-lua-guide" },
 		{
 			"kyazdani42/nvim-web-devicons",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
 		},
+	})
 
+	-- treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		cond = function()
+			return not vim.g.vscode
+		end,
+		-- event = { "BufRead", "BufNewFile" },
+		event = { "VimEnter" },
+		run = ":TSUpdate",
+		config = function()
+			require("configs.treesitter")
+		end,
+		requires = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				after = { "nvim-treesitter" },
+			},
+			{
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				after = { "nvim-treesitter" },
+			},
+			{
+				"p00f/nvim-ts-rainbow",
+				after = { "nvim-treesitter" },
+			},
+			{
+				"JoosepAlviste/nvim-ts-context-commentstring",
+				after = { "nvim-treesitter" },
+			},
+			{
+				"windwp/nvim-ts-autotag",
+				after = { "nvim-treesitter" },
+			},
+			{
+				"SmiteshP/nvim-gps",
+				after = { "nvim-treesitter" },
+				config = function()
+					require("nvim-gps").setup()
+				end,
+			},
+		},
+	})
+
+	-- lsp
+	use({
+		{
+			"neovim/nvim-lspconfig",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = { "VimEnter" },
+			config = function()
+				require("configs.lsp")
+			end,
+		},
+		{
+			"williamboman/nvim-lsp-installer",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			cmd = { "LspInstall", "LspInstallInfo", "LspInstallLog" },
+			config = function()
+				require("configs.misc").nvim_lsp_installer()
+			end,
+		},
+		{
+			"jose-elias-alvarez/null-ls.nvim",
+			event = { "VimEnter" },
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			ft = { "lua" },
+			config = function()
+				require("configs.misc").null_ls()
+			end,
+		},
+		{
+			"ray-x/lsp_signature.nvim",
+			disable = true,
+			cond = function()
+				return not vim.g.vscode
+			end,
+			after = { "nvim-lspconfig" },
+			config = function()
+				require("configs.misc").lsp_signature()
+			end,
+		},
+		{
+			"simrat39/symbols-outline.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			after = { "nvim-lspconfig" },
+			setup = function()
+				require("configs.misc").symbols_outline()
+			end,
+		},
+		{
+			"RRethy/vim-illuminate",
+			event = { "VimEnter" },
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+		},
+		{
+			-- config, see: ftplugin/java.lua
+			"mfussenegger/nvim-jdtls",
+			ft = { "java" },
+			cond = function()
+				return not vim.g.vscode
+			end,
+		},
+	})
+
+	-- cmp
+	use({
+		{
+			"hrsh7th/nvim-cmp",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = "InsertEnter",
+			config = function()
+				require("configs.cmp")
+			end,
+			requires = {
+				{
+					"hrsh7th/cmp-buffer",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-nvim-lsp",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-nvim-lua",
+					after = "nvim-cmp",
+				},
+				{
+					"saadparwaiz1/cmp_luasnip",
+					after = "nvim-cmp",
+					requires = {
+						{
+							"rafamadriz/friendly-snippets",
+							after = "nvim-cmp",
+						},
+						{
+							"L3MON4D3/LuaSnip",
+							after = { "friendly-snippets", "nvim-cmp" },
+							config = function()
+								require("luasnip.config").setup({
+									region_check_events = "InsertEnter",
+								})
+								require("luasnip.loaders.from_vscode").lazy_load()
+							end,
+						},
+					},
+				},
+			},
+		},
+		{
+			"windwp/nvim-autopairs",
+			after = { "nvim-cmp", "nvim-treesitter" },
+			config = function()
+				require("nvim-autopairs").setup({ check_ts = true })
+				require("cmp").event:on(
+					"confirm_done",
+					require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
+				)
+			end,
+		},
+		{
+			"abecodes/tabout.nvim",
+			after = { "nvim-cmp", "nvim-treesitter" },
+			config = function()
+				require("tabout").setup()
+			end,
+		},
+	})
+
+	-- telescope
+	use({
+		"nvim-telescope/telescope.nvim",
+		cond = function()
+			return nvim.is_not_vscode
+		end,
+		event = { "VimEnter" },
+		config = function()
+			require("configs.telescope")
+		end,
+		requires = {
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+				run = "make",
+			},
+			{
+				"ahmedkhalf/project.nvim",
+				cond = function()
+					return nvim.is_not_vscode
+				end,
+				config = function()
+					require("project_nvim").setup()
+				end,
+			},
+		},
+	})
+
+	-- misc
+	use({
 		-- colorscheme
 		{
 			"sainnhe/sonokai",
@@ -34,7 +242,7 @@ return require("configs.packer").startup(function(use)
 				return nvim.is_not_vscode
 			end,
 			setup = function()
-				require("configs.ui").sonokai()
+				require("configs.misc").sonokai()
 			end,
 			config = function()
 				-- vim.cmd([[colorscheme sonokai]])
@@ -46,16 +254,12 @@ return require("configs.packer").startup(function(use)
 				return nvim.is_not_vscode
 			end,
 			setup = function()
-				require("configs.ui").tokyonight()
+				require("configs.misc").tokyonight()
 			end,
 			config = function()
 				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
-	})
-
-	-- UI
-	use({
 		{
 			"kyazdani42/nvim-tree.lua",
 			cond = function()
@@ -63,7 +267,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			after = { "nvim-web-devicons" },
 			config = function()
-				require("configs.ui").nvim_tree()
+				require("configs.misc").nvim_tree()
 			end,
 		},
 		{
@@ -71,9 +275,9 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not nvim.is_vscode
 			end,
-			after = { "nvim-web-devicons" },
+			after = { "nvim-web-devicons", "nvim-gps" },
 			config = function()
-				require("configs.ui").lualine()
+				require("configs.misc").lualine()
 			end,
 		},
 		{
@@ -84,7 +288,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			after = { "nvim-web-devicons" },
 			config = function()
-				require("configs.ui").nvim_bufferline()
+				require("configs.misc").nvim_bufferline()
 			end,
 		},
 		{
@@ -94,7 +298,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			event = { "VimEnter" },
 			config = function()
-				require("configs.ui").dressing()
+				require("configs.misc").dressing()
 			end,
 		},
 		{
@@ -104,7 +308,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			event = { "VimEnter" },
 			config = function()
-				require("configs.ui").alpha_nvim()
+				require("configs.misc").alpha_nvim()
 			end,
 		},
 		{
@@ -114,30 +318,15 @@ return require("configs.packer").startup(function(use)
 			end,
 			requires = { "nvim-telescope/telescope.nvim" },
 			config = function()
-				require("configs.ui").notify()
+				require("configs.misc").notify()
 			end,
 		},
-	})
-
-	-- misc
-	use({
 		{
 			"tweekmonster/startuptime.vim",
 			cond = function()
 				return not nvim.is_vscode
 			end,
 			cmd = { "StartupTime" },
-		},
-		{
-			"voldikss/vim-translator",
-			cond = function()
-				return not nvim.is_vscode
-			end,
-			keys = { "<leader>tr" },
-			setup = function()
-				vim.g.translator_default_engines = { "youdao", "bing" }
-				vim.keymap.set({ "n", "x" }, "<leader>tr", ":TranslateW<CR>")
-			end,
 		},
 		{
 			"karb94/neoscroll.nvim",
@@ -244,10 +433,6 @@ return require("configs.packer").startup(function(use)
 				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
 			end,
 		},
-	})
-
-	-- tools
-	use({
 		{
 			"lewis6991/gitsigns.nvim",
 			cond = function()
@@ -255,7 +440,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			event = { "VimEnter" },
 			config = function()
-				require("configs.tools").gitsigns()
+				require("configs.misc").gitsigns()
 			end,
 		},
 		{
@@ -265,7 +450,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			ft = { "go", "rust", "python" },
 			config = function()
-				require("configs.tools").vim_quickrun()
+				require("configs.misc").vim_quickrun()
 			end,
 		},
 		{
@@ -275,7 +460,7 @@ return require("configs.packer").startup(function(use)
 			end,
 			ft = { "go", "rust", "java" },
 			config = function()
-				require("configs.tools").vim_test()
+				require("configs.misc").vim_test()
 			end,
 		},
 		{
@@ -293,209 +478,6 @@ return require("configs.packer").startup(function(use)
 			keys = { "gc", "gb" },
 			config = function()
 				require("Comment").setup()
-			end,
-		},
-	})
-
-	-- telescope
-	use({
-		"nvim-telescope/telescope.nvim",
-		cond = function()
-			return nvim.is_not_vscode
-		end,
-		event = { "VimEnter" },
-		config = function()
-			require("configs.telescope")
-		end,
-		requires = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				cond = function()
-					return nvim.is_not_vscode
-				end,
-				run = "make",
-			},
-			{
-				"ahmedkhalf/project.nvim",
-				cond = function()
-					return nvim.is_not_vscode
-				end,
-				config = function()
-					require("project_nvim").setup()
-				end,
-			},
-		},
-	})
-
-	-- treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		cond = function()
-			return not vim.g.vscode
-		end,
-		-- event = { "BufRead", "BufNewFile" },
-		event = { "VimEnter" },
-		run = ":TSUpdate",
-		config = function()
-			require("configs.treesitter")
-		end,
-		requires = {
-			{
-				"nvim-treesitter/nvim-treesitter-context",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"p00f/nvim-ts-rainbow",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"windwp/nvim-ts-autotag",
-				after = { "nvim-treesitter" },
-			},
-		},
-	})
-
-	-- lsp
-	use({
-		{
-			"neovim/nvim-lspconfig",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
-			config = function()
-				require("configs.lsp")
-			end,
-		},
-		{
-			"williamboman/nvim-lsp-installer",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			cmd = { "LspInstall", "LspInstallInfo", "LspInstallLog" },
-			config = function()
-				require("configs.lsp").nvim_lsp_installer()
-			end,
-		},
-		{
-			"jose-elias-alvarez/null-ls.nvim",
-			event = { "VimEnter" },
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			ft = { "lua" },
-			config = function()
-				require("configs.lsp").null_ls()
-			end,
-		},
-		{
-			"ray-x/lsp_signature.nvim",
-			disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
-			after = { "nvim-lspconfig" },
-			config = function()
-				require("configs.lsp").lsp_signature()
-			end,
-		},
-		{
-			"simrat39/symbols-outline.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			after = { "nvim-lspconfig" },
-			setup = function()
-				require("configs.lsp").symbols_outline()
-			end,
-		},
-		{
-			"RRethy/vim-illuminate",
-			event = { "VimEnter" },
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-		},
-		{
-			-- config, see: ftplugin/java.lua
-			"mfussenegger/nvim-jdtls",
-			ft = { "java" },
-			cond = function()
-				return not vim.g.vscode
-			end,
-		},
-	})
-
-	-- cmp
-	use({
-		{
-			"hrsh7th/nvim-cmp",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = "InsertEnter",
-			config = function()
-				require("configs.cmp")
-			end,
-			requires = {
-				{
-					"hrsh7th/cmp-buffer",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-nvim-lsp",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-nvim-lua",
-					after = "nvim-cmp",
-				},
-				{
-					"saadparwaiz1/cmp_luasnip",
-					after = "nvim-cmp",
-					requires = {
-						{
-							"rafamadriz/friendly-snippets",
-							after = "nvim-cmp",
-						},
-						{
-							"L3MON4D3/LuaSnip",
-							after = { "friendly-snippets", "nvim-cmp" },
-							config = function()
-								require("luasnip.config").setup({
-									region_check_events = "InsertEnter",
-								})
-								require("luasnip.loaders.from_vscode").lazy_load()
-							end,
-						},
-					},
-				},
-			},
-		},
-		{
-			"windwp/nvim-autopairs",
-			after = { "nvim-cmp", "nvim-treesitter" },
-			config = function()
-				require("nvim-autopairs").setup({ check_ts = true })
-				require("cmp").event:on(
-					"confirm_done",
-					require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
-				)
-			end,
-		},
-		{
-			"abecodes/tabout.nvim",
-			after = { "nvim-cmp", "nvim-treesitter" },
-			config = function()
-				require("tabout").setup()
 			end,
 		},
 	})

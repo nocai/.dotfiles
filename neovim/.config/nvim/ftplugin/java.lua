@@ -1,5 +1,4 @@
 local uv = vim.loop
-local lsp = require("configs.lsp")
 
 local path = (function()
 	local is_windows = uv.os_uname().version:match("Windows")
@@ -253,8 +252,6 @@ local config = {
 	},
 }
 
-config = lsp.setting(config)
-
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require("jdtls").start_or_attach(config)
+require("jdtls").start_or_attach(require("configs.lsp").config(config))

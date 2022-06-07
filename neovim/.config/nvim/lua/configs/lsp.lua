@@ -11,11 +11,6 @@ lspSymbol("Hint", nvim.diagnostics.icons.hint)
 lspSymbol("Warn", nvim.diagnostics.icons.warning)
 
 vim.diagnostic.config({
-	-- virtual_text = {
-	-- 	prefix = "",
-	-- 	spacing = 0,
-	-- },
-	-- signs = true,
 	update_in_insert = false,
 })
 
@@ -24,23 +19,10 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-	border = "single",
+	border = nvim.window.border,
 })
 
--- suppress error messages from lang servers
--- vim.notify = function(msg, log_level)
--- 	if msg:match("exit code") then
--- 		return
--- 	end
--- 	if log_level == vim.log.levels.ERROR then
--- 		vim.api.nvim_err_writeln(msg)
--- 	else
--- 		vim.api.nvim_echo({ { msg } }, true, {})
--- 	end
--- end
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 capabilities.textDocument.completion.completionItem = {
 	documentationFormat = { "markdown", "plaintext" },
 	snippetSupport = true,
@@ -80,31 +62,6 @@ local function on_attach(client, bufnr)
 
 	vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	vim.keymap.set({ "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-	-- mapping by telescope
-	-- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	-- vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	-- vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-
-	if client.resolved_capabilities.code_lens then
-		-- vim.cmd([[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
-		vim.cmd([[autocmd BufEnter,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
-		vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
-	end
-
-	local present, illuminate = pcall(require, "illuminate")
-	if present then
-		illuminate.on_attach(client)
-	else
-		if client.resolved_capabilities.document_highlight then
-			vim.cmd([[
-			augroup lsp_document_highlight
-				autocmd!
-				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-			augroup END
-		]])
-		end
-	end
 
 	-- formatting
 	vim.keymap.set("n", "gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
@@ -115,108 +72,54 @@ local function on_attach(client, bufnr)
 	-- 	vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]])
 	-- 	vim.api.nvim_command([[augroup END]])
 	-- end
+
+	if client.resolved_capabilities.code_lens then
+		vim.cmd([[autocmd BufEnter,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
+		vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
+	end
+
+	local present, illuminate = pcall(require, "illuminate")
+	if present then
+		illuminate.on_attach(client)
+	else
+		if client.resolved_capabilities.document_highlight then
+			vim.cmd([[
+				augroup lsp_document_highlight
+					autocmd!
+					autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+					autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+				augroup END
+			]])
+		end
+	end
 end
 
-local function setting(config)
-	config = config or {}
+local M = {
+	config = function(cfg)
+		cfg = cfg or {}
 
-	config.on_attach = on_attach
-	config.capabilities = capabilities
-	config.flags = {
-		debounce_text_changes = 150,
-	}
-	return config
-end
+		cfg.on_attach = on_attach
+		cfg.capabilities = capabilities
+		cfg.flags = {
+			debounce_text_changes = 150,
+		}
+		return cfg
+	end,
+}
 
 local lspconfig = require("lspconfig")
 
 local servers = { "pyright", "rust_analyzer", "tsserver", "denols" }
 for _, server in ipairs(servers) do
-	lspconfig[server].setup(setting())
+	local cfg = M.config()
+	lspconfig[server].setup(cfg)
 end
 
 local items = vim.fn.globpath(nvim.home .. "/lua/configs/lsp", "*.lua", false, true)
 for _, item in ipairs(items) do
 	local server = vim.fn.fnamemodify(item, ":t:r")
-	local config = require("configs.lsp." .. server)
-	lspconfig[server].setup(setting(config))
+	local cfg = require("configs.lsp." .. server)
+	lspconfig[server].setup(M.config(cfg))
 end
 
-local lsp = {
-	setting = setting,
-}
-
-function lsp.nvim_lsp_installer()
-	require("nvim-lsp-installer").setup({
-		automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-		ui = {
-			keymaps = {
-				-- Keymap to install the server under the current cursor position
-				install_server = "l",
-			},
-		},
-		github = {
-			-- The template URL to use when downloading assets from GitHub.
-			-- The placeholders are the following (in order):
-			-- 1. The repository (e.g. "rust-lang/rust-analyzer")
-			-- 2. The release version (e.g. "v0.3.0")
-			-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
-			download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
-		},
-	})
-end
-
-function lsp.null_ls()
-	local ls = require("null-ls")
-	ls.setup({
-		sources = {
-			ls.builtins.formatting.stylua,
-		},
-	})
-end
-
-function lsp.lsp_signature()
-	require("lsp_signature").setup({
-		bind = true,
-		floating_window = true,
-		hint_enable = false,
-		floating_window_above_cur_line = true,
-		timer_interval = 1000,
-		handler_opts = {
-			border = "rounded", -- double, single, shadow, none
-		},
-	})
-end
-
-function lsp.symbols_outline()
-	-- init.lua
-	vim.g.symbols_outline = {
-		auto_preview = false,
-		auto_close = false,
-		width = 20,
-		preview_bg_highlight = "Normal",
-		keymaps = { -- These keymaps can be a string or a table for multiple keys
-			close = { "<Esc>", "q" },
-			goto_location = { "<CR>", "<2-LeftMouse>" },
-			focus_location = "o",
-			hover_symbol = { "<C-e>", "E" },
-			toggle_preview = "<C-p>",
-			rename_symbol = { "gn", "r" },
-			code_actions = { "ga", "ca" },
-		},
-	}
-	vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
-	vim.cmd("hi link FocusedSymbol PmenuSel")
-
-	-- auto close symbols-outline window when it is the last window
-	nvim.set_symbols_outline_state = function()
-		vim.g["symbols_outline_state"] = require("symbols-outline").state
-	end
-
-	vim.cmd([[
-		autocmd BufEnter * :lua nvim.set_symbols_outline_state()
-		autocmd BufEnter * if winnr('$') == 1 && exists('g:symbols_outline_state.outline_buf') && g:symbols_outline_state.outline_buf | quit | endif
-	]])
-end
-
-return lsp
+return M
