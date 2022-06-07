@@ -454,13 +454,17 @@ return require("configs.packer").startup(function(use)
 		{
 			"hrsh7th/nvim-cmp",
 			cond = function()
-				return not vim.g.vscode
+				return nvim.is_not_vscode
 			end,
 			event = "InsertEnter",
 			config = function()
-				require("configs.cmp").nvim_cmp()
+				require("configs.cmp")
 			end,
 			requires = {
+				{
+					"hrsh7th/cmp-buffer",
+					after = "nvim-cmp",
+				},
 				{
 					"hrsh7th/cmp-nvim-lsp",
 					after = "nvim-cmp",
@@ -472,41 +476,41 @@ return require("configs.packer").startup(function(use)
 				{
 					"saadparwaiz1/cmp_luasnip",
 					after = "nvim-cmp",
+					requires = {
+						{
+							"rafamadriz/friendly-snippets",
+							after = "nvim-cmp",
+						},
+						{
+							"L3MON4D3/LuaSnip",
+							after = { "friendly-snippets", "nvim-cmp" },
+							config = function()
+								require("luasnip.config").setup({
+									region_check_events = "InsertEnter",
+								})
+								require("luasnip.loaders.from_vscode").lazy_load()
+							end,
+						},
+					},
 				},
-				{
-					"hrsh7th/cmp-buffer",
-					after = "nvim-cmp",
-					config = function()
-						require("configs.cmp").cmp_buffer()
-					end,
-				},
-			},
-		},
-		{
-			"L3MON4D3/LuaSnip",
-			after = "nvim-cmp",
-			config = function()
-				require("luasnip.loaders.from_vscode").load()
-				require("configs.cmp").luasnip()
-			end,
-			requires = {
-				"rafamadriz/friendly-snippets",
-				after = { "nvim-cmp" },
 			},
 		},
 		{
 			"windwp/nvim-autopairs",
-			after = "nvim-cmp",
+			after = { "nvim-cmp", "nvim-treesitter" },
 			config = function()
-				require("configs.cmp").nvim_autopairs()
+				require("nvim-autopairs").setup({ check_ts = true })
+				require("cmp").event:on(
+					"confirm_done",
+					require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
+				)
 			end,
 		},
 		{
 			"abecodes/tabout.nvim",
-			wants = { "nvim-treesitter" }, -- or require if not used so far
-			after = "nvim-cmp",
+			after = { "nvim-cmp", "nvim-treesitter" },
 			config = function()
-				require("configs.cmp").tabout()
+				require("tabout").setup()
 			end,
 		},
 	})

@@ -1,189 +1,133 @@
 -- stylua: ignore
-local m = {
-	lspkind_icon = {
-		Class         = " ",
-		Color         = " ",
-		Constant      = "ﲀ ",
-		Constructor   = " ",
-		Enum          = " ",
-		EnumMember    = " ",
-		Event         = " ",
-		Field         = " ",
-		File          = " ",
-		Folder        = " ",
-		Function      = " ",
-		Interface     = "ﰮ ",
-		Keyword       = " ",
-		Method        = " ",
-		Module        = " ",
-		Operator      = " ",
-		Property      = " ",
-		Reference     = " ",
-		Snippet       = " ",
-		Struct        = " ",
-		Text          = " ",
-		TypeParameter = "𝙏 ",
-		Unit          = " ",
-		Value         = " ",
-		Variable      = " ",
-	},
+local lspkind_icon = {
+	Class         = " ",
+	Color         = " ",
+	Constant      = "ﲀ ",
+	Constructor   = " ",
+	Enum          = " ",
+	EnumMember    = " ",
+	Event         = " ",
+	Field         = " ",
+	File          = " ",
+	Folder        = " ",
+	Function      = " ",
+	Interface     = "ﰮ ",
+	Keyword       = " ",
+	Method        = " ",
+	Module        = " ",
+	Operator      = " ",
+	Property      = " ",
+	Reference     = " ",
+	Snippet       = " ",
+	Struct        = " ",
+	Text          = " ",
+	TypeParameter = "𝙏 ",
+	Unit          = " ",
+	Value         = " ",
+	Variable      = " ",
 }
 
-function m.nvim_cmp()
-	local cmp = require("cmp")
-	cmp.setup({
-		-- preselect = cmp.PreselectMode.None,
-		-- completion = {
-		--   keyword_length = 3
-		-- },
-		window = {
-			completion = {
-				border = nvim.window.border,
-				winhighlight = nvim.window.winhighlight,
-			},
-			documentation = {
-				border = nvim.window.border,
-				winhighlight = nvim.window.winhighlight,
-			},
+local cmp = require("cmp")
+cmp.setup({
+	-- preselect = cmp.PreselectMode.None,
+	-- completion = {
+	--   keyword_length = 3
+	-- },
+	window = {
+		completion = {
+			border = nvim.window.border,
+			winhighlight = nvim.window.winhighlight,
 		},
-		formatting = {
-			fields = { "kind", "abbr", "menu" },
-			duplicates_default = 0,
-			format = function(entry, vim_item)
-				vim_item.kind = m.lspkind_icon[vim_item.kind]
-
-				local maxwidth = 30
-				if string.len(vim_item.abbr) > maxwidth then
-					vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth) .. "…"
-				end
-
-				local source_names = {
-					nvim_lsp = "(LSP)",
-					nvim_lua = "(NLua)",
-					emoji = "(Emoji)",
-					path = "(Path)",
-					calc = "(Calc)",
-					cmp_tabnine = "(Tabn)",
-					vsnip = "(Snip)",
-					luasnip = "(Snip)",
-					buffer = "(Buff)",
-				}
-				vim_item.menu = source_names[entry.source.name]
-
-				local duplicates = {
-					buffer = 1,
-					path = 1,
-					nvim_lsp = 0,
-					luasnip = 1,
-				}
-				vim_item.dup = duplicates[entry.source.name]
-				return vim_item
-			end,
+		documentation = {
+			border = nvim.window.border,
+			winhighlight = nvim.window.winhighlight,
 		},
-		-- You must set mapping.
-		mapping = {
-			["<C-n>"] = cmp.mapping.select_next_item(),
-			["<C-k>"] = cmp.mapping.select_next_item(),
-			["<C-e>"] = cmp.mapping.select_prev_item(),
-			["<C-p>"] = cmp.mapping.select_prev_item(),
-			["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-			["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-			-- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-			["<C-j>"] = cmp.mapping({
-				i = cmp.mapping.abort(),
-				c = cmp.mapping.close(),
-			}),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Insert,
-				select = true,
-			}),
-		},
-		sources = cmp.config.sources({
-			{ name = "nvim_lua" },
-			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
-			{ name = "buffer" },
+	},
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		duplicates_default = 0,
+		format = function(entry, vim_item)
+			vim_item.kind = lspkind_icon[vim_item.kind]
+
+			local maxwidth = 30
+			if string.len(vim_item.abbr) > maxwidth then
+				vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth) .. "…"
+			end
+
+			local source_names = {
+				nvim_lsp = "(LSP)",
+				nvim_lua = "(NLua)",
+				emoji = "(Emoji)",
+				path = "(Path)",
+				calc = "(Calc)",
+				cmp_tabnine = "(Tabn)",
+				vsnip = "(Snip)",
+				luasnip = "(Snip)",
+				buffer = "(Buff)",
+			}
+			vim_item.menu = source_names[entry.source.name]
+
+			local duplicates = {
+				buffer = 1,
+				path = 1,
+				nvim_lsp = 0,
+				luasnip = 1,
+			}
+			vim_item.dup = duplicates[entry.source.name]
+			return vim_item
+		end,
+	},
+	-- You must set mapping.
+	mapping = {
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_next_item(),
+		["<C-e>"] = cmp.mapping.select_prev_item(),
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		-- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-j>"] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
 		}),
-		-- experimental = {
-		-- 	native_menu = false,
-		-- 	ghost_text = true,
-		-- },
-	})
-	-- vim.cmd([[ autocmd FileType lua lua require('cmp').setup.buffer { sources = { {name='nvim_lua'} } } ]])
-end
+		["<CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Insert,
+			select = true,
+		}),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if require("luasnip").expand_or_jumpable() then
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if require("luasnip").jumpable(-1) then
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lua" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+	}),
+	experimental = {
+		native_menu = false,
+		ghost_text = true,
+	},
+})
 
-function m.cmp_buffer()
-	local present, cmp = pcall(require, "cmp")
-	if present then
-		cmp.setup.cmdline("/", {
-			sources = {
-				{ name = "buffer" },
-			},
-		})
-	end
-end
-
-function m.luasnip()
-	require("luasnip.config").setup({
-		region_check_events = "InsertEnter",
-	})
-
-	local present, cmp = pcall(require, "cmp")
-	if present then
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body)
-				end,
-			},
-			mapping = {
-				["<Tab>"] = cmp.mapping(function(fallback)
-					if require("luasnip").expand_or_jumpable() then
-						vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
-				["<S-Tab>"] = cmp.mapping(function(fallback)
-					if require("luasnip").jumpable(-1) then
-						vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
-			},
-		})
-	end
-end
-
-function m.nvim_autopairs()
-	require("nvim-autopairs").setup({})
-	local present, cmp = pcall(require, "cmp")
-	if present then
-		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
-	end
-end
-
-function m.tabout()
-	require("tabout").setup({
-		tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-		backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-		act_as_tab = true, -- shift content if tab out is not possible
-		act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-		enable_backwards = true, -- well ...
-		completion = true, -- if the tabkey is used in a completion pum
-		tabouts = {
-			{ open = "'", close = "'" },
-			{ open = '"', close = '"' },
-			{ open = "`", close = "`" },
-			{ open = "(", close = ")" },
-			{ open = "[", close = "]" },
-			{ open = "{", close = "}" },
-		},
-		ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-		exclude = {}, -- tabout will ignore these filetypes
-	})
-end
-
-return m
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer" },
+	},
+})
