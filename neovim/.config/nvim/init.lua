@@ -61,13 +61,13 @@ return require("configs.packer").startup(function(use)
 				require("nvim-gps").setup()
 			end,
 		},
-		-- {
-		-- 	"windwp/nvim-ts-autotag",
-		-- 	after = { "nvim-treesitter" },
-		-- 	config = function()
-		-- 		require("nvim-ts-autotag").setup()
-		-- 	end,
-		-- },
+		{
+			"windwp/nvim-ts-autotag",
+			after = { "nvim-treesitter" },
+			config = function()
+				require("nvim-ts-autotag").setup()
+			end,
+		},
 	})
 
 	-- lsp
