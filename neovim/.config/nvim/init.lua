@@ -101,35 +101,29 @@ return require("configs.packer").startup(function(use)
 		{
 			"ray-x/lsp_signature.nvim",
 			disable = true,
+			after = { "nvim-lspconfig" },
 			cond = function()
 				return not vim.g.vscode
 			end,
-			after = { "nvim-lspconfig" },
 			config = function()
 				require("configs.misc").lsp_signature()
 			end,
 		},
 		{
 			"simrat39/symbols-outline.nvim",
+			after = { "nvim-lspconfig" },
 			cond = function()
 				return not vim.g.vscode
 			end,
-			after = { "nvim-lspconfig" },
 			setup = function()
 				require("configs.misc").symbols_outline()
-			end,
-		},
-		{
-			"RRethy/vim-illuminate",
-			event = { "VimEnter" },
-			cond = function()
-				return nvim.is_not_vscode
 			end,
 		},
 		{
 			-- config, see: ftplugin/java.lua
 			"mfussenegger/nvim-jdtls",
 			ft = { "java" },
+			after = { "nvim-lspconfig" },
 			cond = function()
 				return not vim.g.vscode
 			end,
@@ -204,31 +198,34 @@ return require("configs.packer").startup(function(use)
 
 	-- telescope
 	use({
-		"nvim-telescope/telescope.nvim",
-		cond = function()
-			return nvim.is_not_vscode
-		end,
-		event = { "VimEnter" },
-		config = function()
-			require("configs.telescope")
-		end,
-		requires = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				cond = function()
-					return nvim.is_not_vscode
-				end,
-				run = "make",
+		{
+			"nvim-telescope/telescope.nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = { "VimEnter" },
+			config = function()
+				require("configs.telescope")
+			end,
+			requires = {
+				{
+					"nvim-telescope/telescope-fzf-native.nvim",
+					cond = function()
+						return nvim.is_not_vscode
+					end,
+					run = "make",
+				},
 			},
-			{
-				"ahmedkhalf/project.nvim",
-				cond = function()
-					return nvim.is_not_vscode
-				end,
-				config = function()
-					require("project_nvim").setup()
-				end,
-			},
+		},
+		{
+			"ahmedkhalf/project.nvim",
+			after = { "telescope.nvim" },
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			config = function()
+				require("project_nvim").setup()
+			end,
 		},
 	})
 

@@ -160,6 +160,25 @@ function misc.nvim_tree()
 end
 
 function misc.lualine()
+	-- LSP STUFF
+	function LSP_progress()
+		local Lsp = vim.lsp.util.get_progress_messages()[1]
+
+		if vim.o.columns < 120 or not Lsp then
+			return ""
+		end
+
+		local msg = Lsp.message or ""
+		local percentage = Lsp.percentage or 0
+		local title = Lsp.title or ""
+		local spinners = { "", "" }
+		local ms = vim.loop.hrtime() / 1000000
+		local frame = math.floor(ms / 120) % #spinners
+		local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+
+		return ("%#St_LspProgress#" .. content) or ""
+	end
+
 	local gps = require("nvim-gps")
 	require("lualine").setup({
 		options = {
@@ -168,7 +187,7 @@ function misc.lualine()
 		},
 		sections = {
 			lualine_a = { { "mode", separator = { left = "", right = "" } } },
-			lualine_c = { { "filename" }, { gps.get_location, cond = gps.is_available } },
+			lualine_c = { { "filename" }, { gps.get_location, cond = gps.is_available }, { LSP_progress } },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },
 			lualine_z = { { "location", separator = { left = "", right = "" } } },
 		},

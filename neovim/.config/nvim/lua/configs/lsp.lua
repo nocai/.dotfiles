@@ -78,19 +78,14 @@ local function on_attach(client, bufnr)
 		vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
 	end
 
-	local present, illuminate = pcall(require, "illuminate")
-	if present then
-		illuminate.on_attach(client)
-	else
-		if client.resolved_capabilities.document_highlight then
-			vim.cmd([[
-				augroup lsp_document_highlight
-					autocmd!
-					autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-					autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-				augroup END
-			]])
-		end
+	if client.resolved_capabilities.document_highlight then
+		vim.cmd([[
+			augroup lsp_document_highlight
+				autocmd!
+				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+			augroup END
+		]])
 	end
 end
 

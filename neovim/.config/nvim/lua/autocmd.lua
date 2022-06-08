@@ -33,10 +33,3 @@ autocmd("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
-
--- codelenses
--- vim.cmd([[autocmd BufEnter,CursorHold,InsertLeave lua vim.lsp.codelens.refresh()]])
-
--- vim.cmd([[autocmd ColorScheme * highlight FloatBorder guibg=None ctermbg=None]])
--- vim.cmd([[autocmd ColorScheme * highlight NormalFloat guibg=None ctermbg=None]])
-
