@@ -277,7 +277,7 @@ return require("configs.packer").startup(function(use)
 			cond = function()
 				return not nvim.is_vscode
 			end,
-			after = { "nvim-web-devicons", "nvim-gps" },
+			after = { "nvim-web-devicons" },
 			config = function()
 				require("configs.misc").lualine()
 			end,

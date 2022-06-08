@@ -179,7 +179,15 @@ function misc.lualine()
 		return ("%#St_LspProgress#" .. content) or ""
 	end
 
-	local gps = require("nvim-gps")
+	function GPS()
+		if vim.o.columns < 140 or not package.loaded["nvim-gps"] then
+			return ""
+		end
+
+		local gps = require("nvim-gps")
+		return (gps.is_available() and gps.get_location()) or ""
+	end
+
 	require("lualine").setup({
 		options = {
 			theme = "auto",
@@ -187,7 +195,7 @@ function misc.lualine()
 		},
 		sections = {
 			lualine_a = { { "mode", separator = { left = "", right = "" } } },
-			lualine_c = { { "filename" }, { gps.get_location, cond = gps.is_available }, { LSP_progress } },
+			lualine_c = { { "filename" }, { GPS }, { LSP_progress } },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },
 			lualine_z = { { "location", separator = { left = "", right = "" } } },
 		},
