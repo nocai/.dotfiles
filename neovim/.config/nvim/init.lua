@@ -24,45 +24,50 @@ return require("configs.packer").startup(function(use)
 
 	-- treesitter
 	use({
-		"nvim-treesitter/nvim-treesitter",
-		cond = function()
-			return not vim.g.vscode
-		end,
-		-- event = { "BufRead", "BufNewFile" },
-		event = { "VimEnter" },
-		run = ":TSUpdate",
-		config = function()
-			require("configs.treesitter")
-		end,
-		requires = {
-			{
-				"nvim-treesitter/nvim-treesitter-context",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"p00f/nvim-ts-rainbow",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"windwp/nvim-ts-autotag",
-				after = { "nvim-treesitter" },
-			},
-			{
-				"SmiteshP/nvim-gps",
-				after = { "nvim-treesitter" },
-				config = function()
-					require("nvim-gps").setup()
-				end,
+		{
+			"nvim-treesitter/nvim-treesitter",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			-- event = { "BufRead", "BufNewFile" },
+			event = { "VimEnter" },
+			run = ":TSUpdate",
+			config = function()
+				require("configs.treesitter")
+			end,
+			requires = {
+				{
+					"nvim-treesitter/nvim-treesitter-context",
+					after = { "nvim-treesitter" },
+				},
+				{
+					"nvim-treesitter/nvim-treesitter-textobjects",
+					after = { "nvim-treesitter" },
+				},
+				{
+					"p00f/nvim-ts-rainbow",
+					after = { "nvim-treesitter" },
+				},
+				-- {
+				-- 	"JoosepAlviste/nvim-ts-context-commentstring",
+				-- 	after = { "nvim-treesitter" },
+				-- },
 			},
 		},
+		{
+			"SmiteshP/nvim-gps",
+			after = { "nvim-treesitter" },
+			config = function()
+				require("nvim-gps").setup()
+			end,
+		},
+		-- {
+		-- 	"windwp/nvim-ts-autotag",
+		-- 	after = { "nvim-treesitter" },
+		-- 	config = function()
+		-- 		require("nvim-ts-autotag").setup()
+		-- 	end,
+		-- },
 	})
 
 	-- lsp
