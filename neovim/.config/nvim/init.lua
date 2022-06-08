@@ -384,10 +384,11 @@ return require("configs.packer").startup(function(use)
 		},
 		{
 			"machakann/vim-sandwich",
+			event = { "VimEnter" },
 			setup = function()
 				vim.g.textobj_sandwich_no_default_key_mappings = 1
+				vim.g.loaded_textobj_sandwich = 1
 			end,
-			keys = { "sa", "sr", "srb", "sd", "sdb" },
 		},
 		{
 			"luukvbaal/stabilize.nvim",
