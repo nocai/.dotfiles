@@ -108,7 +108,6 @@ end
 
 function misc.nvim_tree()
 	require("nvim-tree").setup({
-		hijack_cursor = true,
 		reload_on_bufenter = true,
 		diagnostics = nvim.diagnostics,
 
@@ -120,10 +119,10 @@ function misc.nvim_tree()
 		},
 		renderer = {
 			group_empty = true,
-			highlight_opened_files = "all",
+			highlight_opened_files = "name",
 			indent_markers = {
 				enable = true,
-				icons = { corner = "╰ ", edge = "┊ " },
+				icons = { corner = "╰ " },
 			},
 			icons = {
 				git_placement = "signcolumn",
