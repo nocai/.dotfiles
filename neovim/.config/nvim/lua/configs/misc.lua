@@ -178,6 +178,12 @@ function misc.lualine()
 
 		return ("%#St_LspProgress#" .. content) or ""
 	end
+	-- LSP status
+	function LSP_status()
+		local lsp_attached = next(vim.lsp.buf_get_clients()) ~= nil
+		local content = lsp_attached and "   LSP ~ " .. vim.lsp.get_active_clients()[1].name .. " " or false
+		return content and ("%#St_LspStatus#" .. content) or ""
+	end
 
 	function GPS()
 		if vim.o.columns < 140 or not package.loaded["nvim-gps"] then
@@ -196,6 +202,7 @@ function misc.lualine()
 		sections = {
 			lualine_a = { { "mode", separator = { left = "", right = "" } } },
 			lualine_c = { { "filename" }, { GPS }, { LSP_progress } },
+			lualine_x = { { LSP_status }, "encoding", "fileformat", "filetype" },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },
 			lualine_z = { { "location", separator = { left = "", right = "" } } },
 		},
