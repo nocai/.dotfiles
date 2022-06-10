@@ -1,33 +1,7 @@
 -- stylua: ignore
-local lspkind_icon = {
-	Class         = " ",
-	Color         = " ",
-	Constant      = "ﲀ ",
-	Constructor   = " ",
-	Enum          = " ",
-	EnumMember    = " ",
-	Event         = " ",
-	Field         = " ",
-	File          = " ",
-	Folder        = " ",
-	Function      = " ",
-	Interface     = "ﰮ ",
-	Keyword       = " ",
-	Method        = " ",
-	Module        = " ",
-	Operator      = " ",
-	Property      = " ",
-	Reference     = " ",
-	Snippet       = " ",
-	Struct        = " ",
-	Text          = " ",
-	TypeParameter = "𝙏 ",
-	Unit          = " ",
-	Value         = " ",
-	Variable      = " ",
-}
-
+local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
+
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
 	-- completion = {

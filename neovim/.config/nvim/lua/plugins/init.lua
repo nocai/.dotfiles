@@ -49,16 +49,16 @@ return require("plugins.packer").startup(function(use)
 			"SmiteshP/nvim-gps",
 			after = { "nvim-treesitter" },
 			config = function()
-				require("nvim-gps").setup()
+				require("plugins.configs.misc").gps()
 			end,
 		},
-		-- {
-		-- 	"windwp/nvim-ts-autotag",
-		-- 	after = { "nvim-treesitter" },
-		-- 	config = function()
-		-- 		require("nvim-ts-autotag").setup()
-		-- 	end,
-		-- },
+		{
+			"windwp/nvim-ts-autotag",
+			after = { "nvim-treesitter" },
+			config = function()
+				require("nvim-ts-autotag").setup()
+			end,
+		},
 	})
 
 	-- lsp
@@ -416,7 +416,8 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			event = { "VimEnter" },
+			-- event = { "VimEnter" },
+			cmd = { "TodoLocList", "TodoQuickList", "TodoQuickFix", "TodoTelescope", "TodoTrouble" },
 			config = function()
 				require("todo-comments").setup({
 					highlight = {

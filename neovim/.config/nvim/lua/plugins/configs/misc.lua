@@ -484,4 +484,33 @@ function misc.vim_test()
 	]])
 end
 
+function misc.gps()
+	local icons = require("core.lspkind_icon")
+	require("nvim-gps").setup({
+		icons = {
+			["class-name"] = "%#CmpItemKindClass#" .. icons.Class .. "%*",
+			["function-name"] = "%#CmpItemKindFunction#" .. icons.Function .. "%*",
+			["method-name"] = "%#CmpItemKindMethod#" .. icons.Method .. "%*",
+			["container-name"] = "%#CmpItemKindProperty#" .. icons.Object .. "%*",
+			["tag-name"] = "%#CmpItemKindKeyword#" .. icons.Tag .. "%*" .. " ",
+			["mapping-name"] = "%#CmpItemKindProperty#" .. icons.Object .. "%*",
+			["sequence-name"] = "%CmpItemKindProperty#" .. icons.Array .. "%*",
+			["null-name"] = "%CmpItemKindField#" .. icons.Field .. "%*",
+			["boolean-name"] = "%CmpItemKindValue#" .. icons.Boolean .. "%*",
+			["integer-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
+			["float-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
+			["string-name"] = "%CmpItemKindValue#" .. icons.String .. "%*",
+			["array-name"] = "%CmpItemKindProperty#" .. icons.Array .. "%*",
+			["object-name"] = "%CmpItemKindProperty#" .. icons.Object .. "%*",
+			["number-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
+			["table-name"] = "%CmpItemKindProperty#" .. icons.Table .. "%*",
+			["date-name"] = "%CmpItemKindValue#" .. icons.Calendar .. "%*",
+			["date-time-name"] = "%CmpItemKindValue#" .. icons.Table .. "%*",
+			["inline-table-name"] = "%CmpItemKindProperty#" .. icons.Calendar .. "%*",
+			["time-name"] = "%CmpItemKindValue#" .. icons.Watch .. "%*",
+			["module-name"] = "%CmpItemKindModule#" .. icons.Module .. "%*",
+		},
+	})
+end
+
 return misc
