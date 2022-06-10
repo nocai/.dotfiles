@@ -196,10 +196,18 @@ function misc.lualine()
 	require("lualine").setup({
 		options = {
 			theme = "auto",
+			-- section_separators = { left = "", right = "" },
+			-- component_separators = { left = "", right = "" },
 			globalstatus = true,
 		},
 		sections = {
-			lualine_a = { { "mode", separator = { left = "", right = "" } } },
+			lualine_a = {
+				{
+					"mode",
+					icon = "",
+					separator = { left = "", right = "" },
+				},
+			},
 			lualine_c = { { "filename" }, { GPS }, { LSP_progress } },
 			lualine_x = { { LSP_status }, "encoding", "fileformat", "filetype" },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },

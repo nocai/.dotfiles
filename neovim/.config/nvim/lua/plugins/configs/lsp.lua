@@ -58,7 +58,8 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 
-	vim.keymap.set("n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	-- vim.keymap.set("n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	vim.keymap.set("n", "gn", "<cmd>lua require('core.renamer').open()<CR>", opts)
 
 	vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	vim.keymap.set({ "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
@@ -110,10 +111,10 @@ for _, server in ipairs(servers) do
 	lspconfig[server].setup(cfg)
 end
 
-local items = vim.fn.globpath(nvim.home .. "/lua/configs/lsp", "*.lua", false, true)
+local items = vim.fn.globpath(nvim.home .. "/lua/plugins/configs/lsp", "*.lua", false, true)
 for _, item in ipairs(items) do
 	local server = vim.fn.fnamemodify(item, ":t:r")
-	local cfg = require("configs.lsp." .. server)
+	local cfg = require("plugins/configs.lsp." .. server)
 	lspconfig[server].setup(M.config(cfg))
 end
 
