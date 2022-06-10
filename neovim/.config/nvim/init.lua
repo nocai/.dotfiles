@@ -426,7 +426,13 @@ return require("configs.packer").startup(function(use)
 			end,
 			event = { "VimEnter" },
 			config = function()
-				require("todo-comments").setup()
+				require("todo-comments").setup({
+					highlight = {
+						before = "",
+						keyword = "",
+						after = "",
+					},
+				})
 			end,
 		},
 		{
