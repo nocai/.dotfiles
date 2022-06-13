@@ -212,6 +212,12 @@ return require("plugins.packer").startup(function(use)
 					end,
 					run = "make",
 				},
+				{
+					"nvim-telescope/telescope-ui-select.nvim",
+					cond = function()
+						return nvim.is_not_vscode
+					end,
+				},
 			},
 		},
 		{

@@ -57,11 +57,17 @@ telescope.setup({
 			override_file_sorter = false, -- override the file sorter
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 		},
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({
+				-- even more opts
+			}),
+		},
 	},
 })
 
 -- fzf
 telescope.load_extension("fzf")
+telescope.load_extension("ui-select")
 
 -- projects
 telescope.load_extension("projects")
