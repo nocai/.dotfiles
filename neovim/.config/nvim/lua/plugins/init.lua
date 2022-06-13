@@ -39,10 +39,11 @@ return require("plugins.packer").startup(function(use)
 					"p00f/nvim-ts-rainbow",
 					after = { "nvim-treesitter" },
 				},
-				-- {
-				-- 	"JoosepAlviste/nvim-ts-context-commentstring",
-				-- 	after = { "nvim-treesitter" },
-				-- },
+				{
+					"JoosepAlviste/nvim-ts-context-commentstring",
+					disable = true,
+					after = { "nvim-treesitter" },
+				},
 			},
 		},
 		{
@@ -371,6 +372,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
+			disable = true,
 			event = { "VimEnter" },
 			cond = function()
 				return nvim.is_not_vscode
@@ -389,6 +391,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"luukvbaal/stabilize.nvim",
+			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -398,6 +401,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"famiu/bufdelete.nvim",
+			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,

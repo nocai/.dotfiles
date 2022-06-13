@@ -122,7 +122,6 @@ function misc.nvim_tree()
 			highlight_opened_files = "name",
 			indent_markers = {
 				enable = true,
-				icons = { corner = "╰ " },
 			},
 			icons = {
 				git_placement = "signcolumn",
@@ -406,7 +405,7 @@ function misc.marks()
 		-- can be either a table with all/none of the keys, or a single number, in which case
 		-- the priority applies to all marks.
 		-- default 10.
-		sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+		sign_priority = { lower = 8, upper = 8, builtin = 8, bookmark = 20 },
 		-- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
 		-- sign/virttext. Bookmarks can be used to group together positions and quickly move
 		-- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
@@ -487,6 +486,7 @@ end
 function misc.gps()
 	local icons = require("core.lspkind_icon")
 	require("nvim-gps").setup({
+		separator = "  ",
 		icons = {
 			["class-name"] = "%#CmpItemKindClass#" .. icons.Class .. "%*",
 			["function-name"] = "%#CmpItemKindFunction#" .. icons.Function .. "%*",
