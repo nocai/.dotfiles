@@ -178,8 +178,15 @@ function misc.lualine()
 	end
 	-- LSP status
 	function LSP_status()
-		local lsp_attached = next(vim.lsp.buf_get_clients()) ~= nil
-		local content = lsp_attached and "   LSP ~ " .. vim.lsp.get_active_clients()[1].name .. " " or false
+		local clients = vim.lsp.get_active_clients()
+		local name = false
+		for _, client in ipairs(clients) do
+			if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+				name = client.name
+				break
+			end
+		end
+		local content = name and "   LSP ~ " .. name .. " " or false
 		return content and ("%#St_LspStatus#" .. content) or ""
 	end
 
