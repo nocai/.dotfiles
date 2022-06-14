@@ -10,7 +10,7 @@ cmp.setup({
 	window = {
 		completion = {
 			border = nvim.window.border,
-			winhighlight = nvim.window.winhighlight,
+			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None," .. nvim.window.winhighlight,
 		},
 		documentation = {
 			border = nvim.window.border,
