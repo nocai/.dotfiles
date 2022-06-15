@@ -3,7 +3,7 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- vim.opt.laststatus = 3 -- global statusline
+vim.opt.laststatus = 3 -- global statusline
 
 vim.o.termguicolors = true
 vim.o.showmode = false
