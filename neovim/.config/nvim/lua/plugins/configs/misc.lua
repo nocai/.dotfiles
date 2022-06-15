@@ -62,15 +62,15 @@ function misc.symbols_outline()
 	vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
 	vim.cmd("hi link FocusedSymbol PmenuSel")
 
-	-- auto close symbols-outline window when it is the last window
-	nvim.set_symbols_outline_state = function()
-		vim.g["symbols_outline_state"] = require("symbols-outline").state
-	end
-
-	vim.cmd([[
-		autocmd BufEnter * :lua nvim.set_symbols_outline_state()
-		autocmd BufEnter * if winnr('$') == 1 && exists('g:symbols_outline_state.outline_buf') && g:symbols_outline_state.outline_buf | quit | endif
-	]])
+	-- -- auto close symbols-outline window when it is the last window
+	-- nvim.set_symbols_outline_state = function()
+	-- 	vim.g["symbols_outline_state"] = require("symbols-outline").state
+	-- end
+	--
+	-- vim.cmd([[
+	-- 	autocmd BufEnter * :lua nvim.set_symbols_outline_state()
+	-- 	autocmd BufEnter * if winnr('$') == 1 && exists('g:symbols_outline_state.outline_buf') && g:symbols_outline_state.outline_buf | quit | endif
+	-- ]])
 end
 
 function misc.sonokai()
@@ -110,13 +110,14 @@ function misc.nvim_tree()
 	require("nvim-tree").setup({
 		reload_on_bufenter = true,
 		diagnostics = nvim.diagnostics,
-
 		update_cwd = true,
 		respect_buf_cwd = true,
+
 		update_focused_file = {
 			enable = true,
 			update_cwd = false,
 		},
+
 		renderer = {
 			group_empty = true,
 			highlight_opened_files = "name",
@@ -124,7 +125,7 @@ function misc.nvim_tree()
 				enable = true,
 			},
 			icons = {
-				git_placement = "signcolumn",
+				git_placement = "after", -- "signcolumn"
 				glyphs = {
 					git = {
 						unstaged = "✗",
@@ -134,7 +135,9 @@ function misc.nvim_tree()
 				},
 			},
 		},
+
 		view = {
+			adaptive_size = true,
 			mappings = {
 				list = {
 					{ key = "<C-k>", action = "" },
@@ -154,7 +157,7 @@ function misc.nvim_tree()
 
 	vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")
 	-- auto close last windows in the tab
-	vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
+	-- vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
 end
 
 function misc.lualine()
@@ -485,6 +488,8 @@ function misc.vim_test()
 	vim.cmd([[
 		let test#strategy = "neovim"
 		nmap <silent> <leader>tt :TestNearest -v<CR>
+		nmap <silent> <leader>tf :TestFile<CR>
+		nmap <silent> <leader>ts :TestSuite<CR>
 		nmap <silent> <leader>tl :TestLast -v<CR>
 		nmap <silent> <leader>tv :TestVisit<CR>
 	]])
