@@ -43,10 +43,10 @@ function misc.lsp_signature()
 end
 
 function misc.symbols_outline()
-	-- init.lua
+	local lspkind_icon = require("core.lspkind_icon")
 	vim.g.symbols_outline = {
 		auto_preview = false,
-		auto_close = false,
+		auto_close = true,
 		width = 20,
 		preview_bg_highlight = "Normal",
 		keymaps = { -- These keymaps can be a string or a table for multiple keys
@@ -57,6 +57,34 @@ function misc.symbols_outline()
 			toggle_preview = "<C-p>",
 			rename_symbol = { "gn", "r" },
 			code_actions = { "ga", "ca" },
+		},
+		symbols = {
+			File = { icon = lspkind_icon.Field, hl = "TSURI" },
+			Module = { icon = lspkind_icon.Module, hl = "TSNamespace" },
+			Namespace = { icon = lspkind_icon.Namespace, hl = "TSNamespace" },
+			Package = { icon = lspkind_icon.Module, hl = "TSNamespace" },
+			Class = { icon = lspkind_icon.Class, hl = "TSType" },
+			Method = { icon = lspkind_icon.Method, hl = "TSMethod" },
+			Property = { icon = lspkind_icon.Property, hl = "TSMethod" },
+			Field = { icon = lspkind_icon.Field, hl = "TSField" },
+			Constructor = { icon = lspkind_icon.Constructor, hl = "TSConstructor" },
+			Enum = { icon = lspkind_icon.Enum, hl = "TSType" },
+			Interface = { icon = lspkind_icon.Interface, hl = "TSType" },
+			Function = { icon = lspkind_icon.Function, hl = "TSFunction" },
+			Variable = { icon = lspkind_icon.Variable, hl = "TSConstant" },
+			Constant = { icon = lspkind_icon.Constant, hl = "TSConstant" },
+			String = { icon = lspkind_icon.String, hl = "TSString" },
+			Number = { icon = lspkind_icon.Number, hl = "TSNumber" },
+			Boolean = { icon = lspkind_icon.Boolean, hl = "TSBoolean" },
+			Array = { icon = lspkind_icon.Array, hl = "TSConstant" },
+			Object = { icon = lspkind_icon.Object, hl = "TSType" },
+			Key = { icon = lspkind_icon.Keyword, hl = "TSType" },
+			Null = { icon = lspkind_icon.Keyword, hl = "TSType" },
+			EnumMember = { icon = lspkind_icon.EnumMember, hl = "TSField" },
+			Struct = { icon = lspkind_icon.Struct, hl = "TSType" },
+			Event = { icon = lspkind_icon.Event, hl = "TSType" },
+			Operator = { icon = lspkind_icon.Operator, hl = "TSOperator" },
+			TypeParameter = { icon = lspkind_icon.TypeParameter, hl = "TSParameter" },
 		},
 	}
 	vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
@@ -176,9 +204,10 @@ function misc.lualine()
 		local ms = vim.loop.hrtime() / 1000000
 		local frame = math.floor(ms / 120) % #spinners
 		local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-
-		return ("%#St_LspProgress#" .. content) or ""
+		return content or ""
+		-- return content and "%=" .. content .. "%=" or ""
 	end
+
 	-- LSP status
 	function LSP_status()
 		local clients = vim.lsp.get_active_clients()
@@ -190,7 +219,7 @@ function misc.lualine()
 			end
 		end
 		local content = name and "   LSP ~ " .. name .. " " or false
-		return content and ("%#St_LspStatus#" .. content) or ""
+		return content or ""
 	end
 
 	function GPS()
@@ -203,12 +232,6 @@ function misc.lualine()
 	end
 
 	require("lualine").setup({
-		options = {
-			theme = "auto",
-			-- section_separators = { left = "", right = "" },
-			-- component_separators = { left = "", right = "" },
-			globalstatus = true,
-		},
 		sections = {
 			lualine_a = {
 				{
@@ -218,7 +241,9 @@ function misc.lualine()
 				},
 			},
 			lualine_c = { { "filename" }, { GPS }, { LSP_progress } },
-			lualine_x = { { LSP_status }, "encoding", "fileformat", "filetype" },
+			-- lualine_x = { { LSP_status }, "encoding", "fileformat", "filetype" },
+
+			lualine_x = { { LSP_status } },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },
 			lualine_z = { { "location", separator = { left = "", right = "" } } },
 		},
@@ -500,27 +525,27 @@ function misc.gps()
 	require("nvim-gps").setup({
 		separator = "  ",
 		icons = {
-			["class-name"] = "%#CmpItemKindClass#" .. icons.Class .. "%*",
-			["function-name"] = "%#CmpItemKindFunction#" .. icons.Function .. "%*",
-			["method-name"] = "%#CmpItemKindMethod#" .. icons.Method .. "%*",
-			["container-name"] = "%#CmpItemKindProperty#" .. icons.Object .. "%*",
-			["tag-name"] = "%#CmpItemKindKeyword#" .. icons.Tag .. "%*" .. " ",
-			["mapping-name"] = "%#CmpItemKindProperty#" .. icons.Object .. "%*",
-			["sequence-name"] = "%CmpItemKindProperty#" .. icons.Array .. "%*",
-			["null-name"] = "%CmpItemKindField#" .. icons.Field .. "%*",
-			["boolean-name"] = "%CmpItemKindValue#" .. icons.Boolean .. "%*",
-			["integer-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
-			["float-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
-			["string-name"] = "%CmpItemKindValue#" .. icons.String .. "%*",
-			["array-name"] = "%CmpItemKindProperty#" .. icons.Array .. "%*",
-			["object-name"] = "%CmpItemKindProperty#" .. icons.Object .. "%*",
-			["number-name"] = "%CmpItemKindValue#" .. icons.Number .. "%*",
-			["table-name"] = "%CmpItemKindProperty#" .. icons.Table .. "%*",
-			["date-name"] = "%CmpItemKindValue#" .. icons.Calendar .. "%*",
-			["date-time-name"] = "%CmpItemKindValue#" .. icons.Table .. "%*",
-			["inline-table-name"] = "%CmpItemKindProperty#" .. icons.Calendar .. "%*",
-			["time-name"] = "%CmpItemKindValue#" .. icons.Watch .. "%*",
-			["module-name"] = "%CmpItemKindModule#" .. icons.Module .. "%*",
+			["class-name"] = icons.Class .. " ",
+			["function-name"] = icons.Function .. " ",
+			["method-name"] = icons.Method .. " ",
+			["container-name"] = icons.Object .. " ",
+			["tag-name"] = icons.Tag .. " ",
+			["mapping-name"] = icons.Object .. " ",
+			["sequence-name"] = icons.Array .. " ",
+			["null-name"] = icons.Field .. " ",
+			["boolean-name"] = icons.Boolean .. " ",
+			["integer-name"] = icons.Number .. " ",
+			["float-name"] = icons.Number .. " ",
+			["string-name"] = icons.String .. " ",
+			["array-name"] = icons.Array .. " ",
+			["object-name"] = icons.Object .. " ",
+			["number-name"] = icons.Number .. " ",
+			["table-name"] = icons.Table .. " ",
+			["date-name"] = icons.Calendar .. " ",
+			["date-time-name"] = icons.Table .. " ",
+			["inline-table-name"] = icons.Calendar .. " ",
+			["time-name"] = icons.Watch .. " ",
+			["module-name"] = icons.Module .. " ",
 		},
 	})
 end

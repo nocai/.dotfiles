@@ -26,7 +26,7 @@ cmp.setup({
 		fields = { "kind", "abbr", "menu" },
 		duplicates_default = 0,
 		format = function(entry, vim_item)
-			vim_item.kind = lspkind_icon[vim_item.kind]
+			vim_item.kind = lspkind_icon[vim_item.kind] .. " "
 
 			local maxwidth = 30
 			if string.len(vim_item.abbr) > maxwidth then
