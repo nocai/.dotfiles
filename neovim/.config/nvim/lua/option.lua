@@ -101,7 +101,16 @@ vim.g.did_load_filetypes       = 0
 vim.g.do_filetype_lua          = 1
 -- stylua: ignore end
 
--- disable ruby
-vim.g.loaded_ruby_provider = 0
--- disable perl
-vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 1
+vim.g.loaded_perl_provider = 1
+vim.g.loaded_python_provider = 1
+vim.g.loaded_python3_provider = 1
+vim.g.loaded_node_provider = 1
+vim.g.loaded_tutor = 1
+vim.g.loaded_rplugin = 1
+vim.g.loaded_syntax = 1
+vim.g.loaded_synmenu = 1
+vim.g.loaded_optwin = 1
+vim.g.loaded_compiler = 1
+vim.g.loaded_bugreport = 1
+vim.g.loaded_ftplugin = 1
