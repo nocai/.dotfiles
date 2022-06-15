@@ -47,13 +47,6 @@ return require("plugins.packer").startup(function(use)
 			},
 		},
 		{
-			"SmiteshP/nvim-gps",
-			after = { "nvim-treesitter" },
-			config = function()
-				require("plugins.configs.misc").gps()
-			end,
-		},
-		{
 			"windwp/nvim-ts-autotag",
 			after = { "nvim-treesitter" },
 			config = function()

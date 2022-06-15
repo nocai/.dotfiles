@@ -25,6 +25,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	focusable = false,
 	border = nvim.window.border,
 	close_events = { "InsertCharPre", "CursorMoved" },
+	anchor = "SW",
+	relative = "cursor",
+	row = -1,
 })
 
 -- Borders for LspInfo winodw

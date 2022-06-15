@@ -222,15 +222,6 @@ function misc.lualine()
 		return content or ""
 	end
 
-	function GPS()
-		if vim.o.columns < 140 or not package.loaded["nvim-gps"] then
-			return ""
-		end
-
-		local gps = require("nvim-gps")
-		return (gps.is_available() and gps.get_location()) or ""
-	end
-
 	require("lualine").setup({
 		sections = {
 			lualine_a = {
@@ -240,9 +231,7 @@ function misc.lualine()
 					separator = { left = "", right = "" },
 				},
 			},
-			lualine_c = { { "filename" }, { GPS }, { LSP_progress } },
-			-- lualine_x = { { LSP_status }, "encoding", "fileformat", "filetype" },
-
+			lualine_c = { { "filename" }, { LSP_progress } },
 			lualine_x = { { LSP_status } },
 			lualine_y = { { "progress", separator = { left = "", right = "" } } },
 			lualine_z = { { "location", separator = { left = "", right = "" } } },
@@ -518,36 +507,6 @@ function misc.vim_test()
 		nmap <silent> <leader>tl :TestLast -v<CR>
 		nmap <silent> <leader>tv :TestVisit<CR>
 	]])
-end
-
-function misc.gps()
-	local icons = require("core.lspkind_icon")
-	require("nvim-gps").setup({
-		separator = "  ",
-		icons = {
-			["class-name"] = icons.Class .. " ",
-			["function-name"] = icons.Function .. " ",
-			["method-name"] = icons.Method .. " ",
-			["container-name"] = icons.Object .. " ",
-			["tag-name"] = icons.Tag .. " ",
-			["mapping-name"] = icons.Object .. " ",
-			["sequence-name"] = icons.Array .. " ",
-			["null-name"] = icons.Field .. " ",
-			["boolean-name"] = icons.Boolean .. " ",
-			["integer-name"] = icons.Number .. " ",
-			["float-name"] = icons.Number .. " ",
-			["string-name"] = icons.String .. " ",
-			["array-name"] = icons.Array .. " ",
-			["object-name"] = icons.Object .. " ",
-			["number-name"] = icons.Number .. " ",
-			["table-name"] = icons.Table .. " ",
-			["date-name"] = icons.Calendar .. " ",
-			["date-time-name"] = icons.Table .. " ",
-			["inline-table-name"] = icons.Calendar .. " ",
-			["time-name"] = icons.Watch .. " ",
-			["module-name"] = icons.Module .. " ",
-		},
-	})
 end
 
 return misc
