@@ -3,12 +3,9 @@ return require("plugins.packer").startup(function(use)
 	use({ "wbthomason/packer.nvim", opt = true })
 	use({
 		{ "nvim-lua/plenary.nvim" },
-		{ "antoinemadec/FixCursorHold.nvim" }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-		{ "nanotee/nvim-lua-guide" },
-		{
-			"kyazdani42/nvim-web-devicons",
-			after = { "nvim-lsp-installer" },
-		},
+		{ "nanotee/nvim-lua-guide", after = { "nvim-lsp-installer" } },
+		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lsp-installer" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+		{ "kyazdani42/nvim-web-devicons", after = { "nvim-lsp-installer" } },
 	})
 
 	-- core
@@ -16,11 +13,10 @@ return require("plugins.packer").startup(function(use)
 		-- treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
-			-- cond = function()
-			-- 	return nvim.is_not_vscode
-			-- end,
-			-- event = { "BufRead", "BufWinEnter", "BufNewFile" },
-			after = { "nvim-lsp-installer" },
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = "VimEnter",
 			config = function()
 				require("plugins.configs.treesitter")
 			end,
@@ -35,6 +31,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"p00f/nvim-ts-rainbow",
+			disable = true,
 			after = { "nvim-treesitter" },
 		},
 		{
@@ -51,8 +48,8 @@ return require("plugins.packer").startup(function(use)
 			opt = true,
 			setup = function()
 				nvim.lazy_load({
+					disable = nvim.is_vscode,
 					events = { "BufRead", "BufWinEnter", "BufNewFile" },
-					-- events = { "VimEnter" },
 					augroup_name = "NvimLspInstaller_LazyLoad",
 					plugins = "nvim-lsp-installer",
 					condition = function()
@@ -213,9 +210,7 @@ return require("plugins.packer").startup(function(use)
 		-- colorscheme
 		{
 			"folke/tokyonight.nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
+			after = "nvim-treesitter",
 			setup = function()
 				require("plugins.configs.misc").tokyonight()
 			end,
@@ -329,23 +324,10 @@ return require("plugins.packer").startup(function(use)
 		{
 			"lukas-reineke/indent-blankline.nvim",
 			after = { "nvim-lsp-installer" },
-			-- opt = true,
-			-- setup = function()
-			-- 	vim.g.indent_blankline_char = "┊"
-			-- 	vim.g.indent_blankline_show_first_indent_level = false
-			--
-			-- 	nvim.lazy_load({
-			-- 		disable = nvim.is_vscode,
-			-- 		events = { "BufRead", "BufWinEnter", "BufNewFile" },
-			-- 		augroup_name = "BeLazyOnFileOpen",
-			-- 		plugins = "indent-blankline.nvim",
-			--
-			-- 		condition = function()
-			-- 			local file = vim.fn.expand("%")
-			-- 			return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
-			-- 		end,
-			-- 	})
-			-- end,
+			setup = function()
+				vim.g.indent_blankline_char = "┊"
+				vim.g.indent_blankline_show_first_indent_level = false
+			end,
 			config = function()
 				require("plugins.configs.misc").indent_blankline()
 			end,
