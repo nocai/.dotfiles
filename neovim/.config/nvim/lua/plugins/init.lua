@@ -195,6 +195,20 @@ return require("plugins.packer").startup(function(use)
 				require("telescope").load_extension("ui-select")
 			end,
 		},
+		{
+			"ahmedkhalf/project.nvim",
+			after = { "telescope.nvim" },
+			config = function()
+				-- projects
+				vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
+				vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
+				require("project_nvim").setup({
+					show_hidden = true,
+					silent_chdir = false,
+				})
+				require("telescope").load_extension("projects")
+			end,
+		},
 
 		-- colorscheme
 		{
