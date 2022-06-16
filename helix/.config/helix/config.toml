@@ -1,0 +1,37 @@
+[editor.lsp]
+"display-messages" = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal]
+h = "move_char_left"
+n = "move_line_down"
+e = "move_line_up"
+i = "move_char_right"
+
+j = "move_next_word_end"
+J = "move_next_long_word_end"
+
+C-l = "jump_forward"
+C-o = "jump_backward"
+
+l = "insert_mode"
+L = "prepend_to_line"
+
+N = "join_selections"
+E = "keep_selections"
+"A-E" = "remove_selections"
+"A-l" = "shrink_selection"
+
+"A-k" = "select_next_sibling"
+"A-p" = "select_prev_sibling"
+
+k = "search_next"
+K = "search_prev"
+
+[keys.select]
+n = "scroll_down"
+e = "scroll_up"
