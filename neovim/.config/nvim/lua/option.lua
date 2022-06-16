@@ -51,7 +51,7 @@ vim.o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 5
 
-vim.o.pumheight = 15
+vim.o.pumheight = 10
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4

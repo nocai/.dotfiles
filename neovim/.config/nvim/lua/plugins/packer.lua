@@ -1,5 +1,5 @@
 -- Only required if you have packer configured as `opt`
--- vim.cmd([[packadd packer.nvim]])
+vim.cmd([[packadd packer.nvim]])
 
 local present, packer = pcall(require, "packer")
 if not present then

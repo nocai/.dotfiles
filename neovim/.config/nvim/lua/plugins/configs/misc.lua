@@ -29,19 +29,6 @@ function misc.null_ls()
 	})
 end
 
-function misc.lsp_signature()
-	require("lsp_signature").setup({
-		bind = true,
-		floating_window = true,
-		hint_enable = false,
-		floating_window_above_cur_line = true,
-		timer_interval = 1000,
-		handler_opts = {
-			border = "rounded", -- double, single, shadow, none
-		},
-	})
-end
-
 function misc.symbols_outline()
 	local lspkind_icon = require("core.lspkind_icon")
 	vim.g.symbols_outline = {
@@ -99,19 +86,6 @@ function misc.symbols_outline()
 	-- 	autocmd BufEnter * :lua nvim.set_symbols_outline_state()
 	-- 	autocmd BufEnter * if winnr('$') == 1 && exists('g:symbols_outline_state.outline_buf') && g:symbols_outline_state.outline_buf | quit | endif
 	-- ]])
-end
-
-function misc.sonokai()
-	-- Available values: `'default'`, `'atlantis'`, `'andromeda'`, `'shusia'`, `'maia'`, `'espresso'`
-	-- Default value: `'default'`
-	vim.g.sonokai_style = "shusia"
-	-- Available values: `'auto'`, `'red'`, `'orange'`, `'yellow'`, `'green'`, `'blue'`, `'purple'`
-	-- Default value: `'auto'`
-	vim.g.sonokai_cursor = "red"
-	vim.g.sonokai_enable_italic = 1
-	vim.g.sonokai_disable_italic_comment = 0
-	vim.g.sonokai_transparent_background = 1
-	vim.g.sonokai_better_performance = 1
 end
 
 function misc.tokyonight()

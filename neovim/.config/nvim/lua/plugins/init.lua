@@ -1,127 +1,113 @@
 return require("plugins.packer").startup(function(use)
-	use({ "wbthomason/packer.nvim" })
+	-- commons
+	use({ "wbthomason/packer.nvim", opt = true })
 	use({
-		{ "lewis6991/impatient.nvim" },
 		{ "nvim-lua/plenary.nvim" },
 		{ "antoinemadec/FixCursorHold.nvim" }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 		{ "nanotee/nvim-lua-guide" },
 		{
 			"kyazdani42/nvim-web-devicons",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
+			after = { "nvim-lsp-installer" },
 		},
 	})
 
-	-- treesitter
+	-- core
 	use({
+		-- treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			-- event = { "BufRead", "BufNewFile" },
-			event = { "VimEnter" },
-			run = ":TSUpdate",
+			-- cond = function()
+			-- 	return nvim.is_not_vscode
+			-- end,
+			-- event = { "BufRead", "BufWinEnter", "BufNewFile" },
+			after = { "nvim-lsp-installer" },
 			config = function()
 				require("plugins.configs.treesitter")
 			end,
-			requires = {
-				{
-					"nvim-treesitter/nvim-treesitter-context",
-					after = { "nvim-treesitter" },
-				},
-				{
-					"nvim-treesitter/nvim-treesitter-textobjects",
-					after = { "nvim-treesitter" },
-				},
-				{
-					"p00f/nvim-ts-rainbow",
-					after = { "nvim-treesitter" },
-				},
-				{
-					"JoosepAlviste/nvim-ts-context-commentstring",
-					disable = true,
-					after = { "nvim-treesitter" },
-				},
-			},
+		},
+		{
+			"nvim-treesitter/nvim-treesitter-context",
+			after = { "nvim-treesitter", "nvim-lsp-installer" },
+		},
+		{
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			after = { "nvim-treesitter", "nvim-lsp-installer" },
+		},
+		{
+			"p00f/nvim-ts-rainbow",
+			after = { "nvim-treesitter" },
 		},
 		{
 			"windwp/nvim-ts-autotag",
-			after = { "nvim-treesitter" },
+			after = { "nvim-treesitter", "nvim-lsp-installer" },
 			config = function()
 				require("nvim-ts-autotag").setup()
 			end,
 		},
-	})
 
-	-- lsp
-	use({
+		-- lsp
+		{
+			"williamboman/nvim-lsp-installer",
+			opt = true,
+			setup = function()
+				nvim.lazy_load({
+					events = { "BufRead", "BufWinEnter", "BufNewFile" },
+					-- events = { "VimEnter" },
+					augroup_name = "NvimLspInstaller_LazyLoad",
+					plugins = "nvim-lsp-installer",
+					condition = function()
+						local file = vim.fn.expand("%")
+						return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
+					end,
+				})
+			end,
+		},
 		{
 			"neovim/nvim-lspconfig",
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			event = { "VimEnter" },
-			config = function()
-				require("plugins.configs.lsp")
-			end,
-		},
-		{
-			"williamboman/nvim-lsp-installer",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			cmd = { "LspInstall", "LspInstallInfo", "LspInstallLog" },
+			after = "nvim-lsp-installer",
+			module = "lspconfig",
 			config = function()
 				require("plugins.configs.misc").nvim_lsp_installer()
-			end,
-		},
-		{
-			"jose-elias-alvarez/null-ls.nvim",
-			event = { "VimEnter" },
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			ft = { "lua" },
-			config = function()
-				require("plugins.configs.misc").null_ls()
-			end,
-		},
-		{
-			"ray-x/lsp_signature.nvim",
-			disable = true,
-			after = { "nvim-lspconfig" },
-			cond = function()
-				return not vim.g.vscode
-			end,
-			config = function()
-				require("plugins.configs.misc").lsp_signature()
-			end,
-		},
-		{
-			"simrat39/symbols-outline.nvim",
-			after = { "nvim-lspconfig" },
-			cond = function()
-				return not vim.g.vscode
-			end,
-			setup = function()
-				require("plugins.configs.misc").symbols_outline()
+				require("plugins.configs.lsp")
 			end,
 		},
 		{
 			-- config, see: ftplugin/java.lua
 			"mfussenegger/nvim-jdtls",
-			ft = { "java" },
+			ft = "java",
 			after = { "nvim-lspconfig" },
 			cond = function()
 				return not vim.g.vscode
 			end,
 		},
-	})
 
-	-- cmp
-	use({
+		-- null-ls
+		{
+			"jose-elias-alvarez/null-ls.nvim",
+			after = "nvim-lsp-installer",
+			config = function()
+				require("plugins.configs.misc").null_ls()
+			end,
+		},
+
+		-- cmp
+		{
+			"rafamadriz/friendly-snippets",
+			after = "nvim-lsp-installer",
+		},
+		{
+			"L3MON4D3/LuaSnip",
+			after = { "friendly-snippets" },
+			config = function()
+				require("luasnip.config").setup({
+					region_check_events = "InsertEnter",
+				})
+				require("luasnip.loaders.from_vscode").lazy_load()
+			end,
+		},
 		{
 			"hrsh7th/nvim-cmp",
 			cond = function()
@@ -147,22 +133,6 @@ return require("plugins.packer").startup(function(use)
 				{
 					"saadparwaiz1/cmp_luasnip",
 					after = "nvim-cmp",
-					requires = {
-						{
-							"rafamadriz/friendly-snippets",
-							after = "nvim-cmp",
-						},
-						{
-							"L3MON4D3/LuaSnip",
-							after = { "friendly-snippets", "nvim-cmp" },
-							config = function()
-								require("luasnip.config").setup({
-									region_check_events = "InsertEnter",
-								})
-								require("luasnip.loaders.from_vscode").lazy_load()
-							end,
-						},
-					},
 				},
 			},
 		},
@@ -184,63 +154,49 @@ return require("plugins.packer").startup(function(use)
 				require("tabout").setup()
 			end,
 		},
-	})
 
-	-- telescope
-	use({
+		-- telescope
 		{
 			"nvim-telescope/telescope.nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
+			after = { "nvim-lsp-installer" },
 			config = function()
 				require("plugins.configs.telescope")
 			end,
-			requires = {
-				{
-					"nvim-telescope/telescope-fzf-native.nvim",
-					cond = function()
-						return nvim.is_not_vscode
-					end,
-					run = "make",
-				},
-				{
-					"nvim-telescope/telescope-ui-select.nvim",
-					cond = function()
-						return nvim.is_not_vscode
-					end,
-				},
-			},
 		},
 		{
-			"ahmedkhalf/project.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
 			after = { "telescope.nvim" },
-			cond = function()
-				return nvim.is_not_vscode
-			end,
+			run = "make",
 			config = function()
-				require("project_nvim").setup()
+				require("telescope").setup({
+					extensions = {
+						fzf = {
+							fuzzy = true, -- false will only do exact matching
+							override_generic_sorter = true, -- override the generic sorter
+							override_file_sorter = true, -- override the file sorter
+							case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+						},
+					},
+				})
+				require("telescope").load_extension("fzf")
 			end,
 		},
-	})
-
-	-- misc
-	use({
-		-- colorscheme
 		{
-			"sainnhe/sonokai",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			setup = function()
-				require("plugins.configs.misc").sonokai()
-			end,
+			"nvim-telescope/telescope-ui-select.nvim",
+			after = { "telescope.nvim" },
 			config = function()
-				-- vim.cmd([[colorscheme sonokai]])
+				require("telescope").setup({
+					extensions = {
+						["ui-select"] = {
+							require("telescope.themes").get_dropdown({}),
+						},
+					},
+				})
+				require("telescope").load_extension("ui-select")
 			end,
 		},
+
+		-- colorscheme
 		{
 			"folke/tokyonight.nvim",
 			cond = function()
@@ -255,22 +211,27 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"kyazdani42/nvim-tree.lua",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			after = { "nvim-web-devicons" },
+			after = "nvim-web-devicons",
 			config = function()
 				require("plugins.configs.misc").nvim_tree()
 			end,
 		},
 		{
 			"hoob3rt/lualine.nvim",
-			cond = function()
-				return not nvim.is_vscode
-			end,
-			after = { "nvim-web-devicons" },
+			after = { "tokyonight.nvim" },
 			config = function()
 				require("plugins.configs.misc").lualine()
+			end,
+		},
+	})
+
+	-- misc
+	use({
+		{
+			"simrat39/symbols-outline.nvim",
+			after = { "nvim-lspconfig" },
+			setup = function()
+				require("plugins.configs.misc").symbols_outline()
 			end,
 		},
 		{
@@ -346,6 +307,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"norcalli/nvim-colorizer.lua",
+			disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
@@ -357,13 +319,22 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"lukas-reineke/indent-blankline.nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
+			opt = true,
 			setup = function()
 				vim.g.indent_blankline_char = "┊"
 				vim.g.indent_blankline_show_first_indent_level = false
+
+				nvim.lazy_load({
+					disable = nvim.is_vscode,
+					events = { "BufRead", "BufWinEnter", "BufNewFile" },
+					augroup_name = "BeLazyOnFileOpen",
+					plugins = "indent-blankline.nvim",
+
+					condition = function()
+						local file = vim.fn.expand("%")
+						return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
+					end,
+				})
 			end,
 			config = function()
 				require("plugins.configs.misc").indent_blankline()
@@ -382,7 +353,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"machakann/vim-sandwich",
-			event = { "VimEnter" },
+			keys = { "sa", "sd", "sdb", "sr", "srb" },
 			setup = function()
 				vim.g.textobj_sandwich_no_default_key_mappings = 1
 				vim.g.loaded_textobj_sandwich = 1
@@ -440,10 +411,34 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"lewis6991/gitsigns.nvim",
-			cond = function()
-				return not vim.g.vscode
+			-- cond = function()
+			-- 	return not vim.g.vscode
+			-- end,
+			opt = true,
+			setup = function()
+				vim.api.nvim_create_autocmd({ "BufRead" }, {
+					callback = function()
+						local function onexit(code, _)
+							if code == 0 then
+								vim.schedule(function()
+									require("packer").loader("gitsigns.nvim")
+								end)
+							end
+						end
+
+						local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+						if lines ~= { "" } then
+							vim.loop.spawn("git", {
+								args = {
+									"ls-files",
+									"--error-unmatch",
+									vim.fn.expand("%:p:h"),
+								},
+							}, onexit)
+						end
+					end,
+				})
 			end,
-			event = { "VimEnter" },
 			config = function()
 				require("plugins.configs.misc").gitsigns()
 			end,

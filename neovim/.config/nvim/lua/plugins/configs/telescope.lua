@@ -1,7 +1,7 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 
-local options = {
+telescope.setup({
 	defaults = {
 		prompt_prefix = "  ",
 		previewers = true,
@@ -23,35 +23,7 @@ local options = {
 			},
 		},
 	},
-
-	extensions = {
-		fzf = {
-			fuzzy = true, -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true, -- override the file sorter
-			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-		},
-		["ui-select"] = {
-			require("telescope.themes").get_dropdown({
-				initial_mode = "normal",
-			}),
-		},
-		projects = {},
-	},
-}
-
-telescope.setup(options)
-
--- load extensions
-pcall(function()
-	for ext in pairs(options.extensions) do
-		telescope.load_extension(ext)
-	end
-end)
-
--- projects
-vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
-vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
+})
 
 -- keymap
 vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
