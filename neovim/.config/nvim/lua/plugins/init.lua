@@ -13,9 +13,6 @@ return require("plugins.packer").startup(function(use)
 		-- treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
 			event = "VimEnter",
 			config = function()
 				require("plugins.configs.treesitter")
@@ -31,14 +28,29 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"p00f/nvim-ts-rainbow",
-			disable = true,
 			after = { "nvim-treesitter" },
+			config = function()
+				require("nvim-treesitter.configs").setup({
+					rainbow = {
+						enable = nvim.is_not_vscode,
+						extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+						max_file_lines = nil, -- Do not enable for files with more than n lines, int
+						-- colors = {}, -- table of hex strings
+						-- termcolors = {} -- table of colour name strings
+					},
+				})
+			end,
 		},
 		{
 			"windwp/nvim-ts-autotag",
 			after = { "nvim-treesitter", "nvim-lsp-installer" },
 			config = function()
-				require("nvim-ts-autotag").setup()
+				require("nvim-treesitter.configs").setup({
+					autotag = {
+						enable = true,
+						filetypes = { "html", "xml" },
+					},
+				})
 			end,
 		},
 
@@ -238,6 +250,7 @@ return require("plugins.packer").startup(function(use)
 	use({
 		{
 			"simrat39/symbols-outline.nvim",
+			disable = true,
 			after = { "nvim-lspconfig" },
 			setup = function()
 				require("plugins.configs.misc").symbols_outline()
@@ -255,17 +268,6 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 		{
-			"stevearc/dressing.nvim",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
-			config = function()
-				require("plugins.configs.misc").dressing()
-			end,
-		},
-		{
 			"goolord/alpha-nvim",
 			cond = function()
 				return nvim.is_not_vscode
@@ -277,10 +279,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"rcarriga/nvim-notify",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			requires = { "nvim-telescope/telescope.nvim" },
+			after = { "telescope.nvim" },
 			config = function()
 				require("plugins.configs.misc").notify()
 			end,
@@ -334,8 +333,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
-			disable = true,
-			event = { "VimEnter" },
+			keys = { "m" },
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -363,7 +361,6 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"famiu/bufdelete.nvim",
-			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -382,7 +379,6 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			-- event = { "VimEnter" },
 			cmd = { "TodoLocList", "TodoQuickList", "TodoQuickFix", "TodoTelescope", "TodoTrouble" },
 			config = function()
 				require("todo-comments").setup({
@@ -403,9 +399,6 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"lewis6991/gitsigns.nvim",
-			-- cond = function()
-			-- 	return not vim.g.vscode
-			-- end,
 			opt = true,
 			setup = function()
 				vim.api.nvim_create_autocmd({ "BufRead" }, {
@@ -440,7 +433,7 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			ft = { "go", "rust", "python" },
+			keys = { "<Leader>r" },
 			config = function()
 				require("plugins.configs.misc").vim_quickrun()
 			end,
@@ -450,7 +443,7 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			ft = { "go", "rust", "java" },
+			keys = { "<Leader>t" },
 			config = function()
 				require("plugins.configs.misc").vim_test()
 			end,

@@ -11,7 +11,7 @@ end
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "lua", "go" },
 	highlight = {
-		enable = true,
+		enable = nvim.is_not_vscode,
 		additional_vim_regex_highlighting = false,
 		use_languagetree = true,
 	},
@@ -109,18 +109,9 @@ require("nvim-treesitter.configs").setup({
 			},
 		},
 	},
-	rainbow = {
-		enable = true,
-		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-		max_file_lines = nil, -- Do not enable for files with more than n lines, int
-		-- colors = {}, -- table of hex strings
-		-- termcolors = {} -- table of colour name strings
-	},
-	autotag = {
-		enable = true,
-	},
 })
 
-vim.api.nvim_command("set foldmethod=expr")
-vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
+if nvim.is_not_vscode then
+	vim.api.nvim_command("set foldmethod=expr")
+	vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
+end
