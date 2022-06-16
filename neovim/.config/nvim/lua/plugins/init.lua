@@ -307,35 +307,31 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"norcalli/nvim-colorizer.lua",
-			disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = { "VimEnter" },
-			ft = { "lua", "html", "css" },
+			after = { "nvim-lsp-installer" },
 			config = function()
 				require("colorizer").setup()
 			end,
 		},
 		{
 			"lukas-reineke/indent-blankline.nvim",
-			opt = true,
-			setup = function()
-				vim.g.indent_blankline_char = "┊"
-				vim.g.indent_blankline_show_first_indent_level = false
-
-				nvim.lazy_load({
-					disable = nvim.is_vscode,
-					events = { "BufRead", "BufWinEnter", "BufNewFile" },
-					augroup_name = "BeLazyOnFileOpen",
-					plugins = "indent-blankline.nvim",
-
-					condition = function()
-						local file = vim.fn.expand("%")
-						return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
-					end,
-				})
-			end,
+			after = { "nvim-lsp-installer" },
+			-- opt = true,
+			-- setup = function()
+			-- 	vim.g.indent_blankline_char = "┊"
+			-- 	vim.g.indent_blankline_show_first_indent_level = false
+			--
+			-- 	nvim.lazy_load({
+			-- 		disable = nvim.is_vscode,
+			-- 		events = { "BufRead", "BufWinEnter", "BufNewFile" },
+			-- 		augroup_name = "BeLazyOnFileOpen",
+			-- 		plugins = "indent-blankline.nvim",
+			--
+			-- 		condition = function()
+			-- 			local file = vim.fn.expand("%")
+			-- 			return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
+			-- 		end,
+			-- 	})
+			-- end,
 			config = function()
 				require("plugins.configs.misc").indent_blankline()
 			end,
