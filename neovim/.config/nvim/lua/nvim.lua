@@ -12,7 +12,7 @@ _G.nvim = {
 		icons = {
 			hint = "",
 			info = "",
-			warning = "",
+			warning = "",
 			error = "",
 		},
 	},
