@@ -168,6 +168,7 @@ return require("plugins.packer").startup(function(use)
 		{
 			"nvim-telescope/telescope.nvim",
 			after = { "nvim-lsp-installer" },
+			cmd = "Telescope",
 			config = function()
 				require("plugins.configs.telescope")
 			end,

@@ -25,6 +25,15 @@ function misc.null_ls()
 	ls.setup({
 		sources = {
 			ls.builtins.formatting.stylua,
+			ls.builtins.formatting.markdownlint,
+
+			ls.builtins.code_actions.refactoring,
+			ls.builtins.completion.luasnip,
+			ls.builtins.completion.spell,
+
+			ls.builtins.diagnostics.golangci_lint,
+			ls.builtins.diagnostics.markdownlint,
+			ls.builtins.diagnostics.yamllint,
 		},
 	})
 end
@@ -112,12 +121,12 @@ function misc.nvim_tree()
 	require("nvim-tree").setup({
 		reload_on_bufenter = true,
 		diagnostics = nvim.diagnostics,
+
 		update_cwd = true,
 		respect_buf_cwd = true,
-
 		update_focused_file = {
 			enable = true,
-			update_cwd = false,
+			update_cwd = true,
 		},
 
 		renderer = {
@@ -295,10 +304,10 @@ function misc.alpha_nvim()
 	-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 	-- }
 	dashboard.section.buttons.val = {
-		dashboard.button("<C-k><C-f>", "  Find file"),
-		dashboard.button("<C-k><C-g>", "  Find word"),
-		dashboard.button("<C-k><C-o>", "  Recently opened files"),
-		dashboard.button("<C-k><C-p>", "  Projects"),
+		dashboard.button("<C-k><C-f>", "  Find file", ":Telescope find_files<CR>"),
+		dashboard.button("<C-k><C-g>", "  Find word", ":Telescope live_grep<CR>"),
+		dashboard.button("<C-k><C-o>", "  Recently opened files", ":Telescope oldfiles<CR>"),
+		dashboard.button("<C-k><C-p>", "  Projects", ":Telescope projects<CR>"),
 
 		dashboard.button("k", "  New file", ":ene <BAR> startinsert <CR>"),
 		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
