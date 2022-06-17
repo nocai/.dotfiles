@@ -15,9 +15,9 @@ vim.opt.completeopt = "menuone,noselect"
 
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
-	completion = {
-		keyword_length = 3,
-	},
+	-- completion = {
+	-- 	keyword_length = 3,
+	-- },
 	window = {
 		completion = {
 			border = nvim.window.border,
