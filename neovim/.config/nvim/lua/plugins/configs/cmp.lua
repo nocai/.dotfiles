@@ -44,18 +44,19 @@ cmp.setup({
 				vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth) .. "…"
 			end
 
-			local source_names = {
-				nvim_lsp = "(LSP)",
-				nvim_lua = "(NLua)",
-				emoji = "(Emoji)",
-				path = "(Path)",
-				calc = "(Calc)",
-				cmp_tabnine = "(Tabn)",
-				vsnip = "(Snip)",
-				luasnip = "(Snip)",
-				buffer = "(Buff)",
-			}
-			vim_item.menu = source_names[entry.source.name]
+			-- local source_names = {
+			-- 	nvim_lsp = "(LSP)",
+			-- 	nvim_lua = "(NLua)",
+			-- 	emoji = "(Emoji)",
+			-- 	path = "(Path)",
+			-- 	calc = "(Calc)",
+			-- 	cmp_tabnine = "(Tabn)",
+			-- 	vsnip = "(Snip)",
+			-- 	luasnip = "(Snip)",
+			-- 	buffer = "(Buff)",
+			-- }
+			-- vim_item.menu = source_names[entry.source.name]
+			vim_item.menu = entry.source.name
 
 			-- local duplicates = {
 			-- 	buffer = 1,

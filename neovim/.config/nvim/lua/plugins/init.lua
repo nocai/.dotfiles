@@ -100,6 +100,7 @@ return require("plugins.packer").startup(function(use)
 			config = function()
 				require("plugins.configs.core").null_ls()
 			end,
+			-- requires = { "ThePrimeagen/refactoring.nvim", after = "null-ls.nvim" },
 		},
 
 		-- cmp
