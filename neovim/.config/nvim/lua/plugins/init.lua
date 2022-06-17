@@ -79,8 +79,8 @@ return require("plugins.packer").startup(function(use)
 			after = "nvim-lsp-installer",
 			module = "lspconfig",
 			config = function()
-				require("plugins.configs.misc").nvim_lsp_installer()
-				require("plugins.configs.lsp")
+				require("plugins.configs.lsp").nvim_lsp_installer()
+				require("plugins.configs.lsp").lsp()
 			end,
 		},
 		{
@@ -98,7 +98,7 @@ return require("plugins.packer").startup(function(use)
 			"jose-elias-alvarez/null-ls.nvim",
 			after = "nvim-lsp-installer",
 			config = function()
-				require("plugins.configs.misc").null_ls()
+				require("plugins.configs.core").null_ls()
 			end,
 		},
 
@@ -129,6 +129,10 @@ return require("plugins.packer").startup(function(use)
 			requires = {
 				{
 					"hrsh7th/cmp-buffer",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-path",
 					after = "nvim-cmp",
 				},
 				{
@@ -225,7 +229,7 @@ return require("plugins.packer").startup(function(use)
 			"folke/tokyonight.nvim",
 			after = "nvim-treesitter",
 			setup = function()
-				require("plugins.configs.misc").tokyonight()
+				require("plugins.configs.core").tokyonight()
 			end,
 			config = function()
 				vim.cmd([[colorscheme tokyonight]])
@@ -235,14 +239,102 @@ return require("plugins.packer").startup(function(use)
 			"kyazdani42/nvim-tree.lua",
 			after = "nvim-web-devicons",
 			config = function()
-				require("plugins.configs.misc").nvim_tree()
+				require("plugins.configs.core").nvim_tree()
 			end,
 		},
 		{
 			"hoob3rt/lualine.nvim",
 			after = { "tokyonight.nvim" },
 			config = function()
-				require("plugins.configs.misc").lualine()
+				require("plugins.configs.core").lualine()
+			end,
+		},
+		{
+			"numToStr/Comment.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			keys = { "gc", "gb" },
+			config = function()
+				require("Comment").setup()
+			end,
+		},
+		{
+			"goolord/alpha-nvim",
+			cond = function()
+				return nvim.is_not_vscode
+			end,
+			event = { "VimEnter" },
+			config = function()
+				require("plugins.configs.core").alpha_nvim()
+			end,
+		},
+		{
+			"akinsho/toggleterm.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			keys = { "<C-\\>", "<Leader>gg" },
+			cmd = { "Glow", "Lazygit" },
+			config = function()
+				require("plugins.configs.core").toggleterm()
+			end,
+		},
+		{
+			"norcalli/nvim-colorizer.lua",
+			after = { "nvim-lsp-installer" },
+			config = function()
+				require("colorizer").setup()
+			end,
+		},
+		{
+			"lukas-reineke/indent-blankline.nvim",
+			after = { "nvim-lsp-installer" },
+			setup = function()
+				vim.g.indent_blankline_char = "┊"
+				vim.g.indent_blankline_show_first_indent_level = false
+			end,
+			config = function()
+				require("plugins.configs.core").indent_blankline()
+			end,
+		},
+		{
+			"machakann/vim-sandwich",
+			keys = { "sa", "sd", "sdb", "sr", "srb" },
+			setup = function()
+				vim.g.textobj_sandwich_no_default_key_mappings = 1
+				vim.g.loaded_textobj_sandwich = 1
+			end,
+		},
+		{
+			"lewis6991/gitsigns.nvim",
+			opt = true,
+			setup = function()
+				vim.api.nvim_create_autocmd({ "BufRead" }, {
+					callback = function()
+						local function onexit(code, _)
+							if code == 0 then
+								vim.schedule(function()
+									require("packer").loader("gitsigns.nvim")
+								end)
+							end
+						end
+
+						local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+						if lines ~= { "" } then
+							vim.loop.spawn("git", {
+								args = {
+									"ls-files",
+									"--error-unmatch",
+									vim.fn.expand("%:p:h"),
+								},
+							}, onexit)
+						end
+					end,
+				})
+			end,
+			config = function()
+				require("plugins.configs.core").gitsigns()
 			end,
 		},
 	})
@@ -268,16 +360,7 @@ return require("plugins.packer").startup(function(use)
 				require("plugins.configs.misc").nvim_bufferline()
 			end,
 		},
-		{
-			"goolord/alpha-nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
-			config = function()
-				require("plugins.configs.misc").alpha_nvim()
-			end,
-		},
+
 		{
 			"rcarriga/nvim-notify",
 			after = { "telescope.nvim" },
@@ -304,35 +387,6 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 		{
-			"akinsho/toggleterm.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			keys = { "<C-\\>", "<Leader>gg" },
-			cmd = { "Glow", "Lazygit" },
-			config = function()
-				require("plugins.configs.misc").toggleterm()
-			end,
-		},
-		{
-			"norcalli/nvim-colorizer.lua",
-			after = { "nvim-lsp-installer" },
-			config = function()
-				require("colorizer").setup()
-			end,
-		},
-		{
-			"lukas-reineke/indent-blankline.nvim",
-			after = { "nvim-lsp-installer" },
-			setup = function()
-				vim.g.indent_blankline_char = "┊"
-				vim.g.indent_blankline_show_first_indent_level = false
-			end,
-			config = function()
-				require("plugins.configs.misc").indent_blankline()
-			end,
-		},
-		{
 			"chentoast/marks.nvim",
 			keys = { "m" },
 			cond = function()
@@ -340,14 +394,6 @@ return require("plugins.packer").startup(function(use)
 			end,
 			config = function()
 				require("plugins.configs.misc").marks()
-			end,
-		},
-		{
-			"machakann/vim-sandwich",
-			keys = { "sa", "sd", "sdb", "sr", "srb" },
-			setup = function()
-				vim.g.textobj_sandwich_no_default_key_mappings = 1
-				vim.g.loaded_textobj_sandwich = 1
 			end,
 		},
 		{
@@ -398,37 +444,7 @@ return require("plugins.packer").startup(function(use)
 				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
 			end,
 		},
-		{
-			"lewis6991/gitsigns.nvim",
-			opt = true,
-			setup = function()
-				vim.api.nvim_create_autocmd({ "BufRead" }, {
-					callback = function()
-						local function onexit(code, _)
-							if code == 0 then
-								vim.schedule(function()
-									require("packer").loader("gitsigns.nvim")
-								end)
-							end
-						end
 
-						local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-						if lines ~= { "" } then
-							vim.loop.spawn("git", {
-								args = {
-									"ls-files",
-									"--error-unmatch",
-									vim.fn.expand("%:p:h"),
-								},
-							}, onexit)
-						end
-					end,
-				})
-			end,
-			config = function()
-				require("plugins.configs.misc").gitsigns()
-			end,
-		},
 		{
 			"thinca/vim-quickrun",
 			cond = function()
@@ -455,16 +471,6 @@ return require("plugins.packer").startup(function(use)
 				return not vim.g.vscode
 			end,
 			ft = { "go" },
-		},
-		{
-			"numToStr/Comment.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			keys = { "gc", "gb" },
-			config = function()
-				require("Comment").setup()
-			end,
 		},
 	})
 end)

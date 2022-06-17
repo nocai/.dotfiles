@@ -2,11 +2,22 @@
 local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
 
+vim.opt.completeopt = "menuone,noselect"
+
+-- local cmp_window = require("cmp.utils.window")
+--
+-- cmp_window.info_ = cmp_window.info
+-- cmp_window.info = function(self)
+-- 	local info = self:info_()
+-- 	info.scrollable = false
+-- 	return info
+-- end
+
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
-	-- completion = {
-	--   keyword_length = 3
-	-- },
+	completion = {
+		keyword_length = 3,
+	},
 	window = {
 		completion = {
 			border = nvim.window.border,
@@ -46,13 +57,13 @@ cmp.setup({
 			}
 			vim_item.menu = source_names[entry.source.name]
 
-			local duplicates = {
-				buffer = 1,
-				path = 1,
-				nvim_lsp = 0,
-				luasnip = 1,
-			}
-			vim_item.dup = duplicates[entry.source.name]
+			-- local duplicates = {
+			-- 	buffer = 1,
+			-- 	path = 1,
+			-- 	nvim_lsp = 0,
+			-- 	luasnip = 1,
+			-- }
+			-- vim_item.dup = duplicates[entry.source.name]
 			return vim_item
 		end,
 	},
@@ -93,6 +104,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
+		{ name = "path" },
 	}),
 	experimental = {
 		native_menu = false,

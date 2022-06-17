@@ -46,6 +46,7 @@ onoremap E          K
 " g<Up>
 nnoremap ge         gk
 nnoremap <C-e>      <C-k>
+inoremap <C-e>      <C-k>
 nnoremap <C-w>e     <C-w>k
 nnoremap <C-w><C-e> <C-w><C-k>
 " }}}
