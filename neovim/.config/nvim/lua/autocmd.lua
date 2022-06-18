@@ -20,16 +20,19 @@ autocmd("BufReadPost", {
 })
 
 -- Highlight yanked text
-autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
-	end,
-})
+-- autocmd("TextYankPost", {
+-- 	callback = function()
+-- 		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+-- 	end,
+-- })
 
--- Enable spellchecking in markdown, text and gitcommit files
-autocmd("FileType", {
-	pattern = { "gitcommit", "markdown", "text" },
+autocmd("InsertLeave", {
 	callback = function()
-		vim.opt_local.spell = true
+		if
+			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+			and not require("luasnip").session.jump_active
+		then
+			require("luasnip").unlink_current()
+		end
 	end,
 })

@@ -30,6 +30,17 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	row = -1,
 })
 
+vim.notify = function(msg, log_level)
+	if msg:match("exit code") then
+		return
+	end
+	if log_level == vim.log.levels.ERROR then
+		vim.api.nvim_err_writeln(msg)
+	else
+		vim.api.nvim_echo({ { msg } }, true, {})
+	end
+end
+
 -- Borders for LspInfo winodw
 local win = require("lspconfig.ui.windows")
 local _default_opts = win.default_opts

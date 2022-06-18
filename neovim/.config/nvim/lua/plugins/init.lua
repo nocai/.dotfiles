@@ -383,6 +383,7 @@ return require("plugins.packer").startup(function(use)
 
 		{
 			"rcarriga/nvim-notify",
+			disable = true,
 			after = { "telescope.nvim" },
 			config = function()
 				require("plugins.configs.misc").notify()
