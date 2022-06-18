@@ -4,7 +4,7 @@ function M.null_ls()
 	ls.setup({
 		sources = {
 			ls.builtins.formatting.stylua,
-			ls.builtins.formatting.markdownlint,
+			-- ls.builtins.formatting.markdownlint,
 
 			-- ls.builtins.code_actions.refactoring,
 			-- ls.builtins.completion.luasnip,
@@ -13,7 +13,7 @@ function M.null_ls()
 			}),
 
 			ls.builtins.diagnostics.golangci_lint,
-			ls.builtins.diagnostics.markdownlint,
+			-- ls.builtins.diagnostics.markdownlint,
 			ls.builtins.diagnostics.yamllint,
 		},
 	})
@@ -36,6 +36,7 @@ function M.tokyonight()
 	vim.g.tokyonight_hide_inactive_statusline = true
 	vim.g.tokyonight_terminal_colors = true
 
+	-- , bg_statusline = "none"
 	vim.g.tokyonight_colors = { bg_float = "none", border = "bg" }
 end
 
