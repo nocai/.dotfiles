@@ -79,6 +79,23 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 		{
+			"ray-x/lsp_signature.nvim",
+			disable = true,
+			after = { "nvim-lspconfig" },
+			config = function()
+				require("lsp_signature").setup({
+					bind = true,
+					floating_window = true,
+					hint_enable = false,
+					floating_window_above_cur_line = true,
+					timer_interval = 1000,
+					handler_opts = {
+						border = "rounded", -- double, single, shadow, none
+					},
+				})
+			end,
+		},
+		{
 			-- config, see: ftplugin/java.lua
 			"mfussenegger/nvim-jdtls",
 			ft = "java",
