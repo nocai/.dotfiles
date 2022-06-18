@@ -138,8 +138,12 @@ function M.lualine()
 			},
 			lualine_c = { { "filename" }, { LSP_progress } },
 			lualine_x = { { LSP_status } },
-			lualine_y = { { "progress", separator = { left = "", right = "" } } },
-			lualine_z = { { "location", separator = { left = "", right = "" } } },
+			lualine_y = {
+				{ "%l:%v", icon = "", separator = { left = "" } },
+			},
+			lualine_z = {
+				{ "%p%%", icon = "", separator = { right = "" } },
+			},
 		},
 		tabline = {
 			lualine_a = {
