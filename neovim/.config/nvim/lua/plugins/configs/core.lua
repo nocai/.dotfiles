@@ -136,7 +136,11 @@ function M.lualine()
 					separator = { left = "", right = "" },
 				},
 			},
-			lualine_c = { { "filename" }, { LSP_progress } },
+			lualine_c = {
+				{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
+				{ "filename", separator = "" },
+				{ LSP_progress },
+			},
 			lualine_x = { { LSP_status } },
 			lualine_y = {
 				{ "%l:%v", icon = "", separator = { left = "" } },
