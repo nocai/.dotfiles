@@ -263,6 +263,9 @@ return require("plugins.packer").startup(function(use)
 			event = { "VimEnter" },
 			config = function()
 				require("plugins.configs.core").alpha_nvim()
+				vim.defer_fn(function()
+					require("packer").loader("nvim-lsp-installer")
+				end, 100)
 			end,
 		},
 		{
