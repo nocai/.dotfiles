@@ -29,23 +29,33 @@ function nvim.lazy_load(tb)
 		return
 	end
 
+	local file = vim.fn.expand("%")
+	if file == "NvimTree_1" or file == "[packer]" or file == "" then
+		return
+	end
+
+	local augroup = "LazyLoadAuGroup_Rand:" .. vim.fn.rand()
 	vim.api.nvim_create_autocmd(tb.events, {
 		pattern = "*",
-		group = vim.api.nvim_create_augroup(tb.augroup_name, {}),
+		group = vim.api.nvim_create_augroup(augroup, {}),
 		callback = function()
-			if tb.condition() then
-				-- print("in condition:", tb.plugins)
-				vim.api.nvim_del_augroup_by_name(tb.augroup_name)
+			if tb.condition and not tb.condition() then
+				return
+			end
 
-				-- dont defer for treesitter as it will show slow highlighting
-				-- This deferring only happens only when we do "nvim filename"
-				if tb.plugins ~= "nvim-treesitter" then
-					vim.defer_fn(function()
-						vim.cmd("PackerLoad " .. tb.plugins)
-					end, 0)
-				else
+			vim.api.nvim_del_augroup_by_name(augroup)
+			if tb.setup ~= nil then
+				tb.setup()
+			end
+
+			-- dont defer for treesitter as it will show slow highlighting
+			-- This deferring only happens only when we do "nvim filename"
+			if tb.plugins ~= "nvim-treesitter" then
+				vim.defer_fn(function()
 					vim.cmd("PackerLoad " .. tb.plugins)
-				end
+				end, 0)
+			else
+				vim.cmd("PackerLoad " .. tb.plugins)
 			end
 		end,
 	})

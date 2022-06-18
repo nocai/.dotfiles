@@ -48,7 +48,7 @@ function M.nvim_tree()
 		respect_buf_cwd = true,
 		update_focused_file = {
 			enable = true,
-			update_cwd = true,
+			update_cwd = false,
 		},
 
 		renderer = {
@@ -176,7 +176,7 @@ function M.lualine()
 				},
 			},
 		},
-		extensions = { "nvim-tree", "quickfix" },
+		-- extensions = { "nvim-tree", "quickfix" },
 	})
 end
 

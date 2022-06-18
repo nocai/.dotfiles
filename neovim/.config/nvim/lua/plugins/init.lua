@@ -62,12 +62,7 @@ return require("plugins.packer").startup(function(use)
 				nvim.lazy_load({
 					disable = nvim.is_vscode,
 					events = { "BufRead", "BufWinEnter", "BufNewFile" },
-					augroup_name = "NvimLspInstaller_LazyLoad",
 					plugins = "nvim-lsp-installer",
-					condition = function()
-						local file = vim.fn.expand("%")
-						return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
-					end,
 				})
 			end,
 		},
@@ -219,7 +214,7 @@ return require("plugins.packer").startup(function(use)
 				vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
 				require("project_nvim").setup({
 					show_hidden = true,
-					silent_chdir = false,
+					silent_chdir = true,
 				})
 				require("telescope").load_extension("projects")
 			end,
@@ -301,11 +296,15 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"machakann/vim-sandwich",
-			keys = { "sa", "sd", "sdb", "sr", "srb" },
-			setup = function()
-				vim.g.textobj_sandwich_no_default_key_mappings = 1
-				vim.g.loaded_textobj_sandwich = 1
-			end,
+			opt = true,
+			setup = nvim.lazy_load({
+				events = { "VimEnter" },
+				plugins = "vim-sandwich",
+				setup = function()
+					vim.g.textobj_sandwich_no_default_key_mappings = 1
+					vim.g.loaded_textobj_sandwich = 1
+				end,
+			}),
 		},
 		{
 			"lewis6991/gitsigns.nvim",
