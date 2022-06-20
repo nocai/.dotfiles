@@ -2,7 +2,7 @@ return require("plugins.packer").startup(function(use)
 	-- commons
 	use({ "wbthomason/packer.nvim", opt = true })
 	use({
-		{ "nvim-lua/plenary.nvim" },
+		{ "nvim-lua/plenary.nvim", module = "plenary" },
 		{ "nanotee/nvim-lua-guide", after = { "nvim-lsp-installer" } },
 		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lsp-installer" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 		{ "kyazdani42/nvim-web-devicons", after = { "nvim-lsp-installer" } },
@@ -250,7 +250,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"kyazdani42/nvim-tree.lua",
-			after = "nvim-web-devicons",
+			after = { "nvim-web-devicons" },
 			config = function()
 				require("plugins.configs.core").nvim_tree()
 			end,
@@ -330,6 +330,10 @@ return require("plugins.packer").startup(function(use)
 			"lewis6991/gitsigns.nvim",
 			opt = true,
 			setup = function()
+				if nvim.is_vscode then
+					return
+				end
+
 				vim.api.nvim_create_autocmd({ "BufRead" }, {
 					callback = function()
 						local function onexit(code, _)

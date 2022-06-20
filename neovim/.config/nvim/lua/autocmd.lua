@@ -28,11 +28,16 @@ autocmd("BufReadPost", {
 
 autocmd("InsertLeave", {
 	callback = function()
+		local present, luasnip = pcall(require, "luasnip")
+		if not present then
+			return
+		end
+
 		if
-			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-			and not require("luasnip").session.jump_active
+			luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+			and not luasnip.session.jump_active
 		then
-			require("luasnip").unlink_current()
+			luasnip.unlink_current()
 		end
 	end,
 })
