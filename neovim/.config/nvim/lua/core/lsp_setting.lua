@@ -105,7 +105,7 @@ local function on_attach(client, bufnr)
 
 	if client.resolved_capabilities.code_lens then
 		vim.cmd([[autocmd BufEnter,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
-		vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
+		vim.keymap.set("n", "<Leader>gr", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
 	end
 
 	if client.resolved_capabilities.document_highlight then
