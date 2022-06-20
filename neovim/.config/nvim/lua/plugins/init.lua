@@ -322,7 +322,6 @@ return require("plugins.packer").startup(function(use)
 				plugins = "vim-sandwich",
 				setup = function()
 					vim.g.textobj_sandwich_no_default_key_mappings = 1
-					vim.g.loaded_textobj_sandwich = 1
 				end,
 			}),
 		},
