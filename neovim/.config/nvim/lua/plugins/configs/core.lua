@@ -43,6 +43,7 @@ end
 function M.nvim_tree()
 	require("nvim-tree").setup({
 		reload_on_bufenter = true,
+		create_in_closed_folder = true,
 		diagnostics = nvim.diagnostics,
 
 		update_cwd = true,
