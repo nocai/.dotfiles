@@ -118,16 +118,13 @@ function M.lualine()
 
 	-- LSP status
 	function LSP_status()
-		local clients = vim.lsp.get_active_clients()
-		local name = false
-		for _, client in ipairs(clients) do
+		local names = {}
+		for _, client in ipairs(vim.lsp.get_active_clients()) do
 			if client.attached_buffers[vim.api.nvim_get_current_buf()] then
-				name = client.name
-				break
+				table.insert(names, client.name)
 			end
 		end
-		local content = name and "   LSP ~ " .. name .. " " or false
-		return content or ""
+		return vim.o.columns > 70 and "   LSP ~ " .. vim.fn.join(names, "|") .. " "
 	end
 
 	require("lualine").setup({
@@ -279,31 +276,31 @@ function M.gitsigns()
 			-- Navigation
 			map('n', ']h', function()
 				if vim.wo.diff then return ']h' end
-					vim.schedule(function() gs.next_hunk() end)
+				vim.schedule(function() gs.next_hunk() end)
 				return '<Ignore>'
-			end, {expr=true})
+			end, { expr = true })
 
 			map('n', '[h', function()
 				if vim.wo.diff then return '[h' end
-					vim.schedule(function() gs.prev_hunk() end)
+				vim.schedule(function() gs.prev_hunk() end)
 				return '<Ignore>'
-			end, {expr=true})
+			end, { expr = true })
 
 			-- Actions
-			map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-			map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+			map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+			map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
 			map('n', '<leader>hS', gs.stage_buffer)
 			map('n', '<leader>hu', gs.undo_stage_hunk)
 			map('n', '<leader>hR', gs.reset_buffer)
 			map('n', '<leader>hp', gs.preview_hunk)
-			map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+			map('n', '<leader>hb', function() gs.blame_line { full = true } end)
 			map('n', '<leader>tb', gs.toggle_current_line_blame)
 			map('n', '<leader>hd', gs.diffthis)
 			map('n', '<leader>hD', function() gs.diffthis('~') end)
 			map('n', '<leader>td', gs.toggle_deleted)
 
 			-- Text object
-			map({'o', 'x'}, 'lh', ':<C-U>Gitsigns select_hunk<CR>')
+			map({ 'o', 'x' }, 'lh', ':<C-U>Gitsigns select_hunk<CR>')
 			-- stylua: ignore end
 		end,
 	})
