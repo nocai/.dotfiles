@@ -94,7 +94,8 @@ local function on_attach(client, bufnr)
 	vim.keymap.set({ "v" }, "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 
 	-- formatting
-	vim.keymap.set("n", "gq", "<cmd>lua vim.lsp.buf.format({aysnc=true})<CR>", opts)
+	-- vim.keymap.set("n", "gq", "<cmd>lua vim.lsp.buf.format({aysnc=true})<CR>", opts)
+	vim.keymap.set("n", "gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 	-- format on save
 	-- if client.resolved_capabilities.document_formatting then
 	-- 	vim.api.nvim_command([[augroup Format]])
@@ -103,12 +104,12 @@ local function on_attach(client, bufnr)
 	-- 	vim.api.nvim_command([[augroup END]])
 	-- end
 
-	if client.server_capabilities.code_lens then
+	if client.resolved_capabilities.code_lens then
 		vim.cmd([[autocmd BufEnter,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
 		vim.keymap.set("n", "<Leader>gr", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
 	end
 
-	if client.server_capabilities.document_highlight then
+	if client.resolved_capabilities.document_highlight then
 		vim.cmd([[
 			augroup lsp_document_highlight
 				autocmd!
