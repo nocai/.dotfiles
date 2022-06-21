@@ -50,7 +50,8 @@ function M.nvim_tree()
 		respect_buf_cwd = true,
 		update_focused_file = {
 			enable = true,
-			update_cwd = false,
+			update_cwd = true,
+			update_root = true,
 		},
 
 		renderer = {

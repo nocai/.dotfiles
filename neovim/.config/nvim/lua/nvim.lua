@@ -60,3 +60,18 @@ function nvim.lazy_load(tb)
 		end,
 	})
 end
+
+function nvim.find_lsp_root()
+	local clients = vim.lsp.buf_get_clients()
+	if next(clients) == nil then
+		return nil
+	end
+
+	for _, client in pairs(clients) do
+		if client.name ~= "null-ls" then
+			return client.config.root_dir
+		end
+	end
+
+	return nil
+end

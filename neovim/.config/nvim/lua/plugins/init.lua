@@ -231,7 +231,8 @@ return require("plugins.packer").startup(function(use)
 				vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
 				require("project_nvim").setup({
 					show_hidden = true,
-					silent_chdir = false,
+					-- silent_chdir = false,
+					ignore_lsp = { "null-ls" },
 				})
 				require("telescope").load_extension("projects")
 			end,
