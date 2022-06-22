@@ -130,6 +130,12 @@ function M.config(config)
 	config.flags = {
 		debounce_text_changes = 150,
 	}
+
+	local present, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	if present then
+		print('a')
+		config.capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	end
 	return config
 end
 
