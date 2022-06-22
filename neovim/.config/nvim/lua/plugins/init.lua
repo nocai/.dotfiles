@@ -240,6 +240,7 @@ return require("plugins.packer").startup(function(use)
 			config = function()
 				require("plugins.configs.core").alpha_nvim()
 				vim.defer_fn(function()
+					---@diagnostic disable-next-line: different-requires
 					require("packer").loader("nvim-lsp-installer")
 				end, 100)
 			end,
@@ -297,6 +298,7 @@ return require("plugins.packer").startup(function(use)
 						local function onexit(code, _)
 							if code == 0 then
 								vim.schedule(function()
+									---@diagnostic disable-next-line: different-requires
 									require("packer").loader("gitsigns.nvim")
 								end)
 							end

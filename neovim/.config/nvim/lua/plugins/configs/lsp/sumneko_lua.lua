@@ -3,7 +3,7 @@ return {
 	cmd = { "lua-language-server" },
 	settings = {
 		Lua = {
-			diagnostics = { enable = true, globals = { "vim", "redis", "nvim" } },
+			diagnostics = { enable = true, globals = { "vim", "redis", "nvim", "jit" } },
 			workspace = {
 				-- library = vim.api.nvim_get_runtime_file("", true),
 
