@@ -140,10 +140,10 @@ return require("plugins.packer").startup(function(use)
 					module = "cmp_nvim_lsp",
 					after = "nvim-cmp",
 				},
-				{
-					"hrsh7th/cmp-nvim-lua",
-					after = "nvim-cmp",
-				},
+				-- {
+				-- 	"hrsh7th/cmp-nvim-lua",
+				-- 	after = "nvim-cmp",
+				-- },
 				{
 					"saadparwaiz1/cmp_luasnip",
 					after = "nvim-cmp",
