@@ -88,7 +88,6 @@ cmp.setup({
 		{ name = "path" },
 	}),
 	experimental = {
-		native_menu = false,
 		ghost_text = true,
 	},
 })
