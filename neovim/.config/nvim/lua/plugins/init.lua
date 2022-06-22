@@ -227,7 +227,7 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			keys = { "gc", "gb" },
+			keys = { { "n", "gc" }, { "n", "gb" }, { "v", "gc" }, { "v", "gb" } },
 			config = function()
 				require("Comment").setup()
 			end,
