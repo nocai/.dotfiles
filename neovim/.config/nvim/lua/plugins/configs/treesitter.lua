@@ -115,3 +115,28 @@ if nvim.is_not_vscode then
 	vim.api.nvim_command("set foldmethod=expr")
 	vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
 end
+
+local M = {}
+
+function M.nvim_ts_rainbow()
+	require("nvim-treesitter.configs").setup({
+		rainbow = {
+			enable = nvim.is_not_vscode,
+			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+			max_file_lines = nil, -- Do not enable for files with more than n lines, int
+			-- colors = {}, -- table of hex strings
+			-- termcolors = {} -- table of colour name strings
+		},
+	})
+end
+
+function M.nvim_ts_autotag()
+	require("nvim-treesitter.configs").setup({
+		autotag = {
+			enable = true,
+			filetypes = { "html", "xml" },
+		},
+	})
+end
+
+return M

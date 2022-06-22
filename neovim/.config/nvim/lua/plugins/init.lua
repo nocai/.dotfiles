@@ -30,27 +30,14 @@ return require("plugins.packer").startup(function(use)
 			"p00f/nvim-ts-rainbow",
 			after = { "nvim-treesitter" },
 			config = function()
-				require("nvim-treesitter.configs").setup({
-					rainbow = {
-						enable = nvim.is_not_vscode,
-						extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-						max_file_lines = nil, -- Do not enable for files with more than n lines, int
-						-- colors = {}, -- table of hex strings
-						-- termcolors = {} -- table of colour name strings
-					},
-				})
+				require("plugins.configs.treesitter").nvim_ts_rainbow()
 			end,
 		},
 		{
 			"windwp/nvim-ts-autotag",
 			after = { "nvim-treesitter", "nvim-lsp-installer" },
 			config = function()
-				require("nvim-treesitter.configs").setup({
-					autotag = {
-						enable = true,
-						filetypes = { "html", "xml" },
-					},
-				})
+				require("plugins.configs.treesitter").nvim_ts_autotag()
 			end,
 		},
 
@@ -110,7 +97,7 @@ return require("plugins.packer").startup(function(use)
 			"jose-elias-alvarez/null-ls.nvim",
 			after = "nvim-lsp-installer",
 			config = function()
-				require("plugins.configs.core").null_ls()
+				require("plugins.configs.lsp").null_ls()
 			end,
 			-- requires = { "ThePrimeagen/refactoring.nvim", after = "null-ls.nvim" },
 		},
@@ -166,11 +153,7 @@ return require("plugins.packer").startup(function(use)
 			"windwp/nvim-autopairs",
 			after = { "nvim-cmp", "nvim-treesitter" },
 			config = function()
-				require("nvim-autopairs").setup({ check_ts = true })
-				require("cmp").event:on(
-					"confirm_done",
-					require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
-				)
+				require("plugins.configs.cmp").nvim_autopairs()
 			end,
 		},
 		{
@@ -195,46 +178,21 @@ return require("plugins.packer").startup(function(use)
 			after = { "telescope.nvim" },
 			run = "make",
 			config = function()
-				require("telescope").setup({
-					extensions = {
-						fzf = {
-							fuzzy = true, -- false will only do exact matching
-							override_generic_sorter = true, -- override the generic sorter
-							override_file_sorter = true, -- override the file sorter
-							case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						},
-					},
-				})
-				require("telescope").load_extension("fzf")
+				require("plugins.configs.telescope").telescope_fzf_native()
 			end,
 		},
 		{
 			"nvim-telescope/telescope-ui-select.nvim",
 			after = { "telescope.nvim" },
 			config = function()
-				require("telescope").setup({
-					extensions = {
-						["ui-select"] = {
-							require("telescope.themes").get_dropdown({}),
-						},
-					},
-				})
-				require("telescope").load_extension("ui-select")
+				require("plugins.configs.telescope").telescope_ui_select()
 			end,
 		},
 		{
 			"ahmedkhalf/project.nvim",
 			after = { "telescope.nvim" },
 			config = function()
-				-- projects
-				vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
-				vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
-				require("project_nvim").setup({
-					show_hidden = true,
-					-- silent_chdir = false,
-					ignore_lsp = { "null-ls" },
-				})
-				require("telescope").load_extension("projects")
+				require("plugins.configs.telescope").project()
 			end,
 		},
 
