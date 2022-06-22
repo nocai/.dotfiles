@@ -101,7 +101,15 @@ cmp.setup.cmdline("/", {
 local M = {}
 
 function M.nvim_autopairs()
-	require("nvim-autopairs").setup({ check_ts = true })
+	require("nvim-autopairs").setup({
+		check_ts = true,
+		map_c_w = true, -- map <c-w> to delete a pair if possible
+		map_c_h = true,
+		fast_wrap = {
+			map = "<C-e>",
+			keys = "qwfpgjluy;zxcvbkmarstdhneio"
+		},
+	})
 	require("cmp").event:on(
 		"confirm_done",
 		require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
