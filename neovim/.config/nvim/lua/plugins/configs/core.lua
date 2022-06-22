@@ -112,7 +112,11 @@ function M.lualine()
 				table.insert(names, client.name)
 			end
 		end
-		return vim.o.columns > 70 and "   LSP ~ " .. vim.fn.join(names, "|") .. " "
+
+		if vim.o.columns < 70 or vim.tbl_isempty(names) then
+			return ""
+		end
+		return "   LSP ~ " .. vim.fn.join(names, "|") .. " "
 	end
 
 	require("lualine").setup({
