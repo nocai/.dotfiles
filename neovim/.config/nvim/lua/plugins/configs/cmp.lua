@@ -92,11 +92,11 @@ cmp.setup({
 	},
 })
 
-cmp.setup.cmdline("/", {
-	sources = {
-		{ name = "buffer" },
-	},
-})
+-- cmp.setup.cmdline("/", {
+-- 	sources = {
+-- 		{ name = "buffer" },
+-- 	},
+-- })
 
 local M = {}
 
@@ -105,10 +105,6 @@ function M.nvim_autopairs()
 		check_ts = true,
 		map_c_w = true, -- map <c-w> to delete a pair if possible
 		map_c_h = true,
-		fast_wrap = {
-			map = "<C-e>",
-			keys = "qwfpgjluy;zxcvbkmarstdhneio"
-		},
 	})
 	require("cmp").event:on(
 		"confirm_done",
