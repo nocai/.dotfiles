@@ -35,7 +35,6 @@ cmp.setup({
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
-		duplicates_default = 0,
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind_icon[vim_item.kind] .. " "
 
@@ -44,27 +43,8 @@ cmp.setup({
 				vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth) .. "…"
 			end
 
-			-- local source_names = {
-			-- 	nvim_lsp = "(LSP)",
-			-- 	nvim_lua = "(NLua)",
-			-- 	emoji = "(Emoji)",
-			-- 	path = "(Path)",
-			-- 	calc = "(Calc)",
-			-- 	cmp_tabnine = "(Tabn)",
-			-- 	vsnip = "(Snip)",
-			-- 	luasnip = "(Snip)",
-			-- 	buffer = "(Buff)",
-			-- }
-			-- vim_item.menu = source_names[entry.source.name]
 			vim_item.menu = entry.source.name
 
-			-- local duplicates = {
-			-- 	buffer = 1,
-			-- 	path = 1,
-			-- 	nvim_lsp = 0,
-			-- 	luasnip = 1,
-			-- }
-			-- vim_item.dup = duplicates[entry.source.name]
 			return vim_item
 		end,
 	},
