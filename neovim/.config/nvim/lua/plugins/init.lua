@@ -148,6 +148,10 @@ return require("plugins.packer").startup(function(use)
 					"saadparwaiz1/cmp_luasnip",
 					after = "nvim-cmp",
 				},
+				-- {
+				-- 	"hrsh7th/cmp-cmdline",
+				-- 	after = "nvim-cmp",
+				-- },
 			},
 		},
 		{
