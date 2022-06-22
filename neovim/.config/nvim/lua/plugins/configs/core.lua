@@ -1,6 +1,5 @@
 local M = {}
 
-
 function M.tokyonight()
 	-- storm/night/day
 	vim.g.tokyonight_style = "storm"
@@ -198,8 +197,9 @@ end
 
 function M.toggleterm()
 	require("toggleterm").setup({
+		-- insert_mappings = false,
 		open_mapping = [[<C-\>]], -- mapping to <C-`>
-		direction = "float",
+		direction = "horizontal",
 		float_opts = {
 			border = "curved",
 		},
@@ -213,7 +213,11 @@ function M.toggleterm()
 	local Terminal = require("toggleterm.terminal").Terminal
 
 	-- glow
-	local glow = Terminal:new({ cmd = "glow -p " .. vim.fn.expand("%"), hidden = true })
+	local glow = Terminal:new({
+		cmd = "glow -p " .. vim.fn.expand("%"),
+		hidden = true,
+		direction = "float",
+	})
 	vim.api.nvim_create_user_command("Glow", function()
 		glow:toggle()
 	end, { nargs = "?" })
@@ -222,6 +226,7 @@ function M.toggleterm()
 	local lazygit = Terminal:new({
 		cmd = "lazygit",
 		hidden = true,
+		direction = "float",
 		on_open = function()
 			vim.keymap.del("t", "<Esc>")
 		end,
