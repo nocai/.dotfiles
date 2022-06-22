@@ -199,7 +199,7 @@ function M.toggleterm()
 	require("toggleterm").setup({
 		-- insert_mappings = false,
 		open_mapping = [[<C-\>]], -- mapping to <C-`>
-		direction = "horizontal",
+		direction = "float",
 		float_opts = {
 			border = "curved",
 		},
