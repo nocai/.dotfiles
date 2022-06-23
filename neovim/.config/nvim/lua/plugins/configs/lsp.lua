@@ -42,7 +42,7 @@ function M.null_ls()
 	local ls = require("null-ls")
 	ls.setup({
 		sources = {
-			ls.builtins.formatting.stylua,
+			-- ls.builtins.formatting.stylua,
 			-- ls.builtins.formatting.markdownlint,
 
 			-- ls.builtins.code_actions.refactoring,
@@ -53,7 +53,7 @@ function M.null_ls()
 
 			ls.builtins.diagnostics.golangci_lint,
 			-- ls.builtins.diagnostics.markdownlint,
-			ls.builtins.diagnostics.yamllint,
+			-- ls.builtins.diagnostics.yamllint,
 		},
 	})
 end

@@ -237,7 +237,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"hoob3rt/lualine.nvim",
-			disable = true,
+			-- disable = true,
 			after = { "tokyonight.nvim" },
 			config = function()
 				require("plugins.configs.lualine")
@@ -245,11 +245,10 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"feline-nvim/feline.nvim",
-			-- disable = true,
+			disable = true,
 			after = { "tokyonight.nvim", "nvim-web-devicons" },
 			config = function()
-				-- require("plugins.configs.feline")
-				require('feline').setup()
+				require("plugins.configs.feline")
 			end,
 		},
 		{
