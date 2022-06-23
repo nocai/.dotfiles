@@ -201,7 +201,6 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 
-		-- colorscheme
 		{
 			"folke/tokyonight.nvim",
 			after = "nvim-treesitter",
@@ -244,6 +243,21 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 		{
+			"lukas-reineke/indent-blankline.nvim",
+			after = { "nvim-lsp-installer" },
+			setup = function()
+				vim.g.indent_blankline_char = "┊"
+				vim.g.indent_blankline_show_first_indent_level = false
+			end,
+			config = function()
+				require("indent_blankline").setup({
+					-- for example, context is off by default, use this to turn it on
+					show_current_context = true,
+					-- show_current_context_start = true,
+				})
+			end,
+		},
+		{
 			"numToStr/Comment.nvim",
 			cond = function()
 				return not vim.g.vscode
@@ -268,36 +282,10 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 		{
-			"akinsho/toggleterm.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
-			keys = { "<C-\\>", "<Leader>gg" },
-			cmd = { "Glow", "Lazygit" },
-			config = function()
-				require("plugins.configs.misc").toggleterm()
-			end,
-		},
-		{
 			"norcalli/nvim-colorizer.lua",
 			after = { "nvim-lsp-installer" },
 			config = function()
 				require("colorizer").setup()
-			end,
-		},
-		{
-			"lukas-reineke/indent-blankline.nvim",
-			after = { "nvim-lsp-installer" },
-			setup = function()
-				vim.g.indent_blankline_char = "┊"
-				vim.g.indent_blankline_show_first_indent_level = false
-			end,
-			config = function()
-				require("indent_blankline").setup({
-					-- for example, context is off by default, use this to turn it on
-					show_current_context = true,
-					-- show_current_context_start = true,
-				})
 			end,
 		},
 		{
@@ -310,6 +298,21 @@ return require("plugins.packer").startup(function(use)
 					vim.g.textobj_sandwich_no_default_key_mappings = 1
 				end,
 			}),
+		},
+	})
+
+	-- misc
+	use({
+		{
+			"akinsho/toggleterm.nvim",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			keys = { "<C-\\>", "<Leader>gg" },
+			cmd = { "Glow", "Lazygit" },
+			config = function()
+				require("plugins.configs.misc").toggleterm()
+			end,
 		},
 		{
 			"lewis6991/gitsigns.nvim",
@@ -347,10 +350,6 @@ return require("plugins.packer").startup(function(use)
 				require("plugins.configs.misc").gitsigns()
 			end,
 		},
-	})
-
-	-- misc
-	use({
 		{
 			"simrat39/symbols-outline.nvim",
 			disable = true,
