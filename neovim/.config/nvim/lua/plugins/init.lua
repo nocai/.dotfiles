@@ -206,7 +206,24 @@ return require("plugins.packer").startup(function(use)
 			"folke/tokyonight.nvim",
 			after = "nvim-treesitter",
 			setup = function()
-				require("plugins.configs.core").tokyonight()
+				-- storm/night/day
+				vim.g.tokyonight_style = "storm"
+
+				vim.g.tokyonight_italic_comments = true
+				vim.g.tokyonight_italic_keywords = true
+				vim.g.tokyonight_italic_functions = true
+				vim.g.tokyonight_italic_variables = true
+				vim.g.tokyonight_lualine_bold = true
+
+				vim.g.tokyonight_transparent = true
+				vim.g.tokyonight_transparent_sidebar = true
+				vim.g.tokyonight_dark_float = true
+
+				vim.g.tokyonight_hide_inactive_statusline = true
+				vim.g.tokyonight_terminal_colors = true
+
+				-- , bg_statusline = "none"
+				vim.g.tokyonight_colors = { bg_float = "none", border = "bg" }
 			end,
 			config = function()
 				vim.cmd([[colorscheme tokyonight]])
@@ -216,14 +233,14 @@ return require("plugins.packer").startup(function(use)
 			"kyazdani42/nvim-tree.lua",
 			after = { "nvim-web-devicons" },
 			config = function()
-				require("plugins.configs.core").nvim_tree()
+				require("plugins.configs.nvim_tree")
 			end,
 		},
 		{
 			"hoob3rt/lualine.nvim",
 			after = { "tokyonight.nvim" },
 			config = function()
-				require("plugins.configs.core").lualine()
+				require("plugins.configs.lualine")
 			end,
 		},
 		{
@@ -243,7 +260,7 @@ return require("plugins.packer").startup(function(use)
 			end,
 			event = { "VimEnter" },
 			config = function()
-				require("plugins.configs.core").alpha_nvim()
+				require("plugins.configs.misc").alpha_nvim()
 				vim.defer_fn(function()
 					---@diagnostic disable-next-line: different-requires
 					require("packer").loader("nvim-lsp-installer")
@@ -258,7 +275,7 @@ return require("plugins.packer").startup(function(use)
 			keys = { "<C-\\>", "<Leader>gg" },
 			cmd = { "Glow", "Lazygit" },
 			config = function()
-				require("plugins.configs.core").toggleterm()
+				require("plugins.configs.misc").toggleterm()
 			end,
 		},
 		{
@@ -276,7 +293,11 @@ return require("plugins.packer").startup(function(use)
 				vim.g.indent_blankline_show_first_indent_level = false
 			end,
 			config = function()
-				require("plugins.configs.core").indent_blankline()
+				require("indent_blankline").setup({
+					-- for example, context is off by default, use this to turn it on
+					show_current_context = true,
+					-- show_current_context_start = true,
+				})
 			end,
 		},
 		{
@@ -323,7 +344,7 @@ return require("plugins.packer").startup(function(use)
 				})
 			end,
 			config = function()
-				require("plugins.configs.core").gitsigns()
+				require("plugins.configs.misc").gitsigns()
 			end,
 		},
 	})

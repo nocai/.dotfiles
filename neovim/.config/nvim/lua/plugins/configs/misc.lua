@@ -1,6 +1,126 @@
-local misc = {}
+local M = {}
 
-function misc.symbols_outline()
+function M.alpha_nvim()
+	local dashboard = require("alpha.themes.dashboard")
+	-- dashboard.section.header.val = {
+	-- 	[[                               __                ]],
+	-- 	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+	-- 	[[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+	-- 	[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+	-- 	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+	-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+	-- }
+	dashboard.section.buttons.val = {
+		dashboard.button("<C-k><C-f>", "  Find file", ":Telescope find_files<CR>"),
+		dashboard.button("<C-k><C-g>", "  Find word", ":Telescope live_grep<CR>"),
+		dashboard.button("<C-k><C-o>", "  Recently opened files", ":Telescope oldfiles<CR>"),
+		dashboard.button("<C-k><C-p>", "  Projects", ":Telescope projects<CR>"),
+
+		dashboard.button("k", "  New file", ":ene <BAR> startinsert <CR>"),
+		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
+	}
+	dashboard.opts.opts.noautocmd = true
+	require("alpha").setup(dashboard.config)
+end
+
+function M.toggleterm()
+	require("toggleterm").setup({
+		-- insert_mappings = false,
+		open_mapping = [[<C-\>]], -- mapping to <C-`>
+		direction = "float",
+		float_opts = {
+			border = "curved",
+		},
+		highlights = {
+			FloatBorder = {
+				link = "FloatBorder",
+			},
+		},
+	})
+
+	local Terminal = require("toggleterm.terminal").Terminal
+
+	-- glow
+	local glow = Terminal:new({
+		cmd = "glow -p " .. vim.fn.expand("%"),
+		hidden = true,
+		direction = "float",
+	})
+	vim.api.nvim_create_user_command("Glow", function()
+		glow:toggle()
+	end, { nargs = "?" })
+
+	-- lazygit
+	local lazygit = Terminal:new({
+		cmd = "lazygit",
+		hidden = true,
+		direction = "float",
+		on_open = function()
+			vim.keymap.del("t", "<Esc>")
+		end,
+		on_close = function()
+			vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+		end,
+	})
+	vim.keymap.set("n", "<leader>gg", function()
+		lazygit:toggle()
+	end, { silent = true })
+	vim.api.nvim_create_user_command("Lazygit", function()
+		lazygit:toggle()
+	end, {})
+end
+
+function M.gitsigns()
+	require("gitsigns").setup({
+		current_line_blame = true,
+		preview_config = {
+			-- Options passed to nvim_open_win
+			border = "rounded",
+		},
+		on_attach = function(bufnr)
+			local gs = package.loaded.gitsigns
+
+			local function map(mode, l, r, opts)
+				opts = opts or {}
+				opts.buffer = bufnr
+				vim.keymap.set(mode, l, r, opts)
+			end
+
+			-- stylua: ignore start
+			-- Navigation
+			map('n', ']h', function()
+				if vim.wo.diff then return ']h' end
+				vim.schedule(function() gs.next_hunk() end)
+				return '<Ignore>'
+			end, { expr = true })
+
+			map('n', '[h', function()
+				if vim.wo.diff then return '[h' end
+				vim.schedule(function() gs.prev_hunk() end)
+				return '<Ignore>'
+			end, { expr = true })
+
+			-- Actions
+			map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+			map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+			map('n', '<leader>hS', gs.stage_buffer)
+			map('n', '<leader>hu', gs.undo_stage_hunk)
+			map('n', '<leader>hR', gs.reset_buffer)
+			map('n', '<leader>hp', gs.preview_hunk)
+			map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+			map('n', '<leader>tb', gs.toggle_current_line_blame)
+			map('n', '<leader>hd', gs.diffthis)
+			map('n', '<leader>hD', function() gs.diffthis('~') end)
+			map('n', '<leader>td', gs.toggle_deleted)
+
+			-- Text object
+			map({ 'o', 'x' }, 'lh', ':<C-U>Gitsigns select_hunk<CR>')
+			-- stylua: ignore end
+		end,
+	})
+end
+
+function M.symbols_outline()
 	local lspkind_icon = require("core.lspkind_icon")
 	vim.g.symbols_outline = {
 		auto_preview = false,
@@ -59,11 +179,7 @@ function misc.symbols_outline()
 	-- ]])
 end
 
-
-
-
-
-function misc.nvim_bufferline()
+function M.nvim_bufferline()
 	require("bufferline").setup({
 		options = {
 			indicator_icon = "",
@@ -80,7 +196,7 @@ function misc.nvim_bufferline()
 	})
 end
 
-function misc.dressing()
+function M.dressing()
 	require("dressing").setup({
 		input = {
 			-- Set to false to disable the vim.ui.input implementation
@@ -102,9 +218,7 @@ function misc.dressing()
 	})
 end
 
-
-
-function misc.notify()
+function M.notify()
 	local notify = require("notify")
 	notify.setup({
 		background_colour = "Pmenu",
@@ -117,7 +231,7 @@ function misc.notify()
 	end
 end
 
-function misc.neoscroll()
+function M.neoscroll()
 	require("neoscroll").setup({
 		mappings = {
 			"<C-u>",
@@ -133,11 +247,7 @@ function misc.neoscroll()
 	require("neoscroll.config").set_mappings({ ["<C-j>"] = { "scroll", { "0.10", "false", "100" } } })
 end
 
-
-
-
-
-function misc.marks()
+function M.marks()
 	require("marks").setup({
 		default_mappings = true,
 		mappings = {
@@ -168,15 +278,13 @@ function misc.marks()
 	vim.cmd([[au CursorHold * lua require'marks'.refresh()]])
 end
 
-
-
-function misc.vim_quickrun()
+function M.vim_quickrun()
 	vim.g.quickrun_no_default_key_mappings = 1
 	vim.g.quickrun_config = { _ = { outputter = "message" } }
 	vim.keymap.set("n", "<leader>rr", "<Plug>(quickrun)")
 end
 
-function misc.vim_test()
+function M.vim_test()
 	vim.cmd([[
 		let test#strategy = "neovim"
 		nmap <silent> <leader>tt :TestNearest -v<CR>
@@ -187,4 +295,4 @@ function misc.vim_test()
 	]])
 end
 
-return misc
+return M
