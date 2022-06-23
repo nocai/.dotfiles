@@ -248,7 +248,7 @@ return require("plugins.packer").startup(function(use)
 			disable = true,
 			after = { "tokyonight.nvim", "nvim-web-devicons" },
 			config = function()
-				require("plugins.configs.feline")
+				require('feline').setup()
 			end,
 		},
 		{
