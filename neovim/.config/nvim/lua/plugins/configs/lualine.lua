@@ -47,6 +47,11 @@ require("lualine").setup({
 				separator = { left = "", right = "" },
 			},
 		},
+		lualine_b = {
+			{ 'branch', separator = "|", section_separators = { left = "" } },
+			{ 'diff', separator = "|", section_separators = { left = "" } },
+			{ 'diagnostics', separator = "|", section_separators = { left = "" } },
+		},
 		lualine_c = {
 			{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
 			{ "filename", separator = "" },
