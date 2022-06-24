@@ -32,8 +32,8 @@ table.insert(components.active[1], {
 	hl = function()
 		return {
 			-- name = vi_mode_utils.get_mode_highlight_name(),
-			-- bg = vi_mode_utils.get_mode_color(),
-			bg = colors.red,
+			bg = vi_mode_utils.get_mode_color(),
+			-- bg = colors.red,
 			fg = colors.black,
 			style = 'bold'
 		}
@@ -41,10 +41,12 @@ table.insert(components.active[1], {
 	left_sep = '',
 	right_sep = {
 		str = '',
-		hl = {
-			fg = colors.red,
-			bg = colors.fg_gutter,
-		}
+		hl = function()
+			return {
+				fg = vi_mode_utils.get_mode_color(),
+				bg = colors.fg_gutter,
+			}
+		end
 	}
 })
 
@@ -59,25 +61,88 @@ table.insert(components.active[1], {
 		bg = colors.fg_gutter,
 		style = 'bold'
 	},
-	right_sep = {
-		str = '',
-		hl = {
-			fg = colors.blue,
-			bg = colors.fg_gutter,
-		}
-	},
+	-- right_sep = {
+	-- 	str = '',
+	-- 	hl = {
+	-- 		fg = colors.blue,
+	-- 		bg = colors.fg_gutter,
+	-- 	}
+	-- },
 	enabled = function()
 		return vim.b.gitsigns_status_dict ~= nil
 	end,
 })
 
 table.insert(components.active[1], {
+	left_sep = {
+		str = ' |',
+		hl = {
+			fg = colors.blue,
+			bg = colors.fg_gutter,
+		},
+	},
+})
+table.insert(components.active[1], {
 	provider = 'git_diff_added',
 	hl = {
 		fg = colors.blue,
 		bg = colors.fg_gutter,
 	},
+	-- left_sep = {
+	-- 	str = ' |',
+	-- 	hl = {
+	-- 		fg = colors.blue,
+	-- 		bg = colors.fg_gutter,
+	-- 	},
+	-- },
 })
+table.insert(components.active[1], {
+	provider = 'git_diff_changed',
+	hl = {
+		fg = colors.blue,
+		bg = colors.fg_gutter,
+	},
+	-- left_sep = {
+	-- 	str = ' |',
+	-- 	hl = {
+	-- 		fg = colors.blue,
+	-- 		bg = colors.fg_gutter,
+	-- 	},
+	-- },
+})
+table.insert(components.active[1], {
+	provider = 'git_diff_removed',
+	hl = {
+		fg = colors.blue,
+		bg = colors.fg_gutter,
+	},
+	-- left_sep = {
+	-- 	str = ' |',
+	-- 	hl = {
+	-- 		fg = colors.blue,
+	-- 		bg = colors.fg_gutter,
+	-- 	},
+	-- },
+})
+
+
+table.insert(components.active[1], {
+	right_sep = {
+		str = '',
+		hl = {
+			fg = colors.fg_gutter,
+			-- bg = colors.fg_gutter,
+		},
+		always_visible = true
+	},
+	-- hl = "StatusLine",
+})
+
+table.insert(components.active[1], {
+	provider = "",
+	hl = "StatusLine",
+})
+
 -- Insert a component that will be on the middle of the statusline
 -- when the window is active:
 table.insert(components.active[2], {
@@ -113,7 +178,34 @@ table.insert(components.inactive[1], {
 table.insert(components.inactive[2], {
 	-- Component info here
 })
-
+-- vimode = {
+--     provider = function()
+--       return string.format(" %s ", u.vi.text[vim.fn.mode()])
+--     end,
+--     hl = vi_mode_hl,
+--     right_sep = { str = " ", hl = vi_sep_hl },
+--   },
+--   gitbranch = {
+--     provider = "git_branch",
+--     icon = " ",
+--     hl = "FlnGitBranch",
+--     right_sep = { str = "  ", hl = "FlnGitBranch" },
+--     enabled = function()
+--       return vim.b.gitsigns_status_dict ~= nil
+--     end,
+--   },
+--   file_type = {
+--     provider = function()
+--       return fmt(" %s ", vim.bo.filetype:upper())
+--     end,
+--     hl = "FlnAlt",
+--   },
+--   fileinfo = {
+--     provider = { name = "file_info", opts = { type = "relative" } },
+--     hl = "FlnAlt",
+--     left_sep = { str = " ", hl = "FlnAltSep" },
+--     right_sep = { str = "", hl = "FlnAltSep" },
+--   },
 require("feline").setup({
 	theme = {
 		bg = colors.bg_statusline,
