@@ -15,7 +15,7 @@ function LSP_progress()
 	local spinners = { "", "" }
 	local ms = vim.loop.hrtime() / 1000000
 	local frame = math.floor(ms / 120) % #spinners
-	local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+	local content = string.format("%%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
 	return content or ""
 end
 
@@ -35,26 +35,22 @@ function LSP_status()
 		return ""
 	end
 
-	return "   LSP ~ " .. vim.fn.join(names, "|") .. " "
+	return "  LSP ~ " .. vim.fn.join(names, "|") .. " "
 end
 
 require("lualine").setup({
 	sections = {
 		lualine_a = {
-			{
-				"mode",
-				icon = "",
-				separator = { left = "", right = "" },
-			},
+			{ "mode", icon = "", separator = { left = "", right = "" } },
 		},
 		lualine_b = {
-			{ 'branch', separator = "|", section_separators = { left = "" } },
-			{ 'diff', separator = "|", section_separators = { left = "" } },
-			{ 'diagnostics', separator = "|", section_separators = { left = "" } },
+			{ "branch", separator = "|", section_separators = { left = "" } },
+			{ "diff", separator = "|", section_separators = { left = "" } },
+			{ "diagnostics", separator = "|", section_separators = { left = "" } },
 		},
 		lualine_c = {
 			{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
-			{ "filename", separator = "" },
+			{ "filename", separator = "|" },
 			{ LSP_progress },
 		},
 		lualine_x = { { LSP_status } },
