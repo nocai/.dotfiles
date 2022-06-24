@@ -222,7 +222,7 @@ return require("plugins.packer").startup(function(use)
 				vim.g.tokyonight_terminal_colors = true
 
 				-- , bg_statusline = "none"
-				vim.g.tokyonight_colors = { bg_float = "none", border = "bg" }
+				vim.g.tokyonight_colors = { bg_float = "none", border = "border_highlight" }
 			end,
 			config = function()
 				vim.cmd([[colorscheme tokyonight]])

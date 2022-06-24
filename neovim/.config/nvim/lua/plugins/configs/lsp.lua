@@ -51,7 +51,7 @@ function M.null_ls()
 				filetypes = { "markdown" },
 			}),
 
-			ls.builtins.diagnostics.golangci_lint,
+			-- ls.builtins.diagnostics.golangci_lint,
 			-- ls.builtins.diagnostics.markdownlint,
 			-- ls.builtins.diagnostics.yamllint,
 		},
