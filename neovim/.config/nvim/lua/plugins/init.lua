@@ -398,7 +398,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
-			keys = { "m" },
+			keys = { { "n", "m" } },
 			cond = function()
 				return nvim.is_not_vscode
 			end,
