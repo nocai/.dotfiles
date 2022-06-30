@@ -34,7 +34,8 @@ cmp.setup({
 		end,
 	},
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		-- fields = { "kind", "abbr", "menu" },
+		fields = { "kind", "abbr" },
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind_icon[vim_item.kind] .. " "
 
