@@ -34,8 +34,8 @@ cmp.setup({
 		end,
 	},
 	formatting = {
-		-- fields = { "kind", "abbr", "menu" },
-		fields = { "kind", "abbr" },
+		-- fields = { "kind", "abbr" },
+		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind_icon[vim_item.kind] .. " "
 
@@ -44,7 +44,8 @@ cmp.setup({
 				vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth) .. "…"
 			end
 
-			vim_item.menu = entry.source.name
+			-- vim_item.menu = entry.source.name
+			vim_item.menu = " "
 
 			return vim_item
 		end,
