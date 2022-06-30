@@ -95,17 +95,6 @@ vim.g.loaded_matchit           = 1
 vim.g.loaded_vimball           = 1
 vim.g.loaded_vimballPlugin     = 1
 
--- vim.g.did_load_filetypes    = 1
--- use filetype.lua instead of filetype.vim
-vim.g.did_load_filetypes       = 0
-vim.g.do_filetype_lua          = 1
--- stylua: ignore end
-
-vim.g.loaded_ruby_provider = 1
-vim.g.loaded_perl_provider = 1
-vim.g.loaded_python_provider = 1
-vim.g.loaded_python3_provider = 1
-vim.g.loaded_node_provider = 1
 vim.g.loaded_tutor = 1
 vim.g.loaded_rplugin = 1
 vim.g.loaded_syntax = 1
@@ -114,3 +103,21 @@ vim.g.loaded_optwin = 1
 vim.g.loaded_compiler = 1
 vim.g.loaded_bugreport = 1
 vim.g.loaded_ftplugin = 1
+
+-- vim.g.did_load_filetypes    = 1
+-- use filetype.lua instead of filetype.vim
+vim.g.did_load_filetypes       = 0
+vim.g.do_filetype_lua          = 1
+-- stylua: ignore end
+
+local default_providers = {
+	"node",
+	"perl",
+	"python",
+	"python3",
+	"ruby",
+}
+
+for _, provider in ipairs(default_providers) do
+	vim.g["loaded_" .. provider .. "_provider"] = 0
+end

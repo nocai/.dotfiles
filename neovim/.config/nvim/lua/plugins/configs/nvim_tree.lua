@@ -10,7 +10,9 @@ require("nvim-tree").setup({
 		update_cwd = true,
 		update_root = true,
 	},
-
+	filesystem_watchers = {
+		enable = true,
+	},
 	renderer = {
 		group_empty = true,
 		highlight_opened_files = "name",
