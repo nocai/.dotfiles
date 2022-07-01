@@ -45,7 +45,7 @@ cmp.setup({
 			end
 
 			-- vim_item.menu = entry.source.name
-			vim_item.menu = " "
+			vim_item.menu = ""
 
 			return vim_item
 		end,
