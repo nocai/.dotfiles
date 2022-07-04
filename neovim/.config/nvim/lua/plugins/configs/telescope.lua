@@ -28,8 +28,8 @@ telescope.setup({
 -- keymap
 vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
 
-vim.keymap.set("n", "<C-k>f", [[<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>]])
-vim.keymap.set("n", "<C-k><C-f>", [[<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>]])
+vim.keymap.set("n", "<C-k>f", [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
+vim.keymap.set("n", "<C-k><C-f>", [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
 
 vim.keymap.set("n", "<C-k>g", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 vim.keymap.set("n", "<C-k><C-g>", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])

@@ -2,8 +2,6 @@
 local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
 
-vim.opt.completeopt = "menuone,noselect"
-
 -- local cmp_window = require("cmp.utils.window")
 --
 -- cmp_window.info_ = cmp_window.info
@@ -34,9 +32,8 @@ cmp.setup({
 		end,
 	},
 	formatting = {
-		-- fields = { "kind", "abbr" },
 		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
+		format = function(_, vim_item)
 			vim_item.kind = lspkind_icon[vim_item.kind] .. " "
 
 			local maxwidth = 30
