@@ -604,6 +604,7 @@ key_bindings:
 
 
 
+  - { key: I, mods: Control, chars: "\x1b[105;5u" }
   # - { key: Paste,                   action: Paste                            }
   # - { key: Copy,                    action: Copy                             }
   # - { key: L,        mods: Control, action: ClearLogNotice                   }
