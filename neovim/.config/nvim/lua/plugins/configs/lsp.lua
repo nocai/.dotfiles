@@ -4,7 +4,7 @@ function M.lsp()
 	local setting = require("core.lsp_setting")
 	local lspconfig = require("lspconfig")
 
-	local servers = { "pyright", "rust_analyzer", "tsserver", "denols" }
+	local servers = { "pyright", "tsserver", "denols" }
 	for _, server in ipairs(servers) do
 		local config = setting.config()
 		lspconfig[server].setup(config)
