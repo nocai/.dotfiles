@@ -106,8 +106,8 @@ vim.g.loaded_ftplugin = 1
 
 -- vim.g.did_load_filetypes    = 1
 -- use filetype.lua instead of filetype.vim
-vim.g.did_load_filetypes       = 0
-vim.g.do_filetype_lua          = 1
+-- vim.g.did_load_filetypes       = 0
+-- vim.g.do_filetype_lua          = 1
 -- stylua: ignore end
 
 local default_providers = {

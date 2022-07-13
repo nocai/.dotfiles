@@ -11,7 +11,9 @@ lspSymbol("Hint", nvim.diagnostics.icons.hint)
 lspSymbol("Warn", nvim.diagnostics.icons.warning)
 
 vim.diagnostic.config({
-	update_in_insert = false,
+	update_in_insert = true,
+	border = nvim.window.border,
+	close_events = { "InsertCharPre", "CursorMoved" },
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
