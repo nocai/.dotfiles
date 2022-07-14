@@ -11,25 +11,29 @@ lspSymbol("Hint", nvim.diagnostics.icons.hint)
 lspSymbol("Warn", nvim.diagnostics.icons.warning)
 
 vim.diagnostic.config({
-	update_in_insert = true,
-	border = nvim.window.border,
-	close_events = { "InsertCharPre", "CursorMoved" },
+	-- update_in_insert = true, -- default: false
+	severity_sort = true,
+	float = {
+		focusable = false,
+		border = nvim.window.border,
+		-- close_events = { "InsertCharPre", "CursorMoved" },
+	},
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	silent = true,
-	focusable = false,
+	-- focusable = false,
 	border = nvim.window.border,
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 	silent = true,
-	focusable = false,
+	-- focusable = false,
 	border = nvim.window.border,
-	close_events = { "InsertCharPre", "CursorMoved" },
-	anchor = "SW",
-	relative = "cursor",
-	row = -1,
+	-- close_events = { "InsertCharPre", "CursorMoved" },
+	-- anchor = "SW",
+	-- relative = "cursor",
+	-- row = -1,
 })
 
 vim.notify = function(msg, log_level)
