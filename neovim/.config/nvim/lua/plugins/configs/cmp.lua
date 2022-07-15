@@ -42,8 +42,7 @@ cmp.setup({
 			end
 
 			vim_item.menu = entry.source.name
-			vim_item.menu = ""
-
+			-- vim_item.menu = ""
 			return vim_item
 		end,
 	},
@@ -79,11 +78,11 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lua" },
+		{ name = "nvim_lsp", group_index = 1 },
+		-- { name = "nvim_lua" },
+		{ name = "luasnip", group_index = 1000 },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "luasnip" },
 	}),
 	experimental = {
 		ghost_text = true,
