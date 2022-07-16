@@ -16,8 +16,8 @@ vim.diagnostic.config({
 	float = {
 		focusable = false,
 		border = nvim.window.border,
-		-- close_events = { "InsertCharPre", "CursorMoved" },
 	},
+	virtual_text = { source = "if_many" },
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -31,9 +31,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	-- focusable = false,
 	border = nvim.window.border,
 	-- close_events = { "InsertCharPre", "CursorMoved" },
-	-- anchor = "SW",
-	-- relative = "cursor",
-	-- row = -1,
 })
 
 vim.notify = function(msg, log_level)

@@ -80,9 +80,11 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp", group_index = 1 },
 		-- { name = "nvim_lua" },
-		{ name = "luasnip", group_index = 1000 },
-		{ name = "buffer" },
-		{ name = "path" },
+
+		{ name = "luasnip", group_index = 3 },
+
+		{ name = "buffer", group_index = 1000 },
+		{ name = "path", group_index = 1001 },
 	}),
 	experimental = {
 		ghost_text = true,

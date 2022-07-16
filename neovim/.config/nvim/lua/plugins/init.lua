@@ -165,7 +165,17 @@ return require("plugins.packer").startup(function(use)
 			"abecodes/tabout.nvim",
 			after = { "nvim-cmp", "nvim-treesitter" },
 			config = function()
-				require("tabout").setup()
+				require("tabout").setup({
+					tabouts = {
+						{ open = "'", close = "'" },
+						{ open = '"', close = '"' },
+						{ open = "`", close = "`" },
+						{ open = "(", close = ")" },
+						{ open = "[", close = "]" },
+						{ open = "{", close = "}" },
+						{ open = "<", close = ">" },
+					},
+				})
 			end,
 		},
 
@@ -288,16 +298,76 @@ return require("plugins.packer").startup(function(use)
 				require("colorizer").setup()
 			end,
 		},
+		-- {
+		-- 	"machakann/vim-sandwich",
+		-- 	opt = true,
+		-- 	setup = nvim.lazy_load({
+		-- 		events = { "VimEnter" },
+		-- 		plugins = "vim-sandwich",
+		-- 		setup = function()
+		-- 			vim.g.textobj_sandwich_no_default_key_mappings = 1
+		-- 		end,
+		-- 	}),
+		-- },
 		{
-			"machakann/vim-sandwich",
+			"kylechui/nvim-surround",
 			opt = true,
 			setup = nvim.lazy_load({
 				events = { "VimEnter" },
-				plugins = "vim-sandwich",
-				setup = function()
-					vim.g.textobj_sandwich_no_default_key_mappings = 1
-				end,
+				plugins = "nvim-surround",
 			}),
+			config = function()
+				require("nvim-surround").setup({
+					keymaps = { -- vim-surround style keymaps
+						insert = "ys",
+						insert_line = "yss",
+						visual = "S",
+						delete = "ds",
+						change = "cs",
+					},
+					delimiters = {
+						invalid_key_behavior = function()
+							vim.api.nvim_err_writeln(
+								"Error: Invalid character! Configure this message in " .. 'require("nvim-surround").setup()'
+							)
+						end,
+						pairs = {
+							["("] = { "( ", " )" },
+							[")"] = { "(", ")" },
+							["{"] = { "{ ", " }" },
+							["}"] = { "{", "}" },
+							["<"] = { "< ", " >" },
+							[">"] = { "<", ">" },
+							["["] = { "[ ", " ]" },
+							["]"] = { "[", "]" },
+							-- Define pairs based on function evaluations!
+							["i"] = false,
+							["f"] = false,
+						},
+						separators = {
+							["'"] = { "'", "'" },
+							['"'] = { '"', '"' },
+							["`"] = { "`", "`" },
+						},
+						HTML = {
+							["t"] = false, -- Change just the tag type
+							["T"] = false, -- Change the whole tag contents
+						},
+					aliases = {
+							["a"] = ">", -- Single character aliases apply everywhere
+							["b"] = ")",
+							["B"] = "}",
+							["r"] = "]",
+							-- Table aliases only apply for changes/deletions
+							["q"] = { '"', "'", "`" }, -- Any quote character
+							["s"] = { ")", "]", "}", ">", "'", '"', "`" }, -- Any surrounding delimiter
+						},
+					},
+					highlight_motion = { -- Highlight before inserting/changing surrounds
+						duration = 0,
+					},
+				})
+			end,
 		},
 	})
 
@@ -352,7 +422,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"simrat39/symbols-outline.nvim",
-			disable = true,
+			-- disable = true,
 			after = { "nvim-lspconfig" },
 			setup = function()
 				require("plugins.configs.misc").symbols_outline()
