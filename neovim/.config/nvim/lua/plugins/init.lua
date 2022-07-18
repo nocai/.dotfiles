@@ -353,7 +353,7 @@ return require("plugins.packer").startup(function(use)
 							["t"] = false, -- Change just the tag type
 							["T"] = false, -- Change the whole tag contents
 						},
-					aliases = {
+						aliases = {
 							["a"] = ">", -- Single character aliases apply everywhere
 							["b"] = ")",
 							["B"] = "}",

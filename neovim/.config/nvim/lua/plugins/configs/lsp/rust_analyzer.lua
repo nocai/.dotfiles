@@ -11,6 +11,18 @@ return {
 			procMacro = {
 				enable = true,
 			},
+			-- enable clippy on save
+			checkOnSave = {
+				command = "clippy",
+			},
+			inlayHints = {
+				typeHints = {
+					enable = true,
+				},
+				bindingModeHints = {
+					enable = true,
+				},
+			},
 		},
 	},
 }
