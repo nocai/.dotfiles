@@ -317,56 +317,7 @@ return require("plugins.packer").startup(function(use)
 				plugins = "nvim-surround",
 			}),
 			config = function()
-				require("nvim-surround").setup({
-					keymaps = { -- vim-surround style keymaps
-						insert = "ys",
-						insert_line = "yss",
-						visual = "S",
-						delete = "ds",
-						change = "cs",
-					},
-					delimiters = {
-						invalid_key_behavior = function()
-							vim.api.nvim_err_writeln(
-								"Error: Invalid character! Configure this message in " .. 'require("nvim-surround").setup()'
-							)
-						end,
-						pairs = {
-							["("] = { "( ", " )" },
-							[")"] = { "(", ")" },
-							["{"] = { "{ ", " }" },
-							["}"] = { "{", "}" },
-							["<"] = { "< ", " >" },
-							[">"] = { "<", ">" },
-							["["] = { "[ ", " ]" },
-							["]"] = { "[", "]" },
-							-- Define pairs based on function evaluations!
-							["i"] = false,
-							["f"] = false,
-						},
-						separators = {
-							["'"] = { "'", "'" },
-							['"'] = { '"', '"' },
-							["`"] = { "`", "`" },
-						},
-						HTML = {
-							["t"] = false, -- Change just the tag type
-							["T"] = false, -- Change the whole tag contents
-						},
-						aliases = {
-							["a"] = ">", -- Single character aliases apply everywhere
-							["b"] = ")",
-							["B"] = "}",
-							["r"] = "]",
-							-- Table aliases only apply for changes/deletions
-							["q"] = { '"', "'", "`" }, -- Any quote character
-							["s"] = { ")", "]", "}", ">", "'", '"', "`" }, -- Any surrounding delimiter
-						},
-					},
-					highlight_motion = { -- Highlight before inserting/changing surrounds
-						duration = 0,
-					},
-				})
+				require("nvim-surround").setup()
 			end,
 		},
 	})
@@ -525,6 +476,33 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 
+		{
+			"michaelb/sniprun",
+			cond = function()
+				return not vim.g.vscode
+			end,
+			run = "bash ./install.sh",
+			keys = { "<Leader>sr", "<Leader>sc" },
+			config = function()
+				vim.keymap.set({ "n", "x" }, "<Leader>sr", "<Plug>SnipRun")
+				vim.keymap.set({ "n", "x" }, "<Leader>sc", "<Plug>SnipClose")
+				require("sniprun").setup({
+					--# you can combo different display modes as desired
+					display = {
+						"Classic", --# display results in the command-line  area
+						-- "VirtualTextOk", --# display ok results as virtual text (multiline is shortened)
+
+						"VirtualTextErr", --# display error results as virtual text
+						-- "TempFloatingWindow",      --# display results in a floating window
+						-- "LongTempFloatingWindow",  --# same as above, but only long results. To use with VirtualText__
+						-- "Terminal",                --# display results in a vertical split
+						-- "TerminalWithCode",        --# display results and code history in a vertical split
+						-- "NvimNotify",              --# display with the nvim-notify plugin
+						-- "Api"                      --# return output to a programming interface
+					},
+				})
+			end,
+		},
 		{
 			"thinca/vim-quickrun",
 			cond = function()
