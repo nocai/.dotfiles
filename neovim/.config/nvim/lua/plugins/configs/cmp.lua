@@ -115,7 +115,7 @@ function M.nvim_autopairs()
 	require("nvim-autopairs").setup({
 		check_ts = true,
 		map_c_w = true, -- map <c-w> to delete a pair if possible
-		map_c_h = true,
+		-- map_c_h = true,
 	})
 	require("cmp").event:on(
 		"confirm_done",

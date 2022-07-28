@@ -4,7 +4,8 @@ vim.keymap.set("n", "<M-n>", "<C-w><C-j>")
 vim.keymap.set("n", "<M-e>", "<C-w><C-k>")
 vim.keymap.set("n", "<M-i>", "<C-w><C-l>")
 
--- vim.keymap.set("i", "<C-i>", "<Right>")
+vim.keymap.set("i", "<C-h>", "<Left>")
+vim.keymap.set("i", "<C-i>", "<Right>")
 
 -- terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
