@@ -17,7 +17,7 @@ require("nvim-tree").setup({
 		group_empty = true,
 		highlight_opened_files = "name",
 		indent_markers = {
-			enable = true,
+			-- enable = true,
 		},
 		icons = {
 			git_placement = "after", -- "signcolumn"
