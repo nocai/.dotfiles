@@ -329,7 +329,7 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return not vim.g.vscode
 			end,
-			keys = { "<C-\\>", "<Leader>gg" },
+			keys = { [[<C-\\>]], "<Leader>gg" },
 			cmd = { "Glow", "Lazygit" },
 			config = function()
 				require("plugins.configs.misc").toggleterm()
