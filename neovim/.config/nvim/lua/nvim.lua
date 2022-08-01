@@ -1,4 +1,5 @@
 _G.nvim = {
+	version = vim.version().minor,
 	home = os.getenv("HOME") .. "/.config/nvim",
 
 	is_mac = jit.os == "OSX",
