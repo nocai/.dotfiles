@@ -1,34 +1,25 @@
 require("nvim-tree").setup({
+	hijack_cursor = true,
+
 	reload_on_bufenter = true,
 	create_in_closed_folder = true,
 	diagnostics = nvim.diagnostics,
 
-	update_cwd = true,
 	respect_buf_cwd = true,
+	sync_root_with_cwd = true,
 	update_focused_file = {
 		enable = true,
-		update_cwd = true,
 		update_root = true,
 	},
-	filesystem_watchers = {
-		enable = true,
-	},
+
 	renderer = {
 		group_empty = true,
 		highlight_opened_files = "name",
 		indent_markers = {
 			enable = true,
-			-- inline_arrows = true,
 		},
 		icons = {
 			git_placement = "after", -- "signcolumn"
-			glyphs = {
-				git = {
-					unstaged = "✗",
-					staged = "✓",
-					untracked = "",
-				},
-			},
 		},
 	},
 
