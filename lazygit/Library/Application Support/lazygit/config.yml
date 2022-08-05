@@ -18,7 +18,8 @@ keybinding:
     scrollUpMain-alt1: 'E'
     scrollDownMain-alt1: 'N'
   files:
-    ignoreFile: 'l'
+    # ignoreFile: 'l'
+    IgnoreOrExcludeFile: 'l'
   commits:
     moveDownCommit: '<c-n>' # move commit down one
     moveUpCommit: '<c-e>' # move commit up one
