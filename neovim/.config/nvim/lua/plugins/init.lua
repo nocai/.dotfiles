@@ -61,17 +61,6 @@ return require("plugins.packer").startup(function(use)
 		},
 
 		-- lsp
-		-- {
-		-- 	"williamboman/nvim-lsp-installer",
-		-- 	opt = true,
-		-- 	setup = function()
-		-- 		nvim.lazy_load({
-		-- 			disable = nvim.is_vscode,
-		-- 			events = { "BufRead", "BufWinEnter", "BufNewFile" },
-		-- 			plugins = "nvim-lsp-installer",
-		-- 		})
-		-- 	end,
-		-- },
 		{
 			"williamboman/mason.nvim",
 			cmd = {
@@ -92,9 +81,8 @@ return require("plugins.packer").startup(function(use)
 				return nvim.is_not_vscode
 			end,
 			after = "nvim-lua-guide",
-			module = "lspconfig",
+			-- module = "lspconfig",
 			config = function()
-				-- require("plugins.configs.lsp").nvim_lsp_installer()
 				require("plugins.configs.lsp").lsp()
 			end,
 		},
