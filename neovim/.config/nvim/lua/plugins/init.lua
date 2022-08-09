@@ -3,9 +3,19 @@ return require("plugins.packer").startup(function(use)
 	use({ "wbthomason/packer.nvim", opt = true })
 	use({
 		{ "nvim-lua/plenary.nvim", module = "plenary" },
-		{ "nanotee/nvim-lua-guide", after = { "nvim-lsp-installer" } },
-		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lsp-installer" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-		{ "kyazdani42/nvim-web-devicons", after = { "nvim-lsp-installer" } },
+		{ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
+		{
+			"nanotee/nvim-lua-guide",
+			opt = true,
+			setup = function()
+				nvim.lazy_load({
+					disable = nvim.is_vscode,
+					events = { "BufRead", "BufWinEnter", "BufNewFile" },
+					plugins = "nvim-lua-guide",
+				})
+			end,
+		},
+		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lua-guide" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 	})
 
 	-- core
@@ -13,6 +23,15 @@ return require("plugins.packer").startup(function(use)
 		-- treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
+			module = "nvim-treesitter",
+			cmd = {
+				"TSInstall",
+				"TSBufEnable",
+				"TSBufDisable",
+				"TSEnable",
+				"TSDisable",
+				"TSModuleInfo",
+			},
 			event = "VimEnter",
 			config = function()
 				require("plugins.configs.treesitter")
@@ -20,11 +39,11 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"nvim-treesitter/nvim-treesitter-context",
-			after = { "nvim-treesitter", "nvim-lsp-installer" },
+			after = { "nvim-treesitter", "nvim-lua-guide" },
 		},
 		{
 			"nvim-treesitter/nvim-treesitter-textobjects",
-			after = { "nvim-treesitter", "nvim-lsp-installer" },
+			after = { "nvim-treesitter", "nvim-lua-guide" },
 		},
 		{
 			"p00f/nvim-ts-rainbow",
@@ -35,22 +54,36 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"windwp/nvim-ts-autotag",
-			after = { "nvim-treesitter", "nvim-lsp-installer" },
+			after = { "nvim-treesitter", "nvim-lua-guide" },
 			config = function()
 				require("plugins.configs.treesitter").nvim_ts_autotag()
 			end,
 		},
 
 		-- lsp
+		-- {
+		-- 	"williamboman/nvim-lsp-installer",
+		-- 	opt = true,
+		-- 	setup = function()
+		-- 		nvim.lazy_load({
+		-- 			disable = nvim.is_vscode,
+		-- 			events = { "BufRead", "BufWinEnter", "BufNewFile" },
+		-- 			plugins = "nvim-lsp-installer",
+		-- 		})
+		-- 	end,
+		-- },
 		{
-			"williamboman/nvim-lsp-installer",
-			opt = true,
-			setup = function()
-				nvim.lazy_load({
-					disable = nvim.is_vscode,
-					events = { "BufRead", "BufWinEnter", "BufNewFile" },
-					plugins = "nvim-lsp-installer",
-				})
+			"williamboman/mason.nvim",
+			cmd = {
+				"Mason",
+				"MasonInstall",
+				"MasonInstallAll",
+				"MasonUninstall",
+				"MasonUninstallAll",
+				"MasonLog",
+			},
+			config = function()
+				require("plugins.configs.lsp").mason()
 			end,
 		},
 		{
@@ -58,10 +91,10 @@ return require("plugins.packer").startup(function(use)
 			cond = function()
 				return nvim.is_not_vscode
 			end,
-			after = "nvim-lsp-installer",
+			after = "nvim-lua-guide",
 			module = "lspconfig",
 			config = function()
-				require("plugins.configs.lsp").nvim_lsp_installer()
+				-- require("plugins.configs.lsp").nvim_lsp_installer()
 				require("plugins.configs.lsp").lsp()
 			end,
 		},
@@ -95,7 +128,7 @@ return require("plugins.packer").startup(function(use)
 		-- null-ls
 		{
 			"jose-elias-alvarez/null-ls.nvim",
-			after = "nvim-lsp-installer",
+			after = "nvim-lua-guide",
 			config = function()
 				require("plugins.configs.lsp").null_ls()
 			end,
@@ -105,7 +138,7 @@ return require("plugins.packer").startup(function(use)
 		-- cmp
 		{
 			"rafamadriz/friendly-snippets",
-			after = "nvim-lsp-installer",
+			after = "nvim-lua-guide",
 		},
 		{
 			"L3MON4D3/LuaSnip",
@@ -182,7 +215,7 @@ return require("plugins.packer").startup(function(use)
 		-- telescope
 		{
 			"nvim-telescope/telescope.nvim",
-			after = { "nvim-lsp-installer" },
+			after = { "nvim-lua-guide" },
 			cmd = "Telescope",
 			config = function()
 				require("plugins.configs.telescope")
@@ -254,7 +287,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"lukas-reineke/indent-blankline.nvim",
-			after = { "nvim-lsp-installer" },
+			after = { "nvim-lua-guide" },
 			setup = function()
 				vim.g.indent_blankline_char = "┊"
 				vim.g.indent_blankline_show_first_indent_level = false
@@ -287,13 +320,13 @@ return require("plugins.packer").startup(function(use)
 				require("plugins.configs.misc").alpha_nvim()
 				vim.defer_fn(function()
 					---@diagnostic disable-next-line: different-requires
-					require("packer").loader("nvim-lsp-installer")
+					require("packer").loader("nvim-lua-guide")
 				end, 100)
 			end,
 		},
 		{
 			"norcalli/nvim-colorizer.lua",
-			after = { "nvim-lsp-installer" },
+			after = { "nvim-lua-guide" },
 			config = function()
 				require("colorizer").setup()
 			end,

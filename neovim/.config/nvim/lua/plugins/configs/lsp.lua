@@ -18,27 +18,23 @@ function M.lsp()
 	end
 end
 
-function M.nvim_lsp_installer()
-	local present, installer = pcall(require, "nvim-lsp-installer")
-	if present then
-		installer.setup({
-			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-			ui = {
-				keymaps = {
-					-- Keymap to install the server under the current cursor position
-					install_server = "l",
-				},
+function M.mason()
+	require("mason").setup({
+		ui = {
+			border = "rounded",
+			keymaps = {
+				install_package = "l",
 			},
-			github = {
-				-- The template URL to use when downloading assets from GitHub.
-				-- The placeholders are the following (in order):
-				-- 1. The repository (e.g. "rust-lang/rust-analyzer")
-				-- 2. The release version (e.g. "v0.3.0")
-				-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
-				download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
-			},
-		})
-	end
+		},
+		github = {
+			-- The template URL to use when downloading assets from GitHub.
+			-- The placeholders are the following (in order):
+			-- 1. The repository (e.g. "rust-lang/rust-analyzer")
+			-- 2. The release version (e.g. "v0.3.0")
+			-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
+			download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
+		},
+	})
 end
 
 function M.null_ls()
