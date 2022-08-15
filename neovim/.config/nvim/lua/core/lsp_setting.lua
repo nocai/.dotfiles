@@ -72,9 +72,8 @@ local function on_attach(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local opts = { buffer = bufnr }
-	-- mapping: K => E
-	vim.keymap.set("n", "E", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.keymap.set({ "n", "i", "s" }, "<C-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	vim.keymap.set({ "n", "i", "s" }, "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
 	vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
