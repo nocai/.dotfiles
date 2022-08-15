@@ -16,7 +16,7 @@ function M.alpha_nvim()
 		dashboard.button("<C-k><C-o>", "  Recently opened files", ":Telescope oldfiles<CR>"),
 		dashboard.button("<C-k><C-p>", "  Projects", ":Telescope projects<CR>"),
 
-		dashboard.button("k", "  New file", ":ene <BAR> startinsert <CR>"),
+		dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
 		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
 	}
 	dashboard.opts.opts.noautocmd = true
@@ -114,7 +114,7 @@ function M.gitsigns()
 			map('n', '<leader>td', gs.toggle_deleted)
 
 			-- Text object
-			map({ 'o', 'x' }, 'lh', ':<C-U>Gitsigns select_hunk<CR>')
+			map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 			-- stylua: ignore end
 		end,
 	})

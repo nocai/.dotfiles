@@ -49,19 +49,29 @@ cmp.setup({
 	-- You must set mapping.
 	mapping = {
 		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<C-k>"] = cmp.mapping.select_next_item(),
-		["<C-e>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		-- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-j>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-		["<CR>"] = cmp.mapping.confirm({
-			select = true,
-		}),
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.abort(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+		-- ["<C-n>"] = cmp.mapping.select_next_item(),
+		-- ["<C-k>"] = cmp.mapping.select_next_item(),
+		-- ["<C-e>"] = cmp.mapping.select_prev_item(),
+		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
+		-- ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		-- ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		-- -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		-- ["<C-j>"] = cmp.mapping({
+		-- 	i = cmp.mapping.abort(),
+		-- 	c = cmp.mapping.close(),
+		-- }),
+		-- ["<CR>"] = cmp.mapping.confirm({
+		-- 	select = true,
+		-- }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if require("luasnip").expand_or_jumpable() then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
@@ -115,7 +125,7 @@ function M.nvim_autopairs()
 	require("nvim-autopairs").setup({
 		check_ts = true,
 		map_c_w = true, -- map <c-w> to delete a pair if possible
-		-- map_c_h = true,
+		map_c_h = true,
 	})
 	require("cmp").event:on(
 		"confirm_done",

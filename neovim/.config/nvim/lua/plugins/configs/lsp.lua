@@ -22,9 +22,9 @@ function M.mason()
 	require("mason").setup({
 		ui = {
 			border = "rounded",
-			keymaps = {
-				install_package = "l",
-			},
+			-- keymaps = {
+			-- 	install_package = "l",
+			-- },
 		},
 		github = {
 			-- The template URL to use when downloading assets from GitHub.
