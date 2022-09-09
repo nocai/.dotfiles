@@ -26,18 +26,18 @@ autocmd("TextYankPost", {
 	end,
 })
 
-autocmd("InsertLeave", {
-	callback = function()
-		local present, luasnip = pcall(require, "luasnip")
-		if not present then
-			return
-		end
-
-		if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
-			luasnip.unlink_current()
-		end
-	end,
-})
+-- autocmd("InsertLeave", {
+-- 	callback = function()
+-- 		local present, luasnip = pcall(require, "luasnip")
+-- 		if not present then
+-- 			return
+-- 		end
+--
+-- 		if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
+-- 			luasnip.unlink_current()
+-- 		end
+-- 	end,
+-- })
 
 -- dont list quickfix buffers
 autocmd("FileType", {

@@ -1,20 +1,20 @@
 return require("plugins.packer").startup(function(use)
 	-- commons
-	use({ "wbthomason/packer.nvim", opt = true })
 	use({
+		"nanotee/nvim-lua-guide",
+		opt = true,
+		setup = function()
+			nvim.lazy_load({
+				disable = nvim.is_vscode,
+				events = { "BufRead", "BufWinEnter", "BufNewFile" },
+				plugins = "nvim-lua-guide",
+			})
+		end,
+	})
+	use({
+		{ "wbthomason/packer.nvim", opt = true },
 		{ "nvim-lua/plenary.nvim", module = "plenary" },
 		{ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
-		{
-			"nanotee/nvim-lua-guide",
-			opt = true,
-			setup = function()
-				nvim.lazy_load({
-					disable = nvim.is_vscode,
-					events = { "BufRead", "BufWinEnter", "BufNewFile" },
-					plugins = "nvim-lua-guide",
-				})
-			end,
-		},
 		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lua-guide" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 	})
 
@@ -132,9 +132,18 @@ return require("plugins.packer").startup(function(use)
 			"L3MON4D3/LuaSnip",
 			after = { "friendly-snippets" },
 			config = function()
-				require("luasnip.config").setup({
+				require("luasnip.config").set_config({
 					region_check_events = "InsertEnter",
 				})
+				-- vim.api.nvim_create_autocmd("InsertLeave", {
+				-- 	callback = function()
+				-- 		if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+				-- 				and not require("luasnip").session.jump_active
+				-- 		then
+				-- 			require("luasnip").unlink_current()
+				-- 		end
+				-- 	end,
+				-- })
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
 		},
