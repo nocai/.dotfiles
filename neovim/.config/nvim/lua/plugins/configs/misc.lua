@@ -295,4 +295,28 @@ function M.vim_test()
 	]])
 end
 
+function M.nvim_test()
+	require("nvim-test").setup({
+		term = "toggleterm",
+		termOpts = {
+			direction = "float", -- terminal's direction ("horizontal"|"vertical"|"float")
+		},
+	})
+
+	-- TestSuite - run the whole test suite
+	-- TestFile - run all tests for the current file
+	-- TestEdit - edit tests for the current file
+	-- TestNearest - run the test nearest to the cursor
+	-- TestLast - rerun the latest test
+	-- TestVisit - open the last run test in the current buffer
+	-- TestInfo - show an information about the plugin
+	vim.keymap.set("n", "<Leader>tt", "<cmd>TestLast<cr>")
+	vim.keymap.set("n", "<Leader>tn", "<cmd>TestNearest<cr>")
+	vim.keymap.set("n", "<Leader>ts", "<cmd>TestSuite<cr>")
+	vim.keymap.set("n", "<Leader>tv", "<cmd>TestVisit<cr>")
+	vim.keymap.set("n", "<Leader>tf", "<cmd>TestFile<cr>")
+	vim.keymap.set("n", "<Leader>ti", "<cmd>TestInfo<cr>")
+	vim.keymap.set("n", "<Leader>te", "<cmd>TestEdit<cr>")
+end
+
 return M

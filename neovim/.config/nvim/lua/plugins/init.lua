@@ -149,9 +149,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"hrsh7th/nvim-cmp",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
+			-- module = "cmp",
 			event = "InsertEnter",
 			config = function()
 				require("plugins.configs.cmp")
@@ -167,7 +165,7 @@ return require("plugins.packer").startup(function(use)
 				},
 				{
 					"hrsh7th/cmp-nvim-lsp",
-					module = "cmp_nvim_lsp",
+					-- module = "cmp_nvim_lsp",
 					after = "nvim-cmp",
 				},
 				-- {
@@ -309,6 +307,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"goolord/alpha-nvim",
+			disable = true,
 			cond = function()
 				return nvim.is_not_vscode
 			end,
@@ -508,6 +507,7 @@ return require("plugins.packer").startup(function(use)
 
 		{
 			"thinca/vim-quickrun",
+			disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
@@ -518,12 +518,20 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"vim-test/vim-test",
+			disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
 			keys = { "<Leader>t" },
 			config = function()
 				require("plugins.configs.misc").vim_test()
+			end,
+		},
+		{
+			"klen/nvim-test",
+			keys = { "<Leader>t" },
+			config = function()
+				require("plugins.configs.misc").nvim_test()
 			end,
 		},
 		{
