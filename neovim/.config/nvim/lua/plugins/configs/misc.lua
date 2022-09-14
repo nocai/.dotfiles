@@ -310,8 +310,9 @@ function M.nvim_test()
 	-- TestLast - rerun the latest test
 	-- TestVisit - open the last run test in the current buffer
 	-- TestInfo - show an information about the plugin
-	vim.keymap.set("n", "<Leader>tt", "<cmd>TestLast<cr>")
+	vim.keymap.set("n", "<Leader>tt", "<cmd>TestNearest<cr>")
 	vim.keymap.set("n", "<Leader>tn", "<cmd>TestNearest<cr>")
+	vim.keymap.set("n", "<Leader>tl", "<cmd>TestLast<cr>")
 	vim.keymap.set("n", "<Leader>ts", "<cmd>TestSuite<cr>")
 	vim.keymap.set("n", "<Leader>tv", "<cmd>TestVisit<cr>")
 	vim.keymap.set("n", "<Leader>tf", "<cmd>TestFile<cr>")

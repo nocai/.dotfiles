@@ -360,6 +360,7 @@ return require("plugins.packer").startup(function(use)
 			end,
 			keys = { [[<C-Space>]], "<Leader>gg" },
 			cmd = { "Glow", "Lazygit" },
+			module = "toggleterm", -- depend by nvim-test
 			config = function()
 				require("plugins.configs.misc").toggleterm()
 			end,
