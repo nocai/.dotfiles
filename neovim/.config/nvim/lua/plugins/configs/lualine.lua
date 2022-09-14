@@ -41,7 +41,7 @@ end
 require("lualine").setup({
 	sections = {
 		lualine_a = {
-			{ "mode", icon = "", separator = { left = "", right = "" } },
+			{ "mode", icon = "", separator = { left = "" } },
 		},
 		lualine_b = {
 			{ "branch", separator = "|", section_separators = { left = "" } },
@@ -49,7 +49,7 @@ require("lualine").setup({
 			{ "diagnostics", separator = "|", section_separators = { left = "" } },
 		},
 		lualine_c = {
-			{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
+			{ "filetype", icon_only = true, separator = "", padding = { left = 2 } },
 			{ "filename", separator = "|" },
 			{ LSP_progress },
 		},

@@ -508,7 +508,7 @@ return require("plugins.packer").startup(function(use)
 
 		{
 			"thinca/vim-quickrun",
-			disable = true,
+			-- disable = true,
 			cond = function()
 				return not vim.g.vscode
 			end,
