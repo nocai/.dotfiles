@@ -26,7 +26,7 @@ end
 function M.toggleterm()
 	require("toggleterm").setup({
 		-- insert_mappings = false,
-		open_mapping = [[<C-\>]], -- mapping to <C-`>
+		open_mapping = [[<C-Space>]], -- mapping to <C-`>
 		direction = "float",
 		float_opts = {
 			border = "curved",
