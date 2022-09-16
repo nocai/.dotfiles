@@ -242,27 +242,40 @@ return require("plugins.packer").startup(function(use)
 		{
 			"folke/tokyonight.nvim",
 			after = "nvim-treesitter",
-			setup = function()
-				-- storm/night/day
-				vim.g.tokyonight_style = "storm"
-
-				vim.g.tokyonight_italic_comments = true
-				vim.g.tokyonight_italic_keywords = true
-				vim.g.tokyonight_italic_functions = false
-				vim.g.tokyonight_italic_variables = false
-				vim.g.tokyonight_lualine_bold = true
-
-				vim.g.tokyonight_transparent = true
-				vim.g.tokyonight_transparent_sidebar = true
-				vim.g.tokyonight_dark_float = true
-
-				vim.g.tokyonight_hide_inactive_statusline = true
-				vim.g.tokyonight_terminal_colors = true
-
-				-- , bg_statusline = "none"
-				vim.g.tokyonight_colors = { bg_float = "none", border = "border_highlight" }
-			end,
+			-- setup = function()
+			-- 	-- storm/night/day
+			-- 	vim.g.tokyonight_style = "storm"
+			--
+			-- 	vim.g.tokyonight_italic_comments = true
+			-- 	vim.g.tokyonight_italic_keywords = true
+			-- 	vim.g.tokyonight_italic_functions = false
+			-- 	vim.g.tokyonight_italic_variables = false
+			-- 	vim.g.tokyonight_lualine_bold = true
+			--
+			-- 	vim.g.tokyonight_transparent = true
+			-- 	vim.g.tokyonight_transparent_sidebar = true
+			-- 	vim.g.tokyonight_dark_float = true
+			--
+			-- 	vim.g.tokyonight_hide_inactive_statusline = true
+			-- 	vim.g.tokyonight_terminal_colors = true
+			--
+			-- 	-- , bg_statusline = "none"
+			-- 	vim.g.tokyonight_colors = { bg_popup = "none", border = "border_highlight" }
+			-- end,
 			config = function()
+				require("tokyonight").setup({
+					-- your configuration comes here
+					-- or leave it empty to use the default settings
+					style = "storm", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+					transparent = true, -- Enable this to disable setting the background color
+					terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+					styles = {
+						-- Background styles. Can be "dark", "transparent" or "normal"
+						sidebars = "transparent", -- style for sidebars, see below
+						floats = "transparent", -- style for floating windows
+					},
+					hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+				})
 				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
