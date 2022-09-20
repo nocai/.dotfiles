@@ -1,30 +1,4 @@
--- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
-
-local present, packer = pcall(require, "packer")
-if not present then
-	local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-	-- remove the dir before cloning
-	vim.fn.delete(packer_path, "rf")
-
-	print("Cloning packer...")
-	vim.fn.system({
-		"git",
-		"clone",
-		"https://ghproxy.com/https://github.com/wbthomason/packer.nvim",
-		"--depth",
-		"20",
-		packer_path,
-	})
-	vim.cmd([[packadd packer.nvim]])
-
-	present, packer = pcall(require, "packer")
-	if present then
-		print("Packer cloned successfully.")
-	else
-		error("Couldn't clone packer !\nPacker path: " .. packer_path .. "\n" .. packer)
-	end
-end
+local packer = require("packer")
 
 packer.init({
 	-- compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"), "packer_compiled.lua"),

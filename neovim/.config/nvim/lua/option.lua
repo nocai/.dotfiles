@@ -1,7 +1,7 @@
 --Remap space as leader key
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.opt.laststatus = 3 -- global statusline
 
@@ -46,7 +46,7 @@ vim.o.cursorline = true
 
 vim.o.clipboard = "unnamedplus"
 -- vim.o.list = true
-vim.o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
+-- vim.o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
 
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 5

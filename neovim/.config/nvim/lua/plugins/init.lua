@@ -1,29 +1,56 @@
 return require("plugins.packer").startup(function(use)
 	-- commons
 	use({
-		"nanotee/nvim-lua-guide",
-		opt = true,
-		setup = function()
-			nvim.lazy_load({
-				disable = nvim.is_vscode,
-				events = { "BufRead", "BufWinEnter", "BufNewFile" },
-				plugins = "nvim-lua-guide",
-			})
-		end,
-	})
-	use({
-		{ "wbthomason/packer.nvim", opt = true },
+		{
+			"wbthomason/packer.nvim",
+			cmd = {
+				"PackerSnapshot",
+				"PackerSnapshotRollback",
+				"PackerSnapshotDelete",
+				"PackerInstall",
+				"PackerUpdate",
+				"PackerSync",
+				"PackerClean",
+				"PackerCompile",
+				"PackerStatus",
+				"PackerProfile",
+				"PackerLoad",
+			},
+		},
 		{ "nvim-lua/plenary.nvim", module = "plenary" },
 		{ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
-		{ "antoinemadec/FixCursorHold.nvim", after = { "nvim-lua-guide" } }, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+		{
+			"nanotee/nvim-lua-guide",
+			opt = true,
+			setup = function()
+				local augroup = "LazyLoad:" .. vim.fn.rand()
+				vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
+					group = vim.api.nvim_create_augroup(augroup, {}),
+					callback = function()
+						vim.api.nvim_del_augroup_by_name(augroup)
+						vim.defer_fn(function()
+							---@diagnostic disable-next-line: different-requires
+							require("packer").loader("nvim-lua-guide")
+						end, 0)
+					end,
+				})
+			end,
+		},
+		{
+			"antoinemadec/FixCursorHold.nvim",
+			after = { "nvim-lua-guide" },
+		}, -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+		{
+			"lewis6991/impatient.nvim",
+		},
 	})
 
 	-- core
 	use({
+		--
 		-- treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
-			module = "nvim-treesitter",
 			cmd = {
 				"TSInstall",
 				"TSBufEnable",
@@ -33,6 +60,7 @@ return require("plugins.packer").startup(function(use)
 				"TSModuleInfo",
 			},
 			event = "VimEnter",
+			module = "nvim-treesitter",
 			config = function()
 				require("plugins.configs.treesitter")
 			end,
@@ -60,6 +88,7 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 
+		--
 		-- lsp
 		{
 			"williamboman/mason.nvim",
@@ -77,32 +106,27 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"neovim/nvim-lspconfig",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
 			after = "nvim-lua-guide",
-			-- module = "lspconfig",
 			config = function()
 				require("plugins.configs.lsp").lsp()
 			end,
 		},
-		{
-			"ray-x/lsp_signature.nvim",
-			disable = true,
-			after = { "nvim-lspconfig" },
-			config = function()
-				require("lsp_signature").setup({
-					bind = true,
-					floating_window = true,
-					hint_enable = false,
-					floating_window_above_cur_line = true,
-					timer_interval = 1000,
-					handler_opts = {
-						border = "rounded", -- double, single, shadow, none
-					},
-				})
-			end,
-		},
+		-- {
+		-- 	"ray-x/lsp_signature.nvim",
+		-- 	after = { "nvim-lspconfig" },
+		-- 	config = function()
+		-- 		require("lsp_signature").setup({
+		-- 			bind = true,
+		-- 			floating_window = true,
+		-- 			hint_enable = false,
+		-- 			floating_window_above_cur_line = true,
+		-- 			timer_interval = 1000,
+		-- 			handler_opts = {
+		-- 				border = "rounded", -- double, single, shadow, none
+		-- 			},
+		-- 		})
+		-- 	end,
+		-- },
 		{
 			-- config, see: ftplugin/java.lua
 			"mfussenegger/nvim-jdtls",
@@ -112,21 +136,19 @@ return require("plugins.packer").startup(function(use)
 				return not vim.g.vscode
 			end,
 		},
-
-		-- null-ls
 		{
 			"jose-elias-alvarez/null-ls.nvim",
-			after = "nvim-lua-guide",
+			after = { "nvim-lua-guide" },
 			config = function()
 				require("plugins.configs.lsp").null_ls()
 			end,
-			-- requires = { "ThePrimeagen/refactoring.nvim", after = "null-ls.nvim" },
 		},
 
+		--
 		-- cmp
 		{
 			"rafamadriz/friendly-snippets",
-			after = "nvim-lua-guide",
+			after = { "nvim-lua-guide" },
 		},
 		{
 			"L3MON4D3/LuaSnip",
@@ -135,15 +157,6 @@ return require("plugins.packer").startup(function(use)
 				require("luasnip.config").set_config({
 					region_check_events = "InsertEnter",
 				})
-				-- vim.api.nvim_create_autocmd("InsertLeave", {
-				-- 	callback = function()
-				-- 		if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-				-- 				and not require("luasnip").session.jump_active
-				-- 		then
-				-- 			require("luasnip").unlink_current()
-				-- 		end
-				-- 	end,
-				-- })
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
 		},
@@ -157,28 +170,27 @@ return require("plugins.packer").startup(function(use)
 			requires = {
 				{
 					"hrsh7th/cmp-buffer",
-					after = "nvim-cmp",
+					after = { "nvim-cmp" },
 				},
 				{
 					"hrsh7th/cmp-path",
-					after = "nvim-cmp",
+					after = { "nvim-cmp" },
 				},
 				{
 					"hrsh7th/cmp-nvim-lsp",
-					-- module = "cmp_nvim_lsp",
-					after = "nvim-cmp",
+					after = { "nvim-cmp" },
+				},
+				{
+					"saadparwaiz1/cmp_luasnip",
+					after = { "nvim-cmp" },
 				},
 				-- {
 				-- 	"hrsh7th/cmp-nvim-lua",
-				-- 	after = "nvim-cmp",
+				-- 	after = {"nvim-cmp"},
 				-- },
-				{
-					"saadparwaiz1/cmp_luasnip",
-					after = "nvim-cmp",
-				},
 				-- {
 				-- 	"hrsh7th/cmp-cmdline",
-				-- 	after = "nvim-cmp",
+				-- 	after = {"nvim-cmp"},
 				-- },
 			},
 		},
@@ -207,6 +219,7 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 
+		--
 		-- telescope
 		{
 			"nvim-telescope/telescope.nvim",
@@ -239,42 +252,21 @@ return require("plugins.packer").startup(function(use)
 			end,
 		},
 
+		--
+		-- others
 		{
 			"folke/tokyonight.nvim",
-			after = "nvim-treesitter",
-			-- setup = function()
-			-- 	-- storm/night/day
-			-- 	vim.g.tokyonight_style = "storm"
-			--
-			-- 	vim.g.tokyonight_italic_comments = true
-			-- 	vim.g.tokyonight_italic_keywords = true
-			-- 	vim.g.tokyonight_italic_functions = false
-			-- 	vim.g.tokyonight_italic_variables = false
-			-- 	vim.g.tokyonight_lualine_bold = true
-			--
-			-- 	vim.g.tokyonight_transparent = true
-			-- 	vim.g.tokyonight_transparent_sidebar = true
-			-- 	vim.g.tokyonight_dark_float = true
-			--
-			-- 	vim.g.tokyonight_hide_inactive_statusline = true
-			-- 	vim.g.tokyonight_terminal_colors = true
-			--
-			-- 	-- , bg_statusline = "none"
-			-- 	vim.g.tokyonight_colors = { bg_popup = "none", border = "border_highlight" }
-			-- end,
+			after = { "nvim-treesitter" },
 			config = function()
 				require("tokyonight").setup({
-					-- your configuration comes here
-					-- or leave it empty to use the default settings
 					style = "storm", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-					transparent = true, -- Enable this to disable setting the background color
-					terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+					transparent = true,
+					terminal_colors = true,
 					styles = {
 						-- Background styles. Can be "dark", "transparent" or "normal"
 						sidebars = "transparent", -- style for sidebars, see below
 						floats = "transparent", -- style for floating windows
 					},
-					hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
 				})
 				vim.cmd([[colorscheme tokyonight]])
 			end,
@@ -302,7 +294,6 @@ return require("plugins.packer").startup(function(use)
 			end,
 			config = function()
 				require("indent_blankline").setup({
-					-- for example, context is off by default, use this to turn it on
 					show_current_context = true,
 					-- show_current_context_start = true,
 				})
@@ -310,27 +301,9 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"numToStr/Comment.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
 			keys = { { "n", "gc" }, { "n", "gb" }, { "v", "gc" }, { "v", "gb" } },
 			config = function()
 				require("Comment").setup()
-			end,
-		},
-		{
-			"goolord/alpha-nvim",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			event = { "VimEnter" },
-			config = function()
-				require("plugins.configs.misc").alpha_nvim()
-				vim.defer_fn(function()
-					---@diagnostic disable-next-line: different-requires
-					require("packer").loader("nvim-lua-guide")
-				end, 100)
 			end,
 		},
 		{
@@ -353,11 +326,7 @@ return require("plugins.packer").startup(function(use)
 		-- },
 		{
 			"kylechui/nvim-surround",
-			opt = true,
-			setup = nvim.lazy_load({
-				events = { "VimEnter" },
-				plugins = "nvim-surround",
-			}),
+			after = { "nvim-lua-guide" },
 			config = function()
 				require("nvim-surround").setup()
 			end,
@@ -368,9 +337,6 @@ return require("plugins.packer").startup(function(use)
 	use({
 		{
 			"akinsho/toggleterm.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
 			keys = { [[<C-Space>]], "<Leader>gg" },
 			cmd = { "Glow", "Lazygit" },
 			module = "toggleterm", -- depend by nvim-test
@@ -380,111 +346,24 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"lewis6991/gitsigns.nvim",
-			opt = true,
-			setup = function()
-				if nvim.is_vscode then
-					return
-				end
-
-				vim.api.nvim_create_autocmd({ "BufRead" }, {
-					callback = function()
-						local function onexit(code, _)
-							if code == 0 then
-								vim.schedule(function()
-									---@diagnostic disable-next-line: different-requires
-									require("packer").loader("gitsigns.nvim")
-								end)
-							end
-						end
-
-						local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-						if lines ~= { "" } then
-							vim.loop.spawn("git", {
-								args = {
-									"ls-files",
-									"--error-unmatch",
-									vim.fn.expand("%:p:h"),
-								},
-							}, onexit)
-						end
-					end,
-				})
-			end,
+			after = { "nvim-lua-guide" },
 			config = function()
 				require("plugins.configs.misc").gitsigns()
 			end,
 		},
 		{
-			"simrat39/symbols-outline.nvim",
-			-- disable = true,
-			after = { "nvim-lspconfig" },
-			setup = function()
-				require("plugins.configs.misc").symbols_outline()
-			end,
-		},
-		{
-			"akinsho/nvim-bufferline.lua",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			after = { "nvim-web-devicons" },
-			config = function()
-				require("plugins.configs.misc").nvim_bufferline()
-			end,
-		},
-
-		{
-			"rcarriga/nvim-notify",
-			disable = true,
-			after = { "telescope.nvim" },
-			config = function()
-				require("plugins.configs.misc").notify()
-			end,
-		},
-		{
 			"tweekmonster/startuptime.vim",
-			cond = function()
-				return not nvim.is_vscode
-			end,
 			cmd = { "StartupTime" },
-		},
-		{
-			"karb94/neoscroll.nvim",
-			disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
-			event = "WinScrolled",
-			config = function()
-				require("plugins.configs.misc").neoscroll()
-			end,
 		},
 		{
 			"chentoast/marks.nvim",
 			keys = { { "n", "m" } },
-			cond = function()
-				return nvim.is_not_vscode
-			end,
 			config = function()
 				require("plugins.configs.misc").marks()
 			end,
 		},
 		{
-			"luukvbaal/stabilize.nvim",
-			disable = true,
-			cond = function()
-				return nvim.is_not_vscode
-			end,
-			config = function()
-				require("stabilize").setup()
-			end,
-		},
-		{
 			"famiu/bufdelete.nvim",
-			cond = function()
-				return nvim.is_not_vscode
-			end,
 			keys = { "<Leader>bd", "<Leader>bw" },
 			config = function()
 				vim.keymap.set("n", "<Leader>bd", function()
@@ -497,9 +376,6 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"folke/todo-comments.nvim",
-			cond = function()
-				return not vim.g.vscode
-			end,
 			cmd = { "TodoLocList", "TodoQuickList", "TodoQuickFix", "TodoTelescope", "TodoTrouble" },
 			config = function()
 				require("todo-comments").setup({
@@ -521,26 +397,18 @@ return require("plugins.packer").startup(function(use)
 
 		{
 			"thinca/vim-quickrun",
-			-- disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
 			keys = { "<Leader>r" },
 			config = function()
 				require("plugins.configs.misc").vim_quickrun()
 			end,
 		},
-		{
-			"vim-test/vim-test",
-			disable = true,
-			cond = function()
-				return not vim.g.vscode
-			end,
-			keys = { "<Leader>t" },
-			config = function()
-				require("plugins.configs.misc").vim_test()
-			end,
-		},
+		-- {
+		-- 	"vim-test/vim-test",
+		-- 	keys = { "<Leader>t" },
+		-- 	config = function()
+		-- 		require("plugins.configs.misc").vim_test()
+		-- 	end,
+		-- },
 		{
 			"klen/nvim-test",
 			keys = { "<Leader>t" },
@@ -550,9 +418,6 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"sebdah/vim-delve",
-			cond = function()
-				return not vim.g.vscode
-			end,
 			ft = { "go" },
 		},
 	})

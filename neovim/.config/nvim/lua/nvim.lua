@@ -21,8 +21,13 @@ vim.keymap.set("n", "<Right>", "<cmd>vertical resize+5<cr>")
 vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>")
 
+vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
+
 vim.keymap.set("i", "<C-h>", "<Left>")
 vim.keymap.set("i", "<C-l>", "<Right>")
+
+vim.keymap.set("i", "<C-e>", "<End>")
+vim.keymap.set("i", "<C-b>", "<Esc>^i")
 
 _G.nvim = {
 	version = vim.version().minor,
@@ -30,8 +35,7 @@ _G.nvim = {
 
 	is_mac = jit.os == "OSX",
 	is_linux = jit.os == "Linux",
-	is_vscode = vim.g.vscode == 1,
-	is_not_vscode = vim.g.vscode ~= 1,
+	is_windows = vim.loop.os_uname().sysname == "Windows_NT",
 
 	diagnostics = {
 		enable = true,
@@ -49,44 +53,7 @@ _G.nvim = {
 		winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
 	},
 }
-
--- https://github.com/max397574/omega-nvim/blob/master/lua/omega/modules/ui/bufferline.lua
-function nvim.lazy_load(tb)
-	if tb.disable ~= nil and tb.disable then
-		return
-	end
-
-	local file = vim.fn.expand("%")
-	if file == "NvimTree_1" or file == "[packer]" or file == "" then
-		return
-	end
-
-	local augroup = "LazyLoadAuGroup_Rand:" .. vim.fn.rand()
-	vim.api.nvim_create_autocmd(tb.events, {
-		pattern = "*",
-		group = vim.api.nvim_create_augroup(augroup, {}),
-		callback = function()
-			if tb.condition and not tb.condition() then
-				return
-			end
-
-			vim.api.nvim_del_augroup_by_name(augroup)
-			if tb.setup ~= nil then
-				tb.setup()
-			end
-
-			-- dont defer for treesitter as it will show slow highlighting
-			-- This deferring only happens only when we do "nvim filename"
-			if tb.plugins ~= "nvim-treesitter" then
-				vim.defer_fn(function()
-					vim.cmd("PackerLoad " .. tb.plugins)
-				end, 0)
-			else
-				vim.cmd("PackerLoad " .. tb.plugins)
-			end
-		end,
-	})
-end
+vim.env.PATH = vim.env.PATH .. (nvim.is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
 
 function nvim.find_lsp_root()
 	local clients = vim.lsp.buf_get_clients()

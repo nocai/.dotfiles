@@ -100,7 +100,7 @@ cmp.setup({
 		{ name = "path", group_index = 1001 },
 	}),
 	experimental = {
-		ghost_text = true,
+		-- ghost_text = true,
 	},
 })
 
