@@ -1,3 +1,7 @@
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("nvim-tree").setup({
 	hijack_cursor = true,
 
@@ -25,24 +29,11 @@ require("nvim-tree").setup({
 
 	view = {
 		adaptive_size = true,
-		-- mappings = {
-		-- 	list = {
-		-- 		{ key = "<C-k>", action = "" },
-		-- 		{ key = "<C-e>", action = "toggle_file_info" },
-		-- 		{ key = "<C-p>", action = "preview" },
-		-- 		{ key = "J", action = "" },
-		-- 		{ key = "N", action = "last_sibling" },
-		-- 		{ key = "K", action = "" },
-		-- 		{ key = "E", action = "first_sibling" },
-		-- 		{ key = "I", action = "" },
-		-- 		{ key = "L", action = "toggle_ignored" },
-		-- 		{ key = { "?", "g?" }, action = "toggle_help" },
-		-- 	},
-		-- },
 	},
 })
 
 vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")
+
 -- auto close last windows in the tab
 vim.api.nvim_create_autocmd("BufEnter", {
 	nested = true,
