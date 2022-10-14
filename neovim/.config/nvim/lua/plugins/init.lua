@@ -376,6 +376,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"folke/todo-comments.nvim",
+			keys = { "<C-k>t", "<C-k><C-t>" },
 			cmd = { "TodoLocList", "TodoQuickList", "TodoQuickFix", "TodoTelescope", "TodoTrouble" },
 			config = function()
 				require("todo-comments").setup({
@@ -385,6 +386,8 @@ return require("plugins.packer").startup(function(use)
 						keyword = "",
 					},
 				})
+				vim.keymap.set("n", "<C-k>t", [[<cmd>TodoTelescope<CR>]])
+				vim.keymap.set("n", "<C-k><C-t>", [[<cmd>TodoTelescope<CR>]])
 			end,
 		},
 		{
