@@ -9,10 +9,13 @@ end
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "lua", "go" },
 	highlight = {
+		enable = true,
 		additional_vim_regex_highlighting = false,
 		use_languagetree = true,
 	},
-	-- indent = { enable = true },
+	indent = {
+		enable = true,
+	},
 	incremental_selection = {
 		enable = false,
 		keymaps = {
@@ -24,6 +27,7 @@ require("nvim-treesitter.configs").setup({
 	},
 
 	textobjects = {
+		enable = true,
 		select = {
 			enable = true,
 			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
@@ -116,6 +120,7 @@ local M = {}
 function M.nvim_ts_rainbow()
 	require("nvim-treesitter.configs").setup({
 		rainbow = {
+			enable = true,
 			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
 			max_file_lines = nil, -- Do not enable for files with more than n lines, int
 			-- colors = {}, -- table of hex strings
