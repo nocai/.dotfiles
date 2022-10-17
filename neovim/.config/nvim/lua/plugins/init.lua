@@ -65,13 +65,16 @@ return require("plugins.packer").startup(function(use)
 				require("plugins.configs.treesitter")
 			end,
 		},
-		{
-			"nvim-treesitter/nvim-treesitter-context",
-			after = { "nvim-treesitter", "nvim-lua-guide" },
-		},
+		-- {
+		-- 	"nvim-treesitter/nvim-treesitter-context",
+		-- 	after = { "nvim-treesitter", "nvim-lua-guide" },
+		-- },
 		{
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			after = { "nvim-treesitter", "nvim-lua-guide" },
+			config = function()
+				require("plugins.configs.treesitter").nvim_treesitter_textobjects()
+			end,
 		},
 		{
 			"p00f/nvim-ts-rainbow",
@@ -196,26 +199,17 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"windwp/nvim-autopairs",
-			after = { "nvim-cmp", "nvim-treesitter" },
+			after = { "nvim-cmp" },
 			config = function()
 				require("plugins.configs.cmp").nvim_autopairs()
 			end,
 		},
 		{
 			"abecodes/tabout.nvim",
-			after = { "nvim-cmp", "nvim-treesitter" },
+			wants = { "nvim-treesitter" }, -- or require if not used so far
+			after = { "nvim-cmp" },
 			config = function()
-				require("tabout").setup({
-					tabouts = {
-						{ open = "'", close = "'" },
-						{ open = '"', close = '"' },
-						{ open = "`", close = "`" },
-						{ open = "(", close = ")" },
-						{ open = "[", close = "]" },
-						{ open = "{", close = "}" },
-						{ open = "<", close = ">" },
-					},
-				})
+				require("tabout").setup({})
 			end,
 		},
 
@@ -392,9 +386,9 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"junegunn/vim-easy-align",
-			keys = { "<leader>ga" },
+			keys = { "<leader>ea" },
 			config = function()
-				vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
+				vim.keymap.set({ "n", "x" }, "<Leader>ea", "<Plug>(EasyAlign)")
 			end,
 		},
 

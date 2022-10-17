@@ -130,10 +130,8 @@ function M.nvim_autopairs()
 		map_c_w = true, -- map <c-w> to delete a pair if possible
 		-- map_c_h = true,
 	})
-	require("cmp").event:on(
-		"confirm_done",
-		require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
-	)
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
 return M
