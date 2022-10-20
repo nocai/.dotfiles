@@ -49,7 +49,7 @@ require("lualine").setup({
 			{ "diagnostics", separator = "|", section_separators = { left = "" } },
 		},
 		lualine_c = {
-			{ "filetype", icon_only = true, separator = "", padding = { left = 2 } },
+			{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
 			{ "filename", separator = "|" },
 			{ LSP_progress },
 		},

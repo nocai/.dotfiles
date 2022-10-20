@@ -10,7 +10,7 @@ vim.o.showmode = false
 
 --Incremental live completion
 vim.o.inccommand = "nosplit"
-vim.o.completeopt = "menu,menuone,noinsert"
+vim.o.completeopt = "menu,menuone,noselect"
 
 --Set highlight on search
 vim.o.hlsearch = false
