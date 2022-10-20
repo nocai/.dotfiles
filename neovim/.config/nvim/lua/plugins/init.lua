@@ -157,9 +157,6 @@ return require("plugins.packer").startup(function(use)
 			"L3MON4D3/LuaSnip",
 			after = { "friendly-snippets" },
 			config = function()
-				require("luasnip.config").set_config({
-					region_check_events = "InsertEnter",
-				})
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
 		},
@@ -253,9 +250,8 @@ return require("plugins.packer").startup(function(use)
 			after = { "nvim-treesitter" },
 			config = function()
 				require("tokyonight").setup({
-					style = "storm", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+					-- style = "moon", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
 					transparent = true,
-					terminal_colors = true,
 					styles = {
 						-- Background styles. Can be "dark", "transparent" or "normal"
 						sidebars = "transparent", -- style for sidebars, see below
