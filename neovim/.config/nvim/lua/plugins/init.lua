@@ -328,7 +328,7 @@ return require("plugins.packer").startup(function(use)
 		{
 			"akinsho/toggleterm.nvim",
 			keys = { [[<C-Space>]], "<Leader>gg" },
-			cmd = { "Glow", "Lazygit" },
+			cmd = { "Glow", "Lazygit", "TermExec" },
 			module = "toggleterm", -- depend by nvim-test
 			config = function()
 				require("plugins.configs.misc").toggleterm()
@@ -347,6 +347,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"chentoast/marks.nvim",
+			disable = true,
 			keys = { { "n", "m" } },
 			config = function()
 				require("plugins.configs.misc").marks()
