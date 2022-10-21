@@ -191,6 +191,12 @@ function M.vim_test()
 end
 
 function M.nvim_test()
+	require("nvim-test.runners.cargo-test"):setup({
+		command = "RUST_TEST_NOCAPTURE=1 cargo", -- env在toggleterm下不生效
+		package = true,
+		env = { RUST_TEST_NOCAPTURE = 1 },
+	})
+
 	require("nvim-test").setup({
 		term = "toggleterm",
 		termOpts = {
