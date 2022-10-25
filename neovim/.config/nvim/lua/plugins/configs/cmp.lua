@@ -3,25 +3,8 @@ local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
--- local cmp_window = require("cmp.utils.window")
---
--- cmp_window.info_ = cmp_window.info
--- cmp_window.info = function(self)
--- 	local info = self:info_()
--- 	info.scrollable = false
--- 	return info
--- end
-
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
-	-- completion = {
-	-- 	keyword_length = 3,
-	-- },
 	window = {
 		completion = {
 			border = nvim.window.border,
@@ -71,8 +54,6 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
 			else
 				fallback()
 			end
@@ -105,16 +86,6 @@ cmp.setup.cmdline("/", {
 		{ name = "buffer" },
 	},
 })
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   })
--- })
 
 local M = {}
 
