@@ -328,7 +328,7 @@ return require("plugins.packer").startup(function(use)
 	use({
 		{
 			"akinsho/toggleterm.nvim",
-			keys = { [[<C-Space>]], "<Leader>gg" },
+			keys = { [[<C-Space>]], "<Leader>gg", [[<C-\>]] },
 			cmd = { "Glow", "Lazygit", "TermExec" },
 			module = "toggleterm", -- depend by nvim-test
 			config = function()
