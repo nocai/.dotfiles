@@ -1,21 +1,10 @@
 -- stylua: ignore
 local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
-
--- local cmp_window = require("cmp.utils.window")
---
--- cmp_window.info_ = cmp_window.info
--- cmp_window.info = function(self)
--- 	local info = self:info_()
--- 	info.scrollable = false
--- 	return info
--- end
+local luasnip = require("luasnip")
 
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
-	-- completion = {
-	-- 	keyword_length = 3,
-	-- },
 	window = {
 		completion = {
 			border = nvim.window.border,
@@ -28,7 +17,7 @@ cmp.setup({
 	},
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	formatting = {
@@ -42,7 +31,6 @@ cmp.setup({
 			end
 
 			vim_item.menu = "[" .. entry.source.name .. "]"
-			-- vim_item.menu = ""
 			return vim_item
 		end,
 	},
@@ -59,32 +47,20 @@ cmp.setup({
 
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({
+			select = true,
+		}),
 
-		-- ["<C-n>"] = cmp.mapping.select_next_item(),
-		-- ["<C-k>"] = cmp.mapping.select_next_item(),
-		-- ["<C-e>"] = cmp.mapping.select_prev_item(),
-		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
-		-- ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		-- ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		-- -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		-- ["<C-j>"] = cmp.mapping({
-		-- 	i = cmp.mapping.abort(),
-		-- 	c = cmp.mapping.close(),
-		-- }),
-		-- ["<CR>"] = cmp.mapping.confirm({
-		-- 	select = true,
-		-- }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if require("luasnip").expand_or_jumpable() then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+			if luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
 			else
 				fallback()
 			end
 		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if require("luasnip").jumpable(-1) then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -110,16 +86,6 @@ cmp.setup.cmdline("/", {
 		{ name = "buffer" },
 	},
 })
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   })
--- })
 
 local M = {}
 
