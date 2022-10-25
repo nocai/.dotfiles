@@ -237,6 +237,7 @@ return require("plugins.packer").startup(function(use)
 		},
 		{
 			"ahmedkhalf/project.nvim",
+			disable = true,
 			after = { "telescope.nvim" },
 			config = function()
 				require("plugins.configs.telescope").project()
