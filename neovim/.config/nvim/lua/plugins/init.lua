@@ -59,6 +59,7 @@ return require("plugins.packer").startup(function(use)
 				"TSDisable",
 				"TSModuleInfo",
 			},
+			run = ":TSUpdate",
 			event = "VimEnter",
 			module = "nvim-treesitter",
 			config = function()
