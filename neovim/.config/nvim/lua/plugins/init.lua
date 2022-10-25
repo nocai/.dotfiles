@@ -398,20 +398,20 @@ return require("plugins.packer").startup(function(use)
 				require("plugins.configs.misc").vim_quickrun()
 			end,
 		},
-		-- {
-		-- 	"vim-test/vim-test",
-		-- 	keys = { "<Leader>t" },
-		-- 	config = function()
-		-- 		require("plugins.configs.misc").vim_test()
-		-- 	end,
-		-- },
 		{
-			"klen/nvim-test",
+			"vim-test/vim-test",
 			keys = { "<Leader>t" },
 			config = function()
-				require("plugins.configs.misc").nvim_test()
+				require("plugins.configs.misc").vim_test()
 			end,
 		},
+		-- {
+		-- 	"klen/nvim-test",
+		-- 	keys = { "<Leader>t" },
+		-- 	config = function()
+		-- 		require("plugins.configs.misc").nvim_test()
+		-- 	end,
+		-- },
 		{
 			"sebdah/vim-delve",
 			ft = { "go" },

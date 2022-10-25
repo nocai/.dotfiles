@@ -181,11 +181,12 @@ end
 
 function M.vim_test()
 	vim.cmd([[
+		" let g:test#rust#runner = 'RUST_TEST_NOCAPTURE=1 cargonextest'
 		let test#strategy = "neovim"
-		nmap <silent> <leader>tt :TestNearest -v<CR>
-		nmap <silent> <leader>tf :TestFile<CR>
-		nmap <silent> <leader>ts :TestSuite<CR>
-		nmap <silent> <leader>tl :TestLast -v<CR>
+		nmap <silent> <leader>tt :TestNearest -v -- --nocapture<CR>
+		nmap <silent> <leader>tf :TestFile -v -- --nocapture<CR>
+		nmap <silent> <leader>ts :TestSuite -v -- --nocapture<CR>
+		nmap <silent> <leader>tl :TestLast -v -- --nocapture<CR>
 		nmap <silent> <leader>tv :TestVisit<CR>
 	]])
 end
@@ -194,6 +195,7 @@ function M.nvim_test()
 	require("nvim-test.runners.cargo-test"):setup({
 		command = "RUST_TEST_NOCAPTURE=1 cargo", -- env在toggleterm下不生效
 		env = { RUST_TEST_NOCAPTURE = 1 },
+		package = true,
 	})
 
 	require("nvim-test").setup({
