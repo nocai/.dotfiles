@@ -22,14 +22,17 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	})
 
 	vim.cmd("packadd packer.nvim")
+
 	local present, packer = pcall(require, "packer")
 	if present then
 		print("Packer cloned successfully.")
+
 		require("plugins")
 		vim.cmd("PackerSync")
 	else
 		error("Couldn't clone packer !\nPacker path: " .. install_path .. "\n" .. packer)
 	end
 end
+
 vim.cmd("packadd packer.nvim")
 require("plugins")
