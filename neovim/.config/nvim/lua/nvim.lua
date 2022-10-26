@@ -1,3 +1,5 @@
+vim.keymap.set("n", "<C-h>", "^")
+vim.keymap.set("n", "<C-l>", "$")
 -- windows
 vim.keymap.set("n", "<M-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<M-j>", "<C-w><C-j>")

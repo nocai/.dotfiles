@@ -11,6 +11,7 @@ require("nvim-tree").setup({
 
 	respect_buf_cwd = true,
 	sync_root_with_cwd = true,
+	prefer_startup_root = true,
 	update_focused_file = {
 		enable = true,
 		update_root = true,
@@ -27,9 +28,9 @@ require("nvim-tree").setup({
 		},
 	},
 
-	-- view = {
-	-- 	adaptive_size = true,
-	-- },
+	view = {
+		adaptive_size = true,
+	},
 })
 
 vim.keymap.set("n", "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>")

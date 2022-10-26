@@ -52,8 +52,11 @@ cmp.setup({
 		}),
 
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+			if luasnip.jumpable() then
+				luasnip.jump(1)
+				-- end
+				-- if luasnip.expand_or_jumpable() then
+				-- 	luasnip.expand_or_jump()
 			else
 				fallback()
 			end

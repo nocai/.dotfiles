@@ -61,12 +61,25 @@ function M.telescope_ui_select()
 		extensions = {
 			["ui-select"] = {
 				require("telescope.themes").get_dropdown({
-					initial_mode="normal"
+					initial_mode = "normal",
 				}),
 			},
 		},
 	})
 	require("telescope").load_extension("ui-select")
+end
+
+function M.telescope_project()
+	require("telescope").setup({
+		extensions = {
+			project = {
+				hidden_files = true, -- default: false
+				sync_with_nvim_tree = true, -- default false
+			},
+		},
+	})
+	vim.keymap.set("n", "<C-k>p", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
+	vim.keymap.set("n", "<C-k><C-p>", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
 end
 
 function M.project()
