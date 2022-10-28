@@ -158,6 +158,11 @@ return require("plugins.packer").startup(function(use)
 			"L3MON4D3/LuaSnip",
 			after = { "friendly-snippets" },
 			config = function()
+				require("luasnip").setup({
+					region_check_events = "CursorMoved,CursorHold,InsertEnter",
+					-- those are for removing deleted snippets, also a common problem
+					delete_check_events = "TextChanged,InsertLeave",
+				})
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
 		},

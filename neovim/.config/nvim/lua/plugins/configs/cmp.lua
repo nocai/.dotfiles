@@ -54,9 +54,6 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.jumpable() then
 				luasnip.jump(1)
-				-- end
-				-- if luasnip.expand_or_jumpable() then
-				-- 	luasnip.expand_or_jump()
 			else
 				fallback()
 			end
@@ -70,8 +67,8 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 	}, {
 		{ name = "buffer" },
 		{ name = "path" },
