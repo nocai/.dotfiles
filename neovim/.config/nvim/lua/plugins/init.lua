@@ -58,7 +58,7 @@ return {
 		event = "VimEnter",
 		module = "nvim-treesitter",
 		config = function()
-			-- require("plugins.configs.treesitter")
+			require("plugins.configs.treesitter")
 		end,
 	},
 	{
@@ -180,7 +180,7 @@ return {
 		wants = { "nvim-treesitter" }, -- or require if not used so far
 		after = { "nvim-cmp" },
 		config = function()
-			require("tabout").setup({})
+			require("tabout").setup()
 		end,
 	},
 
