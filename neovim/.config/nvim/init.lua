@@ -6,33 +6,11 @@ require("nvim")
 require("option")
 require("autocmd")
 
--- install packer
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+local packer_bootstrap = require("core.packer").ensure_packer()
+local packer = require("core.packer").init()
 
-if fn.empty(fn.glob(install_path)) > 0 then
-	print("Cloning packer ..")
-	fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://ghproxy.com/https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
-
-	vim.cmd("packadd packer.nvim")
-
-	local present, packer = pcall(require, "packer")
-	if present then
-		print("Packer cloned successfully.")
-
-		require("plugins")
-		vim.cmd("PackerSync")
-	else
-		error("Couldn't clone packer !\nPacker path: " .. install_path .. "\n" .. packer)
-	end
+local plugins = require("plugins")
+packer.startup({ plugins })
+if packer_bootstrap then
+	packer.sync()
 end
-
-vim.cmd("packadd packer.nvim")
-require("plugins")

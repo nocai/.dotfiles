@@ -1,46 +1,49 @@
-local telescope = require("telescope")
-local actions = require("telescope.actions")
+local M = {}
 
-telescope.setup({
-	defaults = {
-		prompt_prefix = "  ",
-		previewers = true,
-		mappings = {
-			i = {
-				["<C-j>"] = actions.move_selection_next,
-				["<C-k>"] = actions.move_selection_previous,
+function M.telescope()
+	local telescope = require("telescope")
+	local actions = require("telescope.actions")
+
+	telescope.setup({
+		defaults = {
+			prompt_prefix = "  ",
+			previewers = true,
+			mappings = {
+				i = {
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
+				},
 			},
 		},
-	},
-})
+	})
 
--- keymap
-vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
+	-- keymap
+	vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
 
-vim.keymap.set("n", "<C-k>f", [[<cmd>Telescope find_files<CR>]])
-vim.keymap.set("n", "<C-k><C-f>", [[<cmd>Telescope find_files<CR>]])
+	vim.keymap.set("n", "<C-k>f", [[<cmd>Telescope find_files<CR>]])
+	vim.keymap.set("n", "<C-k><C-f>", [[<cmd>Telescope find_files<CR>]])
 
-vim.keymap.set("n", "<C-k>g", [[<cmd>Telescope live_grep<CR>]])
-vim.keymap.set("n", "<C-k><C-g>", [[<cmd>Telescope live_grep<CR>]])
+	vim.keymap.set("n", "<C-k>g", [[<cmd>Telescope live_grep<CR>]])
+	vim.keymap.set("n", "<C-k><C-g>", [[<cmd>Telescope live_grep<CR>]])
 
-vim.keymap.set("n", "<C-k>b", [[<cmd>Telescope buffers<CR>]])
-vim.keymap.set("n", "<C-k><C-b>", [[<cmd>Telescope buffers<CR>]])
+	vim.keymap.set("n", "<C-k>b", [[<cmd>Telescope buffers<CR>]])
+	vim.keymap.set("n", "<C-k><C-b>", [[<cmd>Telescope buffers<CR>]])
 
-vim.keymap.set("n", "<C-k>h", [[<cmd>Telescope help_tags<CR>]])
-vim.keymap.set("n", "<C-k><C-h>", [[<cmd>Telescope help_tags<CR>]])
+	vim.keymap.set("n", "<C-k>h", [[<cmd>Telescope help_tags<CR>]])
+	vim.keymap.set("n", "<C-k><C-h>", [[<cmd>Telescope help_tags<CR>]])
 
-vim.keymap.set("n", "<C-k>o", [[<cmd>Telescope oldfiles<CR>]])
-vim.keymap.set("n", "<C-k><C-o>", [[<cmd>Telescope oldfiles<CR>]])
+	vim.keymap.set("n", "<C-k>o", [[<cmd>Telescope oldfiles<CR>]])
+	vim.keymap.set("n", "<C-k><C-o>", [[<cmd>Telescope oldfiles<CR>]])
 
-vim.keymap.set("n", "<C-k><C-r>", [[<cmd>Telescope resume<CR>]])
+	vim.keymap.set("n", "<C-k>r", [[<cmd>Telescope resume<CR>]])
+	vim.keymap.set("n", "<C-k><C-r>", [[<cmd>Telescope resume<CR>]])
 
--- stylua: ignore start
-vim.keymap.set("n", "gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
-vim.keymap.set("n", "gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
-vim.keymap.set("n", "gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
--- stylua: ignore end
-
-local M = {}
+	-- stylua: ignore start
+	vim.keymap.set("n", "gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
+	vim.keymap.set("n", "gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
+	vim.keymap.set("n", "gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
+	-- stylua: ignore end
+end
 
 function M.telescope_fzf_native()
 	require("telescope").setup({
@@ -92,6 +95,18 @@ function M.project()
 		ignore_lsp = { "null-ls" },
 	})
 	require("telescope").load_extension("projects")
+end
+
+function M.todo_comments()
+	require("todo-comments").setup({
+		highlight = {
+			before = "",
+			after = "",
+			keyword = "",
+		},
+	})
+	vim.keymap.set("n", "<C-k>t", [[<cmd>TodoTelescope<CR>]])
+	vim.keymap.set("n", "<C-k><C-t>", [[<cmd>TodoTelescope<CR>]])
 end
 
 return M

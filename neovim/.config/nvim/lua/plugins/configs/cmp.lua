@@ -89,6 +89,25 @@ cmp.setup.cmdline("/", {
 
 local M = {}
 
+function M.luasnip()
+	require("luasnip").setup({
+		history = true,
+		update_events = "TextChanged,TextChangedI",
+		region_check_events = "CursorMoved,CursorHold,InsertEnter",
+		delete_check_events = "TextChanged,InsertLeave",
+	})
+	require("luasnip.loaders.from_vscode").lazy_load()
+	vim.api.nvim_create_autocmd("InsertLeave", {
+		callback = function()
+			if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+					and not require("luasnip").session.jump_active
+			then
+				require("luasnip").unlink_current()
+			end
+		end,
+	})
+end
+
 function M.nvim_autopairs()
 	require("nvim-autopairs").setup({
 		check_ts = true,

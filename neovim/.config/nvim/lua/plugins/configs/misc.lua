@@ -1,28 +1,5 @@
 local M = {}
 
-function M.alpha_nvim()
-	local dashboard = require("alpha.themes.dashboard")
-	-- dashboard.section.header.val = {
-	-- 	[[                               __                ]],
-	-- 	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-	-- 	[[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-	-- 	[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-	-- 	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-	-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-	-- }
-	dashboard.section.buttons.val = {
-		dashboard.button("<C-k><C-f>", "  Find file", ":Telescope find_files<CR>"),
-		dashboard.button("<C-k><C-g>", "  Find word", ":Telescope live_grep<CR>"),
-		dashboard.button("<C-k><C-o>", "  Recently opened files", ":Telescope oldfiles<CR>"),
-		dashboard.button("<C-k><C-p>", "  Projects", ":Telescope projects<CR>"),
-
-		dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
-		dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
-	}
-	dashboard.opts.opts.noautocmd = true
-	require("alpha").setup(dashboard.config)
-end
-
 function M.toggleterm()
 	require("toggleterm").setup({
 		-- insert_mappings = false,
@@ -118,59 +95,6 @@ function M.gitsigns()
 			-- stylua: ignore end
 		end,
 	})
-end
-
-function M.dressing()
-	require("dressing").setup({
-		input = {
-			-- Set to false to disable the vim.ui.input implementation
-			enabled = true,
-			-- Window transparency (0-100)
-			winblend = nvim.window.winblend,
-			-- Change default highlight groups (see :help winhl)
-			winhighlight = nvim.window.winhighlight,
-		},
-		select = {
-			-- Options for built-in selector
-			builtin = {
-				-- Window transparency (0-100)
-				winblend = nvim.window.winblend,
-				-- Change default highlight groups (see :help winhl)
-				winhighlight = nvim.window.winhighlight,
-			},
-		},
-	})
-end
-
-function M.marks()
-	require("marks").setup({
-		default_mappings = true,
-		mappings = {
-			toggle = "m.",
-		},
-		-- which builtin marks to show. default {}
-		builtin_marks = { ".", "<", ">", "^" },
-		-- disables mark tracking for specific filetypes. default {}
-		excluded_filetypes = { "", "toggleterm" },
-
-		-- disable timer instead autocmd 'CursorHold'
-		refresh_interval = 0,
-		-- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
-		-- marks, and bookmarks.
-		-- can be either a table with all/none of the keys, or a single number, in which case
-		-- the priority applies to all marks.
-		-- default 10.
-		sign_priority = { lower = 8, upper = 8, builtin = 8, bookmark = 20 },
-		-- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
-		-- sign/virttext. Bookmarks can be used to group together positions and quickly move
-		-- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
-		-- default virt_text is "".
-		bookmark_0 = {
-			sign = "⚑",
-			-- virt_text = "hello world",
-		},
-	})
-	vim.cmd([[au CursorHold * lua require'marks'.refresh()]])
 end
 
 function M.vim_quickrun()
