@@ -274,13 +274,13 @@ function M.null_ls()
 			ls.builtins.formatting.stylua,
 			-- ls.builtins.formatting.markdownlint,
 
-			-- ls.builtins.code_actions.refactoring,
-			-- ls.builtins.completion.luasnip,
+			ls.builtins.code_actions.refactoring,
+			ls.builtins.completion.luasnip,
 			ls.builtins.completion.spell.with({
 				filetypes = { "markdown" },
 			}),
 
-			-- ls.builtins.diagnostics.golangci_lint,
+			ls.builtins.diagnostics.golangci_lint,
 			-- ls.builtins.diagnostics.markdownlint,
 			-- ls.builtins.diagnostics.yamllint,
 		},
