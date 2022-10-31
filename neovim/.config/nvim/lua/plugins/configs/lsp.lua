@@ -41,6 +41,12 @@ vim.notify = function(msg, log_level)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+local present, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if present then
+	capabilities = cmp_nvim_lsp.default_capabilities()
+end
+
 capabilities.textDocument.completion.completionItem = {
 	documentationFormat = { "markdown", "plaintext" },
 	snippetSupport = true,
@@ -75,6 +81,7 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 	vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+	-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
 	vim.keymap.set("n", "<Leader>wa", vim.lsp.buf.add_workspace_folder, opts)
 	vim.keymap.set("n", "<Leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
@@ -83,14 +90,14 @@ local function on_attach(client, bufnr)
 	end, opts)
 
 	-- vim.keymap.set("n", "gn", vim.lsp.buf.rename, opts)
-	vim.keymap.set("n", "gn", function()
+	vim.keymap.set("n", "<Leader>rn", function()
 		require("core.renamer").open()
 	end, opts)
 
 	vim.keymap.set("n", "gq", function()
 		vim.lsp.buf.format({ async = true })
 	end, opts)
-	vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+	vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, opts)
 
 	-- print(vim.inspect(client.server_capabilities))
 	if client.server_capabilities.documentHighlightProvider then
@@ -118,7 +125,7 @@ local function on_attach(client, bufnr)
 			buffer = bufnr,
 			callback = vim.lsp.codelens.refresh,
 		})
-		vim.keymap.set("n", "<Leader>gr", vim.lsp.codelens.run, opts)
+		vim.keymap.set("n", "<Leader>cr", vim.lsp.codelens.run, opts)
 	end
 
 	vim.api.nvim_create_autocmd("CursorHold", {
@@ -136,15 +143,13 @@ local function on_attach(client, bufnr)
 	})
 end
 
-local M = {}
+local M = {
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
 function M.lsp()
 	local lspconfig = require("lspconfig")
-
-	local present, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-	if present then
-		capabilities = cmp_nvim_lsp.default_capabilities()
-	end
 
 	local servers = { "pyright", "tsserver", "denols" }
 	for _, server in ipairs(servers) do

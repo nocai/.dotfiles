@@ -95,6 +95,7 @@ local path = (function()
 				return
 			end
 		end
+
 		return it, path, path
 	end
 
@@ -252,6 +253,10 @@ local config = {
 	},
 }
 
+local lsp = require("plugins.configs.lsp")
+config.capabilities = lsp.capabilities
+config.on_attach = lsp.on_attach
+
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require("jdtls").start_or_attach(require("core.lsp_setting").config(config))
+require("jdtls").start_or_attach(config)

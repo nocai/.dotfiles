@@ -125,18 +125,18 @@ function M.nvim_treesitter_textobjects()
 			swap = {
 				enable = true,
 				swap_next = {
-					["<Leader>sn"] = "@parameter.inner",
+					["gan"] = "@parameter.inner",
 				},
 				swap_previous = {
-					["<Leader>sp"] = "@parameter.inner",
+					["gap"] = "@parameter.inner",
 				},
 			},
 			lsp_interop = {
 				enable = true,
 				border = "rounded",
 				peek_definition_code = {
-					["<Leader>pf"] = "@function.outer",
-					["<Leader>pc"] = "@class.outer",
+					["gpf"] = "@function.outer",
+					["gpc"] = "@class.outer",
 				},
 			},
 		},

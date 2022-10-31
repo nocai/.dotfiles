@@ -111,9 +111,6 @@ return {
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
 		after = { "nvim-lspconfig" },
-		cond = function()
-			return not vim.g.vscode
-		end,
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
@@ -321,9 +318,9 @@ return {
 	},
 	{
 		"junegunn/vim-easy-align",
-		keys = { "<leader>ea" },
+		keys = { "<leader>gq" },
 		config = function()
-			vim.keymap.set({ "n", "x" }, "<Leader>ea", "<Plug>(EasyAlign)")
+			vim.keymap.set({ "n", "x" }, "<Leader>gq", "<Plug>(EasyAlign)")
 		end,
 	},
 
