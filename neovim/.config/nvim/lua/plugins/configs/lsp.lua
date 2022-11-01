@@ -272,7 +272,7 @@ function M.null_ls()
 	ls.setup({
 		on_attach = on_attach,
 		sources = {
-			ls.builtins.code_actions.gitsigns,
+			-- ls.builtins.code_actions.gitsigns,
 
 			ls.builtins.formatting.stylua,
 			-- ls.builtins.formatting.prettier,
