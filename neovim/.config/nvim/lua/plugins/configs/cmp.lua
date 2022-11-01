@@ -92,10 +92,7 @@ local M = {}
 
 function M.luasnip()
 	require("luasnip").setup({
-		history = true,
-		update_events = "TextChanged,TextChangedI",
-		region_check_events = "CursorMoved,CursorHold,InsertEnter",
-		delete_check_events = "TextChanged,InsertLeave",
+		region_check_events = "InsertEnter",
 	})
 	require("luasnip.loaders.from_vscode").lazy_load()
 	vim.api.nvim_create_autocmd("InsertLeave", {
