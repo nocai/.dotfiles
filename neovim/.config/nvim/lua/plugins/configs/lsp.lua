@@ -97,7 +97,7 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gq", function()
 		vim.lsp.buf.format({ async = true })
 	end, opts)
-	vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, opts)
+	vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, opts)
 
 	-- print(vim.inspect(client.server_capabilities))
 	if client.server_capabilities.documentHighlightProvider then
@@ -270,17 +270,19 @@ end
 function M.null_ls()
 	local ls = require("null-ls")
 	ls.setup({
+		on_attach = on_attach,
 		sources = {
+			ls.builtins.code_actions.gitsigns,
+
 			ls.builtins.formatting.stylua,
+			-- ls.builtins.formatting.prettier,
+			ls.builtins.formatting.jq,
+			ls.builtins.formatting.yamlfmt,
 			-- ls.builtins.formatting.markdownlint,
 
-			ls.builtins.code_actions.refactoring,
-			ls.builtins.completion.luasnip,
-			ls.builtins.completion.spell.with({
-				filetypes = { "markdown" },
-			}),
-
+			ls.builtins.diagnostics.todo_comments,
 			ls.builtins.diagnostics.golangci_lint,
+			-- ls.builtins.diagnostics.checkmake,
 			-- ls.builtins.diagnostics.markdownlint,
 			-- ls.builtins.diagnostics.yamllint,
 		},
