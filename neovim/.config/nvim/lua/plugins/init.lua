@@ -182,7 +182,18 @@ return {
 		wants = { "nvim-treesitter" }, -- or require if not used so far
 		after = { "nvim-cmp" },
 		config = function()
-			require("tabout").setup()
+			require("tabout").setup({
+				tabouts = {
+					{ open = "'", close = "'" },
+					{ open = '"', close = '"' },
+					{ open = "`", close = "`" },
+					{ open = "(", close = ")" },
+					{ open = "[", close = "]" },
+					{ open = "{", close = "}" },
+					{ open = "<", close = ">" },
+					{ open = "#", close = "]" },
+				},
+			})
 		end,
 	},
 
@@ -256,6 +267,13 @@ return {
 		after = { "nvim-web-devicons" },
 		config = function()
 			require("plugins.configs.nvim_tree")
+		end,
+	},
+	{
+		"ggandor/leap.nvim",
+		after = { "nvim-lua-guide" },
+		config = function()
+			require("leap").add_default_mappings()
 		end,
 	},
 	{
