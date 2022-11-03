@@ -206,9 +206,9 @@ function M.lsp()
 		settings = {
 			["rust-analyzer"] = {
 				-- enable clippy on save
-				-- checkOnSave = {
-				-- 	command = "clippy",
-				-- },
+				checkOnSave = {
+					command = "clippy",
+				},
 				-- inlayHints = {
 				-- 	typeHints = {
 				-- 		enable = true,
