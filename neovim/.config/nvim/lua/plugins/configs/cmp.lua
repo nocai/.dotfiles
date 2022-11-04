@@ -91,14 +91,25 @@ cmp.setup.cmdline("/", {
 local M = {}
 
 function M.luasnip()
+	local types = require("luasnip.util.types")
+
 	require("luasnip").setup({
-		region_check_events = "InsertEnter",
+		region_check_events = "InsertEnter,InsertLeave",
+		delete_check_events = "InsertEnter,InsertLeave",
+		ext_opts = {
+			[types.insertNode] = {
+				active = {
+					virt_text = { { "●" } },
+				},
+			},
+		},
 	})
 	require("luasnip.loaders.from_vscode").lazy_load()
-	vim.api.nvim_create_autocmd("InsertLeave", {
+	vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 		callback = function()
-			if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-					and not require("luasnip").session.jump_active
+			if
+				require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+				and not require("luasnip").session.jump_active
 			then
 				require("luasnip").unlink_current()
 			end
