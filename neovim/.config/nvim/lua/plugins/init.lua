@@ -101,7 +101,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		after = "nvim-lua-guide",
+		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		config = function()
 			require("plugins.configs.lsp").lsp()
 		end,
