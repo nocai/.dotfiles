@@ -3,25 +3,25 @@ reporting: "off"
 gui:
   language: 'en'
 
-keybinding:
-  universal:
-    prevItem-alt: 'e'
-    nextItem-alt: 'n'
-    prevBlock-alt: 'h'
-    nextBlock-alt: 'i'
-    scrollLeft: 'H' # scroll left within list view
-    scrollRight: 'I' # scroll right within list view
-    nextMatch: 'k'
-    prevMatch: 'K'
-    new: 'k'
-    edit: 'j'
-    scrollUpMain-alt1: 'E'
-    scrollDownMain-alt1: 'N'
-  files:
-    # ignoreFile: 'l'
-    IgnoreOrExcludeFile: 'l'
-  commits:
-    moveDownCommit: '<c-n>' # move commit down one
-    moveUpCommit: '<c-e>' # move commit up one
-  branches:
-    viewGitFlowOptions: 'l'
+# keybinding:
+#   universal:
+#     prevItem-alt: 'e'
+#     nextItem-alt: 'n'
+#     prevBlock-alt: 'h'
+#     nextBlock-alt: 'i'
+#     scrollLeft: 'H' # scroll left within list view
+#     scrollRight: 'I' # scroll right within list view
+#     nextMatch: 'k'
+#     prevMatch: 'K'
+#     new: 'k'
+#     edit: 'j'
+#     scrollUpMain-alt1: 'E'
+#     scrollDownMain-alt1: 'N'
+#   files:
+#     # ignoreFile: 'l'
+#     IgnoreOrExcludeFile: 'l'
+#   commits:
+#     moveDownCommit: '<c-n>' # move commit down one
+#     moveUpCommit: '<c-e>' # move commit up one
+#   branches:
+#     viewGitFlowOptions: 'l'
