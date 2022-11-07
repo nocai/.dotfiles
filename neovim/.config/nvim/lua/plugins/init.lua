@@ -181,6 +181,7 @@ return {
 		"abecodes/tabout.nvim",
 		wants = { "nvim-treesitter" }, -- or require if not used so far
 		after = { "nvim-cmp" },
+		cond = false,
 		config = function()
 			require("tabout").setup({
 				tabouts = {
