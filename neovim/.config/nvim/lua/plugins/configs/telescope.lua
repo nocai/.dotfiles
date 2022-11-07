@@ -40,7 +40,7 @@ function M.telescope()
 
 	-- stylua: ignore start
 	vim.keymap.set("n", "<Leader>gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
-	vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
+	vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references jump_type=never theme=get_ivy initial_mode=normal<CR>]])
 	vim.keymap.set("n", "<Leader>gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
 	-- stylua: ignore end
 end
