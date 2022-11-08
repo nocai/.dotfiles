@@ -70,6 +70,14 @@ return {
 		end,
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-context",
+		after = { "nvim-treesitter", "nvim-lua-guide" },
+		disable = true,
+		config = function()
+			require("treesitter-context").setup()
+		end
+	},
+	{
 		"p00f/nvim-ts-rainbow",
 		after = { "nvim-treesitter" },
 		config = function()
