@@ -321,12 +321,11 @@ return {
 		end,
 	},
 
-	-- misc
 	{
 		"akinsho/toggleterm.nvim",
 		keys = { [[<C-Space>]], "<Leader>gg", [[<C-\>]] },
 		cmd = { "Glow", "Lazygit", "TermExec" },
-		module = "toggleterm", -- depend by nvim-test
+		module = "toggleterm",
 		config = function()
 			require("plugins.configs.misc").toggleterm()
 		end,
@@ -365,11 +364,4 @@ return {
 			require("plugins.configs.misc").vim_test()
 		end,
 	},
-	-- {
-	-- 	"klen/nvim-test",
-	-- 	keys = { "<Leader>t" },
-	-- 	config = function()
-	-- 		require("plugins.configs.misc").nvim_test()
-	-- 	end,
-	-- },
 }
