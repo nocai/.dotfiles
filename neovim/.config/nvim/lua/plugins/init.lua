@@ -64,6 +64,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		after = { "nvim-treesitter", "nvim-lua-guide" },
+		disable = true,
 		config = function()
 			require("plugins.configs.treesitter").nvim_treesitter_textobjects()
 		end,
@@ -114,6 +115,7 @@ return {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
+		disable = true,
 		after = { "nvim-lua-guide" },
 		config = function()
 			require("plugins.configs.lsp").null_ls()
@@ -181,7 +183,7 @@ return {
 		"abecodes/tabout.nvim",
 		wants = { "nvim-treesitter" }, -- or require if not used so far
 		after = { "nvim-cmp" },
-		cond = false,
+		disable = true,
 		config = function()
 			require("tabout").setup({
 				tabouts = {
@@ -343,6 +345,7 @@ return {
 	{
 		"junegunn/vim-easy-align",
 		keys = { "<leader>gq" },
+		disable = true,
 		config = function()
 			vim.keymap.set({ "n", "x" }, "<Leader>gq", "<Plug>(EasyAlign)")
 		end,

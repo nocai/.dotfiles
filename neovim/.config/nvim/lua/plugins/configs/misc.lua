@@ -105,13 +105,12 @@ end
 
 function M.vim_test()
 	vim.cmd([[
-		" let g:test#rust#runner = 'RUST_TEST_NOCAPTURE=1 cargonextest'
 		let test#strategy = "neovim"
-		nmap <silent> <leader>tt :TestNearest -v -- --nocapture<CR>
-		nmap <silent> <leader>tf :TestFile -v -- --nocapture<CR>
-		nmap <silent> <leader>ts :TestSuite -v -- --nocapture<CR>
-		nmap <silent> <leader>tl :TestLast -v -- --nocapture<CR>
-		nmap <silent> <leader>tv :TestVisit<CR>
+		nmap <silent> <leader>tt <cmd>TestNearest<CR>
+		nmap <silent> <leader>tf <cmd>TestFile<CR>
+		nmap <silent> <leader>ts <cmd>TestSuite<CR>
+		nmap <silent> <leader>tl <cmd>TestLast<CR>
+		nmap <silent> <leader>tv <cmd>TestVisit<CR>
 	]])
 end
 

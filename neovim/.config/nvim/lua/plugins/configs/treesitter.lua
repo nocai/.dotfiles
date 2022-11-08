@@ -41,7 +41,7 @@ function M.nvim_treesitter_textobjects()
 				lookahead = true,
 				keymaps = {
 					-- You can use the capture groups defined in textobjects.scm
-					["as"] = "@statement.outer",
+					-- ["as"] = "@statement.outer",
 					-- ["ib"] = "@block.inner",
 					-- ["ab"] = "@block.outer",
 					["if"] = "@function.inner",
@@ -83,7 +83,7 @@ function M.nvim_treesitter_textobjects()
 				set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
 					-- ["]b"] = "@block.outer",
-					["]s"] = "@statement.outer",
+					-- ["]s"] = "@statement.outer",
 					-- ["]l"] = "@loop.outer",
 					-- ["]i"] = "@conditional.outer",
 					["]a"] = "@parameter.outer",
@@ -93,7 +93,7 @@ function M.nvim_treesitter_textobjects()
 				},
 				goto_next_end = {
 					-- ["]B"] = "@block.outer",
-					["]S"] = "@statement.outer",
+					-- ["]S"] = "@statement.outer",
 					-- ["]L"] = "@loop.outer",
 					-- ["]I"] = "@conditional.outer",
 					["]A"] = "@parameter.outer",
@@ -103,7 +103,7 @@ function M.nvim_treesitter_textobjects()
 				},
 				goto_previous_start = {
 					-- ["[b"] = "@block.outer",
-					["[s"] = "@statement.outer",
+					-- ["[s"] = "@statement.outer",
 					-- ["[l"] = "@loop.outer",
 					-- ["[i"] = "@conditional.outer",
 					["[a"] = "@parameter.outer",
@@ -113,7 +113,7 @@ function M.nvim_treesitter_textobjects()
 				},
 				goto_previous_end = {
 					-- ["[B"] = "@block.outer",
-					["[S"] = "@statement.outer",
+					-- ["[S"] = "@statement.outer",
 					-- ["[L"] = "@loop.outer",
 					-- ["[I"] = "@conditional.outer",
 					["[A"] = "@parameter.outer",
