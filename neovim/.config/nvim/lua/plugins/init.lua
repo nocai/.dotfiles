@@ -171,6 +171,7 @@ return {
     "tzachar/cmp-tabnine",
     run = "./install.sh",
     after = { "nvim-cmp" },
+    disable = true,
   },
   -- {
   -- 	"hrsh7th/cmp-nvim-lua",
