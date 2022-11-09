@@ -13,7 +13,7 @@ require("nvim-treesitter.configs").setup({
 		additional_vim_regex_highlighting = false,
 	},
 	indent = {
-		enable = true,
+		enable = false,
 	},
 	incremental_selection = {
 		enable = false,
@@ -26,8 +26,8 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-vim.api.nvim_command("set foldmethod=expr")
-vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
+-- vim.api.nvim_command("set foldmethod=expr")
+-- vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
 
 local M = {}
 

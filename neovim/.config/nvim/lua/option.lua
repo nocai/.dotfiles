@@ -45,19 +45,25 @@ vim.o.cursorline = true
 -- vim.o.colorcolumn = "88"
 
 vim.o.clipboard = "unnamedplus"
+
 -- vim.o.list = true
 -- vim.o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
+-- vim.opt.listchars:append "space:⋅"
 
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 5
 
 vim.o.pumheight = 10
 
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+-- Indenting
+vim.opt.smartindent = true
+vim.opt.expandtab = true
 
-vim.wo.foldenable = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+
+-- vim.wo.foldenable = false
 -- vim.wo.foldmethod = 'indent'
 -- vim.wo.foldmethod = 'syntax'
 
@@ -111,13 +117,13 @@ vim.g.loaded_ftplugin = 1
 -- stylua: ignore end
 
 local default_providers = {
-	"node",
-	"perl",
-	"python",
-	"python3",
-	"ruby",
+  "node",
+  "perl",
+  "python",
+  "python3",
+  "ruby",
 }
 
 for _, provider in ipairs(default_providers) do
-	vim.g["loaded_" .. provider .. "_provider"] = 0
+  vim.g["loaded_" .. provider .. "_provider"] = 0
 end
