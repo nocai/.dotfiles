@@ -64,7 +64,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     after = { "nvim-treesitter", "nvim-lua-guide" },
-    disable = true,
     config = function()
       require("plugins.configs.treesitter").nvim_treesitter_textobjects()
     end,
