@@ -9,7 +9,7 @@ font:
     style: Bold
   italic:
     style: Italic
-  size: 12
+  size: 12.5
 schemes:
   # TokyoNight Alacritty Colors
   tokyonight: &tokyonight
@@ -66,20 +66,17 @@ schemes:
       magenta: '#ff92d0'
       cyan: '#9aedfe'
       white: '#e6e6e6'
-colors: *dracula
+colors: *tokyonight
 cursor:
   style:
     blinking: Always
 key_bindings:
+  - {key: Escape, mods: Control, mode: ~Search, action: ToggleViMode}
+
   # (macOS only)
   - {key: Escape, mods: Command, mode: ~Search, action: ToggleViMode}
   # Alt keys
-  - {key: H, mods: Alt, chars: "\eh"}
-  - {key: J, mods: Alt, chars: "\ej"}
-  - {key: K, mods: Alt, chars: "\ek"}
-  - {key: L, mods: Alt, chars: "\el",}
-  # - { key: Equals, mods: Alt,             chars: "\x1b="            }
-  # - { key: Equals, mods: Alt|Shift,       chars: "\x1b+"            }
-  # - { key: Minus,  mods: Alt,             chars: "\x1b-"            }
-  # - { key: LBracket,  mods: Alt,             chars: "\x1b["            }
-  # - { key: RBracket,  mods: Alt,             chars: "\x1b]"            }
+  - {key: H, mods: Alt, chars: "\x1bh"}
+  - {key: J, mods: Alt, chars: "\x1bj"}
+  - {key: K, mods: Alt, chars: "\x1bk"}
+  - {key: L, mods: Alt, chars: "\x1bl",}
