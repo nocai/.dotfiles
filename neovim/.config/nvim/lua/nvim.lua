@@ -28,46 +28,46 @@ vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("i", "<C-h>", "<Left>")
 vim.keymap.set("i", "<C-l>", "<Right>")
 
-vim.keymap.set("i", "<C-e>", "<End>")
-vim.keymap.set("i", "<C-b>", "<Esc>^i")
+-- vim.keymap.set("i", "<C-e>", "<End>")
+-- vim.keymap.set("i", "<C-b>", "<Esc>^i")
 
 _G.nvim = {
-	version = vim.version().minor,
-	home = os.getenv("HOME") .. "/.config/nvim",
+  version = vim.version().minor,
+  home = os.getenv("HOME") .. "/.config/nvim",
 
-	is_mac = jit.os == "OSX",
-	is_linux = jit.os == "Linux",
-	is_windows = vim.loop.os_uname().sysname == "Windows_NT",
+  is_mac = jit.os == "OSX",
+  is_linux = jit.os == "Linux",
+  is_windows = vim.loop.os_uname().sysname == "Windows_NT",
 
-	diagnostics = {
-		enable = true,
-		show_on_dirs = true,
-		icons = {
-			hint = "",
-			info = "",
-			warning = "",
-			error = "",
-		},
-	},
-	window = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		winblend = 0,
-		winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-	},
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  window = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    winblend = 0,
+    winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+  },
 }
 vim.env.PATH = vim.env.PATH .. (nvim.is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
 
 function nvim.find_lsp_root()
-	local clients = vim.lsp.buf_get_clients()
-	if next(clients) == nil then
-		return nil
-	end
+  local clients = vim.lsp.buf_get_clients()
+  if next(clients) == nil then
+    return nil
+  end
 
-	for _, client in pairs(clients) do
-		if client.name ~= "null-ls" then
-			return client.config.root_dir
-		end
-	end
+  for _, client in pairs(clients) do
+    if client.name ~= "null-ls" then
+      return client.config.root_dir
+    end
+  end
 
-	return nil
+  return nil
 end

@@ -71,7 +71,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     after = { "nvim-treesitter", "nvim-lua-guide" },
-    disable = true,
     config = function()
       require("treesitter-context").setup()
     end
@@ -261,7 +260,6 @@ return {
     after = { "nvim-treesitter" },
     config = function()
       require("tokyonight").setup({
-        -- style = "moon", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
         transparent = true,
         styles = {
           -- Background styles. Can be "dark", "transparent" or "normal"
@@ -269,8 +267,24 @@ return {
           floats = "transparent", -- style for floating windows
         },
       })
-      vim.cmd([[colorscheme tokyonight]])
+      -- vim.cmd([[colorscheme tokyonight]])
     end,
+  },
+  {
+    'EdenEast/nightfox.nvim',
+    after = { "nvim-treesitter" },
+    config = function()
+      require("nightfox").setup({
+        options = {
+          transparent = true,
+          styles = {
+            comments = "italic",
+            functions = "italic,bold",
+          }
+        },
+      })
+      vim.cmd([[colorscheme nightfox]])
+    end
   },
   {
     "kyazdani42/nvim-tree.lua",

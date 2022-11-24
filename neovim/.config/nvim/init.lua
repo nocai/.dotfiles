@@ -1,5 +1,5 @@
 vim.defer_fn(function()
-	pcall(require, "impatient")
+  pcall(require, "impatient")
 end, 0)
 
 require("nvim")
@@ -14,5 +14,5 @@ local packer = pp.init()
 packer.startup({ require("plugins") })
 
 if packer_bootstrap then
-	packer.sync()
+  packer.sync()
 end
