@@ -6,7 +6,7 @@ for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) 
 end
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "go" },
+  ensure_installed = { "lua" },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -52,10 +52,8 @@ function M.nvim_treesitter_textobjects()
           ["ac"] = "@class.outer",
           ["ia"] = "@parameter.inner",
           ["aa"] = "@parameter.outer",
-          -- ["ii"] = "@conditional.inner",
-          -- ["ai"] = "@conditional.outer",
-          -- ["il"] = "@loop.inner",
-          -- ["al"] = "@loop.outer",
+          ["il"] = "@loop.inner",
+          ["al"] = "@loop.outer",
         },
         -- You can choose the select mode (default is charwise 'v')
         --
@@ -86,8 +84,7 @@ function M.nvim_treesitter_textobjects()
         goto_next_start = {
           -- ["]b"] = "@block.outer",
           -- ["]s"] = "@statement.outer",
-          -- ["]l"] = "@loop.outer",
-          -- ["]i"] = "@conditional.outer",
+          ["]l"] = "@loop.outer",
           ["]a"] = "@parameter.outer",
           ["]f"] = "@function.outer",
           ["]c"] = "@class.outer",
@@ -96,8 +93,7 @@ function M.nvim_treesitter_textobjects()
         goto_next_end = {
           -- ["]B"] = "@block.outer",
           -- ["]S"] = "@statement.outer",
-          -- ["]L"] = "@loop.outer",
-          -- ["]I"] = "@conditional.outer",
+          ["]L"] = "@loop.outer",
           ["]A"] = "@parameter.outer",
           ["]F"] = "@function.outer",
           ["]C"] = "@class.outer",
@@ -106,8 +102,7 @@ function M.nvim_treesitter_textobjects()
         goto_previous_start = {
           -- ["[b"] = "@block.outer",
           -- ["[s"] = "@statement.outer",
-          -- ["[l"] = "@loop.outer",
-          -- ["[i"] = "@conditional.outer",
+          ["[l"] = "@loop.outer",
           ["[a"] = "@parameter.outer",
           ["[f"] = "@function.outer",
           ["[c"] = "@class.outer",
@@ -116,8 +111,7 @@ function M.nvim_treesitter_textobjects()
         goto_previous_end = {
           -- ["[B"] = "@block.outer",
           -- ["[S"] = "@statement.outer",
-          -- ["[L"] = "@loop.outer",
-          -- ["[I"] = "@conditional.outer",
+          ["[L"] = "@loop.outer",
           ["[A"] = "@parameter.outer",
           ["[F"] = "@function.outer",
           ["[C"] = "@class.outer",
@@ -127,18 +121,18 @@ function M.nvim_treesitter_textobjects()
       swap = {
         enable = true,
         swap_next = {
-          ["gan"] = "@parameter.inner",
+          ["<Leader>sa"] = "@parameter.inner",
         },
         swap_previous = {
-          ["gap"] = "@parameter.inner",
+          ["<Leader>sA"] = "@parameter.inner",
         },
       },
       lsp_interop = {
         enable = true,
         border = "rounded",
         peek_definition_code = {
-          ["gpf"] = "@function.outer",
-          ["gpc"] = "@class.outer",
+          ["<Leader>pf"] = "@function.outer",
+          ["<Leader>pc"] = "@class.outer",
         },
       },
     },

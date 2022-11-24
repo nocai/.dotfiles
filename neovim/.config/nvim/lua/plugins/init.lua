@@ -295,7 +295,7 @@ return {
   },
   {
     "ggandor/leap.nvim",
-    after = { "nvim-lua-guide" },
+    keys = { "s", "S", "gs", { "v", "x" }, { "o", "x" } },
     config = function()
       require("leap").add_default_mappings()
     end,
@@ -365,7 +365,6 @@ return {
   {
     "junegunn/vim-easy-align",
     keys = { "<leader>gq" },
-    disable = true,
     config = function()
       vim.keymap.set({ "n", "x" }, "<Leader>gq", "<Plug>(EasyAlign)")
     end,
@@ -386,4 +385,17 @@ return {
       require("plugins.configs.misc").vim_test()
     end,
   },
+  {
+    "michaeljsmith/vim-indent-object",
+    keys = {
+      { "o", "ii" },
+      { "o", "ai" },
+      { "o", "iI" },
+      { "o", "aI" },
+      { "v", "ii" },
+      { "v", "ai" },
+      { "v", "iI" },
+      { "v", "aI" },
+    },
+  }
 }
