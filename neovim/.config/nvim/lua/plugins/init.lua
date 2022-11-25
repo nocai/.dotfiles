@@ -137,6 +137,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
+    keys = { "/", "?" },
     config = function()
       require("plugins.configs.cmp")
     end,
@@ -400,14 +401,16 @@ return {
   },
   {
     "gbprod/yanky.nvim",
-    keys = { "y", "p", "P", "gp", "gP" },
+    -- keys = { "y", "p", "P", "gp", "gP" },
+    disable = true,
     config = function()
       require("plugins.configs.misc").yanky()
     end
   },
   {
     "chentoast/marks.nvim",
-    keys = { "m" },
+    -- keys = { "m" },
+    disable = true,
     config = function()
       require("plugins.configs.misc").marks()
     end
