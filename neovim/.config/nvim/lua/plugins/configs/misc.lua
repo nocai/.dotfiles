@@ -145,4 +145,34 @@ function M.nvim_test()
   vim.keymap.set("n", "<Leader>te", "<cmd>TestEdit<cr>")
 end
 
+function M.yanky()
+  require("yanky").setup({
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  })
+  require("telescope").load_extension("yank_history")
+
+  vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+
+  vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+  vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+  vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+  vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+
+  vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+  vim.keymap.set("n", "<c-j>", "<Plug>(YankyCycleForward)")
+  vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+  vim.keymap.set("n", "<c-k>", "<Plug>(YankyCycleBackward)")
+end
+
+function M.marks()
+  require("marks").setup({
+    mappings = {
+      set_next = "m;",
+      toggle = "m.",
+    }
+  })
+end
+
 return M

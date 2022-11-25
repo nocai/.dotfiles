@@ -3,11 +3,15 @@ local lspkind_icon = require("core.lspkind_icon")
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
+local cmpwin = cmp.config.window.bordered({
+  winhighlight = cmp.config.window.bordered().winhighlight .. ",FloatBorder:FloatBorder"
+})
+
 cmp.setup({
   -- preselect = cmp.PreselectMode.None,
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = cmpwin,
+    documentation = cmpwin,
     -- completion = {
     --   border = nvim.window.border,
     --   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None," .. nvim.window.winhighlight,
