@@ -11,11 +11,11 @@ autocmd("BufReadPost", {
 })
 
 -- Highlight yanked text
-autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
-  end,
-})
+-- autocmd("TextYankPost", {
+--   callback = function()
+--     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+--   end,
+-- })
 
 -- dont list quickfix buffers
 autocmd("FileType", {
