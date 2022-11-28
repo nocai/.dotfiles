@@ -68,13 +68,13 @@ return {
       require("plugins.configs.treesitter").nvim_treesitter_textobjects()
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    after = { "nvim-treesitter", "nvim-lua-guide" },
-    config = function()
-      require("treesitter-context").setup()
-    end
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  --   after = { "nvim-treesitter", "nvim-lua-guide" },
+  --   config = function()
+  --     require("treesitter-context").setup()
+  --   end
+  -- },
   {
     "p00f/nvim-ts-rainbow",
     after = { "nvim-treesitter" },
@@ -82,13 +82,13 @@ return {
       require("plugins.configs.treesitter").nvim_ts_rainbow()
     end,
   },
-  {
-    "windwp/nvim-ts-autotag",
-    after = { "nvim-treesitter", "nvim-lua-guide" },
-    config = function()
-      require("plugins.configs.treesitter").nvim_ts_autotag()
-    end,
-  },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   after = { "nvim-treesitter", "nvim-lua-guide" },
+  --   config = function()
+  --     require("plugins.configs.treesitter").nvim_ts_autotag()
+  --   end,
+  -- },
 
   --
   -- lsp
@@ -114,19 +114,27 @@ return {
     end,
   },
   {
+    "simrat39/symbols-outline.nvim",
+    after = { "nvim-lspconfig" },
+    config = function()
+      require("symbols-outline").setup()
+      vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
+    end
+  },
+  {
     -- config, see: ftplugin/java.lua
     "mfussenegger/nvim-jdtls",
     ft = "java",
     after = { "nvim-lspconfig" },
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    disable = true,
-    after = { "nvim-lua-guide" },
-    config = function()
-      require("plugins.configs.lsp").null_ls()
-    end,
-  },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   disable = true,
+  --   after = { "nvim-lua-guide" },
+  --   config = function()
+  --     require("plugins.configs.lsp").null_ls()
+  --   end,
+  -- },
 
   --
   -- cmp
@@ -137,7 +145,6 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    keys = { "/", "?" },
     config = function()
       require("plugins.configs.cmp")
     end,
@@ -246,16 +253,30 @@ return {
       require("plugins.configs.telescope").telescope_project()
     end,
   },
-  {
-    "folke/todo-comments.nvim",
-    keys = { "<C-k>t", "<C-k><C-t>" },
-    config = function()
-      require("plugins.configs.telescope").todo_comments()
-    end,
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   keys = { "<C-k>t", "<C-k><C-t>" },
+  --   config = function()
+  --     require("plugins.configs.telescope").todo_comments()
+  --   end,
+  -- },
 
   --
   -- others
+  {
+    "catppuccin/nvim", as = "catppuccin",
+    after = { "nvim-treesitter" },
+    config = function()
+      require("catppuccin").setup({
+        transparent_background = true,
+        integrations = {
+          fidget = true,
+          symbols_outline = true
+        }
+      })
+      vim.cmd([[colorscheme catppuccin]])
+    end
+  },
   {
     "folke/tokyonight.nvim",
     after = { "nvim-treesitter" },
@@ -268,7 +289,7 @@ return {
           floats = "transparent", -- style for floating windows
         },
       })
-      vim.cmd([[colorscheme tokyonight]])
+      -- vim.cmd([[colorscheme tokyonight]])
     end,
   },
   {
@@ -306,6 +327,17 @@ return {
     after = { "tokyonight.nvim" },
     config = function()
       require("plugins.configs.lualine")
+    end,
+  },
+  {
+    "j-hui/fidget.nvim",
+    after = { "tokyonight.nvim" },
+    config = function()
+      require("fidget").setup({
+        window = {
+          blend = 0,
+        },
+      })
     end,
   },
   {
@@ -399,20 +431,20 @@ return {
       { "v", "aI" },
     },
   },
-  {
-    "gbprod/yanky.nvim",
-    -- keys = { "y", "p", "P", "gp", "gP" },
-    disable = true,
-    config = function()
-      require("plugins.configs.misc").yanky()
-    end
-  },
-  {
-    "chentoast/marks.nvim",
-    -- keys = { "m" },
-    disable = true,
-    config = function()
-      require("plugins.configs.misc").marks()
-    end
-  }
+  -- {
+  --   "gbprod/yanky.nvim",
+  --   keys = { "y", "p", "P", "gp", "gP" },
+  --   disable = true,
+  --   config = function()
+  --     require("plugins.configs.misc").yanky()
+  --   end
+  -- },
+  -- {
+  --   "chentoast/marks.nvim",
+  --   keys = { "m" },
+  --   disable = true,
+  --   config = function()
+  --     require("plugins.configs.misc").marks()
+  --   end
+  -- }
 }
