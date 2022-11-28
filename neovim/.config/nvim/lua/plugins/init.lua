@@ -330,16 +330,45 @@ return {
     end,
   },
   {
-    "j-hui/fidget.nvim",
-    after = { "tokyonight.nvim" },
+    "tiagovla/scope.nvim",
+    after = { "lualine.nvim" },
     config = function()
-      require("fidget").setup({
-        window = {
-          blend = 0,
-        },
-      })
-    end,
+      require("scope").setup()
+    end
   },
+  -- {
+  --   "nanozuki/tabby.nvim",
+  --   after = { "nvim-web-devicons" },
+  --   config = function()
+  --     require('tabby.tabline').use_preset('active_wins_at_tail', {
+  --       theme = {
+  --         fill = 'TabLineFill', -- tabline background
+  --         head = 'TabLine', -- head element highlight
+  --         current_tab = 'TabLineSel', -- current tab label highlight
+  --         tab = 'TabLine', -- other tab label highlight
+  --         win = 'TabLine', -- window highlight
+  --         tail = 'TabLine', -- tail element highlight
+  --       },
+  --       nerdfont = true, -- whether use nerdfont
+  --       -- tab_name = {
+  --       --   name_fallback = 'function({tabid}), return a string',
+  --       -- },
+  --       -- buf_name = {
+  --       --   mode = "'unique'|'relative'|'tail'|'shorten'",
+  --       -- },
+  --     })
+  --
+  --     vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
+  --     vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
+  --     vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
+  --     vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
+  --     vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
+  --     -- move current tab to previous position
+  --     vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
+  --     -- move current tab to next position
+  --     vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
+  --   end
+  -- },
   {
     "lukas-reineke/indent-blankline.nvim",
     after = { "nvim-lua-guide" },
@@ -390,6 +419,10 @@ return {
     config = function()
       require("plugins.configs.misc").gitsigns()
     end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    after = { "plenary.nvim" },
   },
   {
     "tweekmonster/startuptime.vim",

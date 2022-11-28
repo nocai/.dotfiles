@@ -68,16 +68,6 @@ require("lualine").setup({
         "buffers",
         mode = 2,
         buffers_color = {
-          -- Same values as the general color option can be used here.
-          active = "lualine_b_normal", -- Color for active buffer.
-          inactive = "lualine_c_normal", -- Color for inactive buffer.
-        },
-      },
-    },
-    lualine_y = {
-      {
-        "windows",
-        windows_color = {
           active = "lualine_b_normal",
           inactive = "lualine_c_normal",
         },
