@@ -18,25 +18,12 @@ function M.telescope()
   })
 
   -- keymap
-  vim.keymap.set("n", "<C-k><C-k>", [[<cmd>Telescope<CR>]])
-
-  vim.keymap.set("n", "<C-k>f", [[<cmd>Telescope find_files<CR>]])
-  vim.keymap.set("n", "<C-k><C-f>", [[<cmd>Telescope find_files<CR>]])
-
-  vim.keymap.set("n", "<C-k>g", [[<cmd>Telescope live_grep<CR>]])
-  vim.keymap.set("n", "<C-k><C-g>", [[<cmd>Telescope live_grep<CR>]])
-
-  vim.keymap.set("n", "<C-k>b", [[<cmd>Telescope buffers<CR>]])
-  vim.keymap.set("n", "<C-k><C-b>", [[<cmd>Telescope buffers<CR>]])
-
-  vim.keymap.set("n", "<C-k>h", [[<cmd>Telescope help_tags<CR>]])
-  vim.keymap.set("n", "<C-k><C-h>", [[<cmd>Telescope help_tags<CR>]])
-
-  vim.keymap.set("n", "<C-k>o", [[<cmd>Telescope oldfiles<CR>]])
-  vim.keymap.set("n", "<C-k><C-o>", [[<cmd>Telescope oldfiles<CR>]])
-
-  vim.keymap.set("n", "<C-k>r", [[<cmd>Telescope resume<CR>]])
-  vim.keymap.set("n", "<C-k><C-r>", [[<cmd>Telescope resume<CR>]])
+  vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
+  vim.keymap.set("n", "<Leader>fg", [[<cmd>Telescope live_grep<CR>]])
+  vim.keymap.set("n", "<Leader>fb", [[<cmd>Telescope buffers<CR>]])
+  vim.keymap.set("n", "<Leader>fh", [[<cmd>Telescope help_tags<CR>]])
+  vim.keymap.set("n", "<Leader>fo", [[<cmd>Telescope oldfiles<CR>]])
+  vim.keymap.set("n", "<Leader>fr", [[<cmd>Telescope resume<CR>]])
 
   -- stylua: ignore start
   vim.keymap.set("n", "<Leader>gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
@@ -81,14 +68,12 @@ function M.telescope_project()
       },
     },
   })
-  vim.keymap.set("n", "<C-k>p", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
-  vim.keymap.set("n", "<C-k><C-p>", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
+  vim.keymap.set("n", "<Leader>fp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
 end
 
 function M.project()
   -- projects
-  vim.keymap.set("n", "<C-k>p", "<cmd>Telescope projects theme=dropdown<CR>")
-  vim.keymap.set("n", "<C-k><C-p>", "<cmd>Telescope projects theme=dropdown<CR>")
+  vim.keymap.set("n", "<Leader>fp", "<cmd>Telescope projects theme=dropdown<CR>")
   require("project_nvim").setup({
     show_hidden = true,
     -- silent_chdir = false,
@@ -105,8 +90,7 @@ function M.todo_comments()
       keyword = "",
     },
   })
-  vim.keymap.set("n", "<C-k>t", [[<cmd>TodoTelescope<CR>]])
-  vim.keymap.set("n", "<C-k><C-t>", [[<cmd>TodoTelescope<CR>]])
+  vim.keymap.set("n", "<Leader>ft", [[<cmd>TodoTelescope<CR>]])
 end
 
 return M
