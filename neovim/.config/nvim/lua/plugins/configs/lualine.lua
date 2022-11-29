@@ -59,7 +59,7 @@ require("lualine").setup({
       { "%l:%v", icon = "", separator = { left = "" } },
     },
     lualine_z = {
-      { "%p%%", icon = "", separator = { right = "" } },
+      { "%p%%", separator = { right = "" } },
     },
   },
   tabline = {
@@ -67,19 +67,19 @@ require("lualine").setup({
       {
         "buffers",
         mode = 2,
-        buffers_color = {
-          active = "lualine_b_normal",
-          inactive = "lualine_c_normal",
-        },
+        -- buffers_color = {
+        --   active = "lualine_b_normal",
+        --   inactive = "lualine_c_normal",
+        -- },
       },
     },
     lualine_z = {
       {
         "tabs",
-        tabs_color = {
-          active = "lualine_a_normal",
-          inactive = "lualine_c_normal",
-        },
+        -- tabs_color = {
+        --   active = "lualine_a_normal",
+        --   inactive = "lualine_c_normal",
+        -- },
       },
     },
   },

@@ -1,27 +1,28 @@
-vim.keymap.set("n", "<C-h>", "^")
-vim.keymap.set("n", "<C-l>", "$")
+-- vim.keymap.set("n", "<C-h>", "^")
+-- vim.keymap.set("n", "<C-l>", "$")
+
 -- windows
-vim.keymap.set("n", "<M-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<M-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<M-k>", "<C-w><C-k>")
-vim.keymap.set("n", "<M-l>", "<C-w><C-l>")
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 
 -- terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("t", "<M-h>", "<C-\\><C-n><C-w>h")
-vim.keymap.set("t", "<M-j>", "<C-\\><C-n><C-w>j")
-vim.keymap.set("t", "<M-k>", "<C-\\><C-n><C-w>k")
-vim.keymap.set("t", "<M-l>", "<C-\\><C-n><C-w>l")
+vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h")
+vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j")
+vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k")
+vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- Resize splits with arrow keys
-vim.keymap.set("n", "<Up>", "<cmd>res +5<cr>")
-vim.keymap.set("n", "<Down>", "<cmd>res -5<cr>")
-vim.keymap.set("n", "<Left>", "<cmd>vertical resize-5<cr>")
-vim.keymap.set("n", "<Right>", "<cmd>vertical resize+5<cr>")
+vim.keymap.set("n", "<Up>", "<cmd>resize +5<cr>")
+vim.keymap.set("n", "<Down>", "<cmd>resize -5<cr>")
+vim.keymap.set("n", "<Left>", "<cmd>vertical resize -5<cr>")
+vim.keymap.set("n", "<Right>", "<cmd>vertical resize +5<cr>")
 
 -- buffers
-vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
-vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>")
+vim.keymap.set("n", "]b", "<cmd>bnext<cr>")
+vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
 
 vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 

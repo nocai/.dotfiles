@@ -271,7 +271,8 @@ return {
         transparent_background = true,
         integrations = {
           fidget = true,
-          symbols_outline = true
+          symbols_outline = true,
+          leap = true,
         }
       })
       vim.cmd([[colorscheme catppuccin]])
