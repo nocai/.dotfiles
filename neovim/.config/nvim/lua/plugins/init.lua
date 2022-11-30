@@ -273,9 +273,13 @@ return {
           fidget = true,
           symbols_outline = true,
           leap = true,
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = true,
+          },
         }
       })
-      vim.cmd([[colorscheme catppuccin]])
+      -- vim.cmd([[colorscheme catppuccin]])
     end
   },
   {
@@ -290,7 +294,7 @@ return {
           floats = "transparent", -- style for floating windows
         },
       })
-      -- vim.cmd([[colorscheme tokyonight]])
+      vim.cmd([[colorscheme tokyonight]])
     end,
   },
   {

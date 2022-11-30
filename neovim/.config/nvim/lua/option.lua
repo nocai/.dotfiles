@@ -72,7 +72,7 @@ vim.opt.shortmess:append("sI")
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
--- vim.opt.whichwrap:append("<>[]hl")
+vim.opt.whichwrap:append("<>[]hl")
 vim.opt.wrap = false
 
 vim.opt.splitright = true
