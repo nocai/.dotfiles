@@ -1,267 +1,229 @@
 return {
-  -- commons
-  { "lewis6991/impatient.nvim" },
-  { "nvim-lua/plenary.nvim", module = "plenary" },
-  { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
   {
-    "wbthomason/packer.nvim",
-    cmd = {
-      "PackerSnapshot",
-      "PackerSnapshotRollback",
-      "PackerSnapshotDelete",
-      "PackerInstall",
-      "PackerUpdate",
-      "PackerSync",
-      "PackerClean",
-      "PackerCompile",
-      "PackerStatus",
-      "PackerProfile",
-      "PackerLoad",
+    -- commons
+    { "lewis6991/impatient.nvim" },
+    { "wbthomason/packer.nvim", opt = true },
+    { "nvim-lua/plenary.nvim", module = "plenary" },
+    { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
+    { "nanotee/nvim-lua-guide", event = { "BufRead", "BufWinEnter", "BufNewFile" } },
+    {
+      -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+      "antoinemadec/FixCursorHold.nvim",
+      after = { "nvim-lua-guide" },
     },
   },
   {
-    "nanotee/nvim-lua-guide",
-    opt = true,
-    setup = function()
-      local augroup = "LazyLoad:" .. vim.fn.rand()
-      vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
-        group = vim.api.nvim_create_augroup(augroup, {}),
-        callback = function()
-          vim.api.nvim_del_augroup_by_name(augroup)
-          vim.defer_fn(function()
-            ---@diagnostic disable-next-line: different-requires
-            require("packer").loader("nvim-lua-guide")
-          end, 0)
+    -- treesitter
+    {
+      "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate",
+      event = { "VimEnter" },
+      module = "nvim-treesitter",
+      config = function()
+        require("plugins.configs.treesitter")
+      end,
+    },
+    {
+      "p00f/nvim-ts-rainbow",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("plugins.configs.treesitter").nvim_ts_rainbow()
+      end,
+    },
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      after = { "nvim-treesitter", "nvim-lua-guide" },
+      config = function()
+        require("plugins.configs.treesitter").nvim_treesitter_textobjects()
+      end,
+    },
+    -- {
+    --   "nvim-treesitter/nvim-treesitter-context",
+    --   after = { "nvim-treesitter", "nvim-lua-guide" },
+    --   config = function()
+    --     require("treesitter-context").setup()
+    --   end
+    -- },
+    -- {
+    --   "windwp/nvim-ts-autotag",
+    --   after = { "nvim-treesitter", "nvim-lua-guide" },
+    --   config = function()
+    --     require("plugins.configs.treesitter").nvim_ts_autotag()
+    --   end,
+    -- },
+  },
+  {
+    -- lsp
+    {
+      "williamboman/mason.nvim",
+      cmd = {
+        "Mason",
+        "MasonInstall",
+        "MasonInstallAll",
+        "MasonUninstall",
+        "MasonUninstallAll",
+        "MasonLog",
+      },
+      config = function()
+        require("plugins.configs.lsp").mason()
+      end,
+    },
+    {
+      "neovim/nvim-lspconfig",
+      event = { "BufRead", "BufWinEnter", "BufNewFile" },
+      config = function()
+        require("plugins.configs.lsp").lsp()
+      end,
+    },
+    {
+      "simrat39/symbols-outline.nvim",
+      after = { "nvim-lspconfig" },
+      config = function()
+        require("symbols-outline").setup()
+        vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
+      end
+    },
+    {
+      -- config, see: ftplugin/java.lua
+      "mfussenegger/nvim-jdtls",
+      ft = "java",
+      after = { "nvim-lspconfig" },
+    },
+    -- {
+    --   "jose-elias-alvarez/null-ls.nvim",
+    --   disable = true,
+    --   after = { "nvim-lua-guide" },
+    --   config = function()
+    --     require("plugins.configs.lsp").null_ls()
+    --   end,
+    -- },
+  },
+  {
+    -- cmp
+    {
+      "rafamadriz/friendly-snippets",
+      event = { "InsertEnter" },
+    },
+    {
+      "hrsh7th/nvim-cmp",
+      event = { "InsertEnter" },
+      config = function()
+        require("plugins.configs.cmp")
+      end,
+    },
+    {
+      "L3MON4D3/LuaSnip",
+      after = { "nvim-cmp" },
+      wants = "friendly-snippets",
+      config = function()
+        require("plugins.configs.cmp").luasnip()
+      end,
+    },
+    {
+      "hrsh7th/cmp-buffer",
+      after = { "nvim-cmp" },
+    },
+    {
+      "hrsh7th/cmp-path",
+      after = { "nvim-cmp" },
+    },
+    {
+      "hrsh7th/cmp-nvim-lsp",
+      after = { "nvim-cmp" },
+    },
+    {
+      "saadparwaiz1/cmp_luasnip",
+      after = { "nvim-cmp" },
+    },
+    {
+      "tzachar/cmp-tabnine",
+      run = "./install.sh",
+      after = { "nvim-cmp" },
+      disable = true,
+    },
+    {
+      "windwp/nvim-autopairs",
+      after = { "nvim-cmp" },
+      config = function()
+        require("plugins.configs.cmp").nvim_autopairs()
+      end,
+    },
+    {
+      "abecodes/tabout.nvim",
+      after = { "nvim-cmp" },
+      wants = { "nvim-treesitter" },
+      config = function()
+        require("tabout").setup({
+          tabouts = {
+            { open = "'", close = "'" },
+            { open = '"', close = '"' },
+            { open = "`", close = "`" },
+            { open = "(", close = ")" },
+            { open = "[", close = "]" },
+            { open = "{", close = "}" },
+            { open = "<", close = ">" },
+            { open = "#", close = "]" },
+          },
+        })
+      end,
+    },
+    -- {
+    --   "hrsh7th/cmp-cmdline",
+    --   after = { "nvim-cmp" },
+    -- },
+    -- {
+    -- 	"hrsh7th/cmp-nvim-lua",
+    -- 	after = {"nvim-cmp"},
+    -- },
+  },
+  {
+    -- telescope
+    {
+      "nvim-telescope/telescope.nvim",
+      module = "telescope",
+      cmd = "Telescope",
+      keys = { "<Leader>f", "<Leader>g" },
+      config = function()
+        require("plugins.configs.telescope").telescope()
+      end,
+      requires = {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        after = { "telescope.nvim" },
+        run = "make",
+        config = function()
+          require("plugins.configs.telescope").telescope_fzf_native()
         end,
-      })
-    end,
-  },
-  {
-    -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-    "antoinemadec/FixCursorHold.nvim",
-    after = { "nvim-lua-guide" },
-  },
-
-  --
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    cmd = {
-      "TSInstall",
-      "TSBufEnable",
-      "TSBufDisable",
-      "TSEnable",
-      "TSDisable",
-      "TSModuleInfo",
+      },
     },
-    run = ":TSUpdate",
-    event = "VimEnter",
-    module = "nvim-treesitter",
-    config = function()
-      require("plugins.configs.treesitter")
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    after = { "nvim-treesitter", "nvim-lua-guide" },
-    config = function()
-      require("plugins.configs.treesitter").nvim_treesitter_textobjects()
-    end,
-  },
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --   after = { "nvim-treesitter", "nvim-lua-guide" },
-  --   config = function()
-  --     require("treesitter-context").setup()
-  --   end
-  -- },
-  {
-    "p00f/nvim-ts-rainbow",
-    after = { "nvim-treesitter" },
-    config = function()
-      require("plugins.configs.treesitter").nvim_ts_rainbow()
-    end,
-  },
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   after = { "nvim-treesitter", "nvim-lua-guide" },
-  --   config = function()
-  --     require("plugins.configs.treesitter").nvim_ts_autotag()
-  --   end,
-  -- },
-
-  --
-  -- lsp
-  {
-    "williamboman/mason.nvim",
-    cmd = {
-      "Mason",
-      "MasonInstall",
-      "MasonInstallAll",
-      "MasonUninstall",
-      "MasonUninstallAll",
-      "MasonLog",
+    {
+      "nvim-telescope/telescope-ui-select.nvim",
+      after = { "nvim-lspconfig" },
+      config = function()
+        require("plugins.configs.telescope").telescope_ui_select()
+      end,
     },
-    config = function()
-      require("plugins.configs.lsp").mason()
-    end,
+    {
+      "nvim-telescope/telescope-project.nvim",
+      keys = { "<Leader>fp" },
+      config = function()
+        require("plugins.configs.telescope").telescope_project()
+      end,
+    },
+    -- {
+    -- 	"ahmedkhalf/project.nvim",
+    --  keys = { "<C-k>p", "<C-k><C-p>" },
+    -- 	config = function()
+    -- 		require("plugins.configs.telescope").project()
+    -- 	end,
+    -- },
+    -- {
+    --   "folke/todo-comments.nvim",
+    --   keys = { "<C-k>t", "<C-k><C-t>" },
+    --   config = function()
+    --     require("plugins.configs.telescope").todo_comments()
+    --   end,
+    -- },
   },
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufRead", "BufWinEnter", "BufNewFile" },
-    config = function()
-      require("plugins.configs.lsp").lsp()
-    end,
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    after = { "nvim-lspconfig" },
-    config = function()
-      require("symbols-outline").setup()
-      vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
-    end
-  },
-  {
-    -- config, see: ftplugin/java.lua
-    "mfussenegger/nvim-jdtls",
-    ft = "java",
-    after = { "nvim-lspconfig" },
-  },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   disable = true,
-  --   after = { "nvim-lua-guide" },
-  --   config = function()
-  --     require("plugins.configs.lsp").null_ls()
-  --   end,
-  -- },
-
-  --
-  -- cmp
-  {
-    "rafamadriz/friendly-snippets",
-    event = "InsertEnter",
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    config = function()
-      require("plugins.configs.cmp")
-    end,
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    after = { "nvim-cmp" },
-    wants = "friendly-snippets",
-    config = function()
-      require("plugins.configs.cmp").luasnip()
-    end,
-  },
-  {
-    "hrsh7th/cmp-buffer",
-    after = { "nvim-cmp" },
-  },
-  -- {
-  --   "hrsh7th/cmp-cmdline",
-  --   after = { "nvim-cmp" },
-  -- },
-  {
-    "hrsh7th/cmp-path",
-    after = { "nvim-cmp" },
-  },
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    after = { "nvim-cmp" },
-  },
-  {
-    "saadparwaiz1/cmp_luasnip",
-    after = { "nvim-cmp" },
-  },
-  {
-    "tzachar/cmp-tabnine",
-    run = "./install.sh",
-    after = { "nvim-cmp" },
-    disable = true,
-  },
-  -- {
-  -- 	"hrsh7th/cmp-nvim-lua",
-  -- 	after = {"nvim-cmp"},
-  -- },
-  {
-    "windwp/nvim-autopairs",
-    after = { "nvim-cmp" },
-    config = function()
-      require("plugins.configs.cmp").nvim_autopairs()
-    end,
-  },
-  {
-    "abecodes/tabout.nvim",
-    wants = { "nvim-treesitter" }, -- or require if not used so far
-    after = { "nvim-cmp" },
-    config = function()
-      require("tabout").setup({
-        tabouts = {
-          { open = "'", close = "'" },
-          { open = '"', close = '"' },
-          { open = "`", close = "`" },
-          { open = "(", close = ")" },
-          { open = "[", close = "]" },
-          { open = "{", close = "}" },
-          { open = "<", close = ">" },
-          { open = "#", close = "]" },
-        },
-      })
-    end,
-  },
-
-  --
-  -- telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    module = "telescope",
-    after = { "nvim-lua-guide" },
-    config = function()
-      require("plugins.configs.telescope").telescope()
-    end,
-  },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    after = { "telescope.nvim" },
-    run = "make",
-    config = function()
-      require("plugins.configs.telescope").telescope_fzf_native()
-    end,
-  },
-  {
-    "nvim-telescope/telescope-ui-select.nvim",
-    after = { "telescope.nvim" },
-    config = function()
-      require("plugins.configs.telescope").telescope_ui_select()
-    end,
-  },
-  -- {
-  -- 	"ahmedkhalf/project.nvim",
-  --  keys = { "<C-k>p", "<C-k><C-p>" },
-  -- 	config = function()
-  -- 		require("plugins.configs.telescope").project()
-  -- 	end,
-  -- },
-  {
-    "nvim-telescope/telescope-project.nvim",
-    keys = { "<C-k>p", "<C-k><C-p>" },
-    config = function()
-      require("plugins.configs.telescope").telescope_project()
-    end,
-  },
-  -- {
-  --   "folke/todo-comments.nvim",
-  --   keys = { "<C-k>t", "<C-k><C-t>" },
-  --   config = function()
-  --     require("plugins.configs.telescope").todo_comments()
-  --   end,
-  -- },
-
-  --
   -- others
   {
     "catppuccin/nvim", as = "catppuccin",
@@ -279,7 +241,7 @@ return {
           },
         }
       })
-      -- vim.cmd([[colorscheme catppuccin]])
+      vim.cmd([[colorscheme catppuccin]])
     end
   },
   {
@@ -289,12 +251,11 @@ return {
       require("tokyonight").setup({
         transparent = true,
         styles = {
-          -- Background styles. Can be "dark", "transparent" or "normal"
-          sidebars = "transparent", -- style for sidebars, see below
-          floats = "transparent", -- style for floating windows
+          sidebars = "transparent",
+          floats = "transparent",
         },
       })
-      vim.cmd([[colorscheme tokyonight]])
+      -- vim.cmd([[colorscheme tokyonight]])
     end,
   },
   {
@@ -315,7 +276,7 @@ return {
   },
   {
     "kyazdani42/nvim-tree.lua",
-    after = { "nvim-web-devicons" },
+    keys = { "<Leader><Leader>" },
     config = function()
       require("plugins.configs.nvim_tree")
     end,
@@ -329,58 +290,25 @@ return {
   },
   {
     "hoob3rt/lualine.nvim",
-    after = { "tokyonight.nvim" },
+    after = { "catppuccin" },
     config = function()
       require("plugins.configs.lualine")
     end,
+    requires = {
+      "tiagovla/scope.nvim",
+      after = { "lualine.nvim" },
+      config = function()
+        require("scope").setup()
+      end
+    },
   },
-  {
-    "tiagovla/scope.nvim",
-    after = { "lualine.nvim" },
-    config = function()
-      require("scope").setup()
-    end
-  },
-  -- {
-  --   "nanozuki/tabby.nvim",
-  --   after = { "nvim-web-devicons" },
-  --   config = function()
-  --     require('tabby.tabline').use_preset('active_wins_at_tail', {
-  --       theme = {
-  --         fill = 'TabLineFill', -- tabline background
-  --         head = 'TabLine', -- head element highlight
-  --         current_tab = 'TabLineSel', -- current tab label highlight
-  --         tab = 'TabLine', -- other tab label highlight
-  --         win = 'TabLine', -- window highlight
-  --         tail = 'TabLine', -- tail element highlight
-  --       },
-  --       nerdfont = true, -- whether use nerdfont
-  --       -- tab_name = {
-  --       --   name_fallback = 'function({tabid}), return a string',
-  --       -- },
-  --       -- buf_name = {
-  --       --   mode = "'unique'|'relative'|'tail'|'shorten'",
-  --       -- },
-  --     })
-  --
-  --     vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
-  --     vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
-  --     vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
-  --     vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
-  --     vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
-  --     -- move current tab to previous position
-  --     vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
-  --     -- move current tab to next position
-  --     vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
-  --   end
-  -- },
   {
     "lukas-reineke/indent-blankline.nvim",
     after = { "nvim-lua-guide" },
-    setup = function()
-      vim.g.indent_blankline_char = "┊"
-      vim.g.indent_blankline_show_first_indent_level = false
-    end,
+    -- setup = function()
+      -- vim.g.indent_blankline_char = "┊"
+      -- vim.g.indent_blankline_show_first_indent_level = false
+    -- end,
     config = function()
       require("indent_blankline").setup({
         show_current_context = true,
@@ -427,7 +355,7 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    after = { "plenary.nvim" },
+    after = { "nvim-lua-guide" },
   },
   {
     "tweekmonster/startuptime.vim",
@@ -440,7 +368,6 @@ return {
       vim.keymap.set({ "n", "x" }, "<Leader>gq", "<Plug>(EasyAlign)")
     end,
   },
-
   {
     "thinca/vim-quickrun",
     keys = { "<Leader>r" },
@@ -451,7 +378,6 @@ return {
   {
     "vim-test/vim-test",
     keys = { "<Leader>t" },
-    cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
     config = function()
       require("plugins.configs.misc").vim_test()
     end,
