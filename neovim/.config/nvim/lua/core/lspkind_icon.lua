@@ -65,15 +65,15 @@ M.codicon = {
   Operator      = '',
   TypeParameter = '',
 
-  Table    = "",
+  Table    = "",
   Object   = "",
-  Tag      = "",
-  Array    = "",
-  Boolean  = "",
+  Tag      = "",
+  Array    = "",
+  Boolean  = "",
   Number   = "",
   String   = "",
-  Calendar = "",
-  Watch    = "",
+  Calendar = "",
+  Watch    = "",
 }
 
 return M
