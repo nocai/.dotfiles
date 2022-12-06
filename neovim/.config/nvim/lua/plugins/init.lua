@@ -70,7 +70,9 @@ return {
     },
     {
       "neovim/nvim-lspconfig",
-      event = { "BufRead", "BufWinEnter", "BufNewFile" },
+      -- event = { "BufRead", "BufWinEnter", "BufNewFile", "VimEnter" },
+      -- after = { "nvim-lua-guide" },
+      after = { "nvim-treesitter" },
       config = function()
         require("plugins.configs.lsp").lsp()
       end,
