@@ -263,19 +263,15 @@ function M.null_ls()
   ls.setup({
     on_attach = on_attach,
     sources = {
-      -- ls.builtins.code_actions.gitsigns,
-
-      ls.builtins.formatting.stylua,
+      -- ls.builtins.formatting.stylua,
       -- ls.builtins.formatting.prettier,
       ls.builtins.formatting.jq,
       ls.builtins.formatting.yamlfmt,
-      -- ls.builtins.formatting.markdownlint,
+      ls.builtins.formatting.markdownlint,
 
-      -- ls.builtins.diagnostics.todo_comments,
       ls.builtins.diagnostics.golangci_lint,
-      -- ls.builtins.diagnostics.checkmake,
-      -- ls.builtins.diagnostics.markdownlint,
-      -- ls.builtins.diagnostics.yamllint,
+      ls.builtins.diagnostics.markdownlint,
+      ls.builtins.diagnostics.yamllint,
     },
   })
 end

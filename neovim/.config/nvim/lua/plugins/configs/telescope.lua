@@ -15,7 +15,16 @@ function M.telescope()
         },
       },
     },
+    extensions = {
+      fzf = {
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      },
+    },
   })
+  telescope.load_extension("fzf")
 
   -- keymap
   vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
@@ -30,20 +39,6 @@ function M.telescope()
   vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
   vim.keymap.set("n", "<Leader>gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
   -- stylua: ignore end
-end
-
-function M.telescope_fzf_native()
-  require("telescope").setup({
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-      },
-    },
-  })
-  require("telescope").load_extension("fzf")
 end
 
 function M.telescope_ui_select()

@@ -5,12 +5,9 @@ return {
     { "wbthomason/packer.nvim", opt = true },
     { "nvim-lua/plenary.nvim", module = "plenary" },
     { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
-    { "nanotee/nvim-lua-guide", event = { "BufRead", "BufWinEnter", "BufNewFile" } },
-    {
-      -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-      "antoinemadec/FixCursorHold.nvim",
-      after = { "nvim-lua-guide" },
-    },
+    { "nanotee/nvim-lua-guide", after = { "nvim-treesitter" } },
+    -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+    { "antoinemadec/FixCursorHold.nvim", after = { "nvim-treesitter" } },
   },
   {
     -- treesitter
@@ -32,21 +29,21 @@ return {
     },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      after = { "nvim-treesitter", "nvim-lua-guide" },
+      after = { "nvim-treesitter" },
       config = function()
         require("plugins.configs.treesitter").nvim_treesitter_textobjects()
       end,
     },
     -- {
     --   "nvim-treesitter/nvim-treesitter-context",
-    --   after = { "nvim-treesitter", "nvim-lua-guide" },
+    --   after = { "nvim-treesitter" },
     --   config = function()
     --     require("treesitter-context").setup()
     --   end
     -- },
     -- {
     --   "windwp/nvim-ts-autotag",
-    --   after = { "nvim-treesitter", "nvim-lua-guide" },
+    --   after = { "nvim-treesitter" },
     --   config = function()
     --     require("plugins.configs.treesitter").nvim_ts_autotag()
     --   end,
@@ -70,8 +67,6 @@ return {
     },
     {
       "neovim/nvim-lspconfig",
-      -- event = { "BufRead", "BufWinEnter", "BufNewFile", "VimEnter" },
-      -- after = { "nvim-lua-guide" },
       after = { "nvim-treesitter" },
       config = function()
         require("plugins.configs.lsp").lsp()
@@ -83,7 +78,7 @@ return {
       config = function()
         require("symbols-outline").setup()
         vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
-      end
+      end,
     },
     {
       -- config, see: ftplugin/java.lua
@@ -91,14 +86,13 @@ return {
       ft = "java",
       after = { "nvim-lspconfig" },
     },
-    -- {
-    --   "jose-elias-alvarez/null-ls.nvim",
-    --   disable = true,
-    --   after = { "nvim-lua-guide" },
-    --   config = function()
-    --     require("plugins.configs.lsp").null_ls()
-    --   end,
-    -- },
+    {
+      "jose-elias-alvarez/null-ls.nvim",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("plugins.configs.lsp").null_ls()
+      end,
+    },
   },
   {
     -- cmp
@@ -110,31 +104,28 @@ return {
       "hrsh7th/nvim-cmp",
       event = { "InsertEnter" },
       config = function()
-        require("plugins.configs.cmp")
+        require("plugins.configs.cmp").nvim_cmp()
       end,
     },
     {
-      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
       after = { "nvim-cmp" },
-      wants = "friendly-snippets",
-      config = function()
-        require("plugins.configs.cmp").luasnip()
-      end,
-    },
-    {
-      "hrsh7th/cmp-buffer",
-      after = { "nvim-cmp" },
-    },
-    {
-      "hrsh7th/cmp-path",
-      after = { "nvim-cmp" },
+      requires = {
+        "L3MON4D3/LuaSnip",
+        after = { "nvim-cmp" },
+        wants = { "friendly-snippets" },
+        config = function()
+          require("plugins.configs.cmp").luasnip()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
     },
     {
       "hrsh7th/cmp-nvim-lsp",
       after = { "nvim-cmp" },
     },
     {
-      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lua",
       after = { "nvim-cmp" },
     },
     {
@@ -142,6 +133,14 @@ return {
       run = "./install.sh",
       after = { "nvim-cmp" },
       disable = true,
+    },
+    {
+      "hrsh7th/cmp-path",
+      after = { "nvim-cmp" },
+    },
+    {
+      "hrsh7th/cmp-buffer",
+      after = { "nvim-cmp" },
     },
     {
       "windwp/nvim-autopairs",
@@ -173,10 +172,6 @@ return {
     --   "hrsh7th/cmp-cmdline",
     --   after = { "nvim-cmp" },
     -- },
-    -- {
-    -- 	"hrsh7th/cmp-nvim-lua",
-    -- 	after = {"nvim-cmp"},
-    -- },
   },
   {
     -- telescope
@@ -184,17 +179,17 @@ return {
       "nvim-telescope/telescope.nvim",
       module = "telescope",
       cmd = "Telescope",
-      keys = { "<Leader>f", "<Leader>g" },
       config = function()
         require("plugins.configs.telescope").telescope()
       end,
       requires = {
         "nvim-telescope/telescope-fzf-native.nvim",
-        after = { "telescope.nvim" },
+        -- after = { "telescope.nvim" },
+        -- after = { "nvim-treesitter" },
         run = "make",
-        config = function()
-          require("plugins.configs.telescope").telescope_fzf_native()
-        end,
+        -- config = function()
+        --   require("plugins.configs.telescope").telescope_fzf_native()
+        -- end,
       },
     },
     {
@@ -228,7 +223,8 @@ return {
   },
   -- others
   {
-    "catppuccin/nvim", as = "catppuccin",
+    "catppuccin/nvim",
+    as = "catppuccin",
     after = { "nvim-treesitter" },
     config = function()
       require("catppuccin").setup({
@@ -241,10 +237,10 @@ return {
             enabled = true,
             colored_indent_levels = true,
           },
-        }
+        },
       })
       vim.cmd([[colorscheme catppuccin]])
-    end
+    end,
   },
   {
     "folke/tokyonight.nvim",
@@ -261,7 +257,7 @@ return {
     end,
   },
   {
-    'EdenEast/nightfox.nvim',
+    "EdenEast/nightfox.nvim",
     after = { "nvim-treesitter" },
     config = function()
       require("nightfox").setup({
@@ -270,11 +266,11 @@ return {
           styles = {
             comments = "italic",
             functions = "italic,bold",
-          }
+          },
         },
       })
       -- vim.cmd([[colorscheme nightfox]])
-    end
+    end,
   },
   {
     "kyazdani42/nvim-tree.lua",
@@ -301,16 +297,16 @@ return {
       after = { "lualine.nvim" },
       config = function()
         require("scope").setup()
-      end
+      end,
     },
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    after = { "nvim-lua-guide" },
-    -- setup = function()
-      -- vim.g.indent_blankline_char = "┊"
-      -- vim.g.indent_blankline_show_first_indent_level = false
-    -- end,
+    after = { "nvim-treesitter" },
+    setup = function()
+      vim.g.indent_blankline_char = "┊"
+      vim.g.indent_blankline_show_first_indent_level = false
+    end,
     config = function()
       require("indent_blankline").setup({
         show_current_context = true,
@@ -326,14 +322,14 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
-    after = { "nvim-lua-guide" },
+    after = { "nvim-treesitter" },
     config = function()
       require("colorizer").setup()
     end,
   },
   {
     "kylechui/nvim-surround",
-    after = { "nvim-lua-guide" },
+    after = { "nvim-treesitter" },
     config = function()
       require("nvim-surround").setup()
     end,
@@ -350,14 +346,14 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    after = { "nvim-lua-guide" },
+    after = { "nvim-treesitter" },
     config = function()
       require("plugins.configs.misc").gitsigns()
     end,
   },
   {
     "sindrets/diffview.nvim",
-    after = { "nvim-lua-guide" },
+    after = { "nvim-treesitter" },
   },
   {
     "tweekmonster/startuptime.vim",
