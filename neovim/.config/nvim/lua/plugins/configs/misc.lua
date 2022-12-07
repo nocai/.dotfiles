@@ -128,13 +128,6 @@ function M.nvim_test()
     },
   })
 
-  -- TestSuite - run the whole test suite
-  -- TestFile - run all tests for the current file
-  -- TestEdit - edit tests for the current file
-  -- TestNearest - run the test nearest to the cursor
-  -- TestLast - rerun the latest test
-  -- TestVisit - open the last run test in the current buffer
-  -- TestInfo - show an information about the plugin
   vim.keymap.set("n", "<Leader>tt", "<cmd>TestNearest<cr>")
   vim.keymap.set("n", "<Leader>tn", "<cmd>TestNearest<cr>")
   vim.keymap.set("n", "<Leader>tl", "<cmd>TestLast<cr>")
@@ -143,36 +136,6 @@ function M.nvim_test()
   vim.keymap.set("n", "<Leader>tf", "<cmd>TestFile<cr>")
   vim.keymap.set("n", "<Leader>ti", "<cmd>TestInfo<cr>")
   vim.keymap.set("n", "<Leader>te", "<cmd>TestEdit<cr>")
-end
-
-function M.yanky()
-  require("yanky").setup({
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  })
-  require("telescope").load_extension("yank_history")
-
-  vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
-
-  vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-  vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-  vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-  vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-
-  vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
-  vim.keymap.set("n", "<c-j>", "<Plug>(YankyCycleForward)")
-  vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-  vim.keymap.set("n", "<c-k>", "<Plug>(YankyCycleBackward)")
-end
-
-function M.marks()
-  require("marks").setup({
-    mappings = {
-      set_next = "m;",
-      toggle = "m.",
-    }
-  })
 end
 
 return M

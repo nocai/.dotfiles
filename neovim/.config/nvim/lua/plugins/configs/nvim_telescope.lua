@@ -15,16 +15,7 @@ function M.telescope()
         },
       },
     },
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-      },
-    },
   })
-  telescope.load_extension("fzf")
 
   -- keymap
   vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
@@ -34,11 +25,23 @@ function M.telescope()
   vim.keymap.set("n", "<Leader>fo", [[<cmd>Telescope oldfiles<CR>]])
   vim.keymap.set("n", "<Leader>fr", [[<cmd>Telescope resume<CR>]])
 
-  -- stylua: ignore start
   vim.keymap.set("n", "<Leader>gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
   vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
   vim.keymap.set("n", "<Leader>gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
-  -- stylua: ignore end
+end
+
+function M.telescope_fzf_native()
+  require('telescope').setup {
+    extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      }
+    }
+  }
+  require('telescope').load_extension('fzf')
 end
 
 function M.telescope_ui_select()
@@ -64,28 +67,6 @@ function M.telescope_project()
     },
   })
   vim.keymap.set("n", "<Leader>fp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
-end
-
-function M.project()
-  -- projects
-  vim.keymap.set("n", "<Leader>fp", "<cmd>Telescope projects theme=dropdown<CR>")
-  require("project_nvim").setup({
-    show_hidden = true,
-    -- silent_chdir = false,
-    ignore_lsp = { "null-ls" },
-  })
-  require("telescope").load_extension("projects")
-end
-
-function M.todo_comments()
-  require("todo-comments").setup({
-    highlight = {
-      before = "",
-      after = "",
-      keyword = "",
-    },
-  })
-  vim.keymap.set("n", "<Leader>ft", [[<cmd>TodoTelescope<CR>]])
 end
 
 return M

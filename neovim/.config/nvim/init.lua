@@ -6,13 +6,12 @@ require("nvim")
 require("option")
 require("autocmd")
 
-local pp = require("plugins.packer")
+local p = require("plugins.configs.packer")
+local bootstrap = p.ensure_packer()
 
-local packer_bootstrap = pp.ensure_packer()
-
-local packer = pp.init()
+local packer = p.init()
 packer.startup({ require("plugins") })
 
-if packer_bootstrap then
+if bootstrap then
   packer.sync()
 end
