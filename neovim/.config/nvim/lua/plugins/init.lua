@@ -1,13 +1,13 @@
 return {
   {
     -- commons
+    { "nanotee/nvim-lua-guide" },
     { "lewis6991/impatient.nvim" },
     { "wbthomason/packer.nvim", opt = true },
     { "nvim-lua/plenary.nvim", module = "plenary" },
     { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
-    { "nanotee/nvim-lua-guide", after = { "nvim-treesitter" } },
     -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-    { "antoinemadec/FixCursorHold.nvim", after = { "nvim-treesitter" } },
+    { "antoinemadec/FixCursorHold.nvim", event = { "VimEnter" } },
   },
   {
     -- treesitter
@@ -229,7 +229,7 @@ return {
     },
     {
       "folke/tokyonight.nvim",
-      after = { "nvim-treesitter" },
+      event = { "VimEnter" },
       config = function()
         require("tokyonight").setup({
           transparent = true,
@@ -273,13 +273,21 @@ return {
     },
     {
       "hoob3rt/lualine.nvim",
+      -- after = { "tokyonight.nvim" },
       after = { "catppuccin" },
       config = function()
         require("plugins.configs.lualine")
       end,
+    },
+    {
+      "akinsho/bufferline.nvim",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("plugins.configs.bufferline")
+      end,
       requires = {
         "tiagovla/scope.nvim",
-        after = { "lualine.nvim" },
+        after = { "nvim-treesitter" },
         config = function()
           require("scope").setup()
         end,
