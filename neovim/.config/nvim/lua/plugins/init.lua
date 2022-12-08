@@ -210,7 +210,7 @@ return {
     {
       "catppuccin/nvim",
       as = "catppuccin",
-      after = { "nvim-treesitter" },
+      event = { "VimEnter" },
       config = function()
         require("catppuccin").setup({
           transparent_background = true,
@@ -243,7 +243,7 @@ return {
     },
     {
       "EdenEast/nightfox.nvim",
-      after = { "nvim-treesitter" },
+      event = { "VimEnter" },
       config = function()
         require("nightfox").setup({
           options = {
@@ -273,15 +273,14 @@ return {
     },
     {
       "hoob3rt/lualine.nvim",
-      -- after = { "tokyonight.nvim" },
-      after = { "catppuccin" },
+      event = { "UIEnter" },
       config = function()
         require("plugins.configs.lualine")
       end,
     },
     {
       "akinsho/bufferline.nvim",
-      after = { "nvim-treesitter" },
+      event = { "UIEnter" },
       config = function()
         require("plugins.configs.bufferline")
       end,
