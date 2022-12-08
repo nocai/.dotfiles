@@ -7,7 +7,7 @@ return {
     { "nvim-lua/plenary.nvim", module = "plenary" },
     { "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" },
     -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
-    { "antoinemadec/FixCursorHold.nvim", event = { "VimEnter" } },
+    { "antoinemadec/FixCursorHold.nvim", event = { "CursorHold" } },
   },
   {
     -- treesitter
@@ -21,17 +21,18 @@ return {
       end,
     },
     {
-      "p00f/nvim-ts-rainbow",
-      after = { "nvim-treesitter" },
-      config = function()
-        require("plugins.configs.treesitter").nvim_ts_rainbow()
-      end,
-    },
-    {
       "nvim-treesitter/nvim-treesitter-textobjects",
       after = { "nvim-treesitter" },
       config = function()
         require("plugins.configs.treesitter").nvim_treesitter_textobjects()
+      end,
+    },
+    {
+      "p00f/nvim-ts-rainbow",
+      event = { "UIEnter" },
+      config = function()
+        print("rainbow")
+        require("plugins.configs.treesitter").nvim_ts_rainbow()
       end,
     },
     -- {
@@ -74,7 +75,8 @@ return {
     },
     {
       "simrat39/symbols-outline.nvim",
-      after = { "nvim-lspconfig" },
+      keys = { "gO" },
+      cmd = { "SymbolsOutline" },
       config = function()
         require("symbols-outline").setup()
         vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
@@ -88,7 +90,7 @@ return {
     },
     {
       "jose-elias-alvarez/null-ls.nvim",
-      after = { "nvim-treesitter" },
+      ft = { "json", "md", "markdown", "yaml", "go" },
       config = function()
         require("plugins.configs.lsp").null_ls()
       end,
@@ -192,17 +194,17 @@ return {
       end,
     },
     {
+      "nvim-telescope/telescope-project.nvim",
+      after = { "telescope.nvim" },
+      config = function()
+        require("plugins.configs.nvim_telescope").telescope_project()
+      end,
+    },
+    {
       "nvim-telescope/telescope-ui-select.nvim",
       after = { "nvim-lspconfig" },
       config = function()
         require("plugins.configs.nvim_telescope").telescope_ui_select()
-      end,
-    },
-    {
-      "nvim-telescope/telescope-project.nvim",
-      keys = { "<Leader>fp" },
-      config = function()
-        require("plugins.configs.nvim_telescope").telescope_project()
       end,
     },
     --
@@ -224,7 +226,7 @@ return {
             },
           },
         })
-        vim.cmd([[colorscheme catppuccin]])
+        -- vim.cmd([[colorscheme catppuccin]])
       end,
     },
     {
@@ -238,7 +240,7 @@ return {
             floats = "transparent",
           },
         })
-        -- vim.cmd([[colorscheme tokyonight]])
+        vim.cmd([[colorscheme tokyonight]])
       end,
     },
     {
@@ -294,7 +296,7 @@ return {
     },
     {
       "lukas-reineke/indent-blankline.nvim",
-      after = { "nvim-treesitter" },
+      event = { "UIEnter" },
       setup = function()
         vim.g.indent_blankline_char = "┊"
         vim.g.indent_blankline_show_first_indent_level = false
@@ -314,14 +316,20 @@ return {
     },
     {
       "norcalli/nvim-colorizer.lua",
-      after = { "nvim-treesitter" },
+      ft = { "css", "html" },
+      cmd = {
+        "ColorizerAttachToBuffer",
+        "ColorizerDetachFromBuffer",
+        "ColorizerReloadAllBuffers",
+        "ColorizerToggle",
+      },
       config = function()
         require("colorizer").setup()
       end,
     },
     {
       "kylechui/nvim-surround",
-      after = { "nvim-treesitter" },
+      event = { "VimEnter" },
       config = function()
         require("nvim-surround").setup()
       end,
@@ -338,14 +346,22 @@ return {
     },
     {
       "lewis6991/gitsigns.nvim",
-      after = { "nvim-treesitter" },
+      event = { "UIEnter" },
       config = function()
         require("plugins.configs.misc").gitsigns()
       end,
     },
     {
       "sindrets/diffview.nvim",
-      after = { "nvim-treesitter" },
+      cmd = {
+        "DiffviewClose",
+        "DiffviewOpen",
+        "DiffviewFileHistory",
+        "DiffviewToggleFiles",
+        "DiffviewFocusFiles",
+        "DiffviewRefresh",
+        "DiffviewLog",
+      },
     },
     {
       "tweekmonster/startuptime.vim",
