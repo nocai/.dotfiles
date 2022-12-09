@@ -34,13 +34,14 @@ return {
         require("plugins.configs.treesitter").nvim_ts_rainbow()
       end,
     },
-    -- {
-    --   "nvim-treesitter/nvim-treesitter-context",
-    --   after = { "nvim-treesitter" },
-    --   config = function()
-    --     require("treesitter-context").setup()
-    --   end
-    -- },
+    {
+      "nvim-treesitter/nvim-treesitter-context",
+      -- after = { "nvim-treesitter" },
+      event = { "UIEnter" },
+      config = function()
+        require("treesitter-context").setup()
+      end
+    },
     -- {
     --   "windwp/nvim-ts-autotag",
     --   after = { "nvim-treesitter" },
