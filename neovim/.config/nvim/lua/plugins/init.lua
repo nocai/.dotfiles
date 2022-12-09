@@ -85,7 +85,7 @@ return {
       keys = { "gO" },
       cmd = { "SymbolsOutline" },
       config = function()
-        require("symbols-outline").setup()
+        require("plugins.configs.lsp").symbols_outline()
         vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
       end,
     },

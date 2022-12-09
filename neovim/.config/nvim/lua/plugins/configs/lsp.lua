@@ -290,4 +290,38 @@ function M.nvim_navic()
   })
 end
 
+function M.symbols_outline()
+  local icons = require("core.lspkind_icon").codicon
+  require("symbols-outline").setup({
+    symbols = {
+      File = { icon = icons["File"], hl = "NavicIconsFile" },
+      Module = { icon = icons["Module"], hl = "NavicIconsModule" },
+      Namespace = { icon = icons["Namespace"], hl = "NavicIconsNamespace" },
+      Package = { icon = icons["Package"], hl = "NavicIconsModule" },
+      Class = { icon = icons["Class"], hl = "NavicIconsClass" },
+      Method = { icon = icons["Method"], hl = "NavicIconsMethod" },
+      Property = { icon = icons["Property"], hl = "NavicIconsProperty" },
+      Field = { icon = icons["Field"], hl = "NavicIconsField" },
+      Constructor = { icon = icons["Constructor"], hl = "NavicIconsConstructor" },
+      Enum = { icon = icons["Enum"], hl = "NavicIconsEnum" },
+      Interface = { icon = icons["Interface"], hl = "NavicIconsInterface" },
+      Function = { icon = icons["Function"], hl = "NavicIconsFunction" },
+      Variable = { icon = icons["Variable"], hl = "NavicIconsVariable" },
+      Constant = { icon = icons["Constant"], hl = "NavicIconsConstant" },
+      String = { icon = icons["String"], hl = "NavicIconsString" },
+      Number = { icon = icons["Number"], hl = "NavicIconsNumber" },
+      Boolean = { icon = icons["Boolean"], hl = "NavicIconsBoolean" },
+      Array = { icon = icons["Array"], hl = "NavicIconsConstant" },
+      Object = { icon = icons["Object"], hl = "NavicIconsObject" },
+      Key = { icon = icons["Key"], hl = "NavicIconsKey" },
+      Null = { icon = icons["Key"], hl = "NavicIconsKey" },
+      EnumMember = { icon = icons["EnumMember"], hl = "NavicIconsEnumMember" },
+      Struct = { icon = icons["Struct"], hl = "NavicIconsStruct" },
+      Event = { icon = icons["Event"], hl = "NavicIconsEvent" },
+      Operator = { icon = icons["Operator"], hl = "NavicIconsOperator" },
+      TypeParameter = { icon = icons["TypeParameter"], hl = "NavicIconsParameter" }
+    }
+  })
+end
+
 return M
