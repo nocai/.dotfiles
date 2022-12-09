@@ -38,7 +38,7 @@ function LSP_status()
   return "  LSP ~ " .. vim.fn.join(names, "|") .. " "
 end
 
--- local navic = require("nvim-navic")
+local navic = require("nvim-navic")
 
 require("lualine").setup({
   options = { section_separators = '', component_separators = '' },
@@ -54,7 +54,6 @@ require("lualine").setup({
     lualine_c = {
       { "filetype", icon_only = true, separator = "", padding = { left = 1 } },
       { "filename", separator = "|" },
-      -- { navic.get_location, cond = navic.is_available },
       { LSP_progress },
     },
     lualine_x = { { LSP_status } },
@@ -65,5 +64,23 @@ require("lualine").setup({
       { "%p%%", separator = { right = "" } },
     },
   },
+  winbar = {
+    lualine_c = {
+      { "filetype", icon_only = true, separator = "", cond = navic.is_available },
+      { "filename", separator = ">", cond = navic.is_available },
+      { navic.get_location, cond = navic.is_available },
+    },
+  },
+  -- tabline = {
+  --   lualine_b = {
+  --     { "buffers", mod = 2 },
+  --   },
+  --   lualine_y = {
+  --     { "windows" },
+  --   },
+  --   lualine_z = {
+  --     "tabs"
+  --   }
+  -- },
   -- extensions = { "nvim-tree", "quickfix" },
 })

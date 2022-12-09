@@ -8,12 +8,12 @@ require("bufferline").setup({
     offsets = {
       {
         filetype = "NvimTree",
-        text = "File Explorer",
-        highlight = "Directory",
-        text_align = "center",
-        separator = true,
+        -- text = "File Explorer",
+        -- highlight = "Directory",
+        -- text_align = "center",
+        -- separator = true,
       },
     },
-    always_show_bufferline = false,
+    -- always_show_bufferline = false,
   }
 })
