@@ -53,10 +53,13 @@ require("lualine").setup({
     },
     lualine_c = {
       { "filetype", icon_only = true, separator = "", padding = { left = 1 } },
-      { "filename", separator = "|" },
+      { "filename", separator = ">" },
+      { navic.get_location, cond = navic.is_available },
+    },
+    lualine_x = {
+      { LSP_status, separator = "|" },
       { LSP_progress },
     },
-    lualine_x = { { LSP_status } },
     lualine_y = {
       { "%l:%v", icon = "", separator = { left = "" } },
     },
@@ -64,13 +67,13 @@ require("lualine").setup({
       { "%p%%", separator = { right = "" } },
     },
   },
-  winbar = {
-    lualine_c = {
-      { "filetype", icon_only = true, separator = "", cond = navic.is_available },
-      { "filename", separator = ">", cond = navic.is_available },
-      { navic.get_location, cond = navic.is_available },
-    },
-  },
+  -- winbar = {
+  --   lualine_c = {
+  --     { "filetype", icon_only = true, separator = "", cond = navic.is_available },
+  --     { "filename", separator = ">", cond = navic.is_available },
+  --     { navic.get_location, cond = navic.is_available },
+  --   },
+  -- },
   -- tabline = {
   --   lualine_b = {
   --     { "buffers", mod = 2 },
