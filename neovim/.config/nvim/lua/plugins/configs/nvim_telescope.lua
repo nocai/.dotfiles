@@ -16,18 +16,6 @@ function M.telescope()
       },
     },
   })
-
-  -- keymap
-  vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
-  vim.keymap.set("n", "<Leader>fg", [[<cmd>Telescope live_grep<CR>]])
-  vim.keymap.set("n", "<Leader>fb", [[<cmd>Telescope buffers<CR>]])
-  vim.keymap.set("n", "<Leader>fh", [[<cmd>Telescope help_tags<CR>]])
-  vim.keymap.set("n", "<Leader>fo", [[<cmd>Telescope oldfiles<CR>]])
-  vim.keymap.set("n", "<Leader>fr", [[<cmd>Telescope resume<CR>]])
-
-  vim.keymap.set("n", "<Leader>gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
-  vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
-  vim.keymap.set("n", "<Leader>gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
 end
 
 function M.telescope_fzf_native()
@@ -66,7 +54,6 @@ function M.telescope_project()
       },
     },
   })
-  vim.keymap.set("n", "<Leader>fp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
 end
 
 return M

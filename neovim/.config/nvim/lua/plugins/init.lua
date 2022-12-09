@@ -22,7 +22,13 @@ return {
     },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      after = { "nvim-treesitter" },
+      keys = {
+        "[", "]", "<Leader>s", "<Leader>p",
+        { "o", "i" },
+        { "o", "a" },
+        { "v", "i" },
+        { "v", "a" },
+      },
       config = function()
         require("plugins.configs.treesitter").nvim_treesitter_textobjects()
       end,
@@ -36,19 +42,18 @@ return {
     },
     {
       "nvim-treesitter/nvim-treesitter-context",
-      -- after = { "nvim-treesitter" },
       event = { "UIEnter" },
       config = function()
         require("treesitter-context").setup()
       end
     },
-    -- {
-    --   "windwp/nvim-ts-autotag",
-    --   after = { "nvim-treesitter" },
-    --   config = function()
-    --     require("plugins.configs.treesitter").nvim_ts_autotag()
-    --   end,
-    -- },
+    {
+      "windwp/nvim-ts-autotag",
+      ft = { "html", "xml" },
+      config = function()
+        require("plugins.configs.treesitter").nvim_ts_autotag()
+      end,
+    },
   },
   {
     -- lsp
@@ -68,17 +73,21 @@ return {
     },
     {
       "neovim/nvim-lspconfig",
-      after = { "nvim-treesitter" },
+      -- event = { "BufRead", "BufWinEnter", "BufNewFile" },
+      event = { "VimEnter" },
       config = function()
         require("plugins.configs.lsp").lsp()
+        vim.defer_fn(function()
+          vim.cmd [[silent! do FileType]]
+        end, 0)
       end,
-      requires = {
-        "SmiteshP/nvim-navic",
-        module = { "nvim-navic" },
-        config = function()
-          require("plugins.configs.lsp").nvim_navic()
-        end
-      },
+    },
+    {
+      "SmiteshP/nvim-navic",
+      module = { "nvim-navic" },
+      config = function()
+        require("plugins.configs.lsp").nvim_navic()
+      end
     },
     {
       "simrat39/symbols-outline.nvim",
@@ -88,12 +97,6 @@ return {
         require("plugins.configs.lsp").symbols_outline()
         vim.keymap.set("n", "gO", "<cmd>SymbolsOutline<cr>")
       end,
-    },
-    {
-      -- config, see: ftplugin/java.lua
-      "mfussenegger/nvim-jdtls",
-      ft = "java",
-      after = { "nvim-lspconfig" },
     },
     {
       "jose-elias-alvarez/null-ls.nvim",
@@ -188,8 +191,20 @@ return {
       "nvim-telescope/telescope.nvim",
       module = "telescope",
       cmd = "Telescope",
+      keys = { "<Leader>f", "<Leader>g" },
       config = function()
         require("plugins.configs.nvim_telescope").telescope()
+        -- keymap
+        vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
+        vim.keymap.set("n", "<Leader>fg", [[<cmd>Telescope live_grep<CR>]])
+        vim.keymap.set("n", "<Leader>fb", [[<cmd>Telescope buffers<CR>]])
+        vim.keymap.set("n", "<Leader>fh", [[<cmd>Telescope help_tags<CR>]])
+        vim.keymap.set("n", "<Leader>fo", [[<cmd>Telescope oldfiles<CR>]])
+        vim.keymap.set("n", "<Leader>fr", [[<cmd>Telescope resume<CR>]])
+
+        vim.keymap.set("n", "<Leader>gs", [[<cmd>Telescope lsp_document_symbols theme=get_ivy initial_mode=normal<CR>]])
+        vim.keymap.set("n", "<Leader>gr", [[<cmd>Telescope lsp_references theme=get_ivy initial_mode=normal<CR>]])
+        vim.keymap.set("n", "<Leader>gi", [[<cmd>Telescope lsp_implementations theme=get_ivy initial_mode=normal<CR>]])
       end,
     },
     {
@@ -202,16 +217,18 @@ return {
     },
     {
       "nvim-telescope/telescope-project.nvim",
-      after = { "telescope.nvim" },
+      keys = { "<Leader>fp" },
       config = function()
         require("plugins.configs.nvim_telescope").telescope_project()
+        vim.keymap.set("n", "<Leader>fp", "<cmd>lua require'telescope'.extensions.project.project{}<CR>")
       end,
     },
     {
       "nvim-telescope/telescope-ui-select.nvim",
-      after = { "nvim-lspconfig" },
+      keys = { "<Leader>g" },
       config = function()
         require("plugins.configs.nvim_telescope").telescope_ui_select()
+        vim.keymap.set({ "n", "v" }, "<Leader>ga", vim.lsp.buf.code_action)
       end,
     },
     --
@@ -295,7 +312,7 @@ return {
       end,
       requires = {
         "tiagovla/scope.nvim",
-        after = { "nvim-treesitter" },
+        after = { "bufferline.nvim" },
         config = function()
           require("scope").setup()
         end,

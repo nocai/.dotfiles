@@ -67,8 +67,8 @@ capabilities.textDocument.completion.completionItem = {
 
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float)
+vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
 
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -90,7 +90,7 @@ local function on_attach(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, opts)
 
-  -- vim.keymap.set("n", "gn", vim.lsp.buf.rename, opts)
+  -- vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<Leader>rn", function()
     require("core.renamer").open()
   end, opts)
@@ -98,7 +98,7 @@ local function on_attach(client, bufnr)
   vim.keymap.set("n", "gq", function()
     vim.lsp.buf.format({ async = true })
   end, opts)
-  vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, opts)
+  -- vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts)
 
   -- print(vim.inspect(client.server_capabilities))
   if client.server_capabilities.documentHighlightProvider then
@@ -229,6 +229,7 @@ function M.lsp()
   lspconfig["sumneko_lua"].setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    filetypes = {"lua"},
 
     cmd = { "lua-language-server" },
     settings = {
