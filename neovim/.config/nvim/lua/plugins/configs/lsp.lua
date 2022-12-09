@@ -129,6 +129,9 @@ local function on_attach(client, bufnr)
     vim.keymap.set("n", "<Leader>cr", vim.lsp.codelens.run, opts)
   end
 
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
   -- vim.api.nvim_create_autocmd("CursorHold", {
   -- 	buffer = bufnr,
   -- 	callback = function()
@@ -273,6 +276,17 @@ function M.null_ls()
       ls.builtins.diagnostics.markdownlint,
       ls.builtins.diagnostics.yamllint,
     },
+  })
+end
+
+function M.nvim_navic()
+  local icons = {}
+  for key, value in pairs(require("core.lspkind_icon").codicon) do
+    icons[key] = value .. ' '
+  end
+  require("nvim-navic").setup({
+    icons = icons,
+    highlight = true,
   })
 end
 

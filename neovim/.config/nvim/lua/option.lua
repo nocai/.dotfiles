@@ -78,6 +78,8 @@ vim.opt.wrap = false
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+vim.o.winbar = "%{% ' ' .. v:lua.require'nvim-navic'.get_location()%}"
+
 -- disable distribution plugins
 -- stylua: ignore start
 vim.g.loaded_gzip              = 1

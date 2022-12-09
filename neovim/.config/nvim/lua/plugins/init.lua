@@ -31,7 +31,6 @@ return {
       "p00f/nvim-ts-rainbow",
       event = { "UIEnter" },
       config = function()
-        print("rainbow")
         require("plugins.configs.treesitter").nvim_ts_rainbow()
       end,
     },
@@ -72,6 +71,13 @@ return {
       config = function()
         require("plugins.configs.lsp").lsp()
       end,
+      requires = {
+        "SmiteshP/nvim-navic",
+        module = { "nvim-navic" },
+        config = function()
+          require("plugins.configs.lsp").nvim_navic()
+        end
+      },
     },
     {
       "simrat39/symbols-outline.nvim",

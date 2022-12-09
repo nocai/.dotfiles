@@ -40,14 +40,17 @@ M.icons = {
 
 M.codicon = {
   Text          = "",
+  Key           = '',
   Method        = "",
   Function      = '',
-  Constructor   = '',
+  Constructor   = '',
+  Package       = '',
   Field         = '',
   Variable      = '',
   Class         = '',
   Interface     = '',
   Module        = '',
+  Namespace     = '',
   Property      = '',
   Unit          = '',
   Value         = '',
@@ -66,7 +69,7 @@ M.codicon = {
   TypeParameter = '',
 
   Table    = "",
-  Object   = "",
+  Object   = "",
   Tag      = "",
   Array    = "",
   Boolean  = "",
