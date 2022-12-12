@@ -6,7 +6,6 @@ require("nvim-tree").setup({
   hijack_cursor = true,
 
   reload_on_bufenter = true,
-  create_in_closed_folder = true,
   diagnostics = nvim.diagnostics,
 
   respect_buf_cwd = true,
