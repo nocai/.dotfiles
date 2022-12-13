@@ -432,5 +432,11 @@ return {
         { "v", "aI" },
       },
     },
+    {
+      'declancm/cinnamon.nvim',
+      config = function()
+        require('cinnamon').setup()
+      end
+    },
   },
 }
