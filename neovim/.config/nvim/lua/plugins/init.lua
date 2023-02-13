@@ -225,10 +225,10 @@ return {
     },
     {
       "nvim-telescope/telescope-ui-select.nvim",
-      keys = { "<Leader>g" },
+      keys = { "<Leader>ca" },
       config = function()
         require("plugins.configs.nvim_telescope").telescope_ui_select()
-        vim.keymap.set({ "n", "v" }, "<Leader>ga", vim.lsp.buf.code_action)
+        vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action)
       end,
     },
     --
