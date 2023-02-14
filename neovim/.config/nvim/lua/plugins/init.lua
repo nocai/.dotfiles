@@ -198,7 +198,7 @@ return {
         vim.keymap.set("n", "<Leader>ff", [[<cmd>Telescope find_files<CR>]])
         vim.keymap.set("n", "<Leader>fg", [[<cmd>Telescope live_grep<CR>]])
         vim.keymap.set("n", "<Leader>fb", [[<cmd>Telescope buffers<CR>]])
-        vim.keymap.set("n", "<Leader>fh", [[<cmd>Telescope help_tags<CR>]])
+        vim.keymap.set("n", "<Leader>ft", [[<cmd>Telescope help_tags<CR>]])
         vim.keymap.set("n", "<Leader>fo", [[<cmd>Telescope oldfiles<CR>]])
         vim.keymap.set("n", "<Leader>fr", [[<cmd>Telescope resume<CR>]])
 
