@@ -7,3 +7,5 @@ local opt = vim.opt
 opt.pumblend = 0
 opt.list = false
 opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←" --,space:⋅"
+
+opt.updatetime = 250

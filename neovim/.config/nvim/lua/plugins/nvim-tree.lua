@@ -1,29 +1,8 @@
 return {
 	{
-		"windwp/nvim-spectre",
-		enabled = false,
-	},
-	{
-		"ggandor/flit.nvim",
-		enabled = false
-	},
-	{
-		"folke/trouble.nvim",
-		enabled = false
-	},
-	{
-		"telescope.nvim",
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-			config = function()
-				require("telescope").load_extension("fzf")
-			end,
-		},
-	},
-	{
 		"kyazdani42/nvim-tree.lua",
 		enabled = false,
+		cond = not vim.g.vscode,
 		keys = {
 			{ "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "NvimTree find file toggle" },
 		},
@@ -63,9 +42,4 @@ return {
 			}
 		end
 	},
-	{
-		"folke/which-key.nvim",
-		enabled = false,
-	}
-
 }

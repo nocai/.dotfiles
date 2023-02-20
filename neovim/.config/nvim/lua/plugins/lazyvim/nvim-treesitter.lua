@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		cond = not vim.g.vscode,
 		-- disable default keys
 		keys = function()
 			return {}
@@ -16,7 +17,6 @@ return {
 				enable = false,
 			},
 			textobjects = {
-				enable = false,
 				select = {
 					enable = true,
 					-- Automatically jump forward to textobj, similar to targets.vim
