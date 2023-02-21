@@ -6,7 +6,7 @@ return {
 		{ "antoinemadec/FixCursorHold.nvim", event = { "CursorHold" } },
 		{
 			"EdenEast/nightfox.nvim",
-			cond = not vim.g.vscode,
+			enabled = not vim.g.vscode,
 			opts = {
 				options = {
 					transparent = true,
@@ -22,7 +22,7 @@ return {
 	-- util
 	{
 		"sindrets/diffview.nvim",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		cmd = {
 			"DiffviewClose",
 			"DiffviewOpen",
@@ -42,14 +42,13 @@ return {
 	},
 	{
 		"junegunn/vim-easy-align",
-		cond = not vim.g.vscode,
 		keys = {
-			{ "<leader>gq", "<Plug>(EasyAlign)", mode = { "n", "x" }, desc = "Vim easy align" },
+			{ "<leader>cF", "<Plug>(EasyAlign)", mode = { "n", "x" }, desc = "Vim easy align" },
 		},
 	},
 	{
 		"thinca/vim-quickrun",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		keys = {
 			{ "<leader>rr", "<Plug>(quickrun)", desc = "Code runner" },
 		},
@@ -60,7 +59,7 @@ return {
 	},
 	{
 		"vim-test/vim-test",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		keys = {
 			{ "<leader>tt", "<cmd>TestNearest<CR>", desc = "Test nearest" },
 			{ "<leader>tf", "<cmd>TestFile<CR>",    desc = "Test file" },
@@ -74,7 +73,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		ft = {
 			"html",
 			"xml",
@@ -93,7 +92,7 @@ return {
 	},
 	{
 		"p00f/nvim-ts-rainbow",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		event = { "VeryLazy" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
@@ -116,6 +115,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		keys = { [[<C-\>]] },
+		enabled = not vim.g.vscode,
 		opts = {
 			open_mapping = [[<C-\>]], -- [[<C-Space>]] }, -- mapping to <C-`>
 			direction = "float",

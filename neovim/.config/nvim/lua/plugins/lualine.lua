@@ -50,7 +50,7 @@ end
 return {
 	{
 		"nvim-lualine/lualine.nvim",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		opts = function(plugin)
 			return {
 				options = {
@@ -81,12 +81,12 @@ return {
 						{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
 						{ "filename", path = 1,         separator = ">" },
 						-- stylua: ignore
-						{
-							function() return require("nvim-navic").get_location() end,
-							cond = function()
-								return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-							end,
-						},
+						-- {
+						-- 	function() return require("nvim-navic").get_location() end,
+						-- 	cond = function()
+						-- 		return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+						-- 	end,
+						-- },
 					},
 					lualine_x = {
 						{ LSP_status,  separator = "|" },

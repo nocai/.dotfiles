@@ -11,7 +11,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 return {
 	{
 		"neovim/nvim-lspconfig",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		opts = {
 			servers = {
 				jsonls = false,
@@ -24,35 +24,37 @@ return {
 			}
 		},
 		init = function(_, opts)
-			local keys = require("lazyvim.plugins.lsp.keymaps").get()
-			keys[#keys + 1] = { "gr", false }
-			keys[#keys + 1] = {
-				"<leader>gr",
+			local keys = require("lazyvim.config").map_keys
+
+			local keymaps = require("lazyvim.plugins.lsp.keymaps").get()
+			keymaps[#keymaps + 1] = { "gr", false }
+			keymaps[#keymaps + 1] = {
+				keys.GotoReferences,
 				"<cmd>Telescope lsp_references theme=get_ivy<cr>",
 				desc = "References",
 			}
 
-			keys[#keys + 1] = { "gt", false }
-			keys[#keys + 1] = {
-				"gy",
+			keymaps[#keymaps + 1] = { "gt", false }
+			keymaps[#keymaps + 1] = {
+				keys.GotoTypeDefinition,
 				"<cmd>Telescope lsp_type_definitions<cr>",
 				desc = "Goto Type Definition",
 			}
 
-			keys[#keys + 1] = {
-				"<leader>gs",
+			keymaps[#keymaps + 1] = {
+				keys.GotoSymbols,
 				"<cmd>Telescope lsp_document_symbols theme=get_ivy<cr>",
 				desc = "Document symbols"
 			}
 
-			keys[#keys + 1] = { "gI", false }
-			keys[#keys + 1] = {
-				"<leader>gi",
+			keymaps[#keymaps + 1] = { "gI", false }
+			keymaps[#keymaps + 1] = {
+				keys.GotoImplementation,
 				"<cmd>Telescope lsp_implementations theme=get_ivy<cr>",
 				desc = "Implementations"
 			}
 
-			keys[#keys + 1] = { "<leader>gR", "<cmd>Telescope resume<cr>", desc = "Resume" }
+			keymaps[#keymaps + 1] = { "<leader>gR", "<cmd>Telescope resume<cr>", desc = "Resume" }
 		end,
 	},
 }

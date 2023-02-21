@@ -2,8 +2,14 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
-    lazypath })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
@@ -13,6 +19,27 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       opts = {
         colorscheme = "tokyonight",
+        map_keys = {
+          Explorer = "<leader><space>",
+
+          GotoDefinition = "gd",
+          PeekDefinition = "gD",
+
+          GotoTypeDefinition = "gy",
+          PeekTypeDefinition = "gY",
+
+          GotoImplementation = "gI",
+          PeekImplementation = "<leader>gI",
+
+          GotoReferences = "<leader>gr",
+          GotoSymbols = "<leader>gs",
+          CodeActions = "<leader>ca",
+          FormatDocument = "<leader>cf",
+          Rename = "<leader>cr",
+
+          DiagnosticPrev = "[d",
+          DiagnosticNext = "]d",
+        }
       },
       import = "lazyvim.plugins",
     },
@@ -31,7 +58,8 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "catppuccin" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  ui = { border = "rounded" },
+  -- checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins

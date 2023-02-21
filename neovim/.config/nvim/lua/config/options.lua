@@ -8,4 +8,4 @@ opt.pumblend = 0
 opt.list = false
 opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←" --,space:⋅"
 
-opt.updatetime = 250
+opt.timeoutlen = 1000

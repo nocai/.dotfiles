@@ -1,7 +1,7 @@
 return {
 	{
 		"akinsho/bufferline.nvim",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		opts = {
 			options = {
 				indicator = {

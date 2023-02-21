@@ -2,7 +2,6 @@ return {
 	-- tokyonight
 	{
 		"folke/tokyonight.nvim",
-		-- cond = not vim.g.vscode,
 		opts = {
 			transparent = true,
 			styles = {
@@ -14,7 +13,7 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		opts = {
 			transparent_background = true,
 			integrations = {

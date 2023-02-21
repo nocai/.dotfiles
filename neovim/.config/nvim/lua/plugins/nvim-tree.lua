@@ -2,7 +2,6 @@ return {
 	{
 		"kyazdani42/nvim-tree.lua",
 		enabled = false,
-		cond = not vim.g.vscode,
 		keys = {
 			{ "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "NvimTree find file toggle" },
 		},

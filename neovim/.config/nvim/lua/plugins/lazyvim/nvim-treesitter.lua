@@ -1,7 +1,6 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		cond = not vim.g.vscode,
 		-- disable default keys
 		keys = function()
 			return {}
@@ -11,6 +10,7 @@ return {
 				"lua"
 			},
 			highlight = {
+				enable = not vim.g.vscode,
 				additional_vim_regex_highlighting = false,
 			},
 			incremental_selection = {
@@ -91,7 +91,7 @@ return {
 					},
 				},
 				lsp_interop = {
-					enable = true,
+					enable = not vim.g.vscode,
 					border = "rounded",
 					peek_definition_code = {
 						["<leader>pf"] = "@function.outer",

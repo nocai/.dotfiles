@@ -1,7 +1,7 @@
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		cond = not vim.g.vscode,
+		enabled = not vim.g.vscode,
 		opts = {
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
