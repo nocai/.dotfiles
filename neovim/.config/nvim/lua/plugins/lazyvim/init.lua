@@ -25,18 +25,22 @@ return {
 		"folke/noice.nvim",
 		enabled = false
 	},
-	{
-		"SmiteshP/nvim-navic",
-		enabled = false
-	},
 
 	-- by enabled
+	{
+		"SmiteshP/nvim-navic",
+		enabled = not vim.g.vscode
+	},
 	{
 		"L3MON4D3/LuaSnip",
 		enabled = not vim.g.vscode
 	},
 	{
 		"echasnovski/mini.pairs",
+		enabled = not vim.g.vscode,
+	},
+	{
+		"echasnovski/mini.indentscope",
 		enabled = not vim.g.vscode,
 	},
 	{

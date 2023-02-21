@@ -19,27 +19,6 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       opts = {
         colorscheme = "tokyonight",
-        map_keys = {
-          Explorer = "<leader><space>",
-
-          GotoDefinition = "gd",
-          PeekDefinition = "gD",
-
-          GotoTypeDefinition = "gy",
-          PeekTypeDefinition = "gY",
-
-          GotoImplementation = "gI",
-          PeekImplementation = "<leader>gI",
-
-          GotoReferences = "<leader>gr",
-          GotoSymbols = "<leader>gs",
-          CodeActions = "<leader>ca",
-          FormatDocument = "<leader>cf",
-          Rename = "<leader>cr",
-
-          DiagnosticPrev = "[d",
-          DiagnosticNext = "]d",
-        }
       },
       import = "lazyvim.plugins",
     },

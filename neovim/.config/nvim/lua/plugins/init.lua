@@ -98,9 +98,6 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
-			local util = require("lazyvim.util")
-			local opts = util.opts("nvim-lspconfig")
-			print(vim.inspect(opts))
 			require("nvim-treesitter.configs").setup({
 				rainbow = {
 					enable = true,

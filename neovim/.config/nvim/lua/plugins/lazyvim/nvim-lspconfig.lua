@@ -24,32 +24,30 @@ return {
 			}
 		},
 		init = function(_, opts)
-			local keys = require("lazyvim.config").map_keys
-
 			local keymaps = require("lazyvim.plugins.lsp.keymaps").get()
 			keymaps[#keymaps + 1] = { "gr", false }
 			keymaps[#keymaps + 1] = {
-				keys.GotoReferences,
+				ivim.lsp_keys.GotoReferences,
 				"<cmd>Telescope lsp_references theme=get_ivy<cr>",
 				desc = "References",
 			}
 
 			keymaps[#keymaps + 1] = { "gt", false }
 			keymaps[#keymaps + 1] = {
-				keys.GotoTypeDefinition,
+				ivim.lsp_keys.GotoTypeDefinition,
 				"<cmd>Telescope lsp_type_definitions<cr>",
 				desc = "Goto Type Definition",
 			}
 
 			keymaps[#keymaps + 1] = {
-				keys.GotoSymbols,
+				ivim.lsp_keys.GotoSymbols,
 				"<cmd>Telescope lsp_document_symbols theme=get_ivy<cr>",
 				desc = "Document symbols"
 			}
 
 			keymaps[#keymaps + 1] = { "gI", false }
 			keymaps[#keymaps + 1] = {
-				keys.GotoImplementation,
+				ivim.lsp_keys.GotoImplementation,
 				"<cmd>Telescope lsp_implementations theme=get_ivy<cr>",
 				desc = "Implementations"
 			}

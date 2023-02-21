@@ -4,11 +4,11 @@
 
 local keymap = vim.keymap
 
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
 keymap.del("n", "<S-h>")
 keymap.del("n", "<S-l>")
 
+
+keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
@@ -22,21 +22,25 @@ if jit.os == "OSX" then
 end
 
 if vim.g.vscode then
-	local keys = require("lazyvim.config").map_keys
-
 	keymap.set("n", "<leader>ff", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-	keymap.set("n", keys.Explorer, "<Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>")
+	keymap.set("n", ivim.lsp_keys.Explorer,
+		"<Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>")
 
-	keymap.set({ "n", "x" }, keys.GotoReferences, "<Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>")
-	keymap.set({ "n", "x" }, keys.CodeActions, "<Cmd>call VSCodeNotify('editor.action.quickFix')<CR>")
-	keymap.set({ "n", "x" }, keys.Rename, "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.GotoReferences,
+		"<Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.CodeActions, "<Cmd>call VSCodeNotify('editor.action.quickFix')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.Rename, "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
 
-	keymap.set({ "n", "x" }, keys.GotoTypeDefinition, "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
-	keymap.set({ "n", "x" }, keys.PeekTypeDefinition, "<Cmd>call VSCodeNotify('editor.action.peekTypeDefinition')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.GotoTypeDefinition,
+		"<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.PeekTypeDefinition,
+		"<Cmd>call VSCodeNotify('editor.action.peekTypeDefinition')<CR>")
 
-	keymap.set({ "n", "x" }, keys.GotoImplementation, "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
-	keymap.set({ "n", "x" }, keys.PeekImplementation, "<Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.GotoImplementation,
+		"<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.PeekImplementation,
+		"<Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>")
 
-	keymap.set({ "n", "x" }, keys.DiagnosticPrev, "<Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>")
-	keymap.set({ "n", "x" }, keys.DiagnosticNext, "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticPrev, "<Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>")
+	keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticNext, "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
 end

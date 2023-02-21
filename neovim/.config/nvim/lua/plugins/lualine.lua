@@ -39,14 +39,6 @@ function LSP_status()
 	return "  LSP ~ " .. vim.fn.join(names, "|") .. " "
 end
 
-local function fg(name)
-	return function()
-		---@type {foreground?:number}?
-		local hl = vim.api.nvim_get_hl_by_name(name, true)
-		return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
-	end
-end
-
 return {
 	{
 		"nvim-lualine/lualine.nvim",
@@ -81,12 +73,12 @@ return {
 						{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
 						{ "filename", path = 1,         separator = ">" },
 						-- stylua: ignore
-						-- {
-						-- 	function() return require("nvim-navic").get_location() end,
-						-- 	cond = function()
-						-- 		return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-						-- 	end,
-						-- },
+						{
+							function() return require("nvim-navic").get_location() end,
+							cond = function()
+								return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+							end,
+						},
 					},
 					lualine_x = {
 						{ LSP_status,  separator = "|" },

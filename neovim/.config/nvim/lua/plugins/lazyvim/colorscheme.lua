@@ -8,7 +8,14 @@ return {
 				sidebars = "transparent",
 				floats = "transparent",
 			},
-		},
+			on_colors = function(colors)
+				local opts = require("lazyvim.util").opts("tokyonight.nvim")
+				if opts.transparent then
+					-- statusline 透明
+					colors.bg_statusline = colors.none
+				end
+			end,
+		}
 	},
 	{
 		"catppuccin/nvim",
