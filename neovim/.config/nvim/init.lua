@@ -15,7 +15,8 @@ _G.ivim = {
 		DiagnosticPrev = "[d",
 		DiagnosticNext = "]d",
 	},
-	is_vscode = vim.g.vscode == 1
+	is_vscode = vim.g.vscode == 1,
+	git_proxy_prefix = "https://ghproxy.com/",
 }
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")

@@ -27,6 +27,9 @@ require("lazy").setup({
     -- 自己的配置文件目录
     { import = "plugins" },
   },
+  -- git = {
+    -- url_format = "https://github.com/%s.git"
+  -- },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

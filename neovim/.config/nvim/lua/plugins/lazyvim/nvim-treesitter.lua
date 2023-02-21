@@ -100,5 +100,14 @@ return {
 				},
 			}
 		},
+		config = function(_, opts)
+			require("nvim-treesitter.configs").setup(opts)
+			-- I want to use Git instead of curl for downloading the parsers
+			require("nvim-treesitter.install").prefer_git = true
+			-- I want to use a mirror instead of "https://github.com/"
+			for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+				config.install_info.url = ivim.git_proxy_prefix .. config.install_info.url
+			end
+		end
 	}
 }
