@@ -8,6 +8,16 @@ return {
 					icon = '⏽',
 				},
 				separator_style = { '', '' },
+				offsets = {
+					{
+						filetype = "neo-tree",
+						text = "",
+					},
+                    {
+                        filetype = "NvimTree",
+						text = ""
+					}
+				},
 			}
 		},
 		dependencies = {

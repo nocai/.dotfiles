@@ -29,29 +29,8 @@ return {
 						["af"] = "@function.outer",
 						["ic"] = "@class.inner",
 						["ac"] = "@class.outer",
+						["as"] = { query = "@scope", query_group = "locals" },
 					},
-					-- You can choose the select mode (default is charwise 'v')
-					--
-					-- Can also be a function which gets passed a table with the keys
-					-- * query_string: eg '@function.inner'
-					-- * method: eg 'v' or 'o'
-					-- and should return the mode ('v', 'V', or '<c-v>') or a table
-					-- mapping query_strings to modes.
-					selection_modes = {
-						["@parameter.outer"] = "v", -- charwise
-						["@function.outer"] = "V", -- linewise
-						["@class.outer"] = "<c-v>", -- blockwise
-					},
-					-- If you set this to `true` (default is `false`) then any textobject is
-					-- extended to include preceding or succeeding whitespace. Succeeding
-					-- whitespace has priority in order to act similarly to eg the built-in
-					-- `ap`.
-					--
-					-- Can also be a function which gets passed a table with the keys
-					-- * query_string: eg '@function.inner'
-					-- * selection_mode: eg 'v'
-					-- and should return true of false
-					include_surrounding_whitespace = true,
 				},
 				move = {
 					enable = true,
@@ -61,24 +40,28 @@ return {
 						["]f"] = "@function.outer",
 						["]c"] = "@class.outer",
 						["]]"] = "@class.outer",
+						["]s"] = { query = "@scope", query_group = "locals" },
 					},
 					goto_next_end = {
 						["]A"] = "@parameter.outer",
 						["]F"] = "@function.outer",
 						["]C"] = "@class.outer",
 						["]["] = "@class.outer",
+						["]S"] = { query = "@scope", query_group = "locals" },
 					},
 					goto_previous_start = {
 						["[a"] = "@parameter.outer",
 						["[f"] = "@function.outer",
 						["[c"] = "@class.outer",
 						["[["] = "@class.outer",
+						["[s"] = { query = "@scope", query_group = "locals" },
 					},
 					goto_previous_end = {
 						["[A"] = "@parameter.outer",
 						["[F"] = "@function.outer",
 						["[C"] = "@class.outer",
 						["[]"] = "@class.outer",
+						["[S"] = { query = "@scope", query_group = "locals" },
 					},
 				},
 				swap = {
@@ -108,6 +91,47 @@ return {
 			for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
 				config.install_info.url = ivim.git_proxy_prefix .. config.install_info.url
 			end
+
+			-- Repeat movement with ; and ,
+			-- ensure ; goes forward and , goes backward regardless of the last direction
+			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+			vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+			vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+		end,
+		dependencies = {
+			{
+				"p00f/nvim-ts-rainbow",
+				enabled = not vim.g.vscode,
+				config = function()
+					require("nvim-treesitter.configs").setup({
+						rainbow = {
+							enable = true,
+							extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+							max_file_lines = nil, -- Do not enable for files with more than n lines, int
+							-- colors = {}, -- table of hex strings
+							-- termcolors = {} -- table of colour name strings
+						},
+					})
+				end
+			},
+		}
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		enabled = not vim.g.vscode,
+		ft = {
+			"html",
+			"xml",
+		},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				autotag = {
+					enable = true,
+				},
+			})
 		end
-	}
+	},
 }

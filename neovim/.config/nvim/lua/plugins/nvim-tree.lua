@@ -1,9 +1,9 @@
 return {
 	{
 		"kyazdani42/nvim-tree.lua",
-		enabled = false,
+		enabled = true,
 		keys = {
-			{ "<leader><leader>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "NvimTree find file toggle" },
+			{ "<leader><space>", "<cmd>NvimTreeFindFileToggle<CR>", desc = "NvimTree find file toggle" },
 		},
 		opts = function()
 			-- auto close last windows in the tab

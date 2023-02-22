@@ -9,3 +9,4 @@ opt.list = false
 opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←" --,space:⋅"
 
 opt.timeoutlen = 1000
+-- opt.laststatus = 2

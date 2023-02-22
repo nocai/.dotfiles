@@ -42,7 +42,8 @@ end
 return {
 	{
 		"nvim-lualine/lualine.nvim",
-		enabled = not vim.g.vscode,
+		-- enabled = not vim.g.vscode,
+		enabled = false,
 		opts = function(plugin)
 			return {
 				options = {
@@ -71,7 +72,7 @@ return {
 					},
 					lualine_c = {
 						{ "filetype", icon_only = true, separator = "", padding = { left = 1 } },
-						{ "filename", path = 1,         separator = ">" },
+						{ "filename", separator = ">" },
 						-- stylua: ignore
 						{
 							function() return require("nvim-navic").get_location() end,
