@@ -1,7 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
-  -- stylua: ignore
   vim.fn.system({
     "git",
     "clone",
@@ -15,24 +14,24 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
+    { "folke/lazy.nvim",      version = "*", },
+    { "nvim-lua/plenary.nvim" },
     {
-      "LazyVim/LazyVim",
-      opts = {
-        colorscheme = "tokyonight",
-      },
-      import = "lazyvim.plugins",
+      "nanotee/nvim-lua-guide",
+      event = "VeryLazy",
+      enabled = not vim.g.vscode,
     },
-    -- 用于覆盖LazyVim原有的配置
-    { import = "plugins.lazyvim" },
-    -- 自己的配置文件目录
+    {
+      "nvim-tree/nvim-web-devicons",
+      enabled = not vim.g.vscode,
+    },
+    -- 插件目录
     { import = "plugins" },
   },
   -- git = {
   -- url_format = "https://github.com/%s.git"
   -- },
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
     lazy = true,
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
     -- have outdated releases, which may break your Neovim install.
@@ -40,7 +39,11 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "catppuccin" } },
-  ui = { border = "rounded" },
+  ui = {
+    border = "rounded",
+    custom_keys = {
+    }
+  },
   -- checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {

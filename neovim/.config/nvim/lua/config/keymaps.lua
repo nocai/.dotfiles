@@ -4,13 +4,59 @@
 
 local keymap = vim.keymap
 
-keymap.del("n", "<S-h>")
-keymap.del("n", "<S-l>")
-
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
+
+-- better up/down
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- windows
+vim.keymap.set("n", "<M-h>", "<C-w><C-h>", { desc = "Go to left window" })
+vim.keymap.set("n", "<M-j>", "<C-w><C-j>", { desc = "Go to lower window" })
+vim.keymap.set("n", "<M-k>", "<C-w><C-k>", { desc = "Go to upper window" })
+vim.keymap.set("n", "<M-l>", "<C-w><C-l>", { desc = "Go to right window" })
+
+-- Resize window
+keymap.set("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+keymap.set("n", "<Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+keymap.set("n", "<Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+keymap.set("n", "<Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+-- buffers
+keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+
+-- Clear search with <esc>
+keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- Add undo break-points
+keymap.set("i", ",", ",<c-g>u")
+keymap.set("i", ".", ".<c-g>u")
+keymap.set("i", ";", ";<c-g>u")
+
+-- save file
+keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- lazy
+keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+
+keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+
+-- local Util = require("util")
+-- -- lazygit
+keymap.set("n", "<leader>gg",
+  function() require("config.lazy.util").float_term({ "lazygit" }, { cwd = require("plugins.telescope.util").get_root() }) end,
+  { desc = "Lazygit (root dir)" })
+keymap.set("n", "<leader>gG", function() require("config.lazy.util").float_term({ "lazygit" }) end,
+  { desc = "Lazygit (cwd)" })
+
+-- toggle
+keymap.set("n", [[\d]], require("plugins.lsp.util").toggle_diagnostics, { desc = "Toggle Diagnostics" })
+keymap.set("n", [[\f]], require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+
 
 if jit.os == "OSX" then
   -- Resize window using <ctrl> arrow keys

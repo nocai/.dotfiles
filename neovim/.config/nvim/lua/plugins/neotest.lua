@@ -1,5 +1,3 @@
-local adapters_gen = {}
-
 return {
   {
     "nvim-neotest/neotest",
@@ -48,39 +46,35 @@ return {
         desc = "Neotest(Re-run the last position)",
       },
     },
-    opts = function()
-      local adapters = {}
-      for _, gen in ipairs(adapters_gen) do
-        table.insert(adapters, gen())
-      end
-      return { adapters = adapters }
-    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
     },
-  },
-  -- 下面为neotest adapter的配置
-  -- 注意懒加载问题
-  {
-    "nvim-neotest/neotest-go",
-    ft = "go",
     config = function()
-      table.insert(adapters_gen, function()
-        return require("neotest-go")
-      end)
+      require("neotest").setup({
+        adapters = {
+          require("neotest-go"),
+        },
+      })
     end,
   },
   {
+    "nvim-neotest/neotest-go",
+    enabled = not vim.g.vscode,
+    ft = "go",
+  },
+  {
     "rouge8/neotest-rust",
-    ft = "rust",
+    enabled = not vim.g.vscode,
     config = function()
-      table.insert(adapters_gen, function()
-        return require("neotest-rust")({
-          args = { "--no-capture" },
-        })
-      end)
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rust")({
+            args = { "--no-capture" },
+          }),
+        },
+      })
     end,
   },
 }
