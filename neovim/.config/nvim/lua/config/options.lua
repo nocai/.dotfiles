@@ -3,10 +3,12 @@
 -- Add any additional options here
 
 local opt = vim.opt
+-- opt.statusline = "%!v:lua.require('config.statusline').run()"
 
 opt.pumblend = 0
 opt.list = false
-opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←" --,space:⋅"
 
 opt.timeoutlen = 1000
--- opt.laststatus = 2
+
+opt.showmode = true -- Dont show mode since we have a statusline
+opt.laststatus = 2
