@@ -9,11 +9,11 @@ return {
         floats = "transparent",
       },
       on_colors = function(colors)
-        local opts = require("config.lazy.util").opts("tokyonight.nvim")
-        if opts.transparent then
-          -- statusline 透明
-          colors.bg_statusline = colors.none
-        end
+        -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
+        -- if opts.transparent then
+        -- statusline 透明
+        colors.bg_statusline = colors.none
+        -- end
       end,
     },
   },

@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
-    { "folke/lazy.nvim",      version = "*", },
+    { "folke/lazy.nvim", version = "*" },
     { "nvim-lua/plenary.nvim" },
     {
       "nanotee/nvim-lua-guide",
@@ -41,8 +41,7 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight", "catppuccin" } },
   ui = {
     border = "rounded",
-    custom_keys = {
-    }
+    custom_keys = {},
   },
   -- checker = { enabled = true }, -- automatically check for plugin updates
   performance = {

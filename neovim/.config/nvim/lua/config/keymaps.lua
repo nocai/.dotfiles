@@ -12,10 +12,10 @@ keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true }
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- windows
-vim.keymap.set("n", "<M-h>", "<C-w><C-h>", { desc = "Go to left window" })
-vim.keymap.set("n", "<M-j>", "<C-w><C-j>", { desc = "Go to lower window" })
-vim.keymap.set("n", "<M-k>", "<C-w><C-k>", { desc = "Go to upper window" })
-vim.keymap.set("n", "<M-l>", "<C-w><C-l>", { desc = "Go to right window" })
+keymap.set("n", "<M-h>", "<C-w><C-h>", { desc = "Go to left window" })
+keymap.set("n", "<M-j>", "<C-w><C-j>", { desc = "Go to lower window" })
+keymap.set("n", "<M-k>", "<C-w><C-k>", { desc = "Go to upper window" })
+keymap.set("n", "<M-l>", "<C-w><C-l>", { desc = "Go to right window" })
 
 -- Resize window
 keymap.set("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -45,18 +45,17 @@ keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
--- local Util = require("util")
--- -- lazygit
-keymap.set("n", "<leader>gg",
-  function() require("config.lazy.util").float_term({ "lazygit" }, { cwd = require("plugins.telescope.util").get_root() }) end,
-  { desc = "Lazygit (root dir)" })
-keymap.set("n", "<leader>gG", function() require("config.lazy.util").float_term({ "lazygit" }) end,
-  { desc = "Lazygit (cwd)" })
+-- lazygit
+keymap.set("n", "<leader>gg", function()
+  require("config.lazy.util").float_term({ "lazygit" }, { cwd = require("plugins.telescope.util").get_root() })
+end, { desc = "Lazygit (root dir)" })
+keymap.set("n", "<leader>gG", function()
+  require("config.lazy.util").float_term({ "lazygit" })
+end, { desc = "Lazygit (cwd)" })
 
 -- toggle
 keymap.set("n", [[\d]], require("plugins.lsp.util").toggle_diagnostics, { desc = "Toggle Diagnostics" })
 keymap.set("n", [[\f]], require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
-
 
 if jit.os == "OSX" then
   -- Resize window using <ctrl> arrow keys

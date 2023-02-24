@@ -12,6 +12,7 @@ _G.ivim = {
     CodeActions = "<leader>ca",
     FormatDocument = "<leader>cf",
     Rename = "<leader>cr",
+    Diagnostic = "<leader>d",
     DiagnosticPrev = "[d",
     DiagnosticNext = "]d",
   },

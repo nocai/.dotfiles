@@ -1,5 +1,4 @@
 return {
-
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
@@ -28,7 +27,7 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs( -4),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
@@ -100,6 +99,6 @@ return {
           { "<s-tab>", function() require("luasnip").jump( -1) end, mode = { "i", "s" } },
         },
       },
-    }
+    },
   },
 }

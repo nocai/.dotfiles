@@ -1,4 +1,3 @@
-
 -- bootstrap lazy.nvim
 require("config")
 -- colorscheme

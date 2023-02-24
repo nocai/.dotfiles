@@ -1,50 +1,42 @@
 if vim.g.vscode then
-	return {}
+  return {}
 end
 
 return {
-	{
-		"numToStr/Comment.nvim",
-		keys = {
-			{ "gc",  mode = { "n", "v" } },
-			{ "gcc", mode = { "n", "v" } },
-			{ "gb",  mode = { "n", "v" } },
-		},
-		config = function()
-			require("Comment").setup()
-		end,
-	},
-	{
-		"norcalli/nvim-colorizer.lua",
-		ft = { "css", "html" },
-		cmd = {
-			"ColorizerAttachToBuffer",
-			"ColorizerDetachFromBuffer",
-			"ColorizerReloadAllBuffers",
-			"ColorizerToggle",
-		},
-		config = function()
-			require("colorizer").setup()
-		end,
-	},
-	{
-		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			signs = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "契" },
-				topdelete = { text = "契" },
-				changedelete = { text = "▎" },
-				untracked = { text = "▎" },
-			},
-			on_attach = function(buffer)
-				local gs = package.loaded.gitsigns
+  {
+    "numToStr/Comment.nvim",
+    keys = {
+      { "gc", mode = { "n", "v" } },
+      { "gcc", mode = { "n", "v" } },
+      { "gb", mode = { "n", "v" } },
+    },
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    ft = { "css", "html" },
+    cmd = {
+      "ColorizerAttachToBuffer",
+      "ColorizerDetachFromBuffer",
+      "ColorizerReloadAllBuffers",
+      "ColorizerToggle",
+    },
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
 
-				local function map(mode, l, r, desc)
-					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-				end
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
 
 				-- stylua: ignore start
 				map("n", "]h", gs.next_hunk, "Next Hunk")
@@ -59,39 +51,39 @@ return {
 				map("n", "<leader>hd", gs.diffthis, "Diff This")
 				map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-			end,
-		},
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = {
-			"DiffviewClose",
-			"DiffviewOpen",
-			"DiffviewFileHistory",
-			"DiffviewToggleFiles",
-			"DiffviewFocusFiles",
-			"DiffviewRefresh",
-			"DiffviewLog",
-		},
-	},
-	-- better diagnostics list and others
-	{
-		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true },
-		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-			{ "<leader>xL", "<cmd>TroubleToggle loclist<cr>",               desc = "Location List (Trouble)" },
-			{ "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>",              desc = "Quickfix List (Trouble)" },
-		},
-	},
-	-- todo comments
-	{
-		"folke/todo-comments.nvim",
-		cmd = { "TodoTrouble", "TodoTelescope" },
-		event = { "BufReadPost", "BufNewFile" },
-		config = true,
+      end,
+    },
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewClose",
+      "DiffviewOpen",
+      "DiffviewFileHistory",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+      "DiffviewLog",
+    },
+  },
+  -- better diagnostics list and others
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true },
+    keys = {
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+    },
+  },
+  -- todo comments
+  {
+    "folke/todo-comments.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
 		-- stylua: ignore
 		keys = {
 			{ "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
@@ -100,31 +92,31 @@ return {
 			{ "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
 			{ "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
 		},
-	},
-	{
-		"thinca/vim-quickrun",
-		enabled = not vim.g.vscode,
-		keys = {
-			{ "<leader>rr", "<Plug>(quickrun)", desc = "Code runner" },
-		},
-		init = function()
-			vim.g.quickrun_no_default_key_mappings = 1
-			vim.g.quickrun_config = { _ = { outputter = "message" } }
-		end
-	},
-	-- {
-	-- 	"vim-test/vim-test",
-	-- 	-- enabled = not vim.g.vscode,
-	-- 	enabled = false,
-	-- 	keys = {
-	-- 		{ "<leader>tt", "<cmd>TestNearest<CR>", desc = "Test nearest" },
-	-- 		{ "<leader>tf", "<cmd>TestFile<CR>",    desc = "Test file" },
-	-- 		{ "<leader>ts", "<cmd>TestSuite<CR>",   desc = "Test suite" },
-	-- 		{ "<leader>tl", "<cmd>TestLast<CR>",    desc = "Test last" },
-	-- 		{ "<leader>tv", "<cmd>TestVisit<CR>",   desc = "Test visit" },
-	-- 	},
-	-- 	config = function()
-	-- 		vim.cmd([[let test#strategy = "neovim"]])
-	-- 	end,
-	-- },
+  },
+  {
+    "thinca/vim-quickrun",
+    enabled = not vim.g.vscode,
+    keys = {
+      { "<leader>rr", "<Plug>(quickrun)", desc = "Code runner" },
+    },
+    init = function()
+      vim.g.quickrun_no_default_key_mappings = 1
+      vim.g.quickrun_config = { _ = { outputter = "message" } }
+    end,
+  },
+  -- {
+  -- 	"vim-test/vim-test",
+  -- 	-- enabled = not vim.g.vscode,
+  -- 	enabled = false,
+  -- 	keys = {
+  -- 		{ "<leader>tt", "<cmd>TestNearest<CR>", desc = "Test nearest" },
+  -- 		{ "<leader>tf", "<cmd>TestFile<CR>",    desc = "Test file" },
+  -- 		{ "<leader>ts", "<cmd>TestSuite<CR>",   desc = "Test suite" },
+  -- 		{ "<leader>tl", "<cmd>TestLast<CR>",    desc = "Test last" },
+  -- 		{ "<leader>tv", "<cmd>TestVisit<CR>",   desc = "Test visit" },
+  -- 	},
+  -- 	config = function()
+  -- 		vim.cmd([[let test#strategy = "neovim"]])
+  -- 	end,
+  -- },
 }
