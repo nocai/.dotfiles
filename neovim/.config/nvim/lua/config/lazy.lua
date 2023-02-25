@@ -12,19 +12,28 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+local Util = require("config.lazy.util")
+Util.load("options")
+
+if vim.fn.argc(-1) == 0 then
+  -- autocmds and keymaps can wait to load
+  vim.api.nvim_create_autocmd("User", {
+    group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
+    pattern = "VeryLazy",
+    callback = function()
+      Util.load("autocmds")
+      Util.load("keymaps")
+    end,
+  })
+else
+  -- load them now so they affect the opened buffers
+  Util.load("autocmds")
+  Util.load("keymaps")
+end
+
 require("lazy").setup({
   spec = {
     { "folke/lazy.nvim", version = "*" },
-    { "nvim-lua/plenary.nvim" },
-    {
-      "nanotee/nvim-lua-guide",
-      event = "VeryLazy",
-      enabled = not vim.g.vscode,
-    },
-    {
-      "nvim-tree/nvim-web-devicons",
-      enabled = not vim.g.vscode,
-    },
     -- 插件目录
     { import = "plugins" },
   },
@@ -45,6 +54,9 @@ require("lazy").setup({
   },
   -- checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
+    cache = {
+      enabled = true,
+    },
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
@@ -85,6 +97,9 @@ require("lazy").setup({
         "compiler",
         "bugreport",
         "ftplugin",
+
+        "spellfile",
+        "shada",
       },
     },
   },

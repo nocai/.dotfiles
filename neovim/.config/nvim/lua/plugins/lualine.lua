@@ -42,7 +42,7 @@ return {
           },
         },
         lualine_c = {
-          { "branch",   icon = "" },
+          { "branch", icon = "" },
           "diff",
           "diagnostics",
           { "filetype", icon_only = true, padding = { left = 1 } },
@@ -76,7 +76,7 @@ return {
                 return result
               end
 
-              result = string.format("%s [%s]", result, vim.fn.join(client_names, "|"))
+              result = string.format("%s ~%s", result, vim.fn.join(client_names, "|"))
 
               -- LSP progress
               local progresses = vim.lsp.util.get_progress_messages()
@@ -92,15 +92,14 @@ return {
               local spinners = { "", "" }
               local hrtime = vim.loop.hrtime() / 1000000
               local frame = math.floor(hrtime / 120) % #spinners
-              result =
-                  string.format("%s%%< %s %s %s (%s%%%%)", result, spinners[frame + 1], title, message, percentage)
+              result = string.format("%s%%< %s %s %s (%s%%%%)", result, spinners[frame + 1], title, message, percentage)
               return result
             end,
           },
-          "encoding",
+          -- "encoding",
           "fileformat",
           "progress",
-          "location",
+          -- "location",
         },
         lualine_y = {},
         lualine_z = {},
@@ -127,6 +126,6 @@ return {
           }
         end,
       },
-    }
-  }
+    },
+  },
 }

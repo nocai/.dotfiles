@@ -5,20 +5,20 @@ end
 return {
   -- Better `vim.notify()`
   -- {
-  -- 	"rcarriga/nvim-notify",
-  -- 	event = "VeryLazy",
-  -- 	opts = {
-  -- 		timeout = 3000,
-  -- 		max_height = function()
-  -- 			return math.floor(vim.o.lines * 0.75)
-  -- 		end,
-  -- 		max_width = function()
-  -- 			return math.floor(vim.o.columns * 0.75)
-  -- 		end,
-  -- 	},
-  -- 	init = function()
-  -- 		vim.notify = require("notify")
-  -- 	end,
+  --   "rcarriga/nvim-notify",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     timeout = 3000,
+  --     max_height = function()
+  --       return math.floor(vim.o.lines * 0.75)
+  --     end,
+  --     max_width = function()
+  --       return math.floor(vim.o.columns * 0.75)
+  --     end,
+  --   },
+  --   init = function()
+  --     vim.notify = require("notify")
+  --   end,
   -- },
 
   -- better vim.ui
@@ -139,7 +139,4 @@ return {
       })
     end,
   },
-
-  -- ui components
-  -- { "MunifTanjim/nui.nvim",        lazy = true },
 }

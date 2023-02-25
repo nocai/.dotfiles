@@ -1,4 +1,9 @@
 return {
+  { "nvim-lua/plenary.nvim" },
+  {
+    "nvim-tree/nvim-web-devicons",
+    enabled = not vim.g.vscode,
+  },
   {
     "tweekmonster/startuptime.vim",
     cmd = { "StartupTime" },
@@ -24,7 +29,7 @@ return {
   {
     "folke/which-key.nvim",
     enabled = not vim.g.vscode,
-    cmd = "WhichKey",
+    keys = { { "<leader>" } },
     opts = {
       plugins = { spelling = true },
       window = {

@@ -6,13 +6,11 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gc", mode = { "n", "v" } },
-      { "gcc", mode = { "n", "v" } },
-      { "gb", mode = { "n", "v" } },
+      "gcc",
+      { "gc", mode = { "v", "n" } },
+      { "gb", mode = { "v" } },
     },
-    config = function()
-      require("Comment").setup()
-    end,
+    opts = {},
   },
   {
     "norcalli/nvim-colorizer.lua",
@@ -31,6 +29,8 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
+      trouble = false,
+
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
 
@@ -38,19 +38,19 @@ return {
           vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
         end
 
-				-- stylua: ignore start
-				map("n", "]h", gs.next_hunk, "Next Hunk")
-				map("n", "[h", gs.prev_hunk, "Prev Hunk")
-				map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-				map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-				map("n", "<leader>hS", gs.stage_buffer, "Stage Buffer")
-				map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
-				map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
-				map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
-				map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame Line")
-				map("n", "<leader>hd", gs.diffthis, "Diff This")
-				map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
-				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        -- stylua: ignore start
+        map("n", "]h", gs.next_hunk, "Next Hunk")
+        map("n", "[h", gs.prev_hunk, "Prev Hunk")
+        map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+        map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map("n", "<leader>hS", gs.stage_buffer, "Stage Buffer")
+        map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
+        map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
+        map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame Line")
+        map("n", "<leader>hd", gs.diffthis, "Diff This")
+        map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
     },
   },
@@ -70,28 +70,34 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
     keys = {
       { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
       { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
       { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
     },
+    opts = { use_diagnostic_signs = true },
+    -- config = function(_, opts)
+    --   require("trouble").setup(opts)
+    --   require("gitsigns").setup({
+    --     trouble = true,
+    --   })
+    -- end
   },
   -- todo comments
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = { "BufReadPost", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile" },
     config = true,
-		-- stylua: ignore
-		keys = {
-			{ "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-			{ "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-			{ "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
-			{ "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
-			{ "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
-		},
+    -- stylua: ignore
+    keys = {
+      { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
+      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
+    },
   },
   {
     "thinca/vim-quickrun",

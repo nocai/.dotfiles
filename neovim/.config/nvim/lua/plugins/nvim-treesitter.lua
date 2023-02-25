@@ -7,6 +7,7 @@ return {
     opts = {
       ensure_installed = {
         "lua",
+        "vim",
       },
       highlight = {
         enable = not vim.g.vscode,
@@ -45,7 +46,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     keys = {
-      "[", "]", "<leader>s", "<leader>p",
+      "[",
+      "]",
+      "<leader>s",
+      "<leader>p",
       { "a", mode = { "x", "o" } },
       { "i", mode = { "x", "o" } },
     },
@@ -62,7 +66,6 @@ return {
               ["af"] = "@function.outer",
               ["ic"] = "@class.inner",
               ["ac"] = "@class.outer",
-              ["as"] = { query = "@scope", query_group = "locals" },
             },
           },
           move = {
@@ -73,28 +76,24 @@ return {
               ["]f"] = "@function.outer",
               ["]c"] = "@class.outer",
               ["]]"] = "@class.outer",
-              ["]s"] = { query = "@scope", query_group = "locals" },
             },
             goto_next_end = {
               ["]A"] = "@parameter.outer",
               ["]F"] = "@function.outer",
               ["]C"] = "@class.outer",
               ["]["] = "@class.outer",
-              ["]S"] = { query = "@scope", query_group = "locals" },
             },
             goto_previous_start = {
               ["[a"] = "@parameter.outer",
               ["[f"] = "@function.outer",
               ["[c"] = "@class.outer",
               ["[["] = "@class.outer",
-              ["[s"] = { query = "@scope", query_group = "locals" },
             },
             goto_previous_end = {
               ["[A"] = "@parameter.outer",
               ["[F"] = "@function.outer",
               ["[C"] = "@class.outer",
               ["[]"] = "@class.outer",
-              ["[S"] = { query = "@scope", query_group = "locals" },
             },
           },
           swap = {
@@ -126,7 +125,7 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
       vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
       vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
-    end
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
