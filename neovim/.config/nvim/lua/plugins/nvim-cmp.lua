@@ -87,7 +87,7 @@ return {
           end,
         },
         opts = {
-          history = true,
+          history = false,
           delete_check_events = "TextChanged",
         },
         -- stylua: ignore
@@ -100,7 +100,7 @@ return {
             expr = true, silent = true, mode = "i",
           },
           { "<tab>",   function() require("luasnip").jump(1) end,   mode = "s" },
-          { "<s-tab>", function() require("luasnip").jump( -1) end, mode = { "i", "s" } },
+          { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
         },
       },
     },

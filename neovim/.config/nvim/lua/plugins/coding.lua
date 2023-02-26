@@ -6,9 +6,9 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      "gcc",
-      { "gc", mode = { "v", "n" } },
-      { "gb", mode = { "v" } },
+      { "gcc", desc = "Comment line" },
+      { "gc", mode = { "v", "n" }, desc = "Comment visual line" },
+      { "gb", mode = { "v" }, desc = "Comment visual" },
     },
     opts = {},
   },
@@ -76,13 +76,15 @@ return {
       { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
       { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
     },
-    opts = { use_diagnostic_signs = true },
-    -- config = function(_, opts)
-    --   require("trouble").setup(opts)
-    --   require("gitsigns").setup({
-    --     trouble = true,
-    --   })
-    -- end
+    opts = {
+      use_diagnostic_signs = true,
+    },
+    config = function(_, opts)
+      require("trouble").setup(opts)
+      -- require("gitsigns").setup({
+      --   trouble = true,
+      -- })
+    end,
   },
   -- todo comments
   {

@@ -66,6 +66,13 @@ if jit.os == "OSX" then
 end
 
 if vim.g.vscode then
+  vim.cmd([[
+    xmap gc  <Plug>VSCodeCommentary
+    nmap gc  <Plug>VSCodeCommentary
+    omap gc  <Plug>VSCodeCommentary
+    nmap gcc <Plug>VSCodeCommentaryLine
+  ]])
+
   keymap.set("n", "<leader>ff", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
   keymap.set(
     "n",

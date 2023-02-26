@@ -17,8 +17,9 @@ return {
       return require("plugins.telescope.keymaps")
     end,
     opts = {
-      prompt_prefix = "  ",
-      previewers = true,
+      defaults = {
+        prompt_prefix = "  ",
+      },
     },
   },
 }
