@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "PlenaryTestPopup",
     "neotest-summary",
     "neotest-output",
+    "neotest-attach",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

@@ -29,7 +29,7 @@ return {
   {
     "folke/which-key.nvim",
     enabled = not vim.g.vscode,
-    keys = { { "<leader>" } },
+    event = "VeryLazy",
     opts = {
       plugins = { spelling = true },
       window = {

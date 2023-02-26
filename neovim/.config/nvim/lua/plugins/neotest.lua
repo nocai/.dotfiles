@@ -50,31 +50,27 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
+      {
+        "nvim-neotest/neotest-go",
+        enabled = not vim.g.vscode,
+        ft = "go",
+      },
+      {
+        "rouge8/neotest-rust",
+        enabled = not vim.g.vscode,
+        ft = "rust",
+      },
     },
-    config = function()
-      require("neotest").setup({
+    opts = function()
+      return {
         adapters = {
           require("neotest-go"),
-        },
-      })
-    end,
-  },
-  {
-    "nvim-neotest/neotest-go",
-    enabled = not vim.g.vscode,
-    ft = "go",
-  },
-  {
-    "rouge8/neotest-rust",
-    enabled = not vim.g.vscode,
-    config = function()
-      require("neotest").setup({
-        adapters = {
           require("neotest-rust")({
             args = { "--no-capture" },
           }),
         },
-      })
+        -- default_strategy = "dap",
+      }
     end,
   },
 }

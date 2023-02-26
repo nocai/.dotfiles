@@ -6,7 +6,10 @@ return {
   {
     "folke/neodev.nvim",
     ft = "lua",
-    opts = { experimental = { pathStrict = true } },
+    opts = {
+      experimental = { pathStrict = true },
+      library = { plugins = { "lazy" }, types = true },
+    },
   },
   {
     "neovim/nvim-lspconfig",
