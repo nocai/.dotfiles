@@ -64,3 +64,15 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
+
+if vim.g.neovide then
+  vim.o.guifont = "UbuntuMono Nerd Font"
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+
+  vim.g.neovide_transparency = 0.8
+  vim.g.transparency = 0.8
+  vim.g.neovide_hide_mouse_when_typing = true
+
+  vim.g.neovide_cursor_vfx_mode = "railgun"
+end
