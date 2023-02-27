@@ -13,10 +13,6 @@ return {
     wk.setup(opts)
 
     wk.register({
-      ["g"] = { name = "+goto" },
-      ["]"] = { name = "+next" },
-      ["["] = { name = "+prev" },
-
       ["<leader>t"] = { name = "+test" },
 
       ["<leader>d"] = { name = "+dap(debug)" },

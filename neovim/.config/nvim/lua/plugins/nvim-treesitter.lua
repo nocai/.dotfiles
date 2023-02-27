@@ -13,6 +13,7 @@ return {
         enable = not vim.g.vscode,
         additional_vim_regex_highlighting = false,
       },
+      indent = { enable = true, disable = { "python" } },
       incremental_selection = {
         enable = false,
       },
@@ -52,6 +53,10 @@ return {
       "<leader>p",
       { "a", mode = { "x", "o" } },
       { "i", mode = { "x", "o" } },
+      -- FIXME:
+      -- 上面"a","i"在x模式(which-key.nvim开启)下，不生效
+      "va",
+      "vi",
     },
     config = function()
       require("nvim-treesitter.configs").setup({
