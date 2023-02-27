@@ -17,7 +17,12 @@ _G.ivim = {
     DiagnosticNext = "]d",
   },
   is_vscode = vim.g.vscode == 1,
-  git_proxy_prefix = "https://ghproxy.com/",
+  git_proxy = function(url)
+    if jit.os == "OSX" then
+      return url
+    end
+    return string.format("https://ghproxy.com/%s", url)
+  end,
   -- icons used by other plugins
   icons = {
     diagnostics = {

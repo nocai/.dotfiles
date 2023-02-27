@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
     "git",
     "clone",
     "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
+    ivim.git_proxy("https://github.com/folke/lazy.nvim.git"),
     "--branch=stable",
     lazypath,
   })
@@ -37,9 +37,9 @@ require("lazy").setup({
     -- 插件目录
     { import = "plugins" },
   },
-  -- git = {
-  -- url_format = "https://github.com/%s.git"
-  -- },
+  git = {
+    url_format = ivim.git_proxy("https://github.com/%s.git"),
+  },
   defaults = {
     lazy = true,
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
