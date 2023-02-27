@@ -142,11 +142,20 @@ return {
     },
   },
 
-  ["dap-go"] = function()
-    local dapgo = require("dap-go")
-    return {
-      { "<leader>dtc", dapgo.debug_test, desc = "DAP-GO(Debug test: closest method)" },
-      { "<leader>dtl", dapgo.debug_last_test, desc = "DAP-GO(Debug test: last method)" },
-    }
-  end,
+  ["dap-go"] = {
+    {
+      "<leader>dtc",
+      function()
+        require("dap-go").debug_test()
+      end,
+      desc = "DAP-GO(Debug test: closest method)",
+    },
+    {
+      "<leader>dtl",
+      function()
+        require("dap-go").debug_last_test()
+      end,
+      desc = "DAP-GO(Debug test: last method)",
+    },
+  },
 }
