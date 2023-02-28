@@ -1,9 +1,10 @@
 window:
   decorations: buttonless
-  opacity: 0.9
+  opacity: 0.95
 font:
   normal:
-    family: JetBrainsMonoNL Nerd Font
+    family: JetBrainsMono Nerd Font
+    # family: UbuntuMono Nerd Font
     style: Regular
   bold:
     style: Bold
@@ -13,6 +14,7 @@ font:
 schemes:
   # TokyoNight Alacritty Colors
   tokyonight: &tokyonight
+    transparent_background_colors: true
     # Default colors
     primary:
       background: '0x24283b'
@@ -67,16 +69,16 @@ schemes:
       cyan: '#9aedfe'
       white: '#e6e6e6'
 colors: *tokyonight
+selection:
+  save_to_clipboard: true
 cursor:
   style:
     blinking: Always
 key_bindings:
-  - {key: Escape, mods: Control, mode: ~Search, action: ToggleViMode}
-
   # (macOS only)
-  - {key: Escape, mods: Command, mode: ~Search, action: ToggleViMode}
+  - {key: Space, mods: Shift|Command, mode: ~Search, action: ToggleViMode}
   # Alt keys
-  - {key: H, mods: Alt, chars: "\x1bh"}
-  - {key: J, mods: Alt, chars: "\x1bj"}
-  - {key: K, mods: Alt, chars: "\x1bk"}
-  - {key: L, mods: Alt, chars: "\x1bl",}
+  - {key: H, mods: Option, chars: "\x1bh"}
+  - {key: J, mods: Option, chars: "\x1bj"}
+  - {key: K, mods: Option, chars: "\x1bk"}
+  - {key: L, mods: Option, chars: "\x1bl",}
