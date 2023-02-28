@@ -2,6 +2,7 @@ return {
   -- tokyonight
   {
     "folke/tokyonight.nvim",
+    -- lazy = false,
     priority = 1000,
     opts = {
       transparent = true,
@@ -12,11 +13,15 @@ return {
       on_colors = function(colors)
         -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
         -- if opts.transparent then
-        -- statusline 透明
+        --   -- statusline 透明
         colors.bg_statusline = colors.none
         -- end
       end,
     },
+    -- config = function(_, opts)
+    --   require("tokyonight").setup(opts)
+    --   vim.cmd.colorscheme("tokyonight")
+    -- end,
   },
   {
     "catppuccin/nvim",
