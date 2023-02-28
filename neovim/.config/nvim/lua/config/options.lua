@@ -22,6 +22,13 @@ opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 0
 -- opt.list = true -- Show some invisible characters (tabs...
+-- opt.listchars = "tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·"
+-- opt.listchars = {
+--   tab = [[»·]],
+--   -- eol = [[↩]],
+--   trail = [[·]],
+--   -- space = [[·]],
+-- }
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 -- opt.pumblend = 10 -- Popup blend
