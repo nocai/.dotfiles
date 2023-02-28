@@ -66,13 +66,42 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
 if vim.g.neovide then
-  vim.o.guifont = "UbuntuMono Nerd Font"
-  vim.g.neovide_floating_blur_amount_x = 2.0
-  vim.g.neovide_floating_blur_amount_y = 2.0
+  -- vim.o.guifont = "UbuntuMono Nerd Font"
+  vim.o.guifont = "JetBrainsMono Nerd Font:h11"
+  vim.g.neovide_hide_mouse_when_typing = true
+  -- vim.g.neovide_cursor_antialiasing = true
+  -- vim.g.neovide_cursor_animate_in_insert_mode = false
+
+  -- vim.g.neovide_cursor_vfx_mode = "railgun"
+  vim.g.neovide_cursor_vfx_mode = "ripple"
+
+  -- vim.g.neovide_floating_blur_amount_x = 2.0
+  -- vim.g.neovide_floating_blur_amount_y = 2.0
 
   vim.g.neovide_transparency = 0.8
   vim.g.transparency = 0.8
-  vim.g.neovide_hide_mouse_when_typing = true
+  if ivim.is_mac then
+    vim.g.neovide_input_use_logo = true -- true on macOS
+    vim.g.neovide_input_macos_alt_is_meta = true
+    vim.keymap.set("v", "<D-c>", '"+y') -- Copy
+    vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+    vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
+    vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+    vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
-  vim.g.neovide_cursor_vfx_mode = "railgun"
+    -- Allow clipboard copy paste in neovim
+    vim.g.neovide_input_use_logo = 1
+    vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+
+    -- vim.g.neovide_transparency = 0.0
+    -- vim.g.transparency = 0.8
+    -- -- Helper function for transparency formatting
+    -- local alpha = function()
+    --   return string.format("%x", math.floor(255 * vim.g.transparency or 0.9))
+    -- end
+    -- vim.g.neovide_background_color = "#0f1117" .. alpha()
+  end
 end

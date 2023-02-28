@@ -17,6 +17,7 @@ _G.ivim = {
     DiagnosticNext = "]d",
   },
   is_vscode = vim.g.vscode == 1,
+  is_mac = jit.os == "OSX",
   git_proxy = function(url)
     if jit.os == "OSX" then
       return url
