@@ -51,12 +51,11 @@ return {
       "]",
       "<leader>s",
       "<leader>p",
-      { "a", mode = { "x", "o" } },
-      { "i", mode = { "x", "o" } },
-      -- FIXME:
-      -- 上面"a","i"在x模式(which-key.nvim开启)下，不生效
+      -- FIXME: 下面"a","i"在x模式(which-key.nvim开启)下，不生效
       "va",
       "vi",
+      { "a", mode = { "x", "o" } },
+      { "i", mode = { "x", "o" } },
     },
     config = function()
       require("nvim-treesitter.configs").setup({

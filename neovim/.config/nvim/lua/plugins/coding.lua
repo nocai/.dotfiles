@@ -6,9 +6,8 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gcc", desc = "Comment line" },
-      { "gc", mode = { "v", "n" }, desc = "Comment visual line" },
-      { "gb", mode = { "v" }, desc = "Comment visual" },
+      { "gc", mode = { "v", "n" } },
+      { "gb", mode = { "n", "v" } },
     },
     opts = {},
   },
