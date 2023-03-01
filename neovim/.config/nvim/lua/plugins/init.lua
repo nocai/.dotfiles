@@ -11,11 +11,25 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    keys = { { [[<C-\>]], desc = "toggleterm" } },
     enabled = not vim.g.vscode,
+    keys = {
+      {
+        [[<C-_>]],
+        [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],
+        mode = { "n", "i", "t", "x" },
+        desc = "Open terminal horizontal",
+      },
+      {
+        [[<C-\>]],
+        [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],
+        mode = { "n", "i", "t", "x" },
+        desc = "Open terminal vertical",
+      },
+    },
     opts = {
-      open_mapping = [[<C-\>]],
-      direction = "float",
+      open_mapping = false, -- [[<C-\>]]
+      start_in_insert = false,
+      auto_scroll = false,
       float_opts = {
         border = "curved",
       },
