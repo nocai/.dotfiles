@@ -1,7 +1,8 @@
 return {
   "folke/which-key.nvim",
   enabled = not vim.g.vscode,
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  keys = { "<leader>" },
   opts = {
     plugins = { spelling = true },
     window = {
