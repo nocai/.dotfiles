@@ -18,7 +18,12 @@ vim.keymap.set("n", "[w", M._diagnostic_goto(false, "WARN"), { desc = "lsp: warn
 
 function M.on_attach(_, buffer)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer, desc = "lsp: hover" })
-  vim.keymap.set({ "i", "s" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = buffer, desc = "lsp: signature help" })
+  vim.keymap.set(
+    { "n", "i", "s" },
+    "<C-k>",
+    vim.lsp.buf.signature_help,
+    { buffer = buffer, desc = "lsp: signature help" }
+  )
 
   -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set(
