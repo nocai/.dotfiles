@@ -13,7 +13,7 @@ return {
         enable = not vim.g.vscode,
         additional_vim_regex_highlighting = false,
       },
-      indent = { enable = true, disable = { "python" } },
+      indent = { enable = not vim.g.vscode, disable = { "python" } },
       incremental_selection = {
         enable = false,
       },

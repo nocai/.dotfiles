@@ -1,17 +1,18 @@
 return {
   dap = {
     {
-      "<F9>",
-      "<leader>db",
-      remap = true,
-      desc = "DAP(toggle breakpoint)",
-    },
-    {
       "<leader>db",
       function()
         require("dap").toggle_breakpoint()
       end,
       desc = "DAP(toggle breakpoint)",
+    },
+    {
+      "<Leader>dB",
+      function()
+        require("dap").set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = "DAP(set condition breakpoint)",
     },
 
     {
@@ -29,7 +30,7 @@ return {
     },
 
     {
-      "<F10>",
+      "<F6>",
       "<leader>do",
       remap = true,
       desc = "DAP(step over)",
@@ -43,7 +44,7 @@ return {
     },
 
     {
-      "<F11>",
+      "<F7>",
       "<leader>di",
       remap = true,
       desc = "DAP(step into)",
@@ -57,7 +58,7 @@ return {
     },
 
     {
-      "<F12>",
+      "<F8>",
       "<leader>dO",
       remap = true,
       desc = "DAP(step out)",
@@ -71,12 +72,6 @@ return {
     },
 
     {
-      "<F6>",
-      "<leader>dl",
-      remap = true,
-      desc = "DAP(run last)",
-    },
-    {
       "<leader>dl",
       function()
         require("dap").run_last()
@@ -84,13 +79,6 @@ return {
       desc = "DAP(run last)",
     },
 
-    {
-      "<Leader>dB",
-      function()
-        require("dap").set_breakpoint()
-      end,
-      desc = "DAP(set breakpoint)",
-    },
     {
       "<Leader>dr",
       function()
@@ -131,7 +119,6 @@ return {
       desc = "DAP(scopes)",
     },
   },
-
   ["dap-ui"] = {
     {
       "<leader>du",
@@ -141,7 +128,6 @@ return {
       desc = "DAP-UI(toggle ui)",
     },
   },
-
   ["dap-go"] = {
     {
       "<leader>dtc",
