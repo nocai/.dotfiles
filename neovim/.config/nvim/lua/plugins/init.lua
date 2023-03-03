@@ -28,7 +28,7 @@ return {
     },
     opts = {
       open_mapping = false, -- [[<C-\>]]
-      start_in_insert = false,
+      start_in_insert = true,
       auto_scroll = false,
       float_opts = {
         border = "curved",

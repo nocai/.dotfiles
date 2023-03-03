@@ -3,6 +3,7 @@ local Util = require("plugins.telescope.util")
 return {
   { "<leader>/", Util.telescope("live_grep"), desc = "Find in Files (Grep)" },
   { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+  { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Resume" },
   -- { "<leader><space>", Util.telescope("files"),                                  desc = "Find Files (root dir)" },
   -- find
   { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
@@ -26,7 +27,6 @@ return {
   { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
   { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
   { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-  { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
   { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
   { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
   { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
