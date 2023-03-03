@@ -1,5 +1,38 @@
 local M = {}
 
+function M.load()
+  local function _load(mod)
+    local modname = "config." .. mod
+
+    local Util = require("lazy.core.util")
+    Util.try(function()
+      require(modname)
+    end, {
+      msg = "Failed loading " .. mod,
+      on_error = function(msg)
+        vim.nofity(msg)
+      end,
+    })
+  end
+
+  _load("options")
+  if vim.fn.argc(-1) == 0 then
+    -- autocmds and keymaps can wait to load
+    vim.api.nvim_create_autocmd("User", {
+      group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
+      pattern = "VeryLazy",
+      callback = function()
+        _load("autocmds")
+        _load("keymaps")
+      end,
+    })
+  else
+    -- load them now so they affect the opened buffers
+    _load("autocmds")
+    _load("keymaps")
+  end
+end
+
 ---@param plugin string
 function M.has(plugin)
   return require("lazy.core.config").plugins[plugin] ~= nil
@@ -20,29 +53,6 @@ function M.float_term(cmd, opts)
     size = { width = 0.9, height = 0.9 },
   }, opts or {})
   require("lazy.util").float_term(cmd, opts)
-end
-
----@param name "autocmds" | "options" | "keymaps"
-function M.load(name)
-  local Util = require("lazy.core.util")
-  local function _load(mod)
-    Util.try(function()
-      require(mod)
-    end, {
-      msg = "Failed loading " .. mod,
-      on_error = function(msg)
-        local modpath = require("lazy.core.cache").find(mod)
-        if modpath then
-          Util.error(msg)
-        end
-      end,
-    })
-  end
-  _load("config." .. name)
-  if vim.bo.filetype == "lazy" then
-    -- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
-    vim.cmd([[do VimResized]])
-  end
 end
 
 ---@param fn fun()
