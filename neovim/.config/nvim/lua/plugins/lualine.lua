@@ -43,8 +43,23 @@ return {
         },
         lualine_c = {
           { "branch", icon = "" },
-          "diff",
-          "diagnostics",
+          {
+            "diff",
+            symbols = {
+              added = ivim.icons.git.added,
+              modified = ivim.icons.git.modified,
+              removed = ivim.icons.git.removed,
+            },
+          },
+          {
+            "diagnostics",
+            symbols = {
+              error = ivim.icons.diagnostics.Error,
+              warn = ivim.icons.diagnostics.Warn,
+              info = ivim.icons.diagnostics.Info,
+              hint = ivim.icons.diagnostics.Hint,
+            },
+          },
           { "filetype", icon_only = true, padding = { left = 1 } },
           { "filename", separator = "»" },
           -- stylua: ignore
@@ -75,31 +90,13 @@ return {
               if vim.tbl_isempty(client_names) then
                 return result
               end
-
-              result = string.format("%s ~%s", result, vim.fn.join(client_names, "|"))
-
-              -- LSP progress
-              local progresses = vim.lsp.util.get_progress_messages()
-              if vim.tbl_isempty(progresses) then
-                return result
-              end
-
-              local progress = progresses[1]
-              local message = progress.message or ""
-              local percentage = progress.percentage or 0
-              local title = progress.title or ""
-
-              local spinners = { "", "" }
-              local hrtime = vim.loop.hrtime() / 1000000
-              local frame = math.floor(hrtime / 120) % #spinners
-              result = string.format("%s%%< %s %s %s (%s%%%%)", result, spinners[frame + 1], title, message, percentage)
-              return result
+              return string.format("%s ~%s", result, vim.fn.join(client_names, "|"))
             end,
           },
-          -- "encoding",
+          "encoding",
           "fileformat",
           "progress",
-          -- "location",
+          "location",
         },
         lualine_y = {},
         lualine_z = {},
