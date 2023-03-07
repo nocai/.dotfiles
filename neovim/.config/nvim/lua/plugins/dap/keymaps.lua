@@ -1,6 +1,13 @@
 return {
   dap = {
     {
+      "<F9>",
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      desc = "DAP(toggle breakpoint)",
+    },
+    {
       "<leader>db",
       function()
         require("dap").toggle_breakpoint()
@@ -10,9 +17,9 @@ return {
     {
       "<Leader>dB",
       function()
-        require("dap").set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+        require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
       end,
-      desc = "DAP(set condition breakpoint)",
+      desc = "DAP(set breakpoint condition)",
     },
 
     {
@@ -77,6 +84,13 @@ return {
         require("dap").run_last()
       end,
       desc = "DAP(run last)",
+    },
+    {
+      "<leader>dT",
+      function()
+        require("dap").terminate()
+      end,
+      desc = "DAP(terminate)",
     },
 
     {
