@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "neotest-output",
     "neotest-attach",
+    "dap-*",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
