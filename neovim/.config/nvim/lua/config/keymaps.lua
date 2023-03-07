@@ -6,17 +6,17 @@ local keymap = vim.keymap
 
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
-keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 -- better up/down
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- windows
-keymap.set("n", "<M-h>", "<C-w><C-h>", { desc = "Go to left window" })
-keymap.set("n", "<M-j>", "<C-w><C-j>", { desc = "Go to lower window" })
-keymap.set("n", "<M-k>", "<C-w><C-k>", { desc = "Go to upper window" })
-keymap.set("n", "<M-l>", "<C-w><C-l>", { desc = "Go to right window" })
+keymap.set("n", "<C-h>", "<C-w>h", { silent = true, desc = "Go to left window" })
+keymap.set("n", "<C-j>", "<C-w>j", { silent = true, desc = "Go to lower window" })
+keymap.set("n", "<C-k>", "<C-w>k", { silent = true, desc = "Go to upper window" })
+keymap.set("n", "<C-l>", "<C-w>l", { silent = true, desc = "Go to right window" })
 
 -- Resize window
 keymap.set("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -43,8 +43,8 @@ keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save fi
 -- lazy
 keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
-keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+-- keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+-- keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- lazygit
 keymap.set("n", "<leader>gg", function()
@@ -57,14 +57,6 @@ end, { desc = "Lazygit (cwd)" })
 -- toggle
 keymap.set("n", [[\d]], require("plugins.lsp.util").toggle_diagnostics, { desc = "Toggle Diagnostics" })
 keymap.set("n", [[\f]], require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
-
-if jit.os == "OSX" then
-  -- Resize window using <ctrl> arrow keys
-  keymap.set("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-  keymap.set("n", "<Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-  keymap.set("n", "<Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-  keymap.set("n", "<Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
-end
 
 if vim.g.vscode then
   vim.cmd([[
