@@ -89,6 +89,7 @@ return {
   {
     "toppair/peek.nvim",
     build = "deno task --quiet build:fast",
+    enabled = not vim.g.vscode,
     keys = {
       {
         "<leader>gp",
