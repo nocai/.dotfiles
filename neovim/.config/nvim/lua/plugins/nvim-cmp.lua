@@ -72,9 +72,15 @@ return {
       "saadparwaiz1/cmp_luasnip",
       -- auto pairs
       {
-        "echasnovski/mini.pairs",
+        "windwp/nvim-autopairs",
+        opts = {
+          check_ts = true,
+          map_c_w = true,
+        },
         config = function(_, opts)
-          require("mini.pairs").setup(opts)
+          require("nvim-autopairs").setup(opts)
+          local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
       -- snippets
@@ -84,11 +90,21 @@ return {
           "rafamadriz/friendly-snippets",
           config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
+            vim.api.nvim_create_autocmd("InsertLeave", {
+              callback = function()
+                if
+                  require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                  and not require("luasnip").session.jump_active
+                then
+                  require("luasnip").unlink_current()
+                end
+              end,
+            })
           end,
         },
         opts = {
-          history = false,
-          delete_check_events = "TextChanged",
+          history = true,
+          updateevents = "TextChanged,TextChangedI",
         },
         -- stylua: ignore
         keys = {

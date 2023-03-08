@@ -138,9 +138,6 @@ return {
       "html",
       "xml",
     },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
     config = function()
       require("nvim-treesitter.configs").setup({
         autotag = {
