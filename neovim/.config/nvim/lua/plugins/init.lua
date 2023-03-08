@@ -118,4 +118,15 @@ return {
     },
     opts = {},
   },
+  {
+    "ellisonleao/glow.nvim",
+    cmd = "Glow",
+    keys = {
+      { "<leader>gl", ":Glow<cr>", desc = "Glow", silent = true },
+    },
+    enabled = not vim.g.vscode,
+    opts = {
+      border = "rounded",
+    },
+  },
 }
