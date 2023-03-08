@@ -74,6 +74,19 @@ return {
     end,
   },
   {
+    "andymass/vim-matchup",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        matchup = {
+          enable = true, -- mandatory, false will disable the whole extension
+          disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+          -- [options]
+        },
+      })
+    end,
+  },
+  {
     "ggandor/leap.nvim",
     keys = {
       { "s", mode = { "n", "x", "o" } },
@@ -87,14 +100,22 @@ return {
     end,
   },
   {
-    "ellisonleao/glow.nvim",
-    cmd = "Glow",
+    "toppair/peek.nvim",
+    build = "deno task --quiet build:fast",
     keys = {
-      { "<leader>gl", ":Glow<cr>", desc = "Glow", silent = true },
+      {
+        "<leader>gp",
+        function()
+          local peek = require("peek")
+          if peek.is_open() then
+            peek.close()
+          else
+            peek.open()
+          end
+        end,
+        desc = "Peek markdown",
+      },
     },
-    enabled = not vim.g.vscode,
-    opts = {
-      border = "rounded",
-    },
+    opts = {},
   },
 }
