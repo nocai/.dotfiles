@@ -66,12 +66,8 @@ if vim.g.vscode then
     nmap gcc <Plug>VSCodeCommentaryLine
   ]])
 
-  keymap.set("n", "<leader>ff", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-  keymap.set(
-    "n",
-    ivim.lsp_keys.Explorer,
-    "<Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>"
-  )
+  keymap.set("n", "<leader>e", "<Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>")
+  keymap.set("n", "<leader><space>", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
 
   keymap.set(
     { "n", "x" },

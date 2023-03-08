@@ -1,6 +1,5 @@
 _G.ivim = {
   lsp_keys = {
-    Explorer = "<leader><space>",
     GotoDefinition = "gd",
     PeekDefinition = "gD",
     GotoTypeDefinition = "gy",
