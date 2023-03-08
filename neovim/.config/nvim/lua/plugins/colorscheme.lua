@@ -14,7 +14,7 @@ return {
         -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
         -- if opts.transparent then
         --   -- statusline 透明
-        colors.bg_statusline = colors.none
+        -- colors.bg_statusline = colors.none
         -- end
       end,
     },
