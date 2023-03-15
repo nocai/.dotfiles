@@ -16,11 +16,11 @@ return {
         offsets = {
           {
             filetype = "neo-tree",
-            text = "File Explorer",
+            text = "Explorer",
           },
           {
             filetype = "NvimTree",
-            text = "File Explorer",
+            text = "Explorer",
           },
         },
       },
