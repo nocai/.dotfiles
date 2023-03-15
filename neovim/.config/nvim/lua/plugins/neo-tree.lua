@@ -1,10 +1,8 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = not vim.g.vscode,
   branch = "v2.x",
   cmd = "Neotree",
-  deactivate = function()
-    vim.cmd([[Neotree close]])
-  end,
   dependencies = {
     "MunifTanjim/nui.nvim",
   },
@@ -19,7 +17,15 @@ return {
       "<cmd>Neotree reveal_force_cwd<cr>",
       desc = "Explorer NeoTree (focus)",
     },
+    {
+      "<leader>ge",
+      "<cmd>Neotree git_status<cr>",
+      desc = "Explorer Git Status",
+    },
   },
+  deactivate = function()
+    vim.cmd([[Neotree close]])
+  end,
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
     if vim.fn.argc() == 1 then
