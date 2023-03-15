@@ -10,6 +10,7 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      -- terminal_colors = not vim.g.vscode,
       on_colors = function(colors)
         -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
         -- if opts.transparent then

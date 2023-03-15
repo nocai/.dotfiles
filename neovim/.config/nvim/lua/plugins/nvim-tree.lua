@@ -4,7 +4,7 @@ return {
     enabled = not vim.g.vscode,
     keys = {
       { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "NvimTree(toggle)" },
-      { "<leader>E", "<cmd>NvimTreeFindFile<CR>", desc = "NvimTree(find file)" },
+      { "<leader>E", "<cmd>NvimTreeFocus<CR>", desc = "NvimTree(focus)" },
     },
     opts = function()
       -- auto close last windows in the tab
@@ -19,10 +19,6 @@ return {
 
       return {
         hijack_cursor = true,
-        reload_on_bufenter = true,
-        respect_buf_cwd = true,
-        sync_root_with_cwd = true,
-        prefer_startup_root = true,
         update_focused_file = {
           enable = true,
           update_root = true,
