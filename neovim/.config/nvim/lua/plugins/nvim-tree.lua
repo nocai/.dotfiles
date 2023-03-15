@@ -1,7 +1,8 @@
 return {
   {
     "kyazdani42/nvim-tree.lua",
-    enabled = not vim.g.vscode,
+    -- enabled = not vim.g.vscode,
+    enabled = false,
     keys = {
       { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "NvimTree(toggle)" },
       { "<leader>E", "<cmd>NvimTreeFocus<CR>", desc = "NvimTree(focus)" },
