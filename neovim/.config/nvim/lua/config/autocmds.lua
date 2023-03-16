@@ -19,9 +19,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "startuptime",
     "tsplayground",
     "PlenaryTestPopup",
-    "neotest-summary",
-    "neotest-output",
-    "neotest-attach",
+    "neotest-*",
     "dap-*",
   },
   callback = function(event)

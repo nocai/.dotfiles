@@ -22,14 +22,18 @@ function M.load()
       group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
       pattern = "VeryLazy",
       callback = function()
-        _load("autocmds")
         _load("keymaps")
+        if not vim.g.vscode then
+          _load("autocmds")
+        end
       end,
     })
   else
     -- load them now so they affect the opened buffers
-    _load("autocmds")
     _load("keymaps")
+    if not vim.g.vscode then
+      _load("autocmds")
+    end
   end
 end
 
