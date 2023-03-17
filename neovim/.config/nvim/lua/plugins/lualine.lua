@@ -43,29 +43,21 @@ return {
           {
             "mode",
             icon = "",
-            fmt = function(str)
-              return str:sub(1, 3)
-            end,
+            -- fmt = function(str)
+            --   return str:sub(1, 3)
+            -- end,
             color = { bg = "none" },
           },
         },
         lualine_c = {
-          { "branch", icon = "" },
+          -- { "branch", icon = "" },
+          { "branch" },
           {
             "diff",
             symbols = {
               added = ivim.icons.git.added,
               modified = ivim.icons.git.modified,
               removed = ivim.icons.git.removed,
-            },
-          },
-          {
-            "diagnostics",
-            symbols = {
-              error = ivim.icons.diagnostics.Error,
-              warn = ivim.icons.diagnostics.Warn,
-              info = ivim.icons.diagnostics.Info,
-              hint = ivim.icons.diagnostics.Hint,
             },
           },
           { "filetype", icon_only = true, padding = { left = 1 } },
@@ -80,13 +72,16 @@ return {
         },
         lualine_x = {
           {
-            "filetype",
-            fmt = function(filetype)
-              local result = filetype
-              if vim.o.columns < 70 then
-                return result
-              end
-
+            "diagnostics",
+            symbols = {
+              error = ivim.icons.diagnostics.Error,
+              warn = ivim.icons.diagnostics.Warn,
+              info = ivim.icons.diagnostics.Info,
+              hint = ivim.icons.diagnostics.Hint,
+            },
+          },
+          {
+            function()
               -- LSP status
               local client_names = {}
               for _, client in ipairs(vim.lsp.get_active_clients()) do
@@ -94,17 +89,20 @@ return {
                   table.insert(client_names, client.name)
                 end
               end
-
-              if vim.tbl_isempty(client_names) then
-                return result
+              return string.format("LSP: ~%s", vim.fn.join(client_names, "|"))
+            end,
+            cond = function()
+              if vim.o.columns < 70 then
+                return false
               end
-              return string.format("%s ~%s", result, vim.fn.join(client_names, "|"))
+              return #vim.lsp.get_active_clients() > 0
             end,
           },
-          "encoding",
-          "fileformat",
+          "filetype",
+          -- "encoding",
+          -- "fileformat",
           "progress",
-          "location",
+          -- "location",
         },
         lualine_y = {},
         lualine_z = {},

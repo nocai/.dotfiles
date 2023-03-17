@@ -76,8 +76,8 @@ return {
   {
     "ggandor/leap.nvim",
     keys = {
-      { "s", mode = { "n", "x", "o" } },
-      { "S", mode = { "n", "x", "o" } },
+      { "s", mode = { "n", "x", "o" }, desc = "Leap forward" },
+      { "S", mode = { "n", "x", "o" }, desc = "Leap backward" },
       { "gs", mode = { "n", "x", "o" } },
       { "x", mode = { "x", "o" } },
       { "X", mode = { "x", "o" } },

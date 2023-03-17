@@ -18,7 +18,12 @@ vim.keymap.set("n", "[w", M._diagnostic_goto(false, "WARN"), { desc = "lsp: warn
 
 function M.on_attach(_, buffer)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer, desc = "lsp: hover" })
-  vim.keymap.set({ "i", "s" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = buffer, desc = "lsp: signature help" })
+  vim.keymap.set(
+    { "i", "s", "n" },
+    "<C-k>",
+    vim.lsp.buf.signature_help,
+    { buffer = buffer, desc = "lsp: signature help" }
+  )
   vim.keymap.set(
     "n",
     ivim.lsp_keys.GotoDefinition,
@@ -51,7 +56,7 @@ function M.on_attach(_, buffer)
   )
   vim.keymap.set(
     "n",
-    ivim.lsp_keys.GotoSymbols,
+    ivim.lsp_keys.GotoDocumentSymbols,
     "<cmd>Telescope lsp_document_symbols theme=get_ivy<cr>",
     { buffer = buffer, desc = "lsp:document symbol" }
   )
@@ -60,7 +65,7 @@ function M.on_attach(_, buffer)
     require("plugins.lsp.format").format(buffer)
   end, { buffer = buffer, desc = "lsp: format" })
 
-  vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = buffer, desc = "lsp: codelens run" })
+  vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.run, { buffer = buffer, desc = "lsp: codelens run" })
 
   vim.keymap.set(
     "n",
@@ -70,7 +75,7 @@ function M.on_attach(_, buffer)
   )
   vim.keymap.set(
     "n",
-    "<leader>wr",
+    "<leader>wd",
     vim.lsp.buf.remove_workspace_folder,
     { buffer = buffer, desc = "remove workspace folder" }
   )

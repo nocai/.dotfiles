@@ -1,10 +1,10 @@
 local Util = require("plugins.telescope.util")
 
 return {
-  { "<leader>/", Util.telescope("live_grep"), desc = "Find in Files (Grep)" },
+  { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+  { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
   { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
   { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Resume" },
-  { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
   -- find
   { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
   { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
@@ -16,20 +16,16 @@ return {
   -- search
   { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
   { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-  { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-  { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+  { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands" },
   { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-  { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-  { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+  { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
   { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-  { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+  { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Highlight Groups" },
   { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-  { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-  { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+  { "<leader>sm", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
   { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-  { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
-  { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
-  { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+  { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
+  { "<leader>sC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme" },
   {
     "<leader>ss",
     Util.telescope("lsp_document_symbols", {
