@@ -9,7 +9,7 @@ _G.ivim = {
     GotoReferences = "<leader>gr",
     GotoDocumentSymbols = "<leader>gs",
     CodeActions = "<leader>ca",
-    FormatDocument = "<leader>fd",
+    FormatDocument = "=",
     Rename = "<leader>rn",
     Diagnostic = "<leader>d",
     DiagnosticPrev = "[d",
