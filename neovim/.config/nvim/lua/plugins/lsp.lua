@@ -12,6 +12,10 @@ return {
     },
   },
   {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+  },
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -35,6 +39,9 @@ return {
               local settings = Servers[server_name] or {}
               settings.capabilities = capabilities
               require("lspconfig")[server_name].setup(settings)
+            end,
+            ["rust_analyzer"] = function()
+              require("rust-tools").setup({})
             end,
           })
         end,
