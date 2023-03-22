@@ -20,6 +20,14 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       {
+        "j-hui/fidget.nvim",
+        opts = {
+          window = {
+            blend = 0, -- &winblend for the window
+          },
+        },
+      },
+      {
         "williamboman/mason-lspconfig.nvim",
         opts = {
           ensure_installed = { "lua_ls" },
