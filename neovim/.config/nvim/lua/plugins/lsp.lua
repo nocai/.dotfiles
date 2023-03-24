@@ -28,38 +28,23 @@ return {
         },
       },
       {
+        "hrsh7th/cmp-nvim-lsp",
+        cond = function()
+          return require("config.lazy.util").has("nvim-cmp")
+        end,
+      },
+      {
         "williamboman/mason-lspconfig.nvim",
         opts = {
           ensure_installed = { "lua_ls" },
+          automatic_installation = true,
         },
         config = function(_, opts)
           local Servers = require("plugins.lsp.servers")
-          require("mason-lspconfig").setup({
-            ensure_installed = vim.list_extend(opts.ensure_installed, vim.tbl_keys(Servers)),
-            automatic_installation = true,
-          })
-
-          -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-          require("mason-lspconfig").setup_handlers({
-            function(server_name)
-              local settings = Servers[server_name] or {}
-              settings.capabilities = capabilities
-              require("lspconfig")[server_name].setup(settings)
-            end,
-            ["rust_analyzer"] = function()
-              require("rust-tools").setup({})
-            end,
-          })
+          opts.ensure_installed = vim.list_extend(opts.ensure_installed or {}, vim.tbl_keys(Servers))
+          require("mason-lspconfig").setup(opts)
         end,
         dependencies = {
-          {
-            "hrsh7th/cmp-nvim-lsp",
-            cond = function()
-              return require("config.lazy.util").has("nvim-cmp")
-            end,
-          },
           {
             "williamboman/mason.nvim",
             opts = {
@@ -99,6 +84,32 @@ return {
         local Keymaps = require("plugins.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
       end)
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      capabilities.textDocument.completion.completionItem = {
+        documentationFormat = { "markdown", "plaintext" },
+        snippetSupport = true,
+        preselectSupport = true,
+        insertReplaceSupport = true,
+        labelDetailsSupport = true,
+        deprecatedSupport = true,
+        commitCharactersSupport = true,
+        tagSupport = { valueSet = { 1 } },
+        resolveSupport = {
+          properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+          },
+        },
+      }
+
+      local Servers = require("plugins.lsp.servers")
+      for server_name, settings in pairs(Servers) do
+        settings.capabilities = capabilities
+        require("lspconfig")[server_name].setup(settings)
+      end
     end,
   },
   -- formatters
@@ -113,8 +124,8 @@ return {
         sources = {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.jq,
-          -- nls.builtins.formatting.yamlfmt,
-          -- nls.builtins.formatting.markdownlint,
+          nls.builtins.formatting.yamlfmt,
+          nls.builtins.formatting.markdownlint,
 
           nls.builtins.diagnostics.golangci_lint,
           -- nls.builtins.diagnostics.markdownlint,

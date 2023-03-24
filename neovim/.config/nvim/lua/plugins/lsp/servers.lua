@@ -5,6 +5,11 @@ return {
         diagnostics = { globals = { "vim", "redis", "nvim", "jit" } },
         workspace = {
           checkThirdParty = false,
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+            [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
+          },
         },
         completion = {
           callSnippet = "Replace",
