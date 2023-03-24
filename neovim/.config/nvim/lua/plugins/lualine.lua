@@ -81,7 +81,8 @@ return {
             },
           },
           {
-            function()
+            "filetype",
+            fmt = function(s)
               -- LSP status
               local client_names = {}
               for _, client in ipairs(vim.lsp.get_active_clients()) do
@@ -89,16 +90,12 @@ return {
                   table.insert(client_names, client.name)
                 end
               end
-              return string.format("LSP: ~%s", vim.fn.join(client_names, "|"))
-            end,
-            cond = function()
-              if vim.o.columns < 70 then
-                return false
+              if #client_names > 0 then
+                return string.format("%s ~%s", s, vim.fn.join(client_names, "|"))
               end
-              return #vim.lsp.get_active_clients() > 0
+              return s
             end,
           },
-          "filetype",
           -- "encoding",
           -- "fileformat",
           "progress",

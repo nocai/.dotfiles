@@ -14,6 +14,7 @@ return {
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
+    opts = {},
   },
   {
     "neovim/nvim-lspconfig",
@@ -43,6 +44,19 @@ return {
           local Servers = require("plugins.lsp.servers")
           opts.ensure_installed = vim.list_extend(opts.ensure_installed or {}, vim.tbl_keys(Servers))
           require("mason-lspconfig").setup(opts)
+          require("mason-lspconfig").setup_handlers({
+            -- The first entry (without a key) will be the default handler
+            -- and will be called for each installed server that doesn't have
+            -- a dedicated handler.
+            function(server_name) -- default handler (optional)
+              require("lspconfig")[server_name].setup({})
+            end,
+            -- -- Next, you can provide a dedicated handler for specific servers.
+            -- -- For example, a handler override for the `rust_analyzer`:
+            -- ["rust_analyzer"] = function ()
+            --     require("rust-tools").setup {}
+            -- end
+          })
         end,
         dependencies = {
           {
