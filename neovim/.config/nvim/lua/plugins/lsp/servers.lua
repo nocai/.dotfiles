@@ -33,9 +33,9 @@ return {
         codelenses = {
           -- generate = true, -- Don't show the `go generate` lens.
           -- gc_details = false, -- Show a code lens toggling the display of gc's choices.
-          tidy = true,
+          -- tidy = true,
           test = true,
-          upgrade_dependency = true,
+          -- upgrade_dependency = true,
           -- vendor = true,
         },
       },

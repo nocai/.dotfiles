@@ -14,7 +14,20 @@ return {
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
-    opts = {},
+    opts = {
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      },
+    },
   },
   {
     "neovim/nvim-lspconfig",
