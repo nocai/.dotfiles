@@ -1,5 +1,3 @@
-local Util = require("plugins.telescope.util")
-
 return {
   { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
   { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
@@ -7,12 +5,11 @@ return {
   { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Resume" },
   -- find
   { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-  { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
-  { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
   { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
   -- git
-  { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-  { "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "status" },
+  { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+  { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Git Commits" },
+  { "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Git Status" },
   -- search
   { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
   { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
@@ -28,38 +25,42 @@ return {
   { "<leader>sC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme" },
   {
     "<leader>ss",
-    Util.telescope("lsp_document_symbols", {
-      symbols = {
-        "Class",
-        "Function",
-        "Method",
-        "Constructor",
-        "Interface",
-        "Module",
-        "Struct",
-        "Trait",
-        "Field",
-        "Property",
-      },
-    }),
+    function()
+      require("telescope.builtin").lsp_document_symbols({
+        symbols = {
+          "Class",
+          "Function",
+          "Method",
+          "Constructor",
+          "Interface",
+          "Module",
+          "Struct",
+          "Trait",
+          "Field",
+          "Property",
+        },
+      })
+    end,
     desc = "Goto Symbol",
   },
   {
     "<leader>sS",
-    Util.telescope("lsp_workspace_symbols", {
-      symbols = {
-        "Class",
-        "Function",
-        "Method",
-        "Constructor",
-        "Interface",
-        "Module",
-        "Struct",
-        "Trait",
-        "Field",
-        "Property",
-      },
-    }),
+    function()
+      require("telescope.builtin").lsp_workspace_symbols({
+        symbols = {
+          "Class",
+          "Function",
+          "Method",
+          "Constructor",
+          "Interface",
+          "Module",
+          "Struct",
+          "Trait",
+          "Field",
+          "Property",
+        },
+      })
+    end,
     desc = "Goto Symbol (Workspace)",
   },
 }

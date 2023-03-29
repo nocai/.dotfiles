@@ -14,9 +14,6 @@ return {
       bordered.winhighlight = string.format("%s,FloatBorder:FloatBorder", bordered.winhighlight)
 
       return {
-        -- completion = {
-        --   completeopt = "menu,menuone,noinsert",
-        -- },
         window = {
           completion = bordered,
           documentation = bordered,
@@ -29,8 +26,8 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          -- ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          -- ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-d>"] = cmp.mapping.scroll_docs(-2),
+          ["<C-u>"] = cmp.mapping.scroll_docs(2),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -70,8 +67,8 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
-      -- auto pairs
       {
+        -- auto pairs
         "windwp/nvim-autopairs",
         opts = {
           check_ts = true,
@@ -83,8 +80,8 @@ return {
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
-      -- snippets
       {
+        -- snippets
         "L3MON4D3/LuaSnip",
         dependencies = {
           "rafamadriz/friendly-snippets",

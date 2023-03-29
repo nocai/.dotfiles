@@ -2,6 +2,8 @@ local M = {}
 
 M.autoformat = true
 
+vim.keymap.set("n", [[\f]], function() require("plugins.lsp.format").toggle() end, { desc = "Toggle format on Save" })
+
 function M.toggle()
   if vim.b.autoformat == false then
     vim.b.autoformat = nil

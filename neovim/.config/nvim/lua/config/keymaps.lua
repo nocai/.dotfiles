@@ -29,29 +29,25 @@ keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" 
 -- Add undo break-points
 keymap.set("i", ",", ",<c-g>u")
 keymap.set("i", ".", ".<c-g>u")
+keymap.set("i", ":", ":<c-g>u")
 keymap.set("i", ";", ";<c-g>u")
-
--- save file
-keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- lazy
 keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
-keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+-- save file
+keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- lazygit
 keymap.set("n", "<leader>gg", function()
-  require("config.lazy.util").float_term({ "lazygit" }, { cwd = require("plugins.telescope.util").get_root() })
+  require("config.lazy.util").float_term({ "lazygit" }, {
+    cwd = require("config.lazy.util").get_root(),
+  })
 end, { desc = "Lazygit (root dir)" })
 
 keymap.set("n", "<leader>gG", function()
   require("config.lazy.util").float_term({ "lazygit" })
-end, { desc = "Lazygit (cwd)" })
-
--- toggle
-keymap.set("n", [[\d]], require("plugins.lsp.util").toggle_diagnostics, { desc = "Toggle Diagnostics" })
-keymap.set("n", [[\f]], require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+end, { desc = "Lazygit" })
 
 if vim.g.vscode then
   vim.cmd([[

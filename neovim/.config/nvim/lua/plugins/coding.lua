@@ -20,7 +20,6 @@ return {
       "ColorizerReloadAllBuffers",
       "ColorizerToggle",
     },
-    -- event = "BufReadPre",
     opts = {
       filetypes = { "*", "!lazy" },
       buftype = { "*", "!prompt", "!nofile" },
@@ -66,6 +65,7 @@ return {
         map("n", "<leader>hd", gs.diffthis, "Diff This")
         map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
     },
   },
