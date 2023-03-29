@@ -20,6 +20,7 @@ return {
           ["rust-analyzer"] = {
             checkOnSave = {
               command = "clippy",
+              extraArgs = { "--no-deps" },
             },
             procMacro = {
               enable = true,
@@ -71,7 +72,6 @@ return {
         "williamboman/mason-lspconfig.nvim",
         opts = {
           ensure_installed = { "lua_ls" },
-          automatic_installation = true,
         },
         config = function(_, opts)
           local Servers = require("plugins.lsp.servers")
@@ -105,11 +105,6 @@ return {
               }, Servers[server_name] or {})
               require("lspconfig")[server_name].setup(server_opts)
             end,
-            -- -- Next, you can provide a dedicated handler for specific servers.
-            -- -- For example, a handler override for the `rust_analyzer`:
-            -- ["rust_analyzer"] = function ()
-            --     require("rust-tools").setup {}
-            -- end
           })
         end,
         dependencies = {
