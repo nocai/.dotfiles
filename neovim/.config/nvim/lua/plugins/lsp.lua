@@ -29,6 +29,26 @@ return {
       },
     },
   },
+  -- inlay hints
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+    event = "LspAttach",
+    opts = {},
+    enabled = false,
+    config = function(_, opts)
+      require("lsp-inlayhints").setup(opts)
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require("lsp-inlayhints").on_attach(client, args.buf)
+        end,
+      })
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -57,12 +77,33 @@ return {
           local Servers = require("plugins.lsp.servers")
           opts.ensure_installed = vim.list_extend(opts.ensure_installed or {}, vim.tbl_keys(Servers))
           require("mason-lspconfig").setup(opts)
+
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+          capabilities.textDocument.completion.completionItem = {
+            documentationFormat = { "markdown", "plaintext" },
+            snippetSupport = true,
+            preselectSupport = true,
+            insertReplaceSupport = true,
+            labelDetailsSupport = true,
+            deprecatedSupport = true,
+            commitCharactersSupport = true,
+            tagSupport = { valueSet = { 1 } },
+            resolveSupport = {
+              properties = {
+                "documentation",
+                "detail",
+                "additionalTextEdits",
+              },
+            },
+          }
+
           require("mason-lspconfig").setup_handlers({
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function(server_name) -- default handler (optional)
-              require("lspconfig")[server_name].setup({})
+            function(server_name)
+              local server_opts = vim.tbl_deep_extend("force", {
+                capabilities = vim.deepcopy(capabilities),
+              }, Servers[server_name] or {})
+              require("lspconfig")[server_name].setup(server_opts)
             end,
             -- -- Next, you can provide a dedicated handler for specific servers.
             -- -- For example, a handler override for the `rust_analyzer`:
@@ -102,7 +143,7 @@ return {
         require("plugins.lsp.setting")
 
         -- Util.document_highlight(client, buffer)
-        Util.code_lens(client, buffer)
+        -- Util.code_lens(client, buffer)
 
         -- setup formatting and keymaps
         local Format = require("plugins.lsp.format")
@@ -111,32 +152,6 @@ return {
         local Keymaps = require("plugins.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
       end)
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-      capabilities.textDocument.completion.completionItem = {
-        documentationFormat = { "markdown", "plaintext" },
-        snippetSupport = true,
-        preselectSupport = true,
-        insertReplaceSupport = true,
-        labelDetailsSupport = true,
-        deprecatedSupport = true,
-        commitCharactersSupport = true,
-        tagSupport = { valueSet = { 1 } },
-        resolveSupport = {
-          properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-          },
-        },
-      }
-
-      local Servers = require("plugins.lsp.servers")
-      for server_name, settings in pairs(Servers) do
-        settings.capabilities = capabilities
-        require("lspconfig")[server_name].setup(settings)
-      end
     end,
   },
   -- formatters
