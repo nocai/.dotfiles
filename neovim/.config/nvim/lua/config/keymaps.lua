@@ -4,13 +4,6 @@
 
 local keymap = vim.keymap
 
-keymap.set("i", "<C-h>", "<Left>")
-keymap.set("i", "<C-l>", "<Right>")
--- Clear search with <esc>
-keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
-
-keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-
 -- better up/down
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -22,15 +15,9 @@ keymap.set("n", "<Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease wind
 keymap.set("n", "<Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- buffers
-keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-
--- Add undo break-points
-keymap.set("i", ",", ",<c-g>u")
-keymap.set("i", ".", ".<c-g>u")
-keymap.set("i", ":", ":<c-g>u")
-keymap.set("i", ";", ";<c-g>u")
+keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+keymap.set("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+keymap.set("n", "<leader><Tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- lazy
 keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
@@ -49,6 +36,23 @@ end, { desc = "Lazygit (root dir)" })
 keymap.set("n", "<leader>gG", function()
   require("config.lazy.util").float_term({ "lazygit" })
 end, { desc = "Lazygit" })
+
+keymap.set("i", "<C-h>", "<Left>")
+keymap.set("i", "<C-l>", "<Right>")
+
+keymap.set("i", "<C-e>", "<End>")
+keymap.set("i", "<C-a>", "<Home>")
+
+-- Add undo break-points
+keymap.set("i", ",", ",<c-g>u")
+keymap.set("i", ".", ".<c-g>u")
+keymap.set("i", ":", ":<c-g>u")
+keymap.set("i", ";", ";<c-g>u")
+
+-- Clear search with <esc>
+keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 if vim.g.vscode then
   vim.cmd([[

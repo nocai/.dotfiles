@@ -103,18 +103,18 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              ["<leader>sa"] = "@parameter.inner",
+              ["<leader>a"] = "@parameter.inner",
             },
             swap_previous = {
-              ["<leader>sA"] = "@parameter.inner",
+              ["<leader>A"] = "@parameter.inner",
             },
           },
           lsp_interop = {
             enable = not vim.g.vscode,
             border = "rounded",
             peek_definition_code = {
-              ["<leader>pf"] = "@function.outer",
-              ["<leader>pc"] = "@class.outer",
+              [ivim.lsp_keys.PeekFunction] = "@function.outer",
+              [ivim.lsp_keys.PeekClass] = "@class.outer",
             },
           },
         },

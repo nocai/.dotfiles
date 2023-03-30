@@ -18,6 +18,9 @@ _G.ivim = {
     GotoDocumentSymbols = "gS", -- gs: leap.nvim
     PeekDocumentSymbols = "<leader>gs",
 
+    PeekFunction = "<leader>gf",
+    PeekClass = "<leader>gc",
+
     Diagnostic = "<leader>d",
     DiagnosticPrev = "[d",
     DiagnosticNext = "]d",
