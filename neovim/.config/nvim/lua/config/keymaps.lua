@@ -37,6 +37,7 @@ keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- save file
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+keymap.set("n", "<leader>cs", "<cmd>Telescope colorscheme enable_preview=true<cr>", { desc = "Colorscheme" })
 
 -- lazygit
 keymap.set("n", "<leader>gg", function()

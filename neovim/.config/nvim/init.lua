@@ -1,19 +1,36 @@
 _G.ivim = {
   lsp_keys = {
     GotoDefinition = "gd",
-    PeekDefinition = "gD",
+    PeekDefinition = "<leader>gd",
+
+    GotoDeclaration = "gD",
+    PeekDeclaration = "<leader>gD",
+
     GotoTypeDefinition = "gy",
-    PeekTypeDefinition = "gY",
-    GotoImplementation = "gI",
+    PeekTypeDefinition = "<leader>gy",
+
+    GotoImplementation = "gI", -- gi: last insert position
     PeekImplementation = "<leader>gi",
-    GotoReferences = "<leader>gr",
-    GotoDocumentSymbols = "<leader>gs",
-    CodeActions = "<leader>ca",
-    Rename = "<leader>rn",
-    FormatDocument = "<leader>gq",
+
+    GotoReferences = "gr",
+    PeekReferences = "<leader>gr",
+
+    GotoDocumentSymbols = "gS", -- gs: leap.nvim
+    PeekDocumentSymbols = "<leader>gs",
+
     Diagnostic = "<leader>d",
     DiagnosticPrev = "[d",
     DiagnosticNext = "]d",
+    DiagnosticWarnPrev = "[w",
+    DiagnosticWarnNext = "]w",
+    DiagnosticErrorPrev = "[e",
+    DiagnosticErrorNext = "]e",
+
+    Rename = "<leader>rn",
+    CodeActions = "<leader>ca",
+    FormatDocument = "<leader>gq",
+    Hover = "K",
+    SignatureHelp = "<C-K>",
   },
   is_mac = jit.os == "OSX",
   git_proxy = function(url)
