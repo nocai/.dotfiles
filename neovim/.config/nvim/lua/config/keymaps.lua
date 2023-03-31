@@ -70,8 +70,9 @@ if vim.g.vscode then
     ivim.lsp_keys.GotoReferences,
     "<Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>"
   )
+  keymap.set({ "n" }, ivim.lsp_keys.Rename, "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+  keymap.set({ "n" }, ivim.lsp_keys.CodeLens, "<Cmd>call VSCodeNotify('codelens.showLensesInCurrentLine')<CR>")
   keymap.set({ "n", "x" }, ivim.lsp_keys.CodeActions, "<Cmd>call VSCodeNotify('editor.action.quickFix')<CR>")
-  keymap.set({ "n", "x" }, ivim.lsp_keys.Rename, "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
 
   keymap.set(
     { "n", "x" },

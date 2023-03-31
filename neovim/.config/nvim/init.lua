@@ -31,6 +31,7 @@ _G.ivim = {
 
     Rename = "<leader>rn",
     CodeActions = "<leader>ca",
+    CodeLens = "<leader>cl",
     FormatDocument = "<leader>gq",
     Hover = "K",
     SignatureHelp = "<C-K>",
