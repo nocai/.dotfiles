@@ -49,21 +49,21 @@ return {
         end,
         desc = "Neotest(Re-run the last position)",
       },
+      {
+        "<leader>to",
+        function()
+          require("neotest").output.open({ enter = true })
+        end,
+        desc = "Neotest(Open output)",
+      },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
-      {
-        "nvim-neotest/neotest-go",
-        enabled = not vim.g.vscode,
-        ft = "go",
-      },
-      {
-        "rouge8/neotest-rust",
-        enabled = not vim.g.vscode,
-        ft = "rust",
-      },
+      -- adapters
+      "nvim-neotest/neotest-go",
+      "rouge8/neotest-rust",
     },
     opts = function()
       return {
