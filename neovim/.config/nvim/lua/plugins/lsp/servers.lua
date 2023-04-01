@@ -19,24 +19,34 @@ return {
   },
   gopls = {
     cmd = { "gopls", "--remote=auto" },
-    init_options = {
-      usePlaceholders = true,
-      completeUnimported = true,
-      analyses = {
-        unreachable = true,
-        unusedparams = true,
-      },
-      staticcheck = true,
-    },
     settings = {
       gopls = {
-        codelenses = {
-          -- generate = true, -- Don't show the `go generate` lens.
-          -- gc_details = false, -- Show a code lens toggling the display of gc's choices.
-          -- tidy = true,
-          test = true,
-          -- upgrade_dependency = true,
-          -- vendor = true,
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+        usePlaceholders = false,
+        staticcheck = true,
+        analyses = {
+          unreachable = true,
+          unusedparams = true,
+        },
+      },
+    },
+    rust_analyzer = {
+      settings = {
+        ["rust-analyzer"] = {
+          procMacro = { enable = true },
+          cargo = { allFeatures = true },
+          -- checkOnSave = {
+          --   command = "clippy",
+          --   extraArgs = { "--no-deps" },
+          -- },
         },
       },
     },

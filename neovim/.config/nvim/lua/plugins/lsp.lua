@@ -6,28 +6,10 @@ return {
   {
     "folke/neodev.nvim",
     ft = "lua",
+    enabled = false,
     opts = {
       experimental = { pathStrict = true },
       library = { plugins = { "lazy" }, types = true },
-    },
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    opts = {
-      server = {
-        settings = {
-          ["rust-analyzer"] = {
-            checkOnSave = {
-              command = "clippy",
-              extraArgs = { "--no-deps" },
-            },
-            procMacro = {
-              enable = true,
-            },
-          },
-        },
-      },
     },
   },
   -- inlay hints
@@ -35,7 +17,6 @@ return {
     "lvimuser/lsp-inlayhints.nvim",
     event = "LspAttach",
     opts = {},
-    enabled = false,
     config = function(_, opts)
       require("lsp-inlayhints").setup(opts)
       vim.api.nvim_create_autocmd("LspAttach", {
