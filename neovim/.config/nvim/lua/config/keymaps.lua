@@ -95,7 +95,7 @@ if vim.g.vscode then
     ivim.lsp_keys.PeekImplementation,
     "<Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>"
   )
-  keymap.set({ "n", "x" }, ivim.lsp_keys.FormatDocument, "<Cmd>call VSCodeNotify('editor.action.formatDocument')<CR>")
+  keymap.set({ "n", "x" }, ivim.lsp_keys.FormatDocument, "<Cmd>call VSCodeCall('editor.action.formatDocument')<CR>")
 
   keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticPrev, "<Cmd>call VSCodeCall('editor.action.marker.prev')<CR>")
   keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticNext, "<Cmd>call VSCodeCall('editor.action.marker.next')<CR>")

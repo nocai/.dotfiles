@@ -1,6 +1,9 @@
 window:
   decorations: buttonless
-  opacity: 0.95
+  opacity: 0.85
+  option_as_alt: Both
+  # padding:
+  #   y: 25
 font:
   normal:
     family: JetBrainsMono Nerd Font
@@ -10,7 +13,7 @@ font:
     style: Bold
   italic:
     style: Italic
-  size: 12.5
+  size: 12
 schemes:
   # TokyoNight Alacritty Colors
   tokyonight: &tokyonight
@@ -77,8 +80,3 @@ cursor:
 key_bindings:
   # (macOS only)
   - {key: Space, mods: Shift|Command, mode: ~Search, action: ToggleViMode}
-  # Alt keys
-  - {key: H, mods: Option, chars: "\x1bh"}
-  - {key: J, mods: Option, chars: "\x1bj"}
-  - {key: K, mods: Option, chars: "\x1bk"}
-  - {key: L, mods: Option, chars: "\x1bl",}
