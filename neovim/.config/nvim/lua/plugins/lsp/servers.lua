@@ -19,34 +19,54 @@ return {
   },
   gopls = {
     cmd = { "gopls", "--remote=auto" },
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-        usePlaceholders = false,
-        staticcheck = true,
-        analyses = {
-          unreachable = true,
-          unusedparams = true,
-        },
+    init_options = {
+      usePlaceholders = false,
+      staticcheck = true,
+      analyses = {
+        unreachable = true,
+        unusedparams = true,
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
       },
     },
-    rust_analyzer = {
-      settings = {
-        ["rust-analyzer"] = {
-          procMacro = { enable = true },
-          cargo = { allFeatures = true },
-          -- checkOnSave = {
-          --   command = "clippy",
-          --   extraArgs = { "--no-deps" },
-          -- },
+  },
+  rust_analyzer = {
+    -- root_dir = function(fname)
+    --   local util = require("lspconfig.util")
+    --   return util.root_pattern(".git")(fname)
+    -- end,
+    settings = {
+      ["rust-analyzer"] = {
+        -- diagnostics = {
+        --   enable = true,
+        --   disabled = { "unresolved-proc-macro" },
+        --   enableExperimental = true,
+        -- },
+        -- checkOnSave = {
+        --   command = "clippy",
+        --   extraArgs = { "--no-deps" },
+        -- },
+        -- imports = {
+        --   granularity = {
+        --     group = "module",
+        --   },
+        --   prefix = "self",
+        -- },
+        -- cargo = {
+        --   allFeatures = true,
+        --   buildScripts = {
+        --     enable = true,
+        --   },
+        -- },
+        procMacro = {
+          enable = true,
         },
       },
     },
