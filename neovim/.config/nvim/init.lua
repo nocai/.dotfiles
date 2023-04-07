@@ -21,7 +21,7 @@ _G.ivim = {
     PeekFunction = "<leader>gf",
     PeekClass = "<leader>gc",
 
-    Diagnostic = "<leader>d",
+    Diagnostic = "<leader>D",
     DiagnosticPrev = "[d",
     DiagnosticNext = "]d",
     DiagnosticWarnPrev = "[w",
