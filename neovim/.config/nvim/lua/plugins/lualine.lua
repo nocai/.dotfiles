@@ -96,7 +96,7 @@ return {
               return s
             end,
           },
-          -- "encoding",
+          "encoding",
           "fileformat",
           "progress",
           "location",
