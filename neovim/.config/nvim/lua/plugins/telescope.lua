@@ -16,10 +16,6 @@ return {
     keys = function()
       return require("plugins.telescope.keymaps")
     end,
-    opts = {
-      defaults = {
-        prompt_prefix = " ",
-      },
-    },
+    opts = {},
   },
 }

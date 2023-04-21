@@ -10,17 +10,17 @@ return {
     {
       "<leader>e",
       "<cmd>Neotree toggle<cr>",
-      desc = "Explorer NeoTree (toggle)",
+      desc = "Toggle (neo-tree)",
     },
     {
       "<leader>E",
       "<cmd>Neotree reveal_force_cwd<cr>",
-      desc = "Explorer NeoTree (focus)",
+      desc = "Focus (neo-tree)",
     },
     {
       "<leader>ge",
       "<cmd>Neotree git_status<cr>",
-      desc = "Explorer Git Status",
+      desc = "Git status (neo-tree)",
     },
   },
   deactivate = function()

@@ -145,7 +145,7 @@ return {
           nls.builtins.formatting.yamlfmt,
           nls.builtins.formatting.markdownlint,
 
-          nls.builtins.diagnostics.golangci_lint,
+          -- nls.builtins.diagnostics.golangci_lint,
           -- nls.builtins.diagnostics.markdownlint,
           -- nls.builtins.diagnostics.yamllint,
         },

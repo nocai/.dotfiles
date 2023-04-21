@@ -19,13 +19,14 @@
 -- right_rounded_thin = "",
 -- circle = "●",
 
-local nvimtree_extension = {
-  sections = {
-    lualine_c = { "filename" },
-    lualine_x = { "location" },
-  },
-  filetypes = { "NvimTree" },
-}
+-- local nvimtree_extension = {
+--   sections = {
+--     lualine_c = { "filename" },
+--     lualine_x = { "location" },
+--   },
+--   filetypes = { "NvimTree" },
+-- }
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -104,7 +105,7 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-      extensions = { nvimtree_extension },
+      -- extensions = { nvimtree_extension },
     },
     dependencies = {
       {

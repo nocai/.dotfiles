@@ -12,49 +12,49 @@ return {
         function()
           require("neotest").summary.toggle()
         end,
-        desc = "Neotest(Summary toggle)",
+        desc = "Test summary toggle (neotest)",
       },
       {
         "<leader>tt",
         function()
           require("neotest").run.run()
         end,
-        desc = "Neotest(Run the nearest test)",
+        desc = "Run the nearest test (neotest)",
       },
       {
         "<leader>tS",
         function()
           require("neotest").run.stop()
         end,
-        desc = "Neotest(Stop the nearest test)",
+        desc = "Stop the nearest test (neotest)",
       },
       {
         "<leader>tf",
         function()
           require("neotest").run.run(vim.fn.expand("%"))
         end,
-        desc = "Neotest(Run the current file)",
+        desc = "Test the current file (neotest)",
       },
       {
         "<leader>ta",
         function()
           require("neotest").run.attach()
         end,
-        desc = "Neotest(Attach to the nearest test)",
+        desc = "Attach to the nearest test (neotest)",
       },
       {
         "<leader>tl",
         function()
           require("neotest").run.run_last()
         end,
-        desc = "Neotest(Re-run the last position)",
+        desc = "Re-run the last position (neotest)",
       },
       {
         "<leader>to",
         function()
           require("neotest").output.open({ enter = true })
         end,
-        desc = "Neotest(Open output)",
+        desc = "Open output (neotest)",
       },
     },
     dependencies = {

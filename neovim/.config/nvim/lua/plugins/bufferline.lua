@@ -3,8 +3,8 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
       { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+      { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
     },
     enabled = not vim.g.vscode,
     opts = {

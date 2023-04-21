@@ -20,7 +20,7 @@ return {
   gopls = {
     cmd = { "gopls", "--remote=auto" },
     init_options = {
-      usePlaceholders = false,
+      usePlaceholders = true,
       staticcheck = true,
       analyses = {
         unreachable = true,

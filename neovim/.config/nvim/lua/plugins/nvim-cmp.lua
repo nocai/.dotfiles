@@ -27,8 +27,8 @@ return {
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-d>"] = cmp.mapping.scroll_docs(3),
-          ["<C-f>"] = cmp.mapping.scroll_docs(6),
           ["<C-u>"] = cmp.mapping.scroll_docs(-3),
+          ["<C-f>"] = cmp.mapping.scroll_docs(6),
           ["<C-b>"] = cmp.mapping.scroll_docs(-6),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
@@ -54,8 +54,8 @@ return {
             if icons[item.kind] then
               item.kind = icons[item.kind]
             end
-            if string.len(item.abbr) > 20 then
-              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 20))
+            if string.len(item.abbr) > 25 then
+              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 25))
             end
             item.menu = string.format("[%s]", entry.source.name)
             return item

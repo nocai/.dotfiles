@@ -6,8 +6,8 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gc", mode = { "v", "n" } },
-      { "gb", mode = { "n", "v" } },
+      { "gc", mode = { "n", "v" }, desc = "+prefix" },
+      { "gb", mode = { "n", "v" }, desc = "+prefix" },
     },
     opts = {},
   },
@@ -105,7 +105,7 @@ return {
     "thinca/vim-quickrun",
     enabled = not vim.g.vscode,
     keys = {
-      { "<leader>rr", "<Plug>(quickrun)", desc = "Code runner" },
+      { "<leader>rc", "<Plug>(quickrun)", desc = "Run code" },
     },
     init = function()
       vim.g.quickrun_no_default_key_mappings = 1
