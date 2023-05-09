@@ -50,8 +50,8 @@ return {
       "[",
       "]",
       -- FIXME: 下面"a","i"在x模式(which-key.nvim开启)下，不生效
-      "va",
-      "vi",
+      -- "va",
+      -- "vi",
       { "a", mode = { "x", "o" } },
       { "i", mode = { "x", "o" } },
     },
