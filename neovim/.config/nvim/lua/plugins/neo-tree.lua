@@ -1,6 +1,9 @@
+if vim.g.vscode then
+  return {}
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  enabled = not vim.g.vscode,
   branch = "v2.x",
   cmd = "Neotree",
   dependencies = {

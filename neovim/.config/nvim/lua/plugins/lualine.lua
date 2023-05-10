@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 -- vertical_bar = "┃",
 -- vertical_bar_thin = "│",
 -- left = "",
