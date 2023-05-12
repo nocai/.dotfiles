@@ -8,6 +8,11 @@ local keymap = vim.keymap
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+keymap.set("n", "<M-h>", "<C-w>h", { desc = "Go to the left window" })
+keymap.set("n", "<M-j>", "<C-w>j", { desc = "Go to the down window" })
+keymap.set("n", "<M-k>", "<C-w>k", { desc = "Go to the up window" })
+keymap.set("n", "<M-l>", "<C-w>l", { desc = "Go to the right window" })
+
 -- Resize window
 keymap.set("n", "<Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 keymap.set("n", "<Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })

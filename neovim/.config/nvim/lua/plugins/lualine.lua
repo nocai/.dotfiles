@@ -48,9 +48,9 @@ return {
           {
             "mode",
             icon = "",
-            -- fmt = function(str)
-            --   return str:sub(1, 3)
-            -- end,
+            fmt = function(str)
+              return str:sub(1, 3)
+            end,
             color = { bg = "none" },
           },
         },
