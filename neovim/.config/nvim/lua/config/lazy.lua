@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("config.lazy.util").load()
 require("lazy").setup({
   spec = {
-    { "folke/lazy.nvim" }, -- , version = "*" },
+    { "folke/lazy.nvim", version = "*" },
     -- 插件目录
     { import = "plugins" },
   },
