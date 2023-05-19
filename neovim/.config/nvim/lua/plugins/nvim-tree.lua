@@ -5,10 +5,10 @@ end
 return {
   {
     "kyazdani42/nvim-tree.lua",
-    enabled = false,
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "NvimTree(toggle)" },
-      { "<leader>E", "<cmd>NvimTreeFocus<CR>", desc = "NvimTree(focus)" },
+      -- { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle (NvimTree)" },
+      { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "Focus (NvimTree)" },
+      { "<leader>E", "<cmd>NvimTreeFindFile!<CR>", desc = "FindFile! (NvimTree)" },
     },
     opts = function()
       -- auto close last windows in the tab
@@ -26,7 +26,7 @@ return {
         prefer_startup_root = true,
         update_focused_file = {
           enable = true,
-          update_root = true,
+          update_root = false,
         },
         renderer = {
           group_empty = true,
