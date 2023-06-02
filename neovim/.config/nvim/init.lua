@@ -21,7 +21,7 @@ _G.ivim = {
     PeekFunction = "<leader>gf",
     PeekClass = "<leader>gc",
 
-    Diagnostic = "<leader>d",
+    Diagnostic = "<leader>d", -- <leader>d: debug
     DiagnosticPrev = "[d",
     DiagnosticNext = "]d",
     DiagnosticWarnPrev = "[w",
@@ -101,4 +101,5 @@ require("config.lazy")
 
 if not vim.g.vscode then
   vim.cmd.colorscheme("tokyonight")
+  -- vim.cmd.colorscheme("kanagawa")
 end

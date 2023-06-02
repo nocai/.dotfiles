@@ -6,8 +6,6 @@ return {
   {
     "mfussenegger/nvim-dap",
     keys = require("plugins.dap.keymaps").dap,
-    -- enabled = not vim.g.vscode,
-    enabled = false,
     dependencies = {
       -- {
       --   "nvim-telescope/telescope-dap.nvim",

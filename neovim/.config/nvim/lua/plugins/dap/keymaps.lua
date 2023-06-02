@@ -75,7 +75,7 @@ return {
     -- },
 
     {
-      "<S-F11>",
+      "<leader><F11>",
       function()
         require("dap").step_out()
       end,
@@ -154,19 +154,19 @@ return {
     },
   },
   ["dap-go"] = {
-    -- {
-    --   "<leader>dtc",
-    --   function()
-    --     require("dap-go").debug_test()
-    --   end,
-    --   desc = "DAP-GO(Debug test: closest method)",
-    -- },
-    -- {
-    --   "<leader>dtl",
-    --   function()
-    --     require("dap-go").debug_last_test()
-    --   end,
-    --   desc = "DAP-GO(Debug test: last method)",
-    -- },
+    {
+      "<leader>td",
+      function()
+        require("dap-go").debug_test()
+      end,
+      desc = "DAP-GO(Debug test: closest method)",
+    },
+    {
+      "<leader>tD",
+      function()
+        require("dap-go").debug_last_test()
+      end,
+      desc = "DAP-GO(Debug test: last method)",
+    },
   },
 }

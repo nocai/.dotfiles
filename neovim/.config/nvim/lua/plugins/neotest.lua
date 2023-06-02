@@ -8,13 +8,6 @@ return {
     enabled = not vim.g.vscode,
     keys = {
       {
-        "<leader>ts",
-        function()
-          require("neotest").summary.toggle()
-        end,
-        desc = "Test summary toggle (neotest)",
-      },
-      {
         "<leader>tt",
         function()
           require("neotest").run.run()
@@ -22,7 +15,14 @@ return {
         desc = "Run the nearest test (neotest)",
       },
       {
-        "<leader>tS",
+        "<leader>t.",
+        function()
+          require("neotest").run.run_last()
+        end,
+        desc = "Re-run the last position (neotest)",
+      },
+      {
+        "<leader>ts",
         function()
           require("neotest").run.stop()
         end,
@@ -43,18 +43,18 @@ return {
         desc = "Attach to the nearest test (neotest)",
       },
       {
-        "<leader>tl",
-        function()
-          require("neotest").run.run_last()
-        end,
-        desc = "Re-run the last position (neotest)",
-      },
-      {
         "<leader>to",
         function()
           require("neotest").output.open({ enter = true })
         end,
         desc = "Open output (neotest)",
+      },
+      {
+        "<leader>tT",
+        function()
+          require("neotest").summary.toggle()
+        end,
+        desc = "Test summary toggle (neotest)",
       },
     },
     dependencies = {
