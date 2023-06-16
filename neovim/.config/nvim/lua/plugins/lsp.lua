@@ -82,6 +82,7 @@ return {
     dependencies = {
       {
         "j-hui/fidget.nvim",
+        tag = "legacy",
         opts = {
           window = {
             blend = 0, -- &winblend for the window

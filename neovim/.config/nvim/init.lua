@@ -98,8 +98,3 @@ _G.ivim = {
 
 -- bootstrap lazy.nvim
 require("config.lazy")
-
-if not vim.g.vscode then
-  vim.cmd.colorscheme("tokyonight")
-  -- vim.cmd.colorscheme("kanagawa")
-end

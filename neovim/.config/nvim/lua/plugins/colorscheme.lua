@@ -7,7 +7,8 @@ return {
   {
     "folke/tokyonight.nvim",
     -- lazy = false,
-    priority = 1000,
+    -- priority = 1000,
+    lazy = false,
     opts = {
       transparent = true,
       styles = {
@@ -16,22 +17,21 @@ return {
       },
       -- terminal_colors = not vim.g.vscode,
       on_colors = function(colors)
-        -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
-        -- if opts.transparent then
-        --   -- statusline 透明
-        -- colors.bg_statusline = colors.none
-        -- end
+        local opts = require("config.lazy.util").opts("tokyonight.nvim")
+        if opts.transparent then
+          -- statusline 透明
+          colors.bg_statusline = colors.none
+        end
       end,
     },
-    -- config = function(_, opts)
-    --   require("tokyonight").setup(opts)
-    --   vim.cmd.colorscheme("tokyonight")
-    -- end,
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme("tokyonight")
+    end,
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    enabled = not vim.g.vscode,
     opts = {
       transparent_background = true,
       integrations = {
@@ -44,10 +44,13 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd.colorscheme("catppuccin")
+    end,
   },
   {
     "EdenEast/nightfox.nvim",
-    enabled = not vim.g.vscode,
     opts = {
       options = {
         transparent = true,
@@ -60,8 +63,15 @@ return {
   },
   { -- Theme inspired by Atom
     "navarasu/onedark.nvim",
-    priority = 1000,
-    config = function()
+    opts = {
+      transparent = true,
+      -- Lualine options --
+      lualine = {
+        transparent = true, -- lualine center bar transparency
+      },
+    },
+    config = function(_, opts)
+      require("onedark").setup(opts)
       vim.cmd.colorscheme("onedark")
     end,
   },

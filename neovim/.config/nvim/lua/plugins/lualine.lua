@@ -35,7 +35,6 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    enabled = not vim.g.vscode,
     opts = {
       options = {
         section_separators = "",
@@ -44,18 +43,56 @@ return {
       },
       sections = {
         lualine_a = {},
-        lualine_b = {
+        lualine_b = {},
+        lualine_c = {
           {
             "mode",
-            icon = "",
-            fmt = function(str)
-              return str:sub(1, 3)
+            icon = "",
+            -- fmt = function(str)
+            --   return str:sub(1, 3)
+            -- end,
+            -- color = { bg = "none" },
+            color = function()
+              -- stylua: ignore
+              local colors = {
+                bg       = '#202328',
+                fg       = '#bbc2cf',
+                yellow   = '#ECBE7B',
+                cyan     = '#008080',
+                darkblue = '#081633',
+                green    = '#98be65',
+                orange   = '#FF8800',
+                violet   = '#a9a1e1',
+                magenta  = '#c678dd',
+                blue     = '#51afef',
+                red      = '#ec5f67',
+              }
+              -- auto change color according to neovims mode
+              local mode_color = {
+                n = colors.red,
+                i = colors.green,
+                v = colors.blue,
+                [""] = colors.blue,
+                V = colors.blue,
+                c = colors.magenta,
+                no = colors.red,
+                s = colors.orange,
+                S = colors.orange,
+                [""] = colors.orange,
+                ic = colors.yellow,
+                R = colors.violet,
+                Rv = colors.violet,
+                cv = colors.red,
+                ce = colors.red,
+                r = colors.cyan,
+                rm = colors.cyan,
+                ["r?"] = colors.cyan,
+                ["!"] = colors.red,
+                t = colors.red,
+              }
+              return { fg = mode_color[vim.fn.mode()] }
             end,
-            color = { bg = "none" },
           },
-        },
-        lualine_c = {
-          -- { "branch", icon = "" },
           { "branch" },
           {
             "diff",
@@ -66,14 +103,7 @@ return {
             },
           },
           { "filetype", icon_only = true, padding = { left = 1 } },
-          { "filename", separator = "»" },
-          -- stylua: ignore
-          {
-            function() return require("nvim-navic").get_location() end,
-            cond = function()
-              return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            end,
-          },
+          { "filename" },
         },
         lualine_x = {
           {
@@ -110,28 +140,6 @@ return {
         lualine_z = {},
       },
       -- extensions = { nvimtree_extension },
-    },
-    dependencies = {
-      {
-        "SmiteshP/nvim-navic",
-        enabled = not vim.g.vscode,
-        init = function()
-          vim.g.navic_silence = true
-          require("plugins.lsp.util").on_attach(function(client, buffer)
-            if client.server_capabilities.documentSymbolProvider then
-              require("nvim-navic").attach(client, buffer)
-            end
-          end)
-        end,
-        opts = function()
-          return {
-            separator = " > ",
-            highlight = true,
-            depth_limit = 5,
-            icons = ivim.icons.kinds,
-          }
-        end,
-      },
     },
   },
 }
