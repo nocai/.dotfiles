@@ -24,7 +24,7 @@ vim.keymap.set("n", ivim.lsp_keys.DiagnosticWarnPrev, M._diagnostic_goto(false, 
 function M.on_attach(_, buffer)
   vim.keymap.set("n", ivim.lsp_keys.Hover, vim.lsp.buf.hover, { buffer = buffer, desc = "Hover (lsp)" })
   vim.keymap.set(
-    { "n", "s", "i" },
+    { "s", "i" },
     ivim.lsp_keys.SignatureHelp,
     vim.lsp.buf.signature_help,
     { buffer = buffer, desc = "Signature help (lsp)" }

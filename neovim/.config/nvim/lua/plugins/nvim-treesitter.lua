@@ -1,6 +1,6 @@
-if vim.g.vscode then
-  return {}
-end
+-- if vim.g.vscode then
+--   return {}
+-- end
 
 return {
   {
@@ -17,7 +17,10 @@ return {
         enable = not vim.g.vscode,
         additional_vim_regex_highlighting = false,
       },
-      indent = { enable = not vim.g.vscode, disable = { "python" } },
+      indent = {
+        enable = not vim.g.vscode,
+        disable = { "python" },
+      },
       incremental_selection = {
         enable = false,
       },
@@ -40,8 +43,6 @@ return {
               enable = not vim.g.vscode,
               extended_mode = true,
               max_file_lines = nil,
-              -- colors = {}, -- table of hex strings
-              -- termcolors = {} -- table of colour name strings
             },
           })
         end,
@@ -53,9 +54,6 @@ return {
     keys = {
       "[",
       "]",
-      -- FIXME: 下面"a","i"在x模式(which-key.nvim开启)下，不生效
-      -- "va",
-      -- "vi",
       { "a", mode = { "x", "o" } },
       { "i", mode = { "x", "o" } },
     },

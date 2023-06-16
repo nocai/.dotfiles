@@ -24,8 +24,8 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(3),
           ["<C-u>"] = cmp.mapping.scroll_docs(-3),
           ["<C-f>"] = cmp.mapping.scroll_docs(6),
@@ -34,11 +34,6 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          -- -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          -- ["<S-CR>"] = cmp.mapping.confirm({
-          --   behavior = cmp.ConfirmBehavior.Replace,
-          --   select = true,
-          -- }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -118,7 +113,7 @@ return {
             end,
             expr = true, silent = true, mode = "i",
           },
-          { "<tab>",   function() require("luasnip").jump(1) end,   mode = "s" },
+          { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
           { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
         },
       },

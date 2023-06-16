@@ -180,7 +180,6 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "VeryLazy",
-    -- event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
     opts = function()
       local nls = require("null-ls")
@@ -191,9 +190,9 @@ return {
           nls.builtins.formatting.yamlfmt,
           nls.builtins.formatting.markdownlint,
 
-          -- nls.builtins.diagnostics.golangci_lint,
+          nls.builtins.diagnostics.golangci_lint,
           -- nls.builtins.diagnostics.markdownlint,
-          -- nls.builtins.diagnostics.yamllint,
+          nls.builtins.diagnostics.yamllint,
         },
       }
     end,

@@ -6,8 +6,10 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gc", mode = { "n", "v" }, desc = "+prefix" },
-      { "gb", mode = { "n", "v" }, desc = "+prefix" },
+      { "gcc", mode = "n" },
+      { "gc", mode = "v" },
+      { "gbc", mode = "n" },
+      { "gb", mode = "v" },
     },
     opts = {},
   },
