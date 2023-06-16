@@ -6,15 +6,14 @@ return {
   -- tokyonight
   {
     "folke/tokyonight.nvim",
-    -- lazy = false,
-    -- priority = 1000,
+    priority = 1000,
     lazy = false,
     opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
+      transparent = false,
+      -- styles = {
+      --   sidebars = "transparent",
+      --   floats = "transparent",
+      -- },
       -- terminal_colors = not vim.g.vscode,
       on_colors = function(colors)
         local opts = require("config.lazy.util").opts("tokyonight.nvim")
@@ -63,6 +62,7 @@ return {
   },
   { -- Theme inspired by Atom
     "navarasu/onedark.nvim",
+    priority = 1000,
     opts = {
       transparent = true,
       -- Lualine options --

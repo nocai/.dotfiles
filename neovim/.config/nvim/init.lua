@@ -38,9 +38,9 @@ _G.ivim = {
   },
   is_mac = jit.os == "OSX",
   git_proxy = function(url)
-    if jit.os == "OSX" then
-      return url
-    end
+    -- if jit.os == "OSX" then
+    --   return url
+    -- end
     return string.format("https://ghproxy.com/%s", url)
   end,
   -- icons used by other plugins
