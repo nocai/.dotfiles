@@ -20,9 +20,9 @@ keymap.set("n", "<Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease wind
 keymap.set("n", "<Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- buffers
-keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-keymap.set("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-keymap.set("n", "<leader><Tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+-- keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+-- keymap.set("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+-- keymap.set("n", "<leader><Tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- lazy
 keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })

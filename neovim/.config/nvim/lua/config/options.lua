@@ -6,6 +6,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
+vim.g.inlay_hints_enabled = true
+
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write

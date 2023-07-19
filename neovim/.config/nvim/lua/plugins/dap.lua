@@ -7,12 +7,6 @@ return {
     "mfussenegger/nvim-dap",
     keys = require("plugins.dap.keymaps").dap,
     dependencies = {
-      -- {
-      --   "nvim-telescope/telescope-dap.nvim",
-      --   config = function()
-      --     require("telescope").load_extension("dap")
-      --   end,
-      -- },
       {
         "jay-babu/mason-nvim-dap.nvim",
         config = function()
@@ -45,10 +39,10 @@ return {
           dap.listeners.before.event_exited["dapui_config"] = dapui.close
         end,
       },
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
-      },
+      -- {
+      --   "theHamsta/nvim-dap-virtual-text",
+      --   opts = {},
+      -- },
       {
         "leoluz/nvim-dap-go",
         opts = {},

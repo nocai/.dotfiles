@@ -9,19 +9,19 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-      transparent = false,
+      transparent = true,
       -- styles = {
       --   sidebars = "transparent",
       --   floats = "transparent",
       -- },
       -- terminal_colors = not vim.g.vscode,
-      on_colors = function(colors)
-        local opts = require("config.lazy.util").opts("tokyonight.nvim")
-        if opts.transparent then
-          -- statusline 透明
-          colors.bg_statusline = colors.none
-        end
-      end,
+      -- on_colors = function(colors)
+      -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
+      -- if opts.transparent then
+      -- statusline 透明
+      -- colors.bg_statusline = colors.none
+      -- end
+      -- end,
     },
     config = function(_, opts)
       require("tokyonight").setup(opts)

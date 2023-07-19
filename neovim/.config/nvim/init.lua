@@ -15,7 +15,7 @@ _G.ivim = {
     GotoReferences = "gr",
     PeekReferences = "<leader>gr",
 
-    GotoDocumentSymbols = "gS", -- gs: leap.nvim
+    GotoDocumentSymbols = "gs", -- gs: leap.nvim
     PeekDocumentSymbols = "<leader>gs",
 
     PeekFunction = "<leader>gf",
@@ -32,15 +32,12 @@ _G.ivim = {
     Rename = "<leader>rn",
     CodeActions = "<leader>ca",
     CodeLens = "<leader>cl",
-    FormatDocument = "<leader>gq",
     Hover = "K",
     SignatureHelp = "<C-K>",
+    FormatDocument = "gq",
   },
   is_mac = jit.os == "OSX",
   git_proxy = function(url)
-    -- if jit.os == "OSX" then
-    --   return url
-    -- end
     return string.format("https://ghproxy.com/%s", url)
   end,
   -- icons used by other plugins

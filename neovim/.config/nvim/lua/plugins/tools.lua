@@ -49,7 +49,7 @@ return {
     enabled = not vim.g.vscode,
     keys = {
       {
-        "<leader>gp",
+        "<leader>p",
         function()
           local peek = require("peek")
           if peek.is_open() then

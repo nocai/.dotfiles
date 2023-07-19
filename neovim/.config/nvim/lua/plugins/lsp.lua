@@ -4,79 +4,6 @@ end
 
 return {
   {
-    "folke/neodev.nvim",
-    ft = "lua",
-    enabled = false,
-    opts = {
-      experimental = { pathStrict = true },
-      library = { plugins = { "lazy" }, types = true },
-    },
-  },
-  -- inlay hints
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-    event = "LspAttach",
-    opts = {},
-    enabled = false,
-    config = function(_, opts)
-      require("lsp-inlayhints").setup(opts)
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
-        callback = function(args)
-          if not (args.data and args.data.client_id) then
-            return
-          end
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("lsp-inlayhints").on_attach(client, args.buf)
-        end,
-      })
-    end,
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    enabled = false,
-    event = "LspAttach",
-    opts = {
-      symbols = {
-        Array = { icon = " " },
-        Boolean = { icon = " " },
-        Class = { icon = " " },
-        Color = { icon = " " },
-        Constant = { icon = " " },
-        Constructor = { icon = " " },
-        Copilot = { icon = " " },
-        Enum = { icon = " " },
-        EnumMember = { icon = " " },
-        Event = { icon = " " },
-        Field = { icon = " " },
-        File = { icon = " " },
-        Folder = { icon = " " },
-        Function = { icon = " " },
-        Interface = { icon = " " },
-        Key = { icon = " " },
-        Keyword = { icon = " " },
-        Method = { icon = " " },
-        Module = { icon = " " },
-        Namespace = { icon = " " },
-        Null = { icon = "ﳠ " },
-        Number = { icon = " " },
-        Object = { icon = " " },
-        Operator = { icon = " " },
-        Package = { icon = " " },
-        Property = { icon = " " },
-        Reference = { icon = " " },
-        Snippet = { icon = " " },
-        String = { icon = " " },
-        Struct = { icon = " " },
-        Text = { icon = " " },
-        TypeParameter = { icon = " " },
-        Unit = { icon = " " },
-        Value = { icon = " " },
-        Variable = { icon = " " },
-      },
-    },
-  },
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -89,13 +16,6 @@ return {
           },
         },
       },
-
-      {
-        "hrsh7th/cmp-nvim-lsp",
-        cond = function()
-          return require("config.lazy.util").has("nvim-cmp")
-        end,
-      },
       {
         "williamboman/mason-lspconfig.nvim",
         opts = {
@@ -107,7 +27,6 @@ return {
           require("mason-lspconfig").setup(opts)
 
           local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
           capabilities.textDocument.completion.completionItem = {
             documentationFormat = { "markdown", "plaintext" },
             snippetSupport = true,
@@ -165,16 +84,39 @@ return {
       Util.on_attach(function(client, buffer)
         require("plugins.lsp.setting")
 
-        -- Util.document_highlight(client, buffer)
-        -- Util.code_lens(client, buffer)
-
-        -- setup formatting and keymaps
-        local Format = require("plugins.lsp.format")
-        Format.on_attach(client, buffer)
-
         local Keymaps = require("plugins.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
+
+        local Format = require("plugins.lsp.format")
+        Format.on_attach(client, buffer)
       end)
+
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+      if inlay_hint then
+        Util.on_attach(function(client, buffer)
+          if client.server_capabilities.inlayHintProvider then
+            inlay_hint(buffer, true)
+          end
+        end)
+      end
+
+      -- Util.on_attach(function(client, buffer)
+      --   require("plugins.lsp.setting")
+      --
+      --   -- Util.document_highlight(client, buffer)
+      --   -- Util.code_lens(client, buffer)
+      --
+      --   -- setup formatting and keymaps
+      --   local Format = require("plugins.lsp.format")
+      --   Format.on_attach(client, buffer)
+      --
+      --   local Keymaps = require("plugins.lsp.keymaps")
+      --   Keymaps.on_attach(client, buffer)
+      --
+      --   if inlay_hint and client.server_capabilities.inlayHintProvider then
+      --     inlay_hint(buffer, true)
+      --   end
+      -- end)
     end,
   },
   -- formatters
@@ -192,7 +134,7 @@ return {
           nls.builtins.formatting.markdownlint,
 
           nls.builtins.diagnostics.golangci_lint,
-          -- nls.builtins.diagnostics.markdownlint,
+          nls.builtins.diagnostics.markdownlint,
           nls.builtins.diagnostics.yamllint,
         },
       }
@@ -206,4 +148,48 @@ return {
       require("illuminate").configure()
     end,
   },
+  -- {
+  --   "simrat39/symbols-outline.nvim",
+  --   enabled = false,
+  --   event = "LspAttach",
+  --   opts = {
+  --     symbols = {
+  --       Array = { icon = " " },
+  --       Boolean = { icon = " " },
+  --       Class = { icon = " " },
+  --       Color = { icon = " " },
+  --       Constant = { icon = " " },
+  --       Constructor = { icon = " " },
+  --       Copilot = { icon = " " },
+  --       Enum = { icon = " " },
+  --       EnumMember = { icon = " " },
+  --       Event = { icon = " " },
+  --       Field = { icon = " " },
+  --       File = { icon = " " },
+  --       Folder = { icon = " " },
+  --       Function = { icon = " " },
+  --       Interface = { icon = " " },
+  --       Key = { icon = " " },
+  --       Keyword = { icon = " " },
+  --       Method = { icon = " " },
+  --       Module = { icon = " " },
+  --       Namespace = { icon = " " },
+  --       Null = { icon = "ﳠ " },
+  --       Number = { icon = " " },
+  --       Object = { icon = " " },
+  --       Operator = { icon = " " },
+  --       Package = { icon = " " },
+  --       Property = { icon = " " },
+  --       Reference = { icon = " " },
+  --       Snippet = { icon = " " },
+  --       String = { icon = " " },
+  --       Struct = { icon = " " },
+  --       Text = { icon = " " },
+  --       TypeParameter = { icon = " " },
+  --       Unit = { icon = " " },
+  --       Value = { icon = " " },
+  --       Variable = { icon = " " },
+  --     },
+  --   },
+  -- },
 }
