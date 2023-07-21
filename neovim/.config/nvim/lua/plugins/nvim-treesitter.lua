@@ -1,7 +1,3 @@
--- if vim.g.vscode then
---   return {}
--- end
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -9,20 +5,22 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = {
-        "lua",
-        "vim",
-      },
+      ensure_installed = { "lua", "vim" },
       highlight = {
         enable = not vim.g.vscode,
         additional_vim_regex_highlighting = false,
       },
       indent = {
         enable = not vim.g.vscode,
-        disable = { "python" },
       },
       incremental_selection = {
-        enable = false,
+        enable = not vim.g.vscode,
+        keymaps = {
+          init_selection = "gnn", -- set to `false` to disable one of the mappings
+          node_incremental = "grn",
+          scope_incremental = "grc",
+          node_decremental = "grm",
+        },
       },
     },
     config = function(_, opts)
@@ -40,7 +38,7 @@ return {
         config = function()
           require("nvim-treesitter.configs").setup({
             rainbow = {
-              enable = not vim.g.vscode,
+              enable = true,
               extended_mode = true,
               max_file_lines = nil,
             },
@@ -70,6 +68,11 @@ return {
               ["af"] = "@function.outer",
               ["ic"] = "@class.inner",
               ["ac"] = "@class.outer",
+            },
+            selection_modes = {
+              ["@parameter.outer"] = "v", -- charwise
+              ["@function.outer"] = "V", -- linewise
+              ["@class.outer"] = "<c-v>", -- blockwise
             },
           },
           move = {

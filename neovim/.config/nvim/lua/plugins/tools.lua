@@ -1,55 +1,52 @@
-if vim.g.vscode then
-  return {}
-end
-
 return {
-  {
-    "nvim-tree/nvim-web-devicons",
-    enabled = not vim.g.vscode,
-  },
   {
     "tweekmonster/startuptime.vim",
     cmd = { "StartupTime" },
     enabled = not vim.g.vscode,
   },
   {
-    "akinsho/toggleterm.nvim",
+    "numToStr/Comment.nvim",
     enabled = not vim.g.vscode,
     keys = {
-      {
-        [[<C-_>]],
-        [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],
-        mode = { "n", "i", "t", "x" },
-        desc = "Open terminal horizontal",
-      },
-      {
-        [[<C-\>]],
-        [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],
-        mode = { "n", "i", "t", "x" },
-        desc = "Open terminal vertical",
-      },
+      { "gcc", mode = "n" },
+      { "gc", mode = "v" },
+      { "gbc", mode = "n" },
+      { "gb", mode = "v" },
     },
-    opts = {
-      open_mapping = false, -- [[<C-\>]]
-      start_in_insert = true,
-      auto_scroll = false,
-      float_opts = {
-        border = "curved",
-      },
-      highlights = {
-        FloatBorder = {
-          link = "FloatBorder",
-        },
-      },
-    },
+    opts = {},
   },
+  {
+    "thinca/vim-quickrun",
+    enabled = not vim.g.vscode,
+    keys = {
+      { "<leader>rr", "<Plug>(quickrun)", desc = "Run code" },
+    },
+    init = function()
+      vim.g.quickrun_no_default_key_mappings = 1
+      vim.g.quickrun_config = { _ = { outputter = "message" } }
+    end,
+  },
+  -- {
+  -- 	"vim-test/vim-test",
+  --  enabled = not vim.g.vscode,
+  -- 	keys = {
+  -- 		{ "<leader>tt", "<cmd>TestNearest<CR>", desc = "Test nearest" },
+  -- 		{ "<leader>tf", "<cmd>TestFile<CR>",    desc = "Test file" },
+  -- 		{ "<leader>ts", "<cmd>TestSuite<CR>",   desc = "Test suite" },
+  -- 		{ "<leader>tl", "<cmd>TestLast<CR>",    desc = "Test last" },
+  -- 		{ "<leader>tv", "<cmd>TestVisit<CR>",   desc = "Test visit" },
+  -- 	},
+  -- 	config = function()
+  -- 		vim.cmd([[let test#strategy = "neovim"]])
+  -- 	end,
+  -- },
   {
     "toppair/peek.nvim",
     build = "deno task --quiet build:fast",
     enabled = not vim.g.vscode,
     keys = {
       {
-        "<leader>p",
+        "<leader>pp",
         function()
           local peek = require("peek")
           if peek.is_open() then

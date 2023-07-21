@@ -1,7 +1,3 @@
-if vim.g.vscode then
-  return {}
-end
-
 -- vertical_bar = "┃",
 -- vertical_bar_thin = "│",
 -- left = "",
@@ -23,13 +19,17 @@ end
 -- right_rounded_thin = "",
 -- circle = "●",
 
--- local nvimtree_extension = {
---   sections = {
---     lualine_c = { "filename" },
---     lualine_x = { "location" },
---   },
---   filetypes = { "NvimTree" },
--- }
+if vim.g.vscode then
+  return {}
+end
+
+local nvimtree_extension = {
+  sections = {
+    lualine_c = { "filename" },
+    lualine_x = { "location" },
+  },
+  filetypes = { "NvimTree" },
+}
 
 return {
   {
@@ -48,9 +48,9 @@ return {
           {
             "mode",
             icon = "",
-            -- fmt = function(str)
-            --   return str:sub(1, 3)
-            -- end,
+            fmt = function(str)
+              return str:sub(1, 3)
+            end,
             -- color = { bg = "none" },
             color = function()
               -- stylua: ignore
@@ -139,7 +139,7 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-      -- extensions = { nvimtree_extension },
+      extensions = { nvimtree_extension },
     },
   },
 }

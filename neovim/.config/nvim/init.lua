@@ -18,8 +18,8 @@ _G.ivim = {
     GotoDocumentSymbols = "gs", -- gs: leap.nvim
     PeekDocumentSymbols = "<leader>gs",
 
-    PeekFunction = "<leader>gf",
-    PeekClass = "<leader>gc",
+    PeekFunction = "<leader>pf",
+    PeekClass = "<leader>pc",
 
     Diagnostic = "<leader>d", -- <leader>d: debug
     DiagnosticPrev = "[d",
@@ -59,7 +59,7 @@ _G.ivim = {
       Class = " ",
       Color = " ",
       Constant = " ",
-      Constructor = " ",
+      Constructor = " ",
       Copilot = " ",
       Enum = " ",
       EnumMember = " ",

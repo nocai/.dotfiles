@@ -9,6 +9,7 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+      style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
       transparent = true,
       -- styles = {
       --   sidebars = "transparent",
