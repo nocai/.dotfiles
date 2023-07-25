@@ -11,10 +11,10 @@ return {
     opts = {
       style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
       transparent = true,
-      -- styles = {
-      --   sidebars = "transparent",
-      --   floats = "transparent",
-      -- },
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
       -- terminal_colors = not vim.g.vscode,
       -- on_colors = function(colors)
       -- local opts = require("config.lazy.util").opts("tokyonight.nvim")

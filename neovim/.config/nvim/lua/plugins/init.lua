@@ -52,17 +52,14 @@ return {
     opts = {
       options = {
         indicator = {
-          icon = " ⏽",
+          icon = "⏽ ",
         },
         separator_style = { "", "" },
         offsets = {
           {
-            filetype = "neo-tree",
-            text = "Explorer",
-          },
-          {
             filetype = "NvimTree",
             text = "Explorer",
+            separator = true,
           },
         },
       },
