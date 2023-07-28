@@ -92,17 +92,17 @@ return {
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
-  {
-    -- Enhanced matchparen.vim plugin for Neovim to highlight the outer pair.
-    "utilyre/sentiment.nvim",
-    name = "sentiment",
-    event = { "BufReadPost", "BufNewFile" },
-    version = "*",
-    enabled = not vim.g.vscode,
-    opts = {
-      -- config
-    },
-  },
+  -- {
+  --   -- Enhanced matchparen.vim plugin for Neovim to highlight the outer pair.
+  --   "utilyre/sentiment.nvim",
+  --   name = "sentiment",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   version = "*",
+  --   enabled = not vim.g.vscode,
+  --   opts = {
+  --     -- config
+  --   },
+  -- },
   {
     "numToStr/Comment.nvim",
     enabled = not vim.g.vscode,

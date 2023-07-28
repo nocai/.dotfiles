@@ -50,13 +50,13 @@ require("lazy").setup({
         "rrhelper",
 
         "matchit",
-        "matchparen",
+        -- "matchparen",
 
         "netrw",
         "netrwPlugin",
         "netrwSettings",
         "netrwFileHandlers",
-        "tarPlugin",
+
         "tohtml",
         "tutor",
         "zipPlugin",
