@@ -95,4 +95,6 @@ _G.ivim = {
 
 -- bootstrap lazy.nvim
 require("config.lazy")
-vim.cmd.colorscheme("tokyonight")
+if not vim.g.vscode then
+  vim.cmd.colorscheme("tokyonight")
+end
