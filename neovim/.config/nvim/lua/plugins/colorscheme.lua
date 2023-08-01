@@ -26,7 +26,17 @@ return {
     },
     config = function(_, opts)
       require("tokyonight").setup(opts)
-      vim.cmd.colorscheme("tokyonight")
+    end,
+  },
+  {
+    "Mofiqul/dracula.nvim",
+    priority = 1000,
+    opts = {
+      transparent_bg = true,
+    },
+    config = function(_, opts)
+      require("dracula").setup(opts)
+      vim.cmd.colorscheme("dracula")
     end,
   },
   {

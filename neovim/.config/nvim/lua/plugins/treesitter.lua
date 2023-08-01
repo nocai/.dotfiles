@@ -68,11 +68,11 @@ return {
               ["af"] = "@function.outer",
               ["ic"] = "@class.inner",
               ["ac"] = "@class.outer",
-            },
-            selection_modes = {
-              ["@parameter.outer"] = "v", -- charwise
-              ["@function.outer"] = "V", -- linewise
-              ["@class.outer"] = "<c-v>", -- blockwise
+
+              ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
+              ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+              ["al"] = { query = "@loop.outer", desc = "around loop" },
+              ["il"] = { query = "@loop.inner", desc = "inside loop" },
             },
           },
           move = {
@@ -82,34 +82,30 @@ return {
               ["]a"] = "@parameter.outer",
               ["]f"] = "@function.outer",
               ["]c"] = "@class.outer",
-              ["]]"] = "@class.outer",
             },
             goto_next_end = {
               ["]A"] = "@parameter.outer",
               ["]F"] = "@function.outer",
               ["]C"] = "@class.outer",
-              ["]["] = "@class.outer",
             },
             goto_previous_start = {
               ["[a"] = "@parameter.outer",
               ["[f"] = "@function.outer",
               ["[c"] = "@class.outer",
-              ["[["] = "@class.outer",
             },
             goto_previous_end = {
               ["[A"] = "@parameter.outer",
               ["[F"] = "@function.outer",
               ["[C"] = "@class.outer",
-              ["[]"] = "@class.outer",
             },
           },
           swap = {
             enable = true,
             swap_next = {
-              ["<leader>a"] = "@parameter.inner",
+              [">a"] = "@parameter.inner",
             },
             swap_previous = {
-              ["<leader>A"] = "@parameter.inner",
+              ["<a"] = "@parameter.inner",
             },
           },
           lsp_interop = {

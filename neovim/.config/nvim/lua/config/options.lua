@@ -63,6 +63,9 @@ opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
+opt.fillchars = { eob = " " } -- disable `~` on nonexistent lines
+opt.preserveindent = true -- preserve indent structure as much as possible
+
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
   opt.shortmess:append({ C = true })

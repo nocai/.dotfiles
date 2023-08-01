@@ -8,7 +8,7 @@ return {
     "ColorizerReloadAllBuffers",
     "ColorizerToggle",
   },
-  opts = {},
+  opts = { user_default_options = { names = false } },
   -- opts = {
   --   filetypes = { "*", "!lazy" },
   --   buftype = { "*", "!prompt", "!nofile" },
