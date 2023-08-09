@@ -53,10 +53,11 @@ return {
         --   display_name = " @ Symbols ", -- string | nil
         -- },
       },
-      -- highlight_tab = "NeoTreeTabInactive",
+      separator = "",
+      highlight_tab = "Comment",
       -- highlight_tab_active = "NeoTreeTabActive",
-      -- highlight_background = "NeoTreeTabActive",
-      -- highlight_separator = "NeoTreeTabSeparatorInactive",
+      highlight_background = "NeoTreeNormal",
+      highlight_separator = "NeoTreeNormal",
       -- highlight_separator_active = "NeoTreeTabSeparatorActive",
     },
     filesystem = {

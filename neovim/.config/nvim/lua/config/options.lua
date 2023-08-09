@@ -21,6 +21,8 @@ opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
+
+opt.showtabline = 0
 -- opt.laststatus = 0
 -- opt.list = true -- Show some invisible characters (tabs...
 -- opt.listchars = "tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·"

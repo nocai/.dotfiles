@@ -5,7 +5,6 @@ return {
     { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
     { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
   },
-  enabled = not vim.g.vscode,
   opts = {
     options = {
       indicator = {
@@ -20,7 +19,7 @@ return {
         },
         {
           filetype = "neo-tree",
-          text = "Neotree",
+          -- text = "Neotree",
           separator = true,
         },
       },
