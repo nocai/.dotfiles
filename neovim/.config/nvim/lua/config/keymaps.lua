@@ -33,16 +33,16 @@ keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 keymap.set("n", "<leader>cs", "<cmd>Telescope colorscheme enable_preview=true<cr>", { desc = "Colorscheme" })
 
--- lazygit
-keymap.set("n", "<leader>gg", function()
-  require("config.lazy.util").float_term({ "lazygit" }, {
-    cwd = require("config.lazy.util").get_root(),
-  })
-end, { desc = "Lazygit (root dir)" })
-
-keymap.set("n", "<leader>gG", function()
-  require("config.lazy.util").float_term({ "lazygit" })
-end, { desc = "Lazygit" })
+-- -- lazygit
+-- keymap.set("n", "<leader>gg", function()
+--   require("config.lazy.util").float_term({ "lazygit" }, {
+--     cwd = require("config.lazy.util").get_root(),
+--   })
+-- end, { desc = "Lazygit (root dir)" })
+--
+-- keymap.set("n", "<leader>gG", function()
+--   require("config.lazy.util").float_term({ "lazygit" })
+-- end, { desc = "Lazygit" })
 
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")

@@ -18,6 +18,11 @@ return {
           text = "Explorer",
           separator = true,
         },
+        {
+          filetype = "neo-tree",
+          text = "Neotree",
+          separator = true,
+        },
       },
     },
   },

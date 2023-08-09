@@ -93,7 +93,7 @@ return {
               return { fg = mode_color[vim.fn.mode()] }
             end,
           },
-          { "branch" },
+          { "branch", icon = "󰊢" },
           {
             "diff",
             symbols = {
@@ -126,7 +126,7 @@ return {
                 end
               end
               if #client_names > 0 then
-                return string.format("%s ~%s", s, vim.fn.join(client_names, "|"))
+                return string.format("%s [%s]", s, vim.fn.join(client_names, ","))
               end
               return s
             end,

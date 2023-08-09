@@ -97,4 +97,6 @@ _G.ivim = {
 require("config.lazy")
 if not vim.g.vscode then
   vim.cmd.colorscheme("tokyonight")
+  -- vim.cmd.colorscheme("dracula")
+  -- vim.cmd.colorscheme("catppuccin")
 end

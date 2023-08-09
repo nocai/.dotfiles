@@ -24,9 +24,6 @@ return {
       -- end
       -- end,
     },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-    end,
   },
   {
     "Mofiqul/dracula.nvim",
