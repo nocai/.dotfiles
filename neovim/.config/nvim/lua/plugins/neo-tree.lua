@@ -13,7 +13,6 @@ return {
 
     { "<leader>b", "<cmd>Neotree buffers<CR>", desc = "Neotree Buffers" },
     { "<leader>x", "<cmd>Neotree diagnostics<CR>", desc = "Neotree Diagnostics" },
-    { "<leader>gg", "<cmd>Neotree git_status<CR>", desc = "Neotree Git" },
     { "gO", "<cmd>Neotree source=document_symbols<CR>", desc = "Document Symbols" },
   },
   opts = {
@@ -38,20 +37,20 @@ return {
         },
         {
           source = "buffers", -- string
-          display_name = " 󰈚 Buffers ", -- string | nil
+          display_name = " 󰈚 Bufs ", -- string | nil
         },
         {
           source = "git_status", -- string
           display_name = " 󰊢 Git ", -- string | nil
         },
-        -- {
-        --   source = "diagnostics", -- string
-        --   display_name = " X Diagnostics ", -- string | nil
-        -- },
-        -- {
-        --   source = "document_symbols", -- string
-        --   display_name = " @ Symbols ", -- string | nil
-        -- },
+        {
+          source = "diagnostics", -- string
+          display_name = " X Diags ", -- string | nil
+        },
+        {
+          source = "document_symbols", -- string
+          display_name = " @ Symbols ", -- string | nil
+        },
       },
       separator = "",
       highlight_tab = "Comment",
@@ -60,14 +59,26 @@ return {
       highlight_separator = "NeoTreeNormal",
       -- highlight_separator_active = "NeoTreeTabSeparatorActive",
     },
+    window = {
+      mappings = {
+        ["<Tab>"] = "next_source",
+        ["<S-Tab>"] = "prev_source",
+      },
+    },
     filesystem = {
       group_empty_dirs = true,
       follow_current_file = {
         enabled = true,
-        -- leave_dirs_open = true,
       },
       hijack_netrw_behavior = "open_current",
       use_libuv_file_watcher = true,
+    },
+    git_status = {
+      window = {
+        mappings = {
+          ["gA"] = "git_add_all",
+        },
+      },
     },
     diagnostics = {
       group_dirs_and_files = false,

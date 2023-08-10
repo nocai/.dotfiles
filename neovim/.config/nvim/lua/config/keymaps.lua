@@ -35,12 +35,12 @@ keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 keymap.set("n", "<leader>cs", "<cmd>Telescope colorscheme enable_preview=true<cr>", { desc = "Colorscheme" })
 
--- -- lazygit
--- keymap.set("n", "<leader>gg", function()
---   require("config.lazy.util").float_term({ "lazygit" }, {
---     cwd = require("config.lazy.util").get_root(),
---   })
--- end, { desc = "Lazygit (root dir)" })
+-- lazygit
+keymap.set("n", "<leader>gg", function()
+  require("config.lazy.util").float_term({ "lazygit" }, {
+    cwd = require("config.lazy.util").get_root(),
+  })
+end, { desc = "Lazygit" })
 --
 -- keymap.set("n", "<leader>gG", function()
 --   require("config.lazy.util").float_term({ "lazygit" })
@@ -66,50 +66,3 @@ keymap.set("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Terminal left window nav
 keymap.set("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Terminal down window navigation" })
 keymap.set("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Terminal up window navigation" })
 keymap.set("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Terminal right window navigation" })
-
-if vim.g.vscode then
-  vim.cmd([[
-    xmap gc  <Plug>VSCodeCommentary
-    nmap gc  <Plug>VSCodeCommentary
-    omap gc  <Plug>VSCodeCommentary
-    nmap gcc <Plug>VSCodeCommentaryLine
-  ]])
-
-  keymap.set("n", "<leader>e", "<Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>")
-  keymap.set("n", "<leader><space>", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-
-  keymap.set(
-    { "n", "x" },
-    ivim.lsp_keys.GotoReferences,
-    "<Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>"
-  )
-  keymap.set({ "n" }, ivim.lsp_keys.Rename, "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
-  keymap.set({ "n" }, ivim.lsp_keys.CodeLens, "<Cmd>call VSCodeNotify('codelens.showLensesInCurrentLine')<CR>")
-  keymap.set({ "n", "x" }, ivim.lsp_keys.CodeActions, "<Cmd>call VSCodeNotify('editor.action.quickFix')<CR>")
-
-  keymap.set(
-    { "n", "x" },
-    ivim.lsp_keys.GotoTypeDefinition,
-    "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>"
-  )
-  keymap.set(
-    { "n", "x" },
-    ivim.lsp_keys.PeekTypeDefinition,
-    "<Cmd>call VSCodeNotify('editor.action.peekTypeDefinition')<CR>"
-  )
-
-  keymap.set(
-    { "n", "x" },
-    ivim.lsp_keys.GotoImplementation,
-    "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>"
-  )
-  keymap.set(
-    { "n", "x" },
-    ivim.lsp_keys.PeekImplementation,
-    "<Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>"
-  )
-  keymap.set({ "n", "x" }, ivim.lsp_keys.FormatDocument, "<Cmd>call VSCodeCall('editor.action.formatDocument')<CR>")
-
-  keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticPrev, "<Cmd>call VSCodeCall('editor.action.marker.prev')<CR>")
-  keymap.set({ "n", "x" }, ivim.lsp_keys.DiagnosticNext, "<Cmd>call VSCodeCall('editor.action.marker.next')<CR>")
-end

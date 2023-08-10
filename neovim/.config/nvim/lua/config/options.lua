@@ -24,14 +24,15 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 
 opt.showtabline = 0
 -- opt.laststatus = 0
--- opt.list = true -- Show some invisible characters (tabs...
+opt.list = true -- Show some invisible characters (tabs...
 -- opt.listchars = "tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·"
--- opt.listchars = {
---   tab = [[»·]],
---   -- eol = [[↩]],
---   trail = [[·]],
---   -- space = [[·]],
--- }
+-- opt.listchars = "tab:»·,nbsp:·,extends:…,space:·,precedes:<,extends:>,trail:·"
+opt.listchars = {
+  tab = [[»·]],
+  -- space = [[·]],
+  -- eol = [[↩]],
+  -- trail = [[·]],
+}
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 -- opt.pumblend = 10 -- Popup blend
@@ -65,7 +66,7 @@ opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
-opt.fillchars = { eob = " " } -- disable `~` on nonexistent lines
+-- opt.fillchars = { eob = " " } -- disable `~` on nonexistent lines
 opt.preserveindent = true -- preserve indent structure as much as possible
 
 if vim.fn.has("nvim-0.9.0") == 1 then

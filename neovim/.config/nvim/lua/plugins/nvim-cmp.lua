@@ -93,6 +93,18 @@ return {
         opts = {
           check_ts = true,
           map_c_w = true,
+          -- map_c_h = true,
+          fast_wrap = {
+            map = "<M-e>",
+            chars = { "{", "[", "(", '"', "'" },
+            pattern = [=[[%'%"%>%]%)%}%,]]=],
+            end_key = "$",
+            keys = "qwertyuiopzxcvbnmasdfghjkl",
+            check_comma = true,
+            manual_position = false,
+            highlight = "Search",
+            highlight_grey = "Comment",
+          },
         },
       },
       {

@@ -2,7 +2,7 @@ return {
   -- indent guides for Neovim
   "lukas-reineke/indent-blankline.nvim",
   event = { "BufReadPost", "BufNewFile" },
-  enabled = not vim.g.vscode,
+  enabled = false,
   opts = {
     char = "│",
     filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },

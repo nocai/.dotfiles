@@ -93,10 +93,17 @@ _G.ivim = {
   },
 }
 
+if vim.g.neovide then
+  require("config.neovide")
+end
+
 -- bootstrap lazy.nvim
 require("config.lazy")
-if not vim.g.vscode then
-  vim.cmd.colorscheme("tokyonight")
+
+if vim.g.vscode then
+  require("config.vscode")
+else
   -- vim.cmd.colorscheme("dracula")
   -- vim.cmd.colorscheme("catppuccin")
+  vim.cmd.colorscheme("tokyonight")
 end
