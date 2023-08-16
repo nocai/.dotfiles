@@ -24,7 +24,7 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 
 opt.showtabline = 0
 -- opt.laststatus = 0
-opt.list = true -- Show some invisible characters (tabs...
+-- opt.list = true -- Show some invisible characters (tabs...
 -- opt.listchars = "tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·"
 -- opt.listchars = "tab:»·,nbsp:·,extends:…,space:·,precedes:<,extends:>,trail:·"
 opt.listchars = {
