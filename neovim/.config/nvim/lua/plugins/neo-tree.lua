@@ -17,7 +17,7 @@ return {
   },
   opts = {
     close_if_last_window = true,
-    auto_clean_after_session_restore = true,
+    -- auto_clean_after_session_restore = true,
     popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid", "NC"
     sources = {
       "filesystem",
