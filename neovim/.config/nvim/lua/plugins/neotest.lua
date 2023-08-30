@@ -8,14 +8,14 @@ return {
     enabled = not vim.g.vscode,
     keys = {
       {
-        "<leader>tt",
+        "<leader>tc",
         function()
           require("neotest").run.run()
         end,
         desc = "Run the nearest test (neotest)",
       },
       {
-        "<leader>t.",
+        "<leader>tl",
         function()
           require("neotest").run.run_last()
         end,
@@ -50,7 +50,7 @@ return {
         desc = "Open output (neotest)",
       },
       {
-        "<leader>tT",
+        "<leader>tt",
         function()
           require("neotest").summary.toggle()
         end,
