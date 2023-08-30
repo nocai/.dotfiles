@@ -17,6 +17,9 @@ return {
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       return {
+        performance = {
+          max_view_entries = 20,
+        },
         window = {
           completion = bordered,
           documentation = bordered,

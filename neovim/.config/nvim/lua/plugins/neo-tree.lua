@@ -12,6 +12,7 @@ return {
     { "<leader>E", "<cmd>Neotree reveal_force_cwd<CR>", desc = "Neotree Force" },
 
     { "<leader>b", "<cmd>Neotree buffers<CR>", desc = "Neotree Buffers" },
+    { "<leader>G", "<cmd>Neotree source=git_status<CR>", desc = "Neotree Git" },
     { "<leader>x", "<cmd>Neotree diagnostics<CR>", desc = "Neotree Diagnostics" },
     { "gO", "<cmd>Neotree source=document_symbols<CR>", desc = "Document Symbols" },
   },
