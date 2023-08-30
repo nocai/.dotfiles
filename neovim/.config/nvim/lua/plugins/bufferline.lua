@@ -20,7 +20,7 @@ return {
         },
         {
           filetype = "neo-tree",
-          -- text = "Neotree",
+          text = "Neotree",
           separator = true,
         },
       },

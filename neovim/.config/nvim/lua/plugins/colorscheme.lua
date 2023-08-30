@@ -10,11 +10,11 @@ return {
     lazy = false,
     opts = {
       style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
+      -- transparent = true,
+      -- styles = {
+      --   sidebars = "transparent",
+      --   floats = "transparent",
+      -- },
       -- terminal_colors = not vim.g.vscode,
       -- on_colors = function(colors)
       -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
@@ -29,14 +29,14 @@ return {
     "Mofiqul/dracula.nvim",
     priority = 1000,
     opts = {
-      transparent_bg = true,
+      -- transparent_bg = true,
     },
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
-      transparent_background = true,
+      -- transparent_background = true,
       integrations = {
         fidget = true,
         symbols_outline = true,
@@ -52,7 +52,7 @@ return {
     "EdenEast/nightfox.nvim",
     opts = {
       options = {
-        transparent = true,
+        -- transparent = true,
         styles = {
           comments = "italic",
           functions = "italic,bold",
@@ -64,11 +64,11 @@ return {
     "navarasu/onedark.nvim",
     priority = 1000,
     opts = {
-      transparent = true,
-      -- Lualine options --
-      lualine = {
-        transparent = true, -- lualine center bar transparency
-      },
+      -- transparent = true,
+      -- -- Lualine options --
+      -- lualine = {
+      --   transparent = true, -- lualine center bar transparency
+      -- },
     },
   },
 }

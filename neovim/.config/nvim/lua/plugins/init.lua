@@ -5,11 +5,6 @@ return {
     enabled = not vim.g.vscode,
   },
   {
-    "tweekmonster/startuptime.vim",
-    cmd = { "StartupTime" },
-    enabled = not vim.g.vscode,
-  },
-  {
     "folke/which-key.nvim",
     enabled = not vim.g.vscode,
     keys = { "<space>" },
@@ -33,6 +28,15 @@ return {
       { "cs", mode = { "n" } },
     },
     opts = {},
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    opts = {
+      options = {
+        globalstatus = true,
+      },
+    },
   },
   {
     "folke/flash.nvim",
