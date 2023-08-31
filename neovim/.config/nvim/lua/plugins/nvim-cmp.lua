@@ -40,7 +40,7 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
+            behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }),
           ["<Tab>"] = require("cmp").mapping(function(fallback)
@@ -151,6 +151,7 @@ return {
     "abecodes/tabout.nvim",
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
+    enabled = false,
     opts = {
       tabouts = {
         { open = "'", close = "'" },

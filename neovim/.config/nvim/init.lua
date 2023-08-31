@@ -93,12 +93,26 @@ _G.ivim = {
   },
 }
 
+if vim.loader and vim.fn.has("nvim-0.9.1") == 1 then
+  vim.loader.enable()
+end
+
+for _, source in ipairs({
+  "config.bootstrap",
+  "config.options",
+  "config.lazy",
+  "config.autocmds",
+  "config.keymaps",
+}) do
+  local status_ok, fault = pcall(require, source)
+  if not status_ok then
+    vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault)
+  end
+end
+
 if vim.g.neovide then
   require("config.neovide")
 end
-
--- bootstrap lazy.nvim
-require("config.lazy")
 
 if vim.g.vscode then
   require("config.vscode")

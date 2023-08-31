@@ -28,23 +28,17 @@ keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 keymap.set("n", "<Leader><Tab>", "gt", { desc = "Next Tab" })
 keymap.set("n", "<Leader><S-Tab>", "gT", { desc = "Prev Tab" })
 
--- lazy
-keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
-
 -- save file
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
-keymap.set("n", "<leader>cs", "<cmd>Telescope colorscheme enable_preview=true<cr>", { desc = "Colorscheme" })
 
+-- lazy
+keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 -- lazygit
 keymap.set("n", "<leader>gg", function()
-  require("config.lazy.util").float_term({ "lazygit" }, {
-    cwd = require("config.lazy.util").get_root(),
+  require("config.utils").float_term({ "lazygit" }, {
+    cwd = require("config.utils").get_root(),
   })
 end, { desc = "Lazygit" })
---
--- keymap.set("n", "<leader>gG", function()
---   require("config.lazy.util").float_term({ "lazygit" })
--- end, { desc = "Lazygit" })
 
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
