@@ -4,6 +4,16 @@ require("lazy").setup({
     -- 插件目录
     { import = "plugins" },
   },
+  -- colorscheme = "tokyonight",
+  -- colorscheme = function()
+  --   require("tokyonight").load()
+  -- end,
+  install = {
+    -- install missing plugins on startup. This doesn't increase startup time.
+    missing = true,
+    -- try to load one of these colorschemes when starting an installation during startup
+    colorscheme = { "habamax" },
+  },
   git = {
     url_format = ivim.git_proxy("https://github.com/%s.git"),
   },

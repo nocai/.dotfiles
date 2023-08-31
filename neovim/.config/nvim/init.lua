@@ -116,8 +116,4 @@ end
 
 if vim.g.vscode then
   require("config.vscode")
-else
-  -- vim.cmd.colorscheme("dracula")
-  -- vim.cmd.colorscheme("catppuccin")
-  vim.cmd.colorscheme("tokyonight")
 end
