@@ -22,7 +22,7 @@ return {
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "[.]Resume" },
     { "<leader>'", "<cmd>Telescope marks<cr>", desc = "[']Marks" },
     { '<leader>"', "<cmd>Telescope<cr>", desc = '["]Builtin' },
-    { "<leader>u", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I Colorscheme" },
+    { "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I Colorscheme" },
 
     -- find
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find [B]uffers" },

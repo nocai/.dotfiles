@@ -13,8 +13,10 @@ return {
       local bordered = cmp.config.window.bordered()
       bordered.winhighlight = string.format("%s,FloatBorder:FloatBorder", bordered.winhighlight)
 
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      local ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+      if ok then
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      end
 
       return {
         performance = {

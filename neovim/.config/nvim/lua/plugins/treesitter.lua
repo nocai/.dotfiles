@@ -33,16 +33,10 @@ return {
     end,
     dependencies = {
       {
-        "p00f/nvim-ts-rainbow",
+        "HiPhish/rainbow-delimiters.nvim",
         enabled = not vim.g.vscode,
-        config = function()
-          require("nvim-treesitter.configs").setup({
-            rainbow = {
-              enable = true,
-              extended_mode = true,
-              max_file_lines = nil,
-            },
-          })
+        config = function(_, opts)
+          require("rainbow-delimiters.setup")(opts)
         end,
       },
     },
