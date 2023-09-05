@@ -31,7 +31,7 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        mapping = cmp.mapping.preset.insert({
+        mapping = {
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(3),
@@ -39,27 +39,27 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(6),
           ["<C-b>"] = cmp.mapping.scroll_docs(-6),
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
+          -- ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }),
-          ["<Tab>"] = require("cmp").mapping(function(fallback)
+          ["<Tab>"] = cmp.mapping(function(fallback)
             if require("luasnip").locally_jumpable() then
               require("luasnip").jump(1)
             else
               fallback()
             end
           end, { "i", "s" }),
-          ["<S-Tab>"] = require("cmp").mapping(function(fallback)
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
             if require("luasnip").locally_jumpable(-1) then
               require("luasnip").jump(-1)
             else
               fallback()
             end
           end, { "i", "s" }),
-        }),
+        },
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
