@@ -1,15 +1,6 @@
 return {
   "akinsho/toggleterm.nvim",
   enabled = not vim.g.vscode,
-  -- keys = {
-  --   { [[<C-_>]], [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],
-  --     mode = { "n", "i", "t", "x" }, desc = "Open terminal horizontal",
-  --   },
-  --   {
-  --     [[<C-\>]], [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],
-  --     mode = { "n", "i", "t", "x" }, desc = "Open terminal vertical",
-  --   },
-  -- },
   keys = function()
     local Terminal = require("toggleterm.terminal").Terminal
     local lazygit = Terminal:new({
@@ -20,10 +11,10 @@ return {
         border = "rounded",
       },
       hidden = true,
-      on_open = function(term)
+      on_open = function()
         vim.keymap.del({ "t" }, "<Esc>")
       end,
-      on_close = function(term)
+      on_close = function()
         vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
       end,
     })

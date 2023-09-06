@@ -33,12 +33,6 @@ keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save fi
 
 -- lazy
 keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
--- lazygit
--- keymap.set("n", "<leader>gg", function()
---   require("config.utils").float_term({ "lazygit" }, {
---     cwd = require("config.utils").get_root(),
---   })
--- end, { desc = "Lazygit" })
 
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")

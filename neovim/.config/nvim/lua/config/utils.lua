@@ -43,13 +43,6 @@ function M.get_root()
   return root
 end
 
-function M.float_term(cmd, opts)
-  opts = vim.tbl_deep_extend("force", {
-    size = { width = 0.9, height = 0.9 },
-  }, opts or {})
-  require("lazy.util").float_term(cmd, opts)
-end
-
 ---@param fn fun()
 function M.on_very_lazy(fn)
   vim.api.nvim_create_autocmd("User", {
