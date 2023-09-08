@@ -106,8 +106,8 @@ return {
             enable = not vim.g.vscode,
             border = "rounded",
             peek_definition_code = {
-              [ivim.lsp_keys.PeekFunction] = "@function.outer",
-              [ivim.lsp_keys.PeekClass] = "@class.outer",
+              [ivim.keymaps.PeekFunction] = "@function.outer",
+              [ivim.keymaps.PeekClass] = "@class.outer",
             },
           },
         },

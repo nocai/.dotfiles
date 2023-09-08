@@ -1,5 +1,15 @@
 _G.ivim = {
-  lsp_keys = {
+  -- tokyonight
+  -- dracula
+  -- catppuccin
+  -- nightfox
+  -- onedark
+  colorscheme = "nightfox",
+  is_mac = jit.os == "OSX",
+  git_proxy = function(url)
+    return string.format("https://ghproxy.com/%s", url)
+  end,
+  keymaps = {
     GotoDefinition = "gd",
     PeekDefinition = "<leader>gd",
 
@@ -9,7 +19,7 @@ _G.ivim = {
     GotoTypeDefinition = "gy",
     PeekTypeDefinition = "<leader>gy",
 
-    GotoImplementation = "gI", -- gi: last insert position
+    GotoImplementation = "gi", -- gI -- gi: last insert position
     PeekImplementation = "<leader>gi",
 
     GotoReferences = "gr",
@@ -29,17 +39,14 @@ _G.ivim = {
     DiagnosticErrorPrev = "[e",
     DiagnosticErrorNext = "]e",
 
-    Rename = "<leader>rn",
-    CodeActions = "<leader>ca",
-    CodeLens = "<leader>cl",
     Hover = "K",
     SignatureHelp = "<C-K>",
     FormatDocument = "gq",
+
+    Rename = "<leader>rn",
+    CodeActions = "<leader>ca",
+    CodeLens = "<leader>cl",
   },
-  is_mac = jit.os == "OSX",
-  git_proxy = function(url)
-    return string.format("https://ghproxy.com/%s", url)
-  end,
   -- icons used by other plugins
   icons = {
     diagnostics = {
@@ -98,7 +105,6 @@ if vim.loader and vim.fn.has("nvim-0.9.1") == 1 then
 end
 
 for _, source in ipairs({
-  "config.bootstrap",
   "config.options",
   "config.lazy",
   "config.autocmds",

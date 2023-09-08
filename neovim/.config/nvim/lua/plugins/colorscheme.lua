@@ -7,27 +7,13 @@ return {
   {
     "folke/tokyonight.nvim",
     priority = 1000,
-    lazy = false,
     opts = {
-      style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
       -- transparent = true,
       styles = {
-        --   sidebars = "transparent",
+        -- sidebars = "transparent",
         floats = "transparent",
       },
-      -- terminal_colors = not vim.g.vscode,
-      -- on_colors = function(colors)
-      -- local opts = require("config.lazy.util").opts("tokyonight.nvim")
-      -- if opts.transparent then
-      -- statusline 透明
-      -- colors.bg_statusline = colors.none
-      -- end
-      -- end,
     },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd.colorscheme("tokyonight")
-    end,
   },
   {
     "Mofiqul/dracula.nvim",
@@ -39,6 +25,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    priority = 1000,
     opts = {
       -- transparent_background = true,
       integrations = {
@@ -69,9 +56,8 @@ return {
     priority = 1000,
     opts = {
       -- transparent = true,
-      -- -- Lualine options --
       -- lualine = {
-      --   transparent = true, -- lualine center bar transparency
+      --   transparent = true,
       -- },
     },
   },

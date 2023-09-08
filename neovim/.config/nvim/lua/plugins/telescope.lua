@@ -42,5 +42,5 @@ return {
     -- { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files (telescope)" },
     -- { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "Git Status (telescope)" },
   },
-  opts = {},
+  opts = true,
 }

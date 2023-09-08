@@ -31,9 +31,6 @@ keymap.set("n", "<Leader><S-Tab>", "gT", { desc = "Prev Tab" })
 -- save file
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
--- lazy
-keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
-
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
 

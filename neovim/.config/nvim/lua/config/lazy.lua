@@ -1,13 +1,23 @@
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  -- bootstrap lazy.nvim
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    ivim.git_proxy("https://github.com/folke/lazy.nvim.git"),
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+
 require("lazy").setup({
   spec = {
     { "folke/lazy.nvim", version = "*" },
     -- 插件目录
     { import = "plugins" },
   },
-  -- colorscheme = "tokyonight",
-  -- colorscheme = function()
-  --   require("tokyonight").load()
-  -- end,
   install = {
     -- install missing plugins on startup. This doesn't increase startup time.
     missing = true,
@@ -71,3 +81,9 @@ require("lazy").setup({
     },
   },
 })
+
+if not vim.g.vscode then
+  vim.cmd.colorscheme(ivim.colorscheme)
+end
+
+vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
