@@ -4,7 +4,8 @@ return {
   -- keys = {
   --   { "<leader>pg", ":Glow<cr>", desc = "Glow", silent = true },
   -- },
-  enabled = not vim.g.vscode,
+  -- enabled = not vim.g.vscode,
+  enabled = false,
   opts = {
     border = "rounded",
   },

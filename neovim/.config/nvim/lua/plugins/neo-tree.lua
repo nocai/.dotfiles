@@ -54,11 +54,11 @@ return {
         },
       },
       separator = "",
-      highlight_tab = "Comment",
-      -- highlight_tab_active = "NeoTreeTabActive",
-      highlight_background = "NeoTreeNormal",
-      highlight_separator = "NeoTreeNormal",
-      -- highlight_separator_active = "NeoTreeTabSeparatorActive",
+      -- highlight_tab = "Comment",
+      -- -- highlight_tab_active = "NeoTreeTabActive",
+      -- highlight_background = "NeoTreeNormal",
+      -- highlight_separator = "NeoTreeNormal",
+      -- -- highlight_separator_active = "NeoTreeTabSeparatorActive",
     },
     window = {
       mappings = {
