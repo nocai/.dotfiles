@@ -22,7 +22,7 @@ return {
     popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid", "NC"
     sources = {
       "filesystem",
-      "buffers",
+      -- "buffers",
       "git_status",
       -- "diagnostics",
       "document_symbols",
@@ -53,7 +53,7 @@ return {
           display_name = " @ Symbols ", -- string | nil
         },
       },
-      separator = "",
+      -- separator = "",
       -- highlight_tab = "Comment",
       -- -- highlight_tab_active = "NeoTreeTabActive",
       -- highlight_background = "NeoTreeNormal",

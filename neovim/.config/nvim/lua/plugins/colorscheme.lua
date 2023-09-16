@@ -11,7 +11,7 @@ return {
       -- transparent = true,
       styles = {
         -- sidebars = "transparent",
-        floats = "transparent",
+        -- floats = "transparent",
       },
     },
   },
@@ -37,6 +37,7 @@ return {
         mason = true,
         which_key = true,
         rainbow_delimiters = true,
+        lsp_trouble = true,
         telescope = {
           enabled = true,
           -- style = "nvchad",
