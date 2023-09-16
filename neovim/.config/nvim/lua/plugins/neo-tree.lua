@@ -4,7 +4,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    "mrbjarksen/neo-tree-diagnostics.nvim",
+    -- "mrbjarksen/neo-tree-diagnostics.nvim",
   },
   cmd = { "Neotree" },
   keys = {
@@ -13,7 +13,7 @@ return {
 
     -- { "<leader>b", "<cmd>Neotree buffers<CR>", desc = "Neotree Buffers" },
     -- { "<leader>g", "<cmd>Neotree source=git_status<CR>", desc = "Neotree Git" },
-    { "<leader>x", "<cmd>Neotree diagnostics<CR>", desc = "Neotree Diagnostics" },
+    -- { "<leader>x", "<cmd>Neotree diagnostics<CR>", desc = "Neotree Diagnostics" },
     { "gO", "<cmd>Neotree source=document_symbols<CR>", desc = "Document Symbols" },
   },
   opts = {
@@ -24,7 +24,7 @@ return {
       "filesystem",
       "buffers",
       "git_status",
-      "diagnostics",
+      -- "diagnostics",
       "document_symbols",
     },
     source_selector = {
@@ -44,10 +44,10 @@ return {
           source = "git_status", -- string
           display_name = " 󰊢 Git ", -- string | nil
         },
-        {
-          source = "diagnostics", -- string
-          display_name = " X Diags ", -- string | nil
-        },
+        -- {
+        --   source = "diagnostics", -- string
+        --   display_name = " X Diags ", -- string | nil
+        -- },
         {
           source = "document_symbols", -- string
           display_name = " @ Symbols ", -- string | nil
