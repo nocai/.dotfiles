@@ -8,6 +8,15 @@ return {
         winblend = 0,
       },
     },
+    select = {
+      -- Priority list of preferred vim.select implementations
+      backend = { "builtin" }, -- "telescope", "fzf_lua", "fzf", "builtin", "nui"
+      builtin = {
+        win_options = {
+          winblend = 0,
+        },
+      },
+    },
   },
   init = function()
     ---@diagnostic disable-next-line: duplicate-set-field
