@@ -5,23 +5,24 @@ return {
     { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
     { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
   },
-  enabled = false,
+  enabled = not vim.g.vscode,
   opts = {
     options = {
       indicator = {
         icon = "⏽ ",
       },
-      separator_style = { "", "" },
+      -- separator_style = { "", "" },
       offsets = {
         {
           filetype = "NvimTree",
           text = "Explorer",
           separator = true,
+          padding = 1,
         },
         {
           filetype = "neo-tree",
           text = "Neotree",
-          separator = true,
+          padding = 1,
         },
       },
     },
