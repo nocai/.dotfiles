@@ -22,7 +22,7 @@ return {
     popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid", "NC"
     sources = {
       "filesystem",
-      -- "buffers",
+      "buffers",
       "git_status",
       -- "diagnostics",
       "document_symbols",
@@ -44,10 +44,10 @@ return {
           source = "git_status", -- string
           display_name = " 󰊢 Git ", -- string | nil
         },
-        -- {
-        --   source = "diagnostics", -- string
-        --   display_name = " X Diags ", -- string | nil
-        -- },
+        {
+          source = "diagnostics", -- string
+          display_name = " X Diags ", -- string | nil
+        },
         {
           source = "document_symbols", -- string
           display_name = " @ Symbols ", -- string | nil

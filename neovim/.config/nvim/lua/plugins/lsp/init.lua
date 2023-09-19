@@ -89,16 +89,14 @@ return {
 
         local Format = require("plugins.lsp.format")
         Format.on_attach(client, buffer)
-      end)
 
-      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-      if inlay_hint then
-        Util.on_attach(function(client, buffer)
+        local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+        if inlay_hint then
           if client.server_capabilities.inlayHintProvider then
             inlay_hint(buffer, true)
           end
-        end)
-      end
+        end
+      end)
 
       -- Util.on_attach(function(client, buffer)
       --   require("plugins.lsp.setting")
