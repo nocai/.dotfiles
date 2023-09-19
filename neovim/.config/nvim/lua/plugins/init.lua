@@ -40,44 +40,42 @@ return {
     },
   },
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
-    enabled = false,
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    enabled = not vim.g.vscode,
+    opts = {
+      -- char = "│",
+      -- char = "▏",
+      show_current_context = true,
     },
   },
   {
-    "echasnovski/mini.indentscope",
-    event = "VeryLazy",
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-    end,
-    opts = {
-      symbol = "│",
-      options = { try_as_border = true },
+    "kiyoon/treesitter-indent-object.nvim",
+    keys = {
+      {
+        "ai",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer()<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (outer)",
+      },
+      {
+        "aI",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer(true)<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (outer, line-wise)",
+      },
+      {
+        "ii",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner()<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (inner, partial range)",
+      },
+      {
+        "iI",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner(true)<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (inner, entire range)",
+      },
     },
   },
 }
