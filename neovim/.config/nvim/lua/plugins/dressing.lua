@@ -12,9 +12,11 @@ return {
       -- Priority list of preferred vim.select implementations
       backend = { "builtin" }, -- "telescope", "fzf_lua", "fzf", "builtin", "nui"
       builtin = {
+        relative = "win",
         win_options = {
           winblend = 0,
         },
+        min_height = { 2 },
       },
     },
   },
