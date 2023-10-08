@@ -41,12 +41,17 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     enabled = not vim.g.vscode,
     opts = {
-      -- char = "│",
-      -- char = "▏",
-      show_current_context = true,
+      indent = {
+        char = "▏",
+      },
+      scope = {
+        enabled = true,
+        show_start = false,
+      },
     },
   },
   {

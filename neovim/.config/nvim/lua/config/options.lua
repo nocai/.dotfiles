@@ -2,8 +2,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- vim.g.inlay_hints_enabled = true
-
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
@@ -38,7 +36,7 @@ opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true -- Round indent
 opt.shortmess:append({ W = true, I = true, c = true })
 opt.showmode = false -- Dont show mode since we have a statusline
-opt.scrolloff = 8 -- Lines of context
+opt.scrolloff = 5 -- Lines of context
 opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
