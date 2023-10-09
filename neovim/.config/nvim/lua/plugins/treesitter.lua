@@ -39,6 +39,10 @@ return {
           require("rainbow-delimiters.setup")(opts)
         end,
       },
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = true,
+      },
     },
   },
   {
@@ -55,6 +59,7 @@ return {
           select = {
             enable = true,
             lookahead = true,
+            include_surrounding_whitespace = true,
             keymaps = {
               ["ia"] = "@parameter.inner",
               ["aa"] = "@parameter.outer",
@@ -96,14 +101,14 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              [">a"] = "@parameter.inner",
+              ["<leader>a"] = "@parameter.inner",
             },
             swap_previous = {
-              ["<a"] = "@parameter.inner",
+              ["<leader>A"] = "@parameter.inner",
             },
           },
           lsp_interop = {
-            enable = not vim.g.vscode,
+            enable = false,
             border = "rounded",
             peek_definition_code = {
               [ivim.keymaps.PeekFunction] = "@function.outer",
@@ -112,16 +117,16 @@ return {
           },
         },
       })
-      -- -- Repeat movement with ; and ,
-      -- -- ensure ; goes forward and , goes backward regardless of the last direction
-      -- local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-      -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-      -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-      --
-      -- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-      -- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-      -- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-      -- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+      -- Repeat movement with ; and ,
+      -- ensure ; goes forward and , goes backward regardless of the last direction
+      local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+      vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+      vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+      vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+      vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+      vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+      vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
     end,
   },
   {

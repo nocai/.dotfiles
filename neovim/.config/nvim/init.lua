@@ -5,7 +5,7 @@ _G.ivim = {
   -- nightfox
   -- onedark
   colorscheme = "catppuccin",
-  is_mac = jit.os == "OSX",
+  -- colorscheme = "tokyonight",
   git_proxy = function(url)
     return string.format("https://ghproxy.com/%s", url)
   end,

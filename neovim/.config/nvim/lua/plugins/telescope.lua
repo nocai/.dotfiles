@@ -15,9 +15,9 @@ return {
   keys = {
     { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
 
-    { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
-    { "<leader>?", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-    { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+    { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "[/]Grep" },
+    { "<leader>?", "<cmd>Telescope help_tags<cr>", desc = "[?]Help Pages" },
+    { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "[:]Command History" },
 
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "[.]Resume" },
     { "<leader>'", "<cmd>Telescope marks<cr>", desc = "[']Marks" },
