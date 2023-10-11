@@ -3,23 +3,48 @@ if vim.g.vscode then
 end
 
 return {
+  {
+    "xiyaowong/transparent.nvim",
+    lazy = false,
+    cmd = { "TransparentEnable", "TransparentDisable", "TransparentToggle" },
+    opts = {
+      extra_groups = {
+        "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+        "NvimTreeNormal", -- NvimTree
+
+        "NeoTreeTabActive",
+        "NeoTreeTabInactive",
+        "NeoTreeTabSeparatorActive",
+        "NeoTreeTabSeparatorInactive",
+      },
+    },
+    -- config = function(_, opts)
+    --   require("transparent").setup(opts)
+    --   vim.g.transparent_groups = vim.list_extend(
+    --     vim.g.transparent_groups or {},
+    --     vim.tbl_map(function(v)
+    --       return v.hl_group
+    --     end, vim.tbl_values(require("bufferline.config").highlights))
+    --   )
+    -- end,
+  },
   -- tokyonight
   {
     "folke/tokyonight.nvim",
     priority = 1000,
     opts = {
-      -- transparent = true,
-      -- styles = {
-      -- sidebars = "transparent",
-      -- floats = "transparent",
-      -- },
+      transparent = vim.g.transparent_enabled,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
     },
   },
   {
     "Mofiqul/dracula.nvim",
     priority = 1000,
     opts = {
-      -- transparent_bg = true,
+      transparent_bg = vim.g.transparent_enabled,
     },
   },
   {
@@ -27,7 +52,7 @@ return {
     name = "catppuccin",
     priority = 1000,
     opts = {
-      -- transparent_background = true,
+      transparent_background = vim.g.transparent_enabled,
       integrations = {
         cmp = true,
         gitsigns = true,
@@ -90,7 +115,7 @@ return {
     "EdenEast/nightfox.nvim",
     opts = {
       options = {
-        -- transparent = true,
+        transparent = vim.g.transparent_enabled,
         styles = {
           comments = "italic",
           -- functions = "italic,bold",
@@ -103,10 +128,10 @@ return {
     "navarasu/onedark.nvim",
     priority = 1000,
     opts = {
-      -- transparent = true,
-      -- lualine = {
-      --   transparent = true,
-      -- },
+      transparent = vim.g.transparent_enabled,
+      lualine = {
+        transparent = vim.g.transparent_enabled,
+      },
     },
   },
 }

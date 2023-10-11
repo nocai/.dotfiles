@@ -11,7 +11,7 @@ return {
       indicator = {
         icon = "⏽ ",
       },
-      -- separator_style = { "", "" },
+      separator_style = { "", "" },
       offsets = {
         {
           filetype = "NvimTree",
