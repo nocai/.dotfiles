@@ -129,11 +129,11 @@ return {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.jq,
           nls.builtins.formatting.yamlfmt,
-          nls.builtins.formatting.markdownlint,
+          -- nls.builtins.formatting.markdownlint,
 
           nls.builtins.diagnostics.golangci_lint,
-          nls.builtins.diagnostics.markdownlint,
-          nls.builtins.diagnostics.yamllint,
+          -- nls.builtins.diagnostics.markdownlint,
+          -- nls.builtins.diagnostics.yamllint,
         },
       }
     end,

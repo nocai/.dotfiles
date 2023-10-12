@@ -62,6 +62,5 @@ return {
       { "ai", mode = { "o", "x" } },
       { "aI", mode = { "o", "x" } },
     },
-    lazy = false,
   },
 }
