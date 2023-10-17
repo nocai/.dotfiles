@@ -97,24 +97,6 @@ return {
           end
         end
       end)
-
-      -- Util.on_attach(function(client, buffer)
-      --   require("plugins.lsp.setting")
-      --
-      --   -- Util.document_highlight(client, buffer)
-      --   -- Util.code_lens(client, buffer)
-      --
-      --   -- setup formatting and keymaps
-      --   local Format = require("plugins.lsp.format")
-      --   Format.on_attach(client, buffer)
-      --
-      --   local Keymaps = require("plugins.lsp.keymaps")
-      --   Keymaps.on_attach(client, buffer)
-      --
-      --   if inlay_hint and client.server_capabilities.inlayHintProvider then
-      --     inlay_hint(buffer, true)
-      --   end
-      -- end)
     end,
   },
   -- formatters
