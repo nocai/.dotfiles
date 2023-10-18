@@ -30,6 +30,12 @@ return {
     opts = {},
   },
   {
+    "junegunn/vim-easy-align",
+    keys = {
+      { "ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
+    },
+  },
+  {
     "nvim-lualine/lualine.nvim",
     enabled = not vim.g.vscode,
     event = "VeryLazy",
