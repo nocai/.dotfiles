@@ -31,17 +31,33 @@ return {
   },
   {
     "junegunn/vim-easy-align",
+    enabled = not vim.g.vscode,
     keys = {
-      { "ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
+      { "<leader>ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
     },
+  },
+  {
+    "echasnovski/mini.align",
+    enabled = not vim.g.vscode,
+    keys = {
+      { "ga", "gA" },
+    },
+    version = false,
+    opts = true,
   },
   {
     "nvim-lualine/lualine.nvim",
     enabled = not vim.g.vscode,
     event = "VeryLazy",
+    dependencies = { "arkav/lualine-lsp-progress" },
     opts = {
       options = {
         globalstatus = true,
+      },
+      sections = {
+        lualine_c = {
+          "lsp_progress",
+        },
       },
     },
   },
