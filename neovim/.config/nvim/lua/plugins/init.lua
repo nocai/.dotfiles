@@ -37,15 +37,6 @@ return {
     },
   },
   {
-    "echasnovski/mini.align",
-    enabled = not vim.g.vscode,
-    keys = {
-      { "ga", "gA" },
-    },
-    version = false,
-    opts = true,
-  },
-  {
     "nvim-lualine/lualine.nvim",
     enabled = not vim.g.vscode,
     event = "VeryLazy",
