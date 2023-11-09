@@ -24,7 +24,7 @@ return {
       staticcheck = true,
       analyses = {
         unreachable = true,
-        unusedparams = true,
+        -- unusedparams = true,
       },
       -- hints = {
       --   assignVariableTypes = true,

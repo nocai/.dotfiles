@@ -40,7 +40,11 @@ keymap.set(
   ivim.keymaps.PeekImplementation,
   "<Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>"
 )
-keymap.set({ "n", "x" }, ivim.keymaps.FormatDocument, "<Cmd>call VSCodeCall('editor.action.formatDocument')<CR>")
+keymap.set(
+  { "n", "x" },
+  ivim.keymaps.FormatDocument,
+  "<Cmd>call VSCodeCall('editor.action.formatDocument', 'editor.action.organizeImports')<CR>"
+)
 
 keymap.set({ "n", "x" }, ivim.keymaps.DiagnosticPrev, "<Cmd>call VSCodeCall('editor.action.marker.prev')<CR>")
 keymap.set({ "n", "x" }, ivim.keymaps.DiagnosticNext, "<Cmd>call VSCodeCall('editor.action.marker.next')<CR>")

@@ -40,16 +40,16 @@ return {
     "nvim-lualine/lualine.nvim",
     enabled = not vim.g.vscode,
     event = "VeryLazy",
-    dependencies = { "arkav/lualine-lsp-progress" },
+    -- dependencies = { "arkav/lualine-lsp-progress" },
     opts = {
       options = {
         globalstatus = true,
       },
-      sections = {
-        lualine_c = {
-          "lsp_progress",
-        },
-      },
+      -- sections = {
+      --   lualine_c = {
+      --     "lsp_progress",
+      --   },
+      -- },
     },
   },
   {

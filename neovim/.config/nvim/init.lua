@@ -7,7 +7,8 @@ _G.ivim = {
   -- colorscheme = "catppuccin",
   colorscheme = "tokyonight",
   git_proxy = function(url)
-    return string.format("https://ghproxy.com/%s", url)
+    return url
+    -- return string.format("https://ghproxy.com/%s", url)
   end,
   keymaps = {
     GotoDefinition = "gd",

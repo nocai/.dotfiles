@@ -10,7 +10,6 @@ return {
       {
         "j-hui/fidget.nvim",
         tag = "legacy",
-        enabled = false,
         opts = {
           window = {
             blend = 0, -- &winblend for the window
