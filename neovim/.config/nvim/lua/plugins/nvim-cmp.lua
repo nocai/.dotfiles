@@ -42,11 +42,11 @@ return {
           -- ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
+            -- behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
-            if require("luasnip").locally_jumpable() then
+            if require("luasnip").expand_or_locally_jumpable() then
               require("luasnip").jump(1)
             else
               fallback()
@@ -115,24 +115,19 @@ return {
       {
         "L3MON4D3/LuaSnip",
         dependencies = { "rafamadriz/friendly-snippets" },
-        opts = {
-          history = true,
-          updateevents = "TextChanged,TextChangedI",
-        },
-        config = function(_, opts)
-          require("luasnip").config.set_config(opts)
-
+        config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
-          vim.api.nvim_create_autocmd("InsertLeave", {
-            callback = function()
-              if
-                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                and not require("luasnip").session.jump_active
-              then
-                require("luasnip").unlink_current()
-              end
-            end,
-          })
+
+          --   vim.api.nvim_create_autocmd("InsertLeave", {
+          --     callback = function()
+          --       if
+          --         require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+          --         and not require("luasnip").session.jump_active
+          --       then
+          --         require("luasnip").unlink_current()
+          --       end
+          --     end,
+          --   })
         end,
       },
     },
@@ -140,6 +135,7 @@ return {
   {
     "abecodes/tabout.nvim",
     event = "InsertEnter",
+    enabled = false,
     dependencies = { "nvim-cmp" },
     opts = {
       tabouts = {
