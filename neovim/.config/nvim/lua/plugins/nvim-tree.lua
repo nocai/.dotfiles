@@ -18,7 +18,7 @@ return {
 
     return {
       -- hijack_cursor = true,
-      -- prefer_startup_root = true,
+      prefer_startup_root = true,
       update_focused_file = {
         enable = true,
         -- update_root = false,
@@ -28,9 +28,9 @@ return {
         indent_markers = {
           enable = true,
         },
-        -- icons = {
-        --   git_placement = "after", -- "signcolumn"
-        -- },
+        icons = {
+          git_placement = "after", -- "signcolumn"
+        },
       },
       view = {
         adaptive_size = true,
