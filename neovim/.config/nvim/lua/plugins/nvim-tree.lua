@@ -1,10 +1,9 @@
 return {
   "kyazdani42/nvim-tree.lua",
-  -- enabled = not vim.g.vscode,
-  enabled = false,
+  enabled = not vim.g.vscode,
   keys = {
-    { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "Focus (NvimTree)" },
-    { "<leader>E", "<cmd>NvimTreeFindFile!<CR>", desc = "FindFile! (NvimTree)" },
+    { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "NvimTree [E]xplorer" },
+    { "<leader>E", "<cmd>NvimTreeFindFile!<CR>", desc = "NvimTree FindFile" },
   },
   opts = function()
     -- auto close last windows in the tab
@@ -18,20 +17,20 @@ return {
     })
 
     return {
-      hijack_cursor = true,
-      prefer_startup_root = true,
+      -- hijack_cursor = true,
+      -- prefer_startup_root = true,
       update_focused_file = {
         enable = true,
-        update_root = false,
+        -- update_root = false,
       },
       renderer = {
         group_empty = true,
         indent_markers = {
           enable = true,
         },
-        icons = {
-          git_placement = "after", -- "signcolumn"
-        },
+        -- icons = {
+        --   git_placement = "after", -- "signcolumn"
+        -- },
       },
       view = {
         adaptive_size = true,

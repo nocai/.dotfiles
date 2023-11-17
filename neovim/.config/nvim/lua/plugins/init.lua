@@ -27,29 +27,16 @@ return {
       { "ds", mode = { "n" } },
       { "cs", mode = { "n" } },
     },
-    opts = {},
-  },
-  {
-    "junegunn/vim-easy-align",
-    enabled = not vim.g.vscode,
-    keys = {
-      { "<leader>ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
-    },
+    opts = true,
   },
   {
     "nvim-lualine/lualine.nvim",
     enabled = not vim.g.vscode,
     event = "VeryLazy",
-    -- dependencies = { "arkav/lualine-lsp-progress" },
     opts = {
       options = {
         globalstatus = true,
       },
-      -- sections = {
-      --   lualine_c = {
-      --     "lsp_progress",
-      --   },
-      -- },
     },
   },
   {
@@ -59,7 +46,8 @@ return {
     enabled = not vim.g.vscode,
     opts = {
       indent = {
-        char = "▏",
+        -- char = "▏",
+        char = "┊",
       },
       scope = {
         enabled = true,
@@ -74,6 +62,13 @@ return {
       { "iI", mode = { "o", "x" } },
       { "ai", mode = { "o", "x" } },
       { "aI", mode = { "o", "x" } },
+    },
+  },
+  {
+    "junegunn/vim-easy-align",
+    enabled = not vim.g.vscode,
+    keys = {
+      { "<leader>ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
     },
   },
 }

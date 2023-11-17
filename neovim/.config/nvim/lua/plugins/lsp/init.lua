@@ -45,6 +45,11 @@ return {
             },
           }
 
+          local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+          if ok then
+            capabilities = cmp_nvim_lsp.default_capabilities()
+          end
+
           require("mason-lspconfig").setup_handlers({
             function(server_name)
               local server_opts = vim.tbl_deep_extend("force", {

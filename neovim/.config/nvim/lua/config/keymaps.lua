@@ -22,9 +22,6 @@ keymap.set("n", "<Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase win
 -- buffers
 keymap.set("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
--- keymap.set("n", "<leader><Tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-keymap.set("n", "<Leader><Tab>", "gt", { desc = "Next Tab" })
-keymap.set("n", "<Leader><S-Tab>", "gT", { desc = "Prev Tab" })
 
 -- save file
 keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })

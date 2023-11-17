@@ -15,9 +15,9 @@ return {
       offsets = {
         {
           filetype = "NvimTree",
-          text = "Explorer",
+          -- text = "NvimTree Explorer",
           separator = true,
-          padding = 1,
+          -- padding = 1,
         },
         {
           filetype = "neo-tree",
