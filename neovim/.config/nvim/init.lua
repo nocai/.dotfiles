@@ -20,7 +20,7 @@ _G.ivim = {
     GotoTypeDefinition = "gy",
     PeekTypeDefinition = "<leader>gy",
 
-    GotoImplementation = "gi", -- gI -- gi: last insert position
+    GotoImplementation = "gI", -- gI -- gi: last insert position
     PeekImplementation = "<leader>gi",
 
     GotoReferences = "gr",

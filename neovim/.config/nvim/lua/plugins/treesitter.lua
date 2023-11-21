@@ -1,9 +1,14 @@
+if vim.g.vscode then
+  return {}
+end
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    enabled = not vim.g.vscode,
     opts = {
       ensure_installed = { "lua", "vim" },
       highlight = {
