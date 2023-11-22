@@ -73,10 +73,10 @@ return {
               ["ic"] = "@class.inner",
               ["ac"] = "@class.outer",
 
-              ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
-              ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
-              ["al"] = { query = "@loop.outer", desc = "around loop" },
-              ["il"] = { query = "@loop.inner", desc = "inside loop" },
+              -- ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
+              -- ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+              -- ["al"] = { query = "@loop.outer", desc = "around loop" },
+              -- ["il"] = { query = "@loop.inner", desc = "inside loop" },
             },
           },
           move = {
@@ -113,7 +113,7 @@ return {
             },
           },
           lsp_interop = {
-            enable = false,
+            enable = true,
             border = "rounded",
             peek_definition_code = {
               [ivim.keymaps.PeekFunction] = "@function.outer",
@@ -128,10 +128,10 @@ return {
       vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
       vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
-      vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-      vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-      vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-      vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+      -- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+      -- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+      -- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+      -- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
     end,
   },
   {

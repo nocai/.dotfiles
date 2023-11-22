@@ -24,7 +24,7 @@ return {
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
     { "<leader>'", "<cmd>Telescope marks<cr>", desc = "Marks" },
 
-    { "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I [C]olorscheme" },
+    -- { "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I [C]olorscheme" },
 
     -- find
     -- { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find [B]uffers" },

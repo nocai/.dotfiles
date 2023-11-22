@@ -8,14 +8,14 @@ return {
     enabled = not vim.g.vscode,
     keys = {
       {
-        "<leader>tc",
+        "<leader>tt",
         function()
           require("neotest").run.run()
         end,
         desc = "Run the nearest test (neotest)",
       },
       {
-        "<leader>tl",
+        "<leader>t.",
         function()
           require("neotest").run.run_last()
         end,
@@ -29,7 +29,7 @@ return {
         desc = "Stop the nearest test (neotest)",
       },
       {
-        "<leader>tf",
+        "<leader>t%",
         function()
           require("neotest").run.run(vim.fn.expand("%"))
         end,
@@ -50,7 +50,7 @@ return {
         desc = "Open output (neotest)",
       },
       {
-        "<leader>tt",
+        "<leader>t<tab>",
         function()
           require("neotest").summary.toggle()
         end,
