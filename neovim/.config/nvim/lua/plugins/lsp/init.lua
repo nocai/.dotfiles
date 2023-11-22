@@ -98,7 +98,7 @@ return {
         local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
         if inlay_hint then
           if client.server_capabilities.inlayHintProvider then
-            inlay_hint(buffer, true)
+            inlay_hint.enable(buffer, true)
           end
         end
       end)
