@@ -8,13 +8,29 @@ function M._diagnostic_goto(next, severity)
   end
 end
 
-vim.keymap.set("n", ivim.keymaps.Diagnostic, vim.diagnostic.open_float, { desc = "Diagnostic float (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticNext, M._diagnostic_goto(true), { desc = "Diagnostic next (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticPrev, M._diagnostic_goto(false), { desc = "Diagnostic prev (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticErrorNext, M._diagnostic_goto(true, "ERROR"), { desc = "Error next (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticErrorPrev, M._diagnostic_goto(false, "ERROR"), { desc = "Error prev (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticWarnNext, M._diagnostic_goto(true, "WARN"), { desc = "Warn next (lsp)" })
-vim.keymap.set("n", ivim.keymaps.DiagnosticWarnPrev, M._diagnostic_goto(false, "WARN"), { desc = "Warn prev (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnostic, vim.diagnostic.open_float, { desc = "Diagnostic float (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticNext, M._diagnostic_goto(true), { desc = "Diagnostic next (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticPrev, M._diagnostic_goto(false), { desc = "Diagnostic prev (lsp)" })
+vim.keymap.set(
+  "n",
+  ivim.keymaps.GotoDiagnosticErrorNext,
+  M._diagnostic_goto(true, "ERROR"),
+  { desc = "Error next (lsp)" }
+)
+vim.keymap.set(
+  "n",
+  ivim.keymaps.GotoDiagnosticErrorPrev,
+  M._diagnostic_goto(false, "ERROR"),
+  { desc = "Error prev (lsp)" }
+)
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnNext, M._diagnostic_goto(true, "WARN"), { desc = "Warn next (lsp)" })
+vim.keymap.set(
+  "n",
+  ivim.keymaps.GotoDiagnosticWarnPrev,
+  M._diagnostic_goto(false, "WARN"),
+  { desc = "Warn prev (lsp)" }
+)
+vim.keymap.set("n", ivim.keymaps.Diagnostics, "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics (lsp)" })
 
 function M.on_attach(_, buffer)
   vim.keymap.set("n", ivim.keymaps.Hover, vim.lsp.buf.hover, { buffer = buffer, desc = "Hover (lsp)" })

@@ -53,11 +53,11 @@ keymap.set(
 
 keymap.set(
   { "n", "x" },
-  ivim.keymaps.DiagnosticPrev,
+  ivim.keymaps.GotoDiagnosticPrev,
   "<Cmd>lua require('vscode-neovim').call('editor.action.marker.prev')<CR>"
 )
 keymap.set(
   { "n", "x" },
-  ivim.keymaps.DiagnosticNext,
+  ivim.keymaps.GotoDiagnosticNext,
   "<Cmd>lua require('vscode-neovim').call('editor.action.marker.next')<CR>"
 )

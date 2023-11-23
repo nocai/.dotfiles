@@ -114,8 +114,8 @@ return {
       return {
         sources = {
           nls.builtins.formatting.stylua,
-          nls.builtins.formatting.jq,
-          nls.builtins.formatting.yamlfmt,
+          -- nls.builtins.formatting.jq,
+          -- nls.builtins.formatting.yamlfmt,
           -- nls.builtins.formatting.markdownlint,
 
           nls.builtins.diagnostics.golangci_lint,
@@ -133,48 +133,20 @@ return {
       require("illuminate").configure()
     end,
   },
-  -- {
-  --   "simrat39/symbols-outline.nvim",
-  --   enabled = false,
-  --   event = "LspAttach",
-  --   opts = {
-  --     symbols = {
-  --       Array = { icon = " " },
-  --       Boolean = { icon = " " },
-  --       Class = { icon = " " },
-  --       Color = { icon = " " },
-  --       Constant = { icon = " " },
-  --       Constructor = { icon = " " },
-  --       Copilot = { icon = " " },
-  --       Enum = { icon = " " },
-  --       EnumMember = { icon = " " },
-  --       Event = { icon = " " },
-  --       Field = { icon = " " },
-  --       File = { icon = " " },
-  --       Folder = { icon = " " },
-  --       Function = { icon = " " },
-  --       Interface = { icon = " " },
-  --       Key = { icon = " " },
-  --       Keyword = { icon = " " },
-  --       Method = { icon = " " },
-  --       Module = { icon = " " },
-  --       Namespace = { icon = " " },
-  --       Null = { icon = "ﳠ " },
-  --       Number = { icon = " " },
-  --       Object = { icon = " " },
-  --       Operator = { icon = " " },
-  --       Package = { icon = " " },
-  --       Property = { icon = " " },
-  --       Reference = { icon = " " },
-  --       Snippet = { icon = " " },
-  --       String = { icon = " " },
-  --       Struct = { icon = " " },
-  --       Text = { icon = " " },
-  --       TypeParameter = { icon = " " },
-  --       Unit = { icon = " " },
-  --       Value = { icon = " " },
-  --       Variable = { icon = " " },
-  --     },
-  --   },
-  -- },
+  {
+    "hedyhli/outline.nvim",
+    cmd = { "Outline", "OutlineOpen" },
+    keys = {
+      { "gO", "<cmd>Outline<CR>", desc = "Toggle outline" },
+    },
+    opts = function()
+      local icons = {}
+      for kind, icon in pairs(ivim.icons.kinds) do
+        icons[kind] = { icon = icon }
+      end
+      return {
+        symbols = { icons = icons },
+      }
+    end,
+  },
 }
