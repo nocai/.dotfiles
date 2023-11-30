@@ -4,6 +4,7 @@ return {
   enabled = not vim.g.vscode,
   opts = {
     trouble = false,
+    current_line_blame = true,
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
 
@@ -12,8 +13,8 @@ return {
       end
 
         -- stylua: ignore start
-        map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map({ "n", "v" }, "<leader>gs", gs.stage_hunk, "Stage Hunk")
+        map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset Hunk")
         map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
         map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
         map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
@@ -22,8 +23,17 @@ return {
         map("n", "<leader>gd", gs.diffthis, "Diff This")
         map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
 
-        map("n", "]g", gs.next_hunk, "Next Hunk")
-        map("n", "[g", gs.prev_hunk, "Prev Hunk")
+        map("n", "[g", function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() gs.prev_hunk() end)
+          return '<Ignore>'
+        end, "Prev Hunk")
+        map("n", "]g", function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() gs.next_hunk() end)
+          return '<Ignore>'
+        end, "Next Hunk")
+
         map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
         map({ "o", "x" }, "ag", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
