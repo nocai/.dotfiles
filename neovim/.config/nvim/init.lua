@@ -108,9 +108,8 @@ end
 
 for _, source in ipairs({
   "config.options",
-  "config.lazy",
-  "config.autocmds",
   "config.keymaps",
+  "config.lazy",
 }) do
   local status_ok, fault = pcall(require, source)
   if not status_ok then
@@ -118,10 +117,12 @@ for _, source in ipairs({
   end
 end
 
-if vim.g.neovide then
-  require("config.neovide")
-end
-
 if vim.g.vscode then
   require("config.vscode")
+else
+  require("config.autocmds")
+end
+
+if vim.g.neovide then
+  require("config.neovide")
 end

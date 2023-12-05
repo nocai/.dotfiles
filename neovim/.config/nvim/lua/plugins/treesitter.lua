@@ -19,7 +19,8 @@ return {
         enable = not vim.g.vscode,
       },
       incremental_selection = {
-        enable = not vim.g.vscode,
+        -- enable = not vim.g.vscode,
+        enable = false,
         keymaps = {
           init_selection = "gnn", -- set to `false` to disable one of the mappings
           node_incremental = "grn",
@@ -44,10 +45,10 @@ return {
           require("rainbow-delimiters.setup").setup(opts)
         end,
       },
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = true,
-      },
+      -- {
+      --   "nvim-treesitter/nvim-treesitter-context",
+      --   opts = true,
+      -- },
     },
   },
   {
@@ -137,10 +138,10 @@ return {
   {
     "windwp/nvim-ts-autotag",
     enabled = not vim.g.vscode,
-    ft = {
-      "html",
-      "xml",
-    },
+    -- ft = {
+    --   "html",
+    --   "xml",
+    -- },
     config = function()
       require("nvim-treesitter.configs").setup({
         autotag = {
