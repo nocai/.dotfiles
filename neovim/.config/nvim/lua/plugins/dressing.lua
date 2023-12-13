@@ -1,5 +1,4 @@
 return {
-  -- better vim.ui
   "stevearc/dressing.nvim",
   enabled = not vim.g.vscode,
   opts = {
@@ -10,7 +9,7 @@ return {
     },
     select = {
       -- Priority list of preferred vim.select implementations
-      backend = { "builtin" }, -- "telescope", "fzf_lua", "fzf", "builtin", "nui"
+      backend = { "telescope" }, -- "telescope", "fzf_lua", "fzf", "builtin", "nui"
       builtin = {
         -- relative = "win",
         win_options = {
@@ -21,12 +20,10 @@ return {
     },
   },
   init = function()
-    ---@diagnostic disable-next-line: duplicate-set-field
     vim.ui.select = function(...)
       require("lazy").load({ plugins = "dressing.nvim" })
       return vim.ui.select(...)
     end
-    ---@diagnostic disable-next-line: duplicate-set-field
     vim.ui.input = function(...)
       require("lazy").load({ plugins = "dressing.nvim" })
       return vim.ui.input(...)

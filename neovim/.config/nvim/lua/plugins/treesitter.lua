@@ -7,27 +7,13 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "VeryLazy" },
     enabled = not vim.g.vscode,
     opts = {
       ensure_installed = { "lua", "vim" },
-      highlight = {
-        enable = not vim.g.vscode,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = {
-        enable = not vim.g.vscode,
-      },
-      incremental_selection = {
-        -- enable = not vim.g.vscode,
-        enable = false,
-        keymaps = {
-          init_selection = "gnn", -- set to `false` to disable one of the mappings
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
-        },
-      },
+      highlight = { enable = true, additional_vim_regex_highlighting = false },
+      indent = { enable = true },
+      incremental_selection = { enable = false },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
@@ -38,17 +24,21 @@ return {
       end
     end,
     dependencies = {
-      {
-        "HiPhish/rainbow-delimiters.nvim",
-        enabled = not vim.g.vscode,
-        config = function(_, opts)
-          require("rainbow-delimiters.setup").setup(opts)
-        end,
-      },
+      -- {
+      --   "HiPhish/rainbow-delimiters.nvim",
+      --   opts = true,
+      --   -- config = function(_, opts)
+      --   --   require("rainbow-delimiters.setup").setup(opts)
+      --   -- end,
+      -- },
       -- {
       --   "nvim-treesitter/nvim-treesitter-context",
       --   opts = true,
       -- },
+      {
+        "windwp/nvim-ts-autotag",
+        opts = true,
+      },
     },
   },
   {
@@ -73,11 +63,6 @@ return {
               ["af"] = "@function.outer",
               ["ic"] = "@class.inner",
               ["ac"] = "@class.outer",
-
-              -- ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
-              -- ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
-              -- ["al"] = { query = "@loop.outer", desc = "around loop" },
-              -- ["il"] = { query = "@loop.inner", desc = "inside loop" },
             },
           },
           move = {
@@ -114,7 +99,7 @@ return {
             },
           },
           lsp_interop = {
-            enable = true,
+            enable = false,
             border = "rounded",
             peek_definition_code = {
               [ivim.keymaps.PeekFunction] = "@function.outer",
@@ -128,26 +113,6 @@ return {
       local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
       vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
       vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-
-      -- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-      -- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-      -- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-      -- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
-    end,
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    enabled = not vim.g.vscode,
-    -- ft = {
-    --   "html",
-    --   "xml",
-    -- },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        autotag = {
-          enable = true,
-        },
-      })
     end,
   },
 }
