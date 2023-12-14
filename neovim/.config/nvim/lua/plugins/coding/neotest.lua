@@ -1,11 +1,6 @@
-if vim.g.vscode then
-  return {}
-end
-
 return {
   {
     "nvim-neotest/neotest",
-    enabled = not vim.g.vscode,
     keys = {
       {
         "<leader>tt",
@@ -58,8 +53,6 @@ return {
       },
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
       -- adapters
       "nvim-neotest/neotest-go",

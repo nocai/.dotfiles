@@ -1,13 +1,8 @@
-if vim.g.vscode then
-  return {}
-end
-
 return {
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
     event = "InsertEnter",
-    enabled = not vim.g.vscode,
     opts = function()
       local cmp = require("cmp")
       local bordered = cmp.config.window.bordered()

@@ -1,6 +1,5 @@
 return {
   "kyazdani42/nvim-tree.lua",
-  enabled = not vim.g.vscode,
   keys = {
     { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "NvimTree [E]xplorer" },
     { "<leader>E", "<cmd>NvimTreeFindFile!<CR>", desc = "NvimTree FindFile" },
