@@ -22,7 +22,7 @@ return {
           ensure_installed = { "lua_ls" },
         },
         config = function(_, opts)
-          local Servers = require("plugins.lsp.servers")
+          local Servers = require("plugins.coding.lsp.servers")
           opts.ensure_installed = vim.list_extend(opts.ensure_installed or {}, vim.tbl_keys(Servers))
           require("mason-lspconfig").setup(opts)
 
@@ -85,14 +85,14 @@ return {
       },
     },
     config = function()
-      local Util = require("plugins.lsp.util")
+      local Util = require("plugins.coding.lsp.util")
       Util.on_attach(function(client, buffer)
-        require("plugins.lsp.setting")
+        require("plugins.coding.lsp.setting")
 
-        local Keymaps = require("plugins.lsp.keymaps")
+        local Keymaps = require("plugins.coding.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
 
-        local Format = require("plugins.lsp.format")
+        local Format = require("plugins.coding.lsp.format")
         Format.on_attach(client, buffer)
 
         local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
@@ -118,7 +118,7 @@ return {
           -- nls.builtins.formatting.yamlfmt,
           -- nls.builtins.formatting.markdownlint,
 
-          nls.builtins.diagnostics.golangci_lint,
+          -- nls.builtins.diagnostics.golangci_lint,
           -- nls.builtins.diagnostics.markdownlint,
           -- nls.builtins.diagnostics.yamllint,
         },

@@ -1,18 +1,6 @@
 return {
   { "nvim-lua/plenary.nvim" },
-  {
-    "nvim-tree/nvim-web-devicons",
-    enabled = not vim.g.vscode,
-  },
-  {
-    "folke/which-key.nvim",
-    enabled = not vim.g.vscode,
-    keys = { "<space>" },
-    opts = {
-      plugins = { spelling = true },
-      window = { border = "rounded" },
-    },
-  },
+  { "nvim-tree/nvim-web-devicons" },
   {
     "kylechui/nvim-surround",
     keys = {
@@ -28,32 +16,6 @@ return {
       { "cs", mode = { "n" } },
     },
     opts = true,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = not vim.g.vscode,
-    event = "VeryLazy",
-    opts = {
-      options = {
-        globalstatus = true,
-      },
-    },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    event = { "BufReadPost", "BufNewFile" },
-    enabled = not vim.g.vscode,
-    opts = {
-      indent = {
-        -- char = "▏",
-        char = "┊",
-      },
-      scope = {
-        enabled = true,
-        show_start = false,
-      },
-    },
   },
   {
     "michaeljsmith/vim-indent-object",

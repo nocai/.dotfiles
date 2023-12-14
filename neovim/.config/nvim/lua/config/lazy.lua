@@ -17,6 +17,18 @@ require("lazy").setup({
     { "folke/lazy.nvim", version = "*" },
     -- 插件目录
     { import = "plugins" },
+    {
+      import = "plugins.ui",
+      enabled = not vim.g.vscode,
+    },
+    {
+      import = "plugins.editor",
+      enabled = not vim.g.vscode,
+    },
+    {
+      import = "plugins.coding",
+      enabled = not vim.g.vscode,
+    },
   },
   install = {
     -- install missing plugins on startup. This doesn't increase startup time.
