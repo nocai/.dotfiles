@@ -2,6 +2,43 @@ if vim.g.vscode then
   return {}
 end
 
+local utils = require("config.utils")
+
+utils.on_very_lazy(function()
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    silent = true,
+    border = "rounded",
+  })
+
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    silent = true,
+    border = "rounded",
+  })
+
+  -- diagnostics
+  for name, icon in pairs(ivim.icons.diagnostics) do
+    name = string.format("DiagnosticSign%s", name)
+    vim.fn.sign_define(name, { text = icon, texthl = name })
+  end
+
+  vim.diagnostic.config({
+    underline = true,
+    update_in_insert = false,
+    virtual_text = {
+      -- spacing = 4,
+      source = "if_many",
+      prefix = "●",
+      -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+      -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+      -- prefix = "icons",
+    },
+    severity_sort = true,
+    float = {
+      border = "rounded",
+    },
+  })
+end)
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -85,15 +122,9 @@ return {
       },
     },
     config = function()
-      local Util = require("plugins.coding.lsp.util")
-      Util.on_attach(function(client, buffer)
-        require("plugins.coding.lsp.setting")
-
+      utils.on_attach(function(client, buffer)
         local Keymaps = require("plugins.coding.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
-
-        local Format = require("plugins.coding.lsp.format")
-        Format.on_attach(client, buffer)
 
         local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
         if inlay_hint then
@@ -104,28 +135,6 @@ return {
       end)
     end,
   },
-  -- formatters
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "VeryLazy",
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        sources = {
-          nls.builtins.formatting.stylua,
-          -- nls.builtins.formatting.jq,
-          -- nls.builtins.formatting.yamlfmt,
-          -- nls.builtins.formatting.markdownlint,
-
-          -- nls.builtins.diagnostics.golangci_lint,
-          -- nls.builtins.diagnostics.markdownlint,
-          -- nls.builtins.diagnostics.yamllint,
-        },
-      }
-    end,
-  },
-
   {
     "RRethy/vim-illuminate",
     event = "VeryLazy",
@@ -148,5 +157,23 @@ return {
         symbols = { icons = icons },
       }
     end,
+  },
+  {
+    "stevearc/conform.nvim",
+    event = "VeryLazy",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        -- Conform will run multiple formatters sequentially
+        -- python = { "isort", "black" },
+        -- Use a sub-list to run only the first available formatter
+        -- javascript = { { "prettierd", "prettier" } },
+      },
+      format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
   },
 }

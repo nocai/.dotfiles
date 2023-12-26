@@ -1,6 +1,6 @@
 local M = {}
 
-function M._diagnostic_goto(next, severity)
+function M.goto_diagnostic(next, severity)
   local goto_diag = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
@@ -9,27 +9,22 @@ function M._diagnostic_goto(next, severity)
 end
 
 vim.keymap.set("n", ivim.keymaps.GotoDiagnostic, vim.diagnostic.open_float, { desc = "Diagnostic float (lsp)" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticNext, M._diagnostic_goto(true), { desc = "Diagnostic next (lsp)" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticPrev, M._diagnostic_goto(false), { desc = "Diagnostic prev (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticNext, M.goto_diagnostic(true), { desc = "Diagnostic next (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticPrev, M.goto_diagnostic(false), { desc = "Diagnostic prev (lsp)" })
 vim.keymap.set(
   "n",
   ivim.keymaps.GotoDiagnosticErrorNext,
-  M._diagnostic_goto(true, "ERROR"),
+  M.goto_diagnostic(true, "ERROR"),
   { desc = "Error next (lsp)" }
 )
 vim.keymap.set(
   "n",
   ivim.keymaps.GotoDiagnosticErrorPrev,
-  M._diagnostic_goto(false, "ERROR"),
+  M.goto_diagnostic(false, "ERROR"),
   { desc = "Error prev (lsp)" }
 )
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnNext, M._diagnostic_goto(true, "WARN"), { desc = "Warn next (lsp)" })
-vim.keymap.set(
-  "n",
-  ivim.keymaps.GotoDiagnosticWarnPrev,
-  M._diagnostic_goto(false, "WARN"),
-  { desc = "Warn prev (lsp)" }
-)
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnNext, M.goto_diagnostic(true, "WARN"), { desc = "Warn next (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnPrev, M.goto_diagnostic(false, "WARN"), { desc = "Warn prev (lsp)" })
 vim.keymap.set("n", ivim.keymaps.Diagnostics, "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics (lsp)" })
 
 function M.on_attach(_, buffer)
@@ -84,9 +79,14 @@ function M.on_attach(_, buffer)
     vim.lsp.buf.code_action,
     { buffer = buffer, desc = "Code actions (lsp)" }
   )
-  vim.keymap.set("n", ivim.keymaps.FormatDocument, function()
-    require("plugins.lsp.format").format(buffer)
-  end, { buffer = buffer, desc = "Format (lsp)" })
+
+  -- format by plugin
+  -- vim.keymap.set(
+  --   "n",
+  --   ivim.keymaps.FormatDocument,
+  --   vim.lsp.buf.format,
+  --   { buffer = buffer, desc = "Format document (lsp)" }
+  -- )
 
   -- vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.run, { buffer = buffer, desc = "lsp: codelens run" })
 
