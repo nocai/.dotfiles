@@ -6,7 +6,7 @@ return {
     opts = function()
       local cmp = require("cmp")
       local bordered = cmp.config.window.bordered()
-      bordered.winhighlight = string.format("%s,FloatBorder:FloatBorder", bordered.winhighlight)
+      -- bordered.winhighlight = string.format("%s,FloatBorder:FloatBorder", bordered.winhighlight)
 
       local ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
       if ok then
@@ -14,30 +14,45 @@ return {
       end
 
       return {
-        performance = {
-          max_view_entries = 20,
-        },
-        window = {
-          completion = bordered,
-          documentation = bordered,
-        },
+        -- performance = {
+        --   max_view_entries = 20,
+        -- },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        mapping = {
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+        formatting = {
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, item)
+            local icons = ivim.icons.kinds
+            if icons[item.kind] then
+              item.kind = icons[item.kind]
+            end
+            if string.len(item.abbr) > 25 then
+              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 25))
+            end
+            item.menu = string.format("[%s]", entry.source.name)
+            return item
+          end,
+        },
+        experimental = {
+          -- ghost_text = {
+          --   hl_group = "LspCodeLens",
+          -- },
+        },
+        window = {
+          completion = bordered,
+          documentation = bordered,
+        },
+        mapping = cmp.mapping.preset.insert({
           ["<C-d>"] = cmp.mapping.scroll_docs(3),
           ["<C-u>"] = cmp.mapping.scroll_docs(-3),
-          ["<C-f>"] = cmp.mapping.scroll_docs(6),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-6),
-          ["<C-Space>"] = cmp.mapping.complete(),
+          -- ["<C-Space>"] = cmp.mapping.complete(),
           -- ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({
-            -- behavior = cmp.ConfirmBehavior.Replace,
+            behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -54,21 +69,7 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-        },
-        formatting = {
-          fields = { "kind", "abbr", "menu" },
-          format = function(entry, item)
-            local icons = ivim.icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind]
-            end
-            if string.len(item.abbr) > 25 then
-              item.abbr = string.format("%s…", string.sub(item.abbr, 1, 25))
-            end
-            item.menu = string.format("[%s]", entry.source.name)
-            return item
-          end,
-        },
+        }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -76,11 +77,6 @@ return {
           { name = "buffer" },
           { name = "path" },
         }),
-        experimental = {
-          -- ghost_text = {
-          --   hl_group = "LspCodeLens",
-          -- },
-        },
       }
     end,
     dependencies = {
@@ -94,17 +90,17 @@ return {
           check_ts = true,
           map_c_w = true,
           -- map_c_h = true,
-          fast_wrap = {
-            map = "<M-e>",
-            chars = { "{", "[", "(", '"', "'" },
-            pattern = [=[[%'%"%>%]%)%}%,]]=],
-            end_key = "$",
-            keys = "qwertyuiopzxcvbnmasdfghjkl",
-            check_comma = true,
-            manual_position = false,
-            highlight = "Search",
-            highlight_grey = "Comment",
-          },
+          -- fast_wrap = {
+          --   map = "<M-e>",
+          --   chars = { "{", "[", "(", '"', "'" },
+          --   pattern = [=[[%'%"%>%]%)%}%,]]=],
+          --   end_key = "$",
+          --   keys = "qwertyuiopzxcvbnmasdfghjkl",
+          --   check_comma = true,
+          --   manual_position = false,
+          --   highlight = "Search",
+          --   highlight_grey = "Comment",
+          -- },
         },
       },
       {
@@ -112,17 +108,6 @@ return {
         dependencies = { "rafamadriz/friendly-snippets" },
         config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
-
-          --   vim.api.nvim_create_autocmd("InsertLeave", {
-          --     callback = function()
-          --       if
-          --         require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-          --         and not require("luasnip").session.jump_active
-          --       then
-          --         require("luasnip").unlink_current()
-          --       end
-          --     end,
-          --   })
         end,
       },
     },
@@ -130,7 +115,6 @@ return {
   {
     "abecodes/tabout.nvim",
     event = "InsertEnter",
-    enabled = false,
     dependencies = { "nvim-cmp" },
     opts = {
       tabouts = {
@@ -140,6 +124,7 @@ return {
         { open = "(", close = ")" },
         { open = "[", close = "]" },
         { open = "{", close = "}" },
+        { open = "<", close = ">" },
       },
     },
   },
