@@ -10,7 +10,7 @@ return {
       { "yss", mode = { "n" } },
       { "yS", mode = { "n" } },
       { "ySS", mode = { "n" } },
-      { "S", mode = { "v" } },
+      { "S", mode = { "x" } },
       { "gS", mode = { "v" } },
       { "ds", mode = { "n" } },
       { "cs", mode = { "n" } },
