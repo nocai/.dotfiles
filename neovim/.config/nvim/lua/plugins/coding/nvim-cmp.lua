@@ -1,22 +1,36 @@
 return {
   {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
+  {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
     event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
+    },
     opts = function()
       local cmp = require("cmp")
       local bordered = cmp.config.window.bordered()
-      -- bordered.winhighlight = string.format("%s,FloatBorder:FloatBorder", bordered.winhighlight)
-
-      local ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-      if ok then
-        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      end
 
       return {
-        -- performance = {
-        --   max_view_entries = 20,
-        -- },
+        experimental = {
+          -- ghost_text = true,
+        },
+        performance = {
+          max_view_entries = 20,
+        },
+        window = {
+          completion = bordered,
+          documentation = bordered,
+        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -36,19 +50,10 @@ return {
             return item
           end,
         },
-        experimental = {
-          -- ghost_text = {
-          --   hl_group = "LspCodeLens",
-          -- },
-        },
-        window = {
-          completion = bordered,
-          documentation = bordered,
-        },
         mapping = cmp.mapping.preset.insert({
           ["<C-d>"] = cmp.mapping.scroll_docs(3),
           ["<C-u>"] = cmp.mapping.scroll_docs(-3),
-          -- ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-Space>"] = cmp.mapping.complete(),
           -- ["<C-e>"] = cmp.mapping.abort(),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({
@@ -71,61 +76,13 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "nvim_lsp" },
         }, {
           { name = "buffer" },
           { name = "path" },
         }),
       }
     end,
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      {
-        "windwp/nvim-autopairs",
-        opts = {
-          check_ts = true,
-          map_c_w = true,
-          -- map_c_h = true,
-          -- fast_wrap = {
-          --   map = "<M-e>",
-          --   chars = { "{", "[", "(", '"', "'" },
-          --   pattern = [=[[%'%"%>%]%)%}%,]]=],
-          --   end_key = "$",
-          --   keys = "qwertyuiopzxcvbnmasdfghjkl",
-          --   check_comma = true,
-          --   manual_position = false,
-          --   highlight = "Search",
-          --   highlight_grey = "Comment",
-          -- },
-        },
-      },
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = { "rafamadriz/friendly-snippets" },
-        config = function()
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
-      },
-    },
-  },
-  {
-    "abecodes/tabout.nvim",
-    event = "InsertEnter",
-    dependencies = { "nvim-cmp" },
-    opts = {
-      tabouts = {
-        { open = "'", close = "'" },
-        { open = '"', close = '"' },
-        { open = "`", close = "`" },
-        { open = "(", close = ")" },
-        { open = "[", close = "]" },
-        { open = "{", close = "}" },
-        { open = "<", close = ">" },
-      },
-    },
   },
 }

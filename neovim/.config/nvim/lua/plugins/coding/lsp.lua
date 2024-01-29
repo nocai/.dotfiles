@@ -103,8 +103,8 @@ return {
               ensure_installed = { "stylua" },
               ui = { border = "rounded" },
               github = {
-                -- download_url_template = ivim.git_proxy("https://github.com/%s/releases/download/%s/%s"),
-                download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
+                download_url_template = ivim.git_proxy("https://github.com/%s/releases/download/%s/%s"),
+                -- download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
               },
             },
             config = function(_, opts)

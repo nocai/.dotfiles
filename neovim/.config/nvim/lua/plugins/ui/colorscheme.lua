@@ -64,97 +64,45 @@ return {
     },
   },
   {
-    "Mofiqul/dracula.nvim",
-    priority = 1000,
-    opts = {
-      transparent_bg = vim.g.transparent_enabled,
-    },
-  },
-  {
     "catppuccin/nvim",
+    lazy = true,
     name = "catppuccin",
-    priority = 1000,
     opts = {
-      transparent_background = vim.g.transparent_enabled,
-      integrations = {
-        cmp = true,
-        gitsigns = true,
-        neotree = true,
-        nvimtree = true,
-        treesitter = true,
-        mason = true,
-        which_key = true,
-        rainbow_delimiters = true,
-        lsp_trouble = true,
-        telescope = {
-          enabled = true,
-          -- style = "nvchad",
-        },
-        illuminate = {
-          enabled = true,
-          lsp = false,
-        },
-        native_lsp = {
-          enabled = true,
-          virtual_text = {
-            errors = { "italic" },
-            hints = { "italic" },
-            warnings = { "italic" },
-            information = { "italic" },
-          },
-          underlines = {
-            errors = { "underline" },
-            hints = { "underline" },
-            warnings = { "underline" },
-            information = { "underline" },
-          },
-          inlay_hints = {
-            background = true,
-          },
-        },
-        barbecue = {
-          dim_dirname = true, -- directory name is dimmed by default
-          bold_basename = true,
-          dim_context = false,
-          alt_background = false,
-        },
-        dap = {
-          enabled = true,
-          enable_ui = true, -- enable nvim-dap-ui
-        },
-        fidget = true,
-        neotest = true,
-        flash = true,
-        symbols_outline = true,
-        -- leap = true,
-        indent_blankline = {
-          enabled = true,
-          colored_indent_levels = true,
-        },
-      },
-    },
-  },
-  {
-    "EdenEast/nightfox.nvim",
-    opts = {
-      options = {
-        transparent = vim.g.transparent_enabled,
-        styles = {
-          comments = "italic",
-          -- functions = "italic,bold",
-          functions = "italic",
-        },
-      },
-    },
-  },
-  { -- Theme inspired by Atom
-    "navarasu/onedark.nvim",
-    priority = 1000,
-    opts = {
-      transparent = vim.g.transparent_enabled,
-      lualine = {
-        transparent = vim.g.transparent_enabled,
-      },
+      --   integrations = {
+      --     aerial = true,
+      --     alpha = true,
+      --     cmp = true,
+      --     dashboard = true,
+      --     flash = true,
+      --     gitsigns = true,
+      --     headlines = true,
+      --     illuminate = true,
+      --     indent_blankline = { enabled = true },
+      --     leap = true,
+      --     lsp_trouble = true,
+      --     mason = true,
+      --     markdown = true,
+      --     mini = true,
+      --     native_lsp = {
+      --       enabled = true,
+      --       underlines = {
+      --         errors = { "undercurl" },
+      --         hints = { "undercurl" },
+      --         warnings = { "undercurl" },
+      --         information = { "undercurl" },
+      --       },
+      --     },
+      --     navic = { enabled = true, custom_bg = "lualine" },
+      --     neotest = true,
+      --     neotree = true,
+      --     noice = true,
+      --     notify = true,
+      --     semantic_tokens = true,
+      --     telescope = true,
+      --     treesitter = true,
+      --     treesitter_context = true,
+      --     which_key = true,
+      --   },
     },
   },
 }
