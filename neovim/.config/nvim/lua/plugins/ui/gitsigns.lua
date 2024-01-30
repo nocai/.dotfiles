@@ -22,19 +22,19 @@ return {
         map("n", "<leader>gd", gs.diffthis, "Diff This")
         map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
 
-        map("n", "[g", function()
-          if vim.wo.diff then return ']c' end
+        map("n", "[h", function()
+          if vim.wo.diff then return ']h' end
           vim.schedule(function() gs.prev_hunk() end)
           return '<Ignore>'
         end, "Prev Hunk")
-        map("n", "]g", function()
-          if vim.wo.diff then return '[c' end
+        map("n", "]h", function()
+          if vim.wo.diff then return '[h' end
           vim.schedule(function() gs.next_hunk() end)
           return '<Ignore>'
         end, "Next Hunk")
 
-        map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-        map({ "o", "x" }, "ag", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
   },
 }

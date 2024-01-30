@@ -1,11 +1,15 @@
 return {
   {
+    "windwp/nvim-ts-autotag",
+    opts = true,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
     event = { "VeryLazy" },
     opts = {
-      ensure_installed = { "lua", "vim" },
+      ensure_installed = { "lua", "luadoc", "vim", "vimdoc", "markdown", "markdown_inline", "go", "rust" },
       highlight = { enable = true, additional_vim_regex_highlighting = false },
       indent = { enable = true },
       incremental_selection = { enable = false },
@@ -30,10 +34,6 @@ return {
       --   "nvim-treesitter/nvim-treesitter-context",
       --   opts = true,
       -- },
-      {
-        "windwp/nvim-ts-autotag",
-        opts = true,
-      },
     },
   },
   {
@@ -103,11 +103,6 @@ return {
           },
         },
       })
-      -- Repeat movement with ; and ,
-      -- ensure ; goes forward and , goes backward regardless of the last direction
-      -- local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-      -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-      -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
     end,
   },
 }
