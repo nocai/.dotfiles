@@ -18,8 +18,6 @@ return {
     },
     opts = function()
       local cmp = require("cmp")
-      local bordered = cmp.config.window.bordered()
-
       return {
         experimental = {
           -- ghost_text = true,
@@ -28,8 +26,8 @@ return {
           max_view_entries = 20,
         },
         window = {
-          completion = bordered,
-          documentation = bordered,
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         snippet = {
           expand = function(args)
@@ -61,7 +59,7 @@ return {
             select = true,
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
-            if require("luasnip").expand_or_locally_jumpable() then
+            if require("luasnip").locally_jumpable() then
               require("luasnip").jump(1)
             else
               fallback()

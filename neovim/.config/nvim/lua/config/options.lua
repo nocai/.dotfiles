@@ -21,6 +21,7 @@ opt.softtabstop = 2
 -- opt.fillchars = { eob = " " } -- disable `~` on nonexistent lines
 opt.ignorecase = true
 opt.smartcase = true
+opt.grepprg = "rg --vimgrep"
 opt.mouse = "a"
 
 -- Numbers
@@ -55,9 +56,8 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.scrolloff = 5 -- Lines of context
 opt.sidescrolloff = 10 -- Columns of context
 
-if vim.fn.has("nvim-0.9.0") == 1 then
-  opt.splitkeep = "screen"
-  opt.shortmess:append({ C = true })
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
 end
 
 -- Disable providers
