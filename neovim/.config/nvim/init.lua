@@ -32,8 +32,8 @@ _G.ivim = {
     PeekFunction = "<leader>pf",
     PeekClass = "<leader>pc",
 
-    Diagnostics = "<leader>x",
-    GotoDiagnostic = "<leader>d", -- <leader>d: debug
+    Diagnostics = "<leader>K",
+    GotoDiagnostic = "<leader>k", -- <leader>d: debug
     GotoDiagnosticPrev = "[d",
     GotoDiagnosticNext = "]d",
     GotoDiagnosticWarnPrev = "[w",
@@ -45,9 +45,9 @@ _G.ivim = {
     SignatureHelp = "<C-K>",
     FormatDocument = "gq",
 
-    Rename = "<leader>rn",
-    CodeActions = "<leader>ca",
+    Rename = "<leader>cr",
     CodeLens = "<leader>cl",
+    CodeActions = "<leader>ca",
   },
   -- icons used by other plugins
   icons = {

@@ -1,8 +1,8 @@
 local keymap = vim.keymap
 
 -- better up/down
--- keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to the left window" })
 keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to the down window" })
