@@ -100,8 +100,8 @@ return {
         opts = {},
         -- stylua: ignore
         keys = {
-          { "<leader>Dtt", function() require("dap-go").debug_test() end, desc = "Debug test: closest method" },
-          { "<leader>Dtl", function() require("dap-go").debug_last_test() end, desc = "Debug test: last method" },
+          { "<leader>dtt", function() require("dap-go").debug_test() end, desc = "Debug test: closest method" },
+          { "<leader>dtl", function() require("dap-go").debug_last_test() end, desc = "Debug test: last method" },
         },
       },
       {
