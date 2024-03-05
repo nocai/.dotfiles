@@ -29,13 +29,13 @@ _G.ivim = {
     GotoDocumentSymbols = "gs", -- gs: leap.nvim
     PeekDocumentSymbols = "<leader>gs",
 
-    PeekFunction = "<leader>pf",
-    PeekClass = "<leader>pc",
+    PeekFunction = "<leader><tab>f",
+    PeekClass = "<leader><tab>c",
 
     Diagnostics = "<leader>x",
-    -- GotoDiagnostic = "<leader>k", -- <leader>d: debug
-    GotoDiagnosticPrev = "[d",
-    GotoDiagnosticNext = "]d",
+    GotoDiagnostic = "<C-x>", -- <leader>d: debug
+    GotoDiagnosticPrev = "[x",
+    GotoDiagnosticNext = "]x",
     GotoDiagnosticWarnPrev = "[w",
     GotoDiagnosticWarnNext = "]w",
     GotoDiagnosticErrorPrev = "[e",
@@ -43,9 +43,9 @@ _G.ivim = {
 
     Hover = "K",
     SignatureHelp = "<C-K>",
-    FormatDocument = "gq",
+    -- FormatDocument = "gq",
 
-    Rename = "<leader>cr",
+    Rename = "<leader>rn",
     CodeLens = "<leader>cl",
     CodeActions = "<leader>ca",
   },

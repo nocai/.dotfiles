@@ -6,7 +6,7 @@ return {
     return {
       { [[<C-\>]] },
       {
-        "<leader>G",
+        "<leader>lg",
         function()
           if lazygit == nil then
             local Terminal = require("toggleterm.terminal").Terminal

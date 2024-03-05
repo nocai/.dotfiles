@@ -16,14 +16,14 @@ return {
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
 
     { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-    { "<leader><tab>", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
 
     { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
     { "<leader>?", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
     { "<leader>'", "<cmd>Telescope marks<cr>", desc = "Marks" },
 
-    -- { "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I [C]olorscheme" },
+    { "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "[U]I [C]olorscheme" },
+    { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
 
     -- find
     -- { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find [B]uffers" },

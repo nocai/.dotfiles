@@ -8,7 +8,7 @@ function M.goto_diagnostic(next, severity)
   end
 end
 
-vim.keymap.set("n", ivim.keymaps.SignatureHelp, vim.diagnostic.open_float, { desc = "Diagnostic float (lsp)" })
+vim.keymap.set("n", ivim.keymaps.GotoDiagnostic, vim.diagnostic.open_float, { desc = "Diagnostic float (lsp)" })
 vim.keymap.set("n", ivim.keymaps.GotoDiagnosticNext, M.goto_diagnostic(true), { desc = "Diagnostic next (lsp)" })
 vim.keymap.set("n", ivim.keymaps.GotoDiagnosticPrev, M.goto_diagnostic(false), { desc = "Diagnostic prev (lsp)" })
 vim.keymap.set(

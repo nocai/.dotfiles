@@ -98,4 +98,4 @@ if not vim.g.vscode then
   vim.cmd.colorscheme(ivim.colorscheme)
 end
 
-vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader>ll", "<cmd>:Lazy<cr>", { desc = "Lazy" })

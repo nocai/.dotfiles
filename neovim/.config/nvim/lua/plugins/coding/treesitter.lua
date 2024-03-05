@@ -41,6 +41,7 @@ return {
     keys = {
       "[",
       "]",
+      "<leader><tab>", -- peek
       { "a", mode = { "x", "o" } },
       { "i", mode = { "x", "o" } },
     },
@@ -94,7 +95,7 @@ return {
             },
           },
           lsp_interop = {
-            enable = false,
+            enable = true,
             border = "rounded",
             peek_definition_code = {
               [ivim.keymaps.PeekFunction] = "@function.outer",
