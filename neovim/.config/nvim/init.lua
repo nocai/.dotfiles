@@ -32,8 +32,8 @@ _G.ivim = {
     PeekFunction = "<leader><tab>f",
     PeekClass = "<leader><tab>c",
 
-    Diagnostics = "<leader>x",
-    GotoDiagnostic = "<C-x>", -- <leader>d: debug
+    Diagnostics = "<leader>X",
+    Diagnostic = "<leader>x", -- <leader>d: debug
     GotoDiagnosticPrev = "[x",
     GotoDiagnosticNext = "]x",
     GotoDiagnosticWarnPrev = "[w",
