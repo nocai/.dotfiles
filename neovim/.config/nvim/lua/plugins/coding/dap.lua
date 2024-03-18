@@ -35,9 +35,9 @@ return {
       { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
 
       { "<leader>dd", function() require("dap").continue() end, desc = "Start Debug" },
-      { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+      { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Start Debug with Args" },
       { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-      { "<leader>ds", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<leader>dn", function() require("dap").step_over() end, desc = "Step Over" },
       { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
       { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
       { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
@@ -51,7 +51,7 @@ return {
       { "<leader>dk", function() require("dap").up() end, desc = "Up" },
       { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
       { "<leader>dS", function() require("dap").session() end, desc = "Session" },
-      { "<leader>dT", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<leader>ds", function() require("dap").terminate() end, desc = "Terminate" }, -- <leader>dt 被用于debug test
     },
     dependencies = {
       {
