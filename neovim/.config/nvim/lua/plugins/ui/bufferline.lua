@@ -40,33 +40,17 @@ return {
     },
     opts = {
       highlights = {
-        fill = {
-          bg = "none",
-        },
-        offset_separator = {
-          bg = "none",
-        },
-        background = {
-          bg = "none",
-        },
-        close_button = {
-          bg = "none",
-        },
-        buffer_visible = {
-          bg = "none",
-        },
-        close_button_visible = {
-          bg = "none",
-        },
-        indicator_visible = {
-          bg = "none",
-        },
-        separator = {
-          bg = "none",
-        },
-        trunc_marker = {
-          bg = "none",
-        },
+        fill = { bg = "none" },
+        offset_separator = { bg = "none" },
+        background = { bg = "none" },
+        close_button = { bg = "none" },
+        buffer_visible = { bg = "none" },
+        close_button_visible = { bg = "none" },
+        indicator_visible = { bg = "none" },
+        separator = { bg = "none" },
+        trunc_marker = { bg = "none" },
+        modified = { bg = "none" },
+        modified_visible = { bg = "none" },
       },
       options = {
         -- stylua: ignore
