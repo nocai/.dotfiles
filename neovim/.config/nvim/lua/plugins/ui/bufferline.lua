@@ -52,6 +52,21 @@ return {
         close_button = {
           bg = "none",
         },
+        buffer_visible = {
+          bg = "none",
+        },
+        close_button_visible = {
+          bg = "none",
+        },
+        indicator_visible = {
+          bg = "none",
+        },
+        separator = {
+          bg = "none",
+        },
+        trunc_marker = {
+          bg = "none",
+        },
       },
       options = {
         -- stylua: ignore
@@ -59,9 +74,9 @@ return {
         -- stylua: ignore
         right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
         indicator = {
-          icon = "⏽ ",
+          icon = " ⏽ ",
         },
-        separator_style = { "", "" },
+        -- separator_style = { "", "" },
         offsets = {
           {
             filetype = "NvimTree",
