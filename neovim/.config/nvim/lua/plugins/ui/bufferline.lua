@@ -27,7 +27,7 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    enabled = false,
+    -- enabled = false,
     keys = {
       { "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
       { "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
@@ -39,11 +39,25 @@ return {
       { "<leader>bh", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
     },
     opts = {
+      highlights = {
+        fill = {
+          bg = "none",
+        },
+        offset_separator = {
+          bg = "none",
+        },
+        background = {
+          bg = "none",
+        },
+        close_button = {
+          bg = "none",
+        },
+      },
       options = {
-      -- stylua: ignore
-      close_command = function(n) require("mini.bufremove").delete(n, false) end,
-      -- stylua: ignore
-      right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
+        -- stylua: ignore
+        close_command = function(n) require("mini.bufremove").delete(n, false) end,
+        -- stylua: ignore
+        right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
         indicator = {
           icon = "⏽ ",
         },

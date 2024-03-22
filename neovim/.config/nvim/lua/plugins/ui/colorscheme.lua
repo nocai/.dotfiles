@@ -41,15 +41,15 @@ return {
         -- "NeoTreeTabSeparatorInactive",
       },
     },
-    -- config = function(_, opts)
-    --   require("transparent").setup(opts)
-    --   vim.g.transparent_groups = vim.list_extend(
-    --     vim.g.transparent_groups or {},
-    --     vim.tbl_map(function(v)
-    --       return v.hl_group
-    --     end, vim.tbl_values(require("bufferline.config").highlights))
-    --   )
-    -- end,
+    config = function(_, opts)
+      require("transparent").setup(opts)
+      vim.g.transparent_groups = vim.list_extend(
+        vim.g.transparent_groups or {},
+        vim.tbl_map(function(v)
+          return v.hl_group
+        end, vim.tbl_values(require("bufferline.config").highlights))
+      )
+    end,
   },
   -- tokyonight
   {
@@ -67,7 +67,14 @@ return {
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
+    priority = 2000,
     opts = {
+      -- flavour = "mocha", -- latte, frappe, macchiato, mocha
+      transparent_background = true,
+      -- background = { -- :h background
+      --   light = "latte",
+      -- dark = "mocha",
+      -- },
       integrations = {
         aerial = true,
         alpha = true,
