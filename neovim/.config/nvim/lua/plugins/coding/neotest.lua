@@ -14,6 +14,7 @@ return {
       { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
     },
     dependencies = {
+      "nvim-neotest/nvim-nio",
       "antoinemadec/FixCursorHold.nvim",
       -- adapters
       "nvim-neotest/neotest-go",
