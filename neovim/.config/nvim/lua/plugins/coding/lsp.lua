@@ -64,6 +64,7 @@ return {
           require("mason-lspconfig").setup(opts)
 
           local capabilities = vim.lsp.protocol.make_client_capabilities()
+          capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
           capabilities.textDocument.completion.completionItem = {
             documentationFormat = { "markdown", "plaintext" },
             snippetSupport = true,

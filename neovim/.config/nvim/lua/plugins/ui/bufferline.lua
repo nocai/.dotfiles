@@ -192,7 +192,7 @@ return {
         },
       },
       options = {
-        always_show_bufferline = false,
+        -- always_show_bufferline = false,
         -- stylua: ignore
         close_command = function(n) require("mini.bufremove").delete(n, false) end,
         -- stylua: ignore
