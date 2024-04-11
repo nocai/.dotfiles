@@ -20,10 +20,10 @@ return {
       local cmp = require("cmp")
       return {
         experimental = {
-          -- ghost_text = true,
+          ghost_text = true,
         },
         performance = {
-          max_view_entries = 20,
+          -- max_view_entries = 20,
         },
         window = {
           completion = cmp.config.window.bordered(),
