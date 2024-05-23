@@ -8,17 +8,7 @@ function M.goto_diagnostic(next, severity)
   end
 end
 
-vim.keymap.set("n", ivim.keymaps.Diagnostics, "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
-vim.keymap.set("n", ivim.keymaps.Diagnostic, vim.diagnostic.open_float, { desc = "Diagnostic" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticNext, M.goto_diagnostic(true), { desc = "Diagnostic next" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticPrev, M.goto_diagnostic(false), { desc = "Diagnostic prev" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticErrorNext, M.goto_diagnostic(true, "ERROR"), { desc = "Error next" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticErrorPrev, M.goto_diagnostic(false, "ERROR"), { desc = "Error prev" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnNext, M.goto_diagnostic(true, "WARN"), { desc = "Warn next" })
-vim.keymap.set("n", ivim.keymaps.GotoDiagnosticWarnPrev, M.goto_diagnostic(false, "WARN"), { desc = "Warn prev" })
-
 function M.on_attach(_, buffer)
-  vim.keymap.set("n", ivim.keymaps.Hover, vim.lsp.buf.hover, { buffer = buffer, desc = "Hover" })
   vim.keymap.set(
     { "s", "i" },
     ivim.keymaps.SignatureHelp,

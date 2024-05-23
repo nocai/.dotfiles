@@ -15,6 +15,7 @@ return {
     { "<leader>,", "<cmd>Telescope<cr>", desc = "Telescope Builtin" },
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
 
+    { "<leader>x", "<cmd>Telescope diagnostics theme=get_ivy<cr>", desc = "Diagnostics" },
     { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
 
     { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },

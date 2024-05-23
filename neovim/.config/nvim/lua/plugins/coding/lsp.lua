@@ -27,10 +27,7 @@ utils.on_very_lazy(function()
     virtual_text = {
       -- spacing = 4,
       source = "if_many",
-      prefix = "●",
-      -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-      -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-      -- prefix = "icons",
+      -- prefix = "●",
     },
     severity_sort = true,
     float = {
@@ -124,15 +121,10 @@ return {
     },
     config = function()
       utils.on_attach(function(client, buffer)
+        vim.lsp.inlay_hint.enable(true, { buffer })
+
         local Keymaps = require("plugins.coding.lsp.keymaps")
         Keymaps.on_attach(client, buffer)
-
-        local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-        if inlay_hint then
-          if client.server_capabilities.inlayHintProvider then
-            inlay_hint.enable(buffer, true)
-          end
-        end
       end)
     end,
   },

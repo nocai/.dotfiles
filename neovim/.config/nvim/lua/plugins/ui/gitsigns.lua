@@ -12,15 +12,15 @@ return {
       end
 
         -- stylua: ignore start
-        map({ "n", "v" }, "<leader>gs", gs.stage_hunk, "Stage Hunk")
-        map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset Hunk")
-        map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
-        map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
-        map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
-        map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
-        map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
-        map("n", "<leader>gd", gs.diffthis, "Diff This")
-        map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
+        map({ "n", "v" }, "<leader>hs", gs.stage_hunk, "Stage Hunk")
+        map({ "n", "v" }, "<leader>hr", gs.reset_hunk, "Reset Hunk")
+        map("n", "<leader>hS", gs.stage_buffer, "Stage Buffer")
+        map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
+        map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
+        map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame Line")
+        map("n", "<leader>hd", gs.diffthis, "Diff This")
+        map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
 
         map("n", "[h", function()
           if vim.wo.diff then return ']h' end

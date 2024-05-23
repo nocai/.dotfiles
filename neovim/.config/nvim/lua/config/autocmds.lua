@@ -58,13 +58,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- dont list quickfix buffers
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.opt_local.buflisted = false
-  end,
-})
+-- -- dont list quickfix buffers
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "qf",
+--   callback = function()
+--     vim.opt_local.buflisted = false
+--   end,
+-- })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {

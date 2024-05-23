@@ -13,6 +13,7 @@ end
 return {
   {
     "mfussenegger/nvim-dap",
+    enabled = false,
     -- stylua: ignore
     -- keys = {
     --   -- set breakpoint

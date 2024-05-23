@@ -6,6 +6,7 @@ local opt = vim.opt
 
 opt.mouse = "a"
 opt.showmode = false
+opt.smoothscroll = true
 opt.grepprg = "rg --vimgrep"
 opt.clipboard = "unnamedplus"
 -- Numbers
@@ -47,7 +48,3 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
-
-if vim.fn.has("nvim-0.10") == 1 then
-  opt.smoothscroll = true
-end
