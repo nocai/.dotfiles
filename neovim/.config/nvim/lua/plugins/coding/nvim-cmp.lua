@@ -1,12 +1,5 @@
 return {
   {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
-  },
-  {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
     event = "InsertEnter",
@@ -14,7 +7,13 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
+      {
+        "garymjr/nvim-snippets",
+        opts = {
+          friendly_snippets = true,
+        },
+        dependencies = { "rafamadriz/friendly-snippets" },
+      },
     },
     opts = function()
       local cmp = require("cmp")
@@ -28,11 +27,6 @@ return {
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },
@@ -59,22 +53,26 @@ return {
             select = true,
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
-            if require("luasnip").locally_jumpable() then
-              require("luasnip").jump(1)
+            if vim.snippet and vim.snippet.active({ direction = 1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(1)
+              end)
             else
               fallback()
             end
           end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if require("luasnip").locally_jumpable(-1) then
-              require("luasnip").jump(-1)
+            if vim.snippet and vim.snippet.active({ direction = -1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(-1)
+              end)
             else
               fallback()
             end
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "luasnip" },
+          { name = "snippets" },
           { name = "nvim_lsp" },
         }, {
           { name = "buffer" },
