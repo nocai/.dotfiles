@@ -17,27 +17,27 @@ _G.ivim = {
     GotoDeclaration = "gD",
     PeekDeclaration = "<leader>gD",
 
-    GotoTypeDefinition = "gy",
-    PeekTypeDefinition = "<leader>gy",
+    Rename = "grn",
+    CodeLens = "grl",
+    CodeActions = "gra",
 
-    GotoImplementation = "gI", -- gI -- gi: last insert position
-    PeekImplementation = "<leader>gi",
+    GotoReferences = "grr",
+    -- PeekReferences = "<leader>gr",
 
-    GotoReferences = "gr",
-    PeekReferences = "<leader>gr",
+    GotoTypeDefinition = "grt",
+    PeekTypeDefinition = "<leader>grt",
 
-    GotoDocumentSymbols = "gs", -- gs: leap.nvim
-    PeekDocumentSymbols = "<leader>gs",
+    GotoImplementation = "gri",
+    PeekImplementation = "<leader>gri",
 
-    PeekFunction = "<leader><tab>f",
-    PeekClass = "<leader><tab>c",
+    GotoDocumentSymbols = "grs",
+    -- PeekDocumentSymbols = "<leader>gs",
+
+    -- PeekFunction = "<leader><tab>f",
+    -- PeekClass = "<leader><tab>c",
 
     SignatureHelp = "<C-K>",
     -- FormatDocument = "gq",
-
-    Rename = "<leader>rn",
-    CodeLens = "<leader>cl",
-    CodeActions = "<leader>ca",
   },
   -- icons used by other plugins
   icons = {

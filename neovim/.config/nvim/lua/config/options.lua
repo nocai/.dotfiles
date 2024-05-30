@@ -36,8 +36,8 @@ opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
 
-opt.updatetime = 250
-opt.timeoutlen = 300
+opt.timeoutlen = 500
+opt.updatetime = 300
 
 opt.pumheight = 10 -- Maximum number of entries in a popup
 
