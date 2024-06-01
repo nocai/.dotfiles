@@ -9,16 +9,20 @@ opt.showmode = false
 opt.smoothscroll = true
 opt.grepprg = "rg --vimgrep"
 opt.clipboard = "unnamedplus"
--- Numbers
+
+-- numbers
 opt.number = true
 opt.relativenumber = true
 
--- Indenting
+-- indenting
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
+
+-- enable break indent
+opt.breakindent = true
 
 -- disable nvim intro
 opt.shortmess:append("sI")
@@ -43,7 +47,7 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 
 opt.undofile = true
 
--- Disable providers
+-- disable providers
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0

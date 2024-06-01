@@ -61,28 +61,9 @@ return {
           require("mason-lspconfig").setup(opts)
 
           local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
-          capabilities.textDocument.completion.completionItem = {
-            documentationFormat = { "markdown", "plaintext" },
-            snippetSupport = true,
-            preselectSupport = true,
-            insertReplaceSupport = true,
-            labelDetailsSupport = true,
-            deprecatedSupport = true,
-            commitCharactersSupport = true,
-            tagSupport = { valueSet = { 1 } },
-            resolveSupport = {
-              properties = {
-                "documentation",
-                "detail",
-                "additionalTextEdits",
-              },
-            },
-          }
-
           local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
           if ok then
-            capabilities = cmp_nvim_lsp.default_capabilities()
+            capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
           end
 
           require("mason-lspconfig").setup_handlers({
