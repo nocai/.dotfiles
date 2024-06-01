@@ -1,13 +1,5 @@
 local M = {}
 
-function M.goto_diagnostic(next, severity)
-  local goto_diag = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    goto_diag({ severity = severity })
-  end
-end
-
 function M.on_attach(_, buffer)
   vim.keymap.set(
     { "s", "i" },

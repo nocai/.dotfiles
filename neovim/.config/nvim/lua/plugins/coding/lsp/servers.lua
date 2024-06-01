@@ -2,7 +2,11 @@ return {
   lua_ls = {
     settings = {
       Lua = {
-        diagnostics = { globals = { "vim", "redis", "nvim", "jit" } },
+        diagnostics = {
+          globals = { "vim", "redis", "nvim", "jit" },
+          -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+          disable = { "missing-fields" },
+        },
         workspace = {
           checkThirdParty = false,
           library = {
@@ -24,7 +28,7 @@ return {
       staticcheck = true,
       analyses = {
         unreachable = true,
-        -- unusedparams = true,
+        unusedparams = true,
       },
       -- hints = {
       --   assignVariableTypes = true,
