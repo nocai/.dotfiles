@@ -1,4 +1,16 @@
 return {
+  {
+    import = "plugins.ui",
+    enabled = not vim.g.vscode,
+  },
+  {
+    import = "plugins.editor",
+    enabled = not vim.g.vscode,
+  },
+  {
+    import = "plugins.coding",
+    enabled = not vim.g.vscode,
+  },
   { "nvim-lua/plenary.nvim" },
   { "nvim-tree/nvim-web-devicons" },
   {

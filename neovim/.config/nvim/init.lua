@@ -17,21 +17,9 @@ vim.opt.rtp:prepend(lazypath)
 local lazy_config = require("config.lazy")
 require("lazy").setup({
   { "folke/lazy.nvim", version = "*" },
-
   -- 插件目录
   { import = "plugins" },
-  {
-    import = "plugins.ui",
-    enabled = not vim.g.vscode,
-  },
-  {
-    import = "plugins.editor",
-    enabled = not vim.g.vscode,
-  },
-  {
-    import = "plugins.coding",
-    enabled = not vim.g.vscode,
-  },
 }, lazy_config)
 
+vim.cmd.colorscheme("tokyonight")
 vim.keymap.set("n", "<leader>ll", "<cmd>:Lazy<cr>", { desc = "Lazy" })
