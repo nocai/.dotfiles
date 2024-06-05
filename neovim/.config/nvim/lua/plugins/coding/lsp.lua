@@ -2,9 +2,7 @@ if vim.g.vscode then
   return {}
 end
 
-local utils = require("config.utils")
-
-utils.on_very_lazy(function()
+ivim.on_very_lazy(function()
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     silent = true,
     border = "rounded",
@@ -94,7 +92,7 @@ return {
       },
     },
     config = function()
-      utils.on_attach(function(client, buffer)
+      ivim.on_attach(function(client, buffer)
         vim.lsp.inlay_hint.enable(true, { buffer })
 
         require("plugins.coding.lsp.keymaps").on_attach(client, buffer)

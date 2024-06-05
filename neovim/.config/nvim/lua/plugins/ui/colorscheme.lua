@@ -2,6 +2,7 @@ return {
   -- tokyonight
   {
     "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
     opts = {
       transparent = vim.g.transparent_enabled,
@@ -10,6 +11,9 @@ return {
         floats = "transparent",
       },
     },
+    config = function()
+      vim.cmd.colorscheme("tokyonight")
+    end,
   },
   {
     "catppuccin/nvim",
